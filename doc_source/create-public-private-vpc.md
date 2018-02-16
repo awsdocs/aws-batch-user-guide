@@ -1,0 +1,99 @@
+# Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments<a name="create-public-private-vpc"></a>
+
+Compute resources in your compute environments need external network access to communicate with the Amazon ECS service endpoint\. However, you might have jobs that you would like to run in private subnets\. Creating a VPC with both public and private subnets provides you the flexibility to run jobs in either a public or private subnet\. Jobs in the private subnets can access the internet through a NAT gateway\.
+
+This tutorial guides you through creating a VPC with two public subnets and two private subnets, which are provided with internet access through a NAT gateway\.
+
+
++ [Step 1: Create an Elastic IP Address for Your NAT Gateway](#create-EIP)
++ [Step 2: Run the VPC Wizard](#run-VPC-wizard)
++ [Step 3: Create Additional Subnets](#create-add-subnets)
++ [Next Steps](#vpc-next-steps)
+
+## Step 1: Create an Elastic IP Address for Your NAT Gateway<a name="create-EIP"></a>
+
+A NAT gateway requires an Elastic IP address in your public subnet, but the VPC wizard does not create one for you\. Create the Elastic IP address before running the VPC wizard\.
+
+**To create an Elastic IP address**
+
+1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
+
+1. In the left navigation pane, choose **Elastic IPs**\.
+
+1. Choose **Allocate new address**, **Allocate**, **Close**\.
+
+1. Note the **Allocation ID** for your newly created Elastic IP address; you enter this later in the VPC wizard\.
+
+## Step 2: Run the VPC Wizard<a name="run-VPC-wizard"></a>
+
+The VPC wizard automatically creates and configures most of your VPC resources for you\.
+
+**To run the VPC wizard**
+
+1. In the left navigation pane, choose **VPC Dashboard**\.
+
+1. Choose **Start VPC Wizard**, **VPC with Public and Private Subnets**, **Select**\.
+
+1. For **VPC name**, give your VPC a unique name\.
+
+1. For **Elastic IP Allocation ID**, choose the ID of the Elastic IP address that you created earlier\.
+
+1. Choose **Create VPC**\.
+
+1. When the wizard is finished, choose **OK**\. Note the Availability Zone in which your VPC subnets were created\. Your additional subnets should be created in a different Availability Zone\.
+
+## Step 3: Create Additional Subnets<a name="create-add-subnets"></a>
+
+The wizard creates a VPC with a single public and a single private subnet in a single Availability Zone\. For greater availability, you should create at least one more of each subnet type in a different Availability Zone so that your VPC has both public and private subnets across two Availability Zones\.
+
+**To create an additional private subnet**
+
+1. In the left navigation pane, choose **Subnets**\.
+
+1. Choose **Create Subnet**\.
+
+1. For **Name tag**, enter a name for your subnet, such as **Private subnet**\.
+
+1. For **VPC**, choose the VPC that you created earlier\.
+
+1. For **Availability Zone**, choose a different Availability Zone than your original subnets in the VPC\.
+
+1. For **IPv4 CIDR block**, enter a valid CIDR block\. For example, the wizard creates CIDR blocks in 10\.0\.0\.0/24 and 10\.0\.1\.0/24 by default\. You could use **10\.0\.3\.0/24** for your second private subnet\.
+
+1. Choose **Yes, Create**\.
+
+**To create an additional public subnet**
+
+1. In the left navigation pane, choose **Subnets** and then **Create Subnet**\.
+
+1. For **Name tag**, enter a name for your subnet, such as **Public subnet**\.
+
+1. For **VPC**, choose the VPC that you created earlier\.
+
+1. For **Availability Zone**, choose the same Availability Zone as the additional private subnet that you created in the previous procedure\.
+
+1. For **IPv4 CIDR block**, enter a valid CIDR block\. For example, the wizard creates CIDR blocks in 10\.0\.0\.0/24 and 10\.0\.1\.0/24 by default\. You could use **10\.0\.2\.0/24** for your second public subnet\.
+
+1. Choose **Yes, Create**\.
+
+1. Select the public subnet that you just created and choose **Route Table**, **Edit**\.
+
+1. By default, the private route table is selected\. Choose the other available route table so that the **0\.0\.0\.0/0** destination is routed to the internet gateway \(**igw\-*xxxxxxxx***\) and choose **Save**\.
+
+1. With your second public subnet still selected, choose **Subnet Actions**, **Modify auto\-assign IP settings**\.
+
+1. Select **Enable auto\-assign public IPv4 address** and choose **Save**, **Close**\.
+
+## Next Steps<a name="vpc-next-steps"></a>
+
+After you have created your VPC, you should consider the following next steps:
+
++ Create security groups for your public and private resources if they require inbound network access\. For more information, see [Working with Security Groups](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html#WorkingWithSecurityGroups) in the *Amazon VPC User Guide*\.
+
++ Create an AWS Batch managed compute environment that launches compute resources into your new VPC\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\. If you use the compute environment creation wizard in the AWS Batch console, you can specify the VPC that you just created and the public or private subnets into which to launch your instances, depending on your use case\.
+
++ Create an AWS Batch job queue that is mapped to your new compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
+
++ Create a job definition to run your jobs with\. For more information, see [Creating a Job Definition](create-job-definition.md)\.
+
++ Submit a job with your job definition to your new job queue\. This job will land in the compute environment you created with your new VPC and subnets\. For more information, see [Submitting a Job](submit_job.md)\.
