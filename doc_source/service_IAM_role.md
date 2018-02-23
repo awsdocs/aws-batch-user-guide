@@ -70,7 +70,7 @@ The `AWSBatchServiceRole` policy is shown below\.
 }
 ```
 
-You can use the following procedure to check and see if your account already has the AWS Batch service role and to attach the managed IAM policy if needed\.
+You can use the following procedure to check and see if your account already has the AWS Batch service role and to attach the managed IAM policy if needed\.<a name="procedure_check_service_role"></a>
 
 **To check for the `AWSBatchServiceRole` in the IAM console**
 

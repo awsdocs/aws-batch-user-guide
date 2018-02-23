@@ -2,7 +2,7 @@
 
 AWS Batch compute environments are populated with Amazon ECS container instances, and they run the Amazon ECS container agent locally\. The Amazon ECS container agent makes calls to various AWS APIs on your behalf, so container instances that run the agent require an IAM policy and role for these services to know that the agent belongs to you\. Before you can create a compute environment and launch container instances into it, you must create an IAM role and an instance profile for those container instances to use when they are launched\. This requirement applies to container instances launched with or without the Amazon ECS\-optimized AMI provided by Amazon\.
 
-The Amazon ECS instance role and instance profile are automatically created for you in the console first\-run experience; however, you can use the following procedure to check and see if your account already has the Amazon ECS instance role and instance profile and to attach the managed IAM policy if needed\.
+The Amazon ECS instance role and instance profile are automatically created for you in the console first\-run experience; however, you can use the following procedure to check and see if your account already has the Amazon ECS instance role and instance profile and to attach the managed IAM policy if needed\.<a name="procedure_check_instance_role"></a>
 
 **To check for the `ecsInstanceRole` in the IAM console**
 
