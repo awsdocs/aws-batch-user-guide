@@ -17,3 +17,4 @@ An IAM policy must grant or deny permissions to use one or more AWS Batch action
 + [AWS Batch Service IAM Role](service_IAM_role.md)
 + [Amazon ECS Instance Role](instance_IAM_role.md)
 + [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)
++ [CloudWatch Events IAM Role](CWE_IAM_role.md)

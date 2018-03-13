@@ -1,6 +1,6 @@
 # AWS Batch Service IAM Role<a name="service_IAM_role"></a>
 
-AWS Batch makes calls to other AWS services on your behalf to manage the resources that you use with the service; therefore, before you can use the service, you must have an IAM policy and role that provides the necessary permissions to AWS Batch\.
+AWS Batch makes calls to other AWS services on your behalf to manage the resources that you use with the service\. Before you can use the service, you must have an IAM policy and role that provides the necessary permissions to AWS Batch\.
 
 In most cases, the AWS Batch service role is created for you automatically in the console first\-run experience\. You can use the following procedure to check if your account already has the AWS Batch service role\.
 
@@ -111,8 +111,8 @@ You can use the following procedure to check and see if your account already has
 
 1. In the navigation pane, choose **Roles**, **Create New Role**\. 
 
-1. On the **Select type of trusted entity** page, choose the **AWS service** tab, then choose **Batch**, and then choose **Next: Permissions**\.
+1. On the **Select type of trusted entity** page, choose **AWS service**, **Batch**, and **Next: Permissions**\.
 
 1. Choose **Next: Review**\.
 
-1. For **Role Name**, type `AWSBatchServiceRole` and then choose **Create Role** to finish\. 
+1. For **Role Name**, type `AWSBatchServiceRole` and then choose **Create Role**\. 

@@ -34,7 +34,7 @@ This tutorial assumes that you have a working compute environment and job queue 
        print(json.dumps(event))
    ```
 
-   This is a simple Python 2\.7 function that prints the events sent by AWS Batch\. If everything is configured correctly, at the end of this tutorial, you see the event details appear in the CloudWatch Logs log stream associated with this Lambda function\.
+   This is a simple Python 2\.7 function that prints the events sent by AWS Batch\. If everything is configured correctly, at the end of this tutorial, you see that the event details appear in the CloudWatch Logs log stream associated with this Lambda function\.
 
 1. Choose **Save**\.
 
@@ -43,7 +43,7 @@ This tutorial assumes that you have a working compute environment and job queue 
  Next, you create a CloudWatch Events event rule that captures job events coming from your AWS Batch resources\. This rule captures all events coming from AWS Batch within the account where it is defined\. The job messages themselves contain information about the event source, including the job queue to which it was submitted, that you can use to filter and sort events programmatically\. 
 
 **Note**  
-When you use the AWS Management Console to create an event rule, the console automatically adds the IAM permissions necessary to grant CloudWatch Events permissions to call your Lambda function\. If you are creating an event rule using the AWS CLI, you must grant this permission explicitly\. For more information, see [Events and Event Patterns](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CloudWatchEventsandEventPatterns.html) in the *Amazon CloudWatch User Guide*\.
+When you use the AWS Management Console to create an event rule, the console automatically adds the IAM permissions necessary to grant CloudWatch Events permissions to call your Lambda function\. If you are creating an event rule using the AWS CLI, you must grant permissions explicitly\. For more information, see [Events and Event Patterns](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CloudWatchEventsandEventPatterns.html) in the *Amazon CloudWatch User Guide*\.
 
 **To create your CloudWatch Events rule**
 

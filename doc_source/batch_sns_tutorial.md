@@ -1,10 +1,10 @@
 # Tutorial: Sending Amazon Simple Notification Service Alerts for Failed Job Events<a name="batch_sns_tutorial"></a>
 
-In this tutorial, you configure a CloudWatch Events event rule that only captures job events where the job has moved to a `FAILED` status\.
+In this tutorial, you configure a CloudWatch Events event rule that only captures job events where the job has moved to a `FAILED` status\. At the end of this tutorial, you can submit a job to this job queue to test that you have configured your Amazon SNS alerts correctly\.
 
 ## Prerequisites<a name="batch_sns_prereq"></a>
 
-This tutorial assumes that you have a working compute environment and job queue that are ready to accept jobs\. If you do not have a running compute environment and job queue to capture events from, follow the steps in [Getting Started with AWS Batch](Batch_GetStarted.md) to create one\. At the end of this tutorial, you can submit a job to this job queue to test that you have configured your Amazon SNS alerts correctly\. 
+This tutorial assumes that you have a working compute environment and job queue that are ready to accept jobs\. If you do not have a running compute environment and job queue to capture events from, follow the steps in [Getting Started with AWS Batch](Batch_GetStarted.md) to create one\. 
 
 ## Step 1: Create and Subscribe to an Amazon SNS Topic<a name="batch_sns_create_topic"></a>
 
@@ -54,7 +54,7 @@ This tutorial assumes that you have a working compute environment and job queue 
    }
    ```
 
-   This code defines a CloudWatch Events event rule that matches any event where the job status is `FAILED`\. For more information about event patterns, see [Events and Event Patterns](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CloudWatchEventsandEventPatterns.html) in the *Amazon CloudWatch User Guide*\. 
+   This code defines a CloudWatch Events rule that matches any event where the job status is `FAILED`\. For more information about event patterns, see [Events and Event Patterns](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CloudWatchEventsandEventPatterns.html) in the *Amazon CloudWatch User Guide*\. 
 
 1. For **Targets**, choose **Add target**\. For **Target type**, choose **SNS topic**, **JobFailedAlert**\.
 
