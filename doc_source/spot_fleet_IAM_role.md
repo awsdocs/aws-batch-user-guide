@@ -2,7 +2,7 @@
 
 If you create a managed compute environment that uses Amazon EC2 Spot Fleet Instances, you must create a role that grants the Spot Fleet permission to bid on, launch, tag, and terminate instances on your behalf, and specify it in your Spot Fleet request\. You must also have the **AWSServiceRoleForEC2Spot** and **AWSServiceRoleForEC2SpotFleet** service\-linked roles for Amazon EC2 Spot and Spot Fleet\. Use the procedures below to create all of these roles\.
 
-
+**Topics**
 + [Create Amazon EC2 Spot Fleet Roles in the AWS Management Console](#spot-fleet-roles-console)
 + [Create Amazon EC2 Spot Fleet Roles with the AWS CLI](#spot-fleet-roles-cli)
 
@@ -71,7 +71,6 @@ Historically, there have been two managed policies for the Amazon EC2 Spot Fleet
    ```
 
 **To create the `AWSServiceRoleForEC2Spot` IAM service\-linked role for Amazon EC2 Spot**
-
 + Run the following command with the AWS CLI:
 
   ```
@@ -79,7 +78,6 @@ Historically, there have been two managed policies for the Amazon EC2 Spot Fleet
   ```
 
 **To create the `AWSServiceRoleForEC2SpotFleet` IAM service\-linked role for Amazon EC2 Spot Fleet**
-
 + Run the following command with the AWS CLI: 
 
   ```

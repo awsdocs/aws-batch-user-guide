@@ -198,9 +198,7 @@ If your account supports EC2\-Classic, select the VPC that you created in the pr
 1. AWS Batch container instances do not require any inbound ports to be open\. However, you might want to add an SSH rule so you can log into the container instance and examine the containers in jobs with Docker commands\. You can also add rules for HTTP if you want your container instance to host a job that runs a web server\. Complete the following steps to add these optional security group rules\.
 
    On the **Inbound** tab, create the following rules and choose **Create**:
-
    + Choose **Add Rule**\. For **Type**, choose **HTTP**\. For **Source**, choose **Anywhere** \(`0.0.0.0/0`\)\.
-
    + Choose **Add Rule**\. For **Type**, choose **SSH**\. For **Source**, ensure that **Custom IP** is selected, and specify the public IP address of your computer or network in CIDR notation\. To specify an individual IP address in CIDR notation, add the routing prefix `/32`\. For example, if your IP address is `203.0.113.25`, specify `203.0.113.25/32`\. If your company allocates addresses from a range, specify the entire range, such as `203.0.113.0/24`\.
 **Note**  
 For security reasons, we don't recommend that you allow SSH access from all IP addresses \(`0.0.0.0/0`\) to your instance, except for testing purposes and only for a short time\.

@@ -21,15 +21,10 @@ If you choose a base AMI that does not support the `ecs-init` package, you must 
 1. Launch an instance from your selected base AMI with the appropriate storage options for your AMI\. You can configure the size and number of attached Amazon EBS volumes, or instance storage volumes if the instance type you've selected supports them\. For more information, see [Launching an Instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/launching-instance.html) and [Amazon EC2 Instance Store](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 
 1. Connect to your instance with SSH and perform any necessary configuration tasks, such as:
-
    + Install the Amazon ECS container agent\. For more information, see [Installing the Amazon ECS Container Agent](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-install.html) in the *Amazon Elastic Container Service Developer Guide*\.
-
    + Configuring a script to format instance store volumes\.
-
    + Adding instance store volume or Amazon EFS file systems to the `/etc/fstab` file so that they are mounted at boot\.
-
    + Configuring Docker options \(enable debugging, adjust base image size, and so on\)\.
-
    + Installing packages or copying files\.
 
    For more information, see [Connecting to Your Linux Instance Using SSH](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) in the *Amazon EC2 User Guide for Linux Instances*\.

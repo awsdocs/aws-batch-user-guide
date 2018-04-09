@@ -2,7 +2,7 @@
 
 The following topics explain the structure of an IAM policy\.
 
-
+**Topics**
 + [Policy Syntax](#policy-syntax)
 + [Actions for AWS Batch](#UsingWithbatch_Actions)
 + [Amazon Resource Names for AWS Batch](#batch_ARN_Format)
@@ -29,13 +29,9 @@ An IAM policy is a JSON document that consists of one or more statements\. Each 
 ```
 
 There are various elements that make up a statement:
-
 + **Effect:** The *effect* can be `Allow` or `Deny`\. By default, IAM users don't have permission to use resources and API actions, so all requests are denied\. An explicit allow overrides the default\. An explicit deny overrides any allows\.
-
 + **Action**: The *action* is the specific API action for which you are granting or denying permission\. To learn about specifying *action*, see [Actions for AWS Batch](#UsingWithbatch_Actions)\. 
-
 + **Resource**: The resource that's affected by the action\.  AWS Batch API operations currently do not support resource level permissions, so you must use the \* wildcard to specify that all resources can be affected by the action\. 
-
 + **Condition**: Conditions are optional\. They can be used to control when your policy is in effect\.
 
 For more information about example IAM policy statements for AWS Batch, see [Creating AWS Batch IAM Policies](batch_IAM_user_policies.md)\. 

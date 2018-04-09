@@ -22,6 +22,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Job States](job_states.md)
    + [Automated Job Retries](job_retries.md)
    + [Job Dependencies](job_dependencies.md)
+   + [Job Timeouts](job_timeouts.md)
    + [Array Jobs](array_jobs.md)
 + [Job Definitions](job_definitions.md)
    + [Creating a Job Definition](create-job-definition.md)

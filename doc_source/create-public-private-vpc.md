@@ -4,7 +4,7 @@ Compute resources in your compute environments need external network access to c
 
 This tutorial guides you through creating a VPC with two public subnets and two private subnets, which are provided with internet access through a NAT gateway\.
 
-
+**Topics**
 + [Step 1: Create an Elastic IP Address for Your NAT Gateway](#create-EIP)
 + [Step 2: Run the VPC Wizard](#run-VPC-wizard)
 + [Step 3: Create Additional Subnets](#create-add-subnets)
@@ -87,13 +87,8 @@ The wizard creates a VPC with a single public and a single private subnet in a s
 ## Next Steps<a name="vpc-next-steps"></a>
 
 After you have created your VPC, you should consider the following next steps:
-
 + Create security groups for your public and private resources if they require inbound network access\. For more information, see [Working with Security Groups](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html#WorkingWithSecurityGroups) in the *Amazon VPC User Guide*\.
-
 + Create an AWS Batch managed compute environment that launches compute resources into your new VPC\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\. If you use the compute environment creation wizard in the AWS Batch console, you can specify the VPC that you just created and the public or private subnets into which to launch your instances, depending on your use case\.
-
 + Create an AWS Batch job queue that is mapped to your new compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
-
 + Create a job definition to run your jobs with\. For more information, see [Creating a Job Definition](create-job-definition.md)\.
-
 + Submit a job with your job definition to your new job queue\. This job will land in the compute environment you created with your new VPC and subnets\. For more information, see [Submitting a Job](submit_job.md)\.

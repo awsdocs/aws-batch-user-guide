@@ -10,9 +10,6 @@ It is possible to incorrectly configure a managed compute environment so that it
 
 The most common cause for invalid compute environments is an incorrect name or ARN for the AWS Batch service role or the Amazon EC2 Spot Fleet role\. This is more of an issue for compute environments that are created with the AWS CLI or the AWS SDKs; when you create a compute environment in the AWS Management Console, AWS Batch can help you choose the correct service or Spot Fleet roles and you cannot misspell the name or deform the ARN\.
 
-**Important**  
-Do not attempt to delete a compute environment that is in an `INVALID` state due to a misconfigured AWS Batch service role\. This could cause your environment to get stuck in a `DELETING` state for up to an hour, and you cannot update the compute environment until the operation times out and fails back to `INVALID`\. Instead, see [Repairing an `INVALID` Compute Environment](#repairing_invalid_compute_environment)\.
-
 However, if you manually type the name or ARN for an IAM in an AWS CLI command or your SDK code, AWS Batch is unable to validate the string and it accepts the bad value and attempts to create the environment\. After failing to create the environment, the environment moves to an `INVALID` state, and you see the following errors\.
 
 For an invalid service role:
@@ -46,9 +43,6 @@ To repair a compute environment that is misconfigured this way, see [Repairing a
 ### Repairing an `INVALID` Compute Environment<a name="repairing_invalid_compute_environment"></a>
 
 When you have a compute environment in an `INVALID` state, you should update it to repair the invalid parameter\. For the case of an [Incorrect Role Name or ARN](#invalid_service_role_arn), you can update the compute environment with the correct service role\.
-
-**Important**  
-Do not attempt to delete a compute environment that is in an `INVALID` state due to a misconfigured AWS Batch service role\. This could cause your environment to get stuck in a `DELETING` state for up to an hour, and you cannot update the compute environment until the operation times out and fails back to `INVALID`\.
 
 **To repair a misconfigured compute environment**
 

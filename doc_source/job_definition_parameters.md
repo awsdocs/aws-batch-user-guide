@@ -2,11 +2,12 @@
 
 Job definitions are split into four basic parts: the job definition name, the type of the job definition, parameter substitution placeholder defaults, and the container properties for the job\.
 
-
+**Topics**
 + [Job Definition Name](#jobDefinitionName)
 + [Type](#type)
 + [Parameters](#parameters)
 + [Retry Strategy](#retryStrategy)
++ [Timeout](#timeout)
 + [Container Properties](#containerProperties)
 
 ## Job Definition Name<a name="jobDefinitionName"></a>
@@ -57,6 +58,17 @@ The number of times to move a job to the `RUNNABLE` status\. You may specify bet
 Type: Integer  
 Required: No
 
+## Timeout<a name="timeout"></a>
+
+`timeout`  
+You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job Timeouts](job_timeouts.md)\. If a job is terminated due to a timeout, it is not retried\. Any timeout configuration that is specified during a [SubmitJob](http://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the timeout configuration defined here\. For more information, see [Job Timeouts](job_timeouts.md)\.  
+Type: [JobTimeout](http://docs.aws.amazon.com/batch/latest/APIReference/API_JobTimeout.html) object  
+Required: No    
+`attemptDurationSeconds`  
+The time duration in seconds \(measured from the job attempt's `startedAt` timestamp\) after which AWS Batch terminates your jobs if they have not finished\. The minimum value for the timeout is 60 seconds\.   
+Type: Integer  
+Required: No
+
 ## Container Properties<a name="containerProperties"></a>
 
 When you register a job definition, you must specify a list of container properties that are passed to the Docker daemon on a container instance when the job is placed\. The following container properties are allowed in a job definition\.
@@ -93,13 +105,9 @@ Required: Yes, when `environment` is used\.
 
 `image`  
 The image used to start a container\. This string is passed directly to the Docker daemon\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/reference/api/docker_remote_api_v1.24/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/reference/api/docker_remote_api_v1.24/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
-
 + Images in Amazon ECR repositories use the full `registry/repository:tag` naming convention\. For example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`
-
 + Images in official repositories on Docker Hub use a single name \(for example, `ubuntu` or `mongo`\)\.
-
 + Images in other repositories on Docker Hub are qualified with an organization name \(for example, `amazon/amazon-ecs-agent`\)\.
-
 + Images in other online repositories are qualified further by a domain name \(for example, `quay.io/assemblyline/ubuntu`\)\.
 Type: String  
 Required: Yes

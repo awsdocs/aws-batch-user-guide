@@ -2,7 +2,7 @@
 
 Job queues are mapped to one or more compute environments\. Compute environments contain the Amazon ECS container instances that are used to run containerized batch jobs\. A given compute environment can also be mapped to one or many job queues\. Within a job queue, the associated compute environments each have an order that is used by the scheduler to determine where to place jobs that are ready to be executed\. If the first compute environment has free resources, the job is scheduled to a container instance within that compute environment\. If the compute environment is unable to provide a suitable compute resource, the scheduler attempts to run the job on the next compute environment\.
 
-
+**Topics**
 + [Managed Compute Environments](#managed_compute_environments)
 + [Unmanaged Compute Environments](#unmanaged_compute_environments)
 + [Compute Resource AMIs](compute_resource_AMIs.md)
@@ -17,6 +17,13 @@ Managed compute environments enable you to describe your business requirements\.
 Managed compute environments launch Amazon ECS container instances into the VPC and subnets that you specify when you create the compute environment\. Amazon ECS container instances need external network access to communicate with the Amazon ECS service endpoint\. If your container instances do not have public IP addresses \(because the subnets you've chosen do not provide them by default\), then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT Gateways](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For help creating a VPC, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)\.
 
 By default, AWS Batch managed compute environments use a recent, approved version of the Amazon ECS\-optimized AMI for compute resources\. However, you may want to create your own AMI to use for your managed compute environments for various reasons\. For more information, see [Compute Resource AMIs](compute_resource_AMIs.md)\.
+
+**Note**  
+AWS Batch does not upgrade the AMIs in a compute environment after it is created\. To use a new AMI for your AWS Batch jobs:  
+Create a new compute environment with the new AMI\.
+Add the compute environment to an existing job queue\.
+Remove the old compute environment from your job queue\.
+Delete the old compute environment\.
 
 ## Unmanaged Compute Environments<a name="unmanaged_compute_environments"></a>
 

@@ -28,13 +28,9 @@ In this section, you choose to define your job definition or move ahead to creat
 Only roles that have the **Amazon Elastic Container Service Task Role** trust relationship are shown here\. For more information about creating an IAM role for your AWS Batch jobs, see [Creating an IAM Role and Policy for your Tasks](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html#create_task_iam_policy_and_role) in the *Amazon Elastic Container Service Developer Guide*\.
 
 1. For **Container image**, choose the Docker image to use for your job\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/reference/api/docker_remote_api_v1.24/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/reference/api/docker_remote_api_v1.24/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
-
    + Images in Amazon ECR repositories use the full `registry/repository:tag` naming convention\. For example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`
-
    + Images in official repositories on Docker Hub use a single name \(for example, `ubuntu` or `mongo`\)\.
-
    + Images in other repositories on Docker Hub are qualified with an organization name \(for example, `amazon/amazon-ecs-agent`\)\.
-
    + Images in other online repositories are qualified further by a domain name \(for example, `quay.io/assemblyline/ubuntu`\)\.
 
 **To specify resources for your environment**
@@ -123,11 +119,9 @@ You can optionally apply key\-value pair tags to instances that are launched in 
 **To set up your job queue**
 
 You submit your jobs to a job queue which stores jobs until the AWS Batch scheduler runs the job on a compute resource within your compute environment\.
-
 + For **Job queue name**, choose a unique name for your job queue\.
 
 **To review and create**
 
 The **Connected compute environments for this job queue** section shows that your new compute environment is associated with your new job queue and its order\. Later, you can associate other compute environments with the job queue\. The job scheduler uses the compute environment order to determine which compute environment should execute a given job\. Compute environments must be in the `VALID` state before you can associate them with a job queue\. You can associate up to three compute environments with a job queue\.
-
 + Review the compute environment and job queue configuration and choose **Create** to create your compute environment\.

@@ -5,37 +5,56 @@ An empty job definition template is shown below\. You can use this template to c
 ```
 {
     "jobDefinitionName": "",
-    "type": "",
-    "parameters": {"KeyName": ""},
+    "type": "container",
+    "parameters": {
+        "KeyName": ""
+    },
     "containerProperties": {
         "image": "",
         "vcpus": 0,
         "memory": 0,
-        "command": [""],
+        "command": [
+            ""
+        ],
         "jobRoleArn": "",
-        "volumes": [{
-            "host": {"sourcePath": ""},
-            "name": ""
-        }],
-        "environment": [{
-            "name": "",
-            "value": ""
-        }],
-        "mountPoints": [{
-            "containerPath": "",
-            "readOnly": true,
-            "sourceVolume": ""
-        }],
+        "volumes": [
+            {
+                "host": {
+                    "sourcePath": ""
+                },
+                "name": ""
+            }
+        ],
+        "environment": [
+            {
+                "name": "",
+                "value": ""
+            }
+        ],
+        "mountPoints": [
+            {
+                "containerPath": "",
+                "readOnly": true,
+                "sourceVolume": ""
+            }
+        ],
         "readonlyRootFilesystem": true,
         "privileged": true,
-        "ulimits": [{
-            "hardLimit": 0,
-            "name": "",
-            "softLimit": 0
-        }],
+        "ulimits": [
+            {
+                "hardLimit": 0,
+                "name": "",
+                "softLimit": 0
+            }
+        ],
         "user": ""
     },
-    "retryStrategy": {"attempts": 0}
+    "retryStrategy": {
+        "attempts": 0
+    },
+    "timeout": {
+        "attemptDurationSeconds": 0
+    }
 }
 ```
 

@@ -14,7 +14,7 @@ Required: Yes
 `state`  
 The state of the job queue\. If the job queue state is `ENABLED` \(the default value\), it is able to accept jobs\.  
 Type: String  
-Valid values: `ENABLED` | `DISABLED`  
+Valid values: `ENABLED` \| `DISABLED`  
 Required: No
 
 ## Priority<a name="job_queue_priority"></a>

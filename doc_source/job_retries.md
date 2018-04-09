@@ -1,11 +1,8 @@
 # Automated Job Retries<a name="job_retries"></a>
 
 You can apply a retry strategy to your jobs and job definitions that allows your jobs to be automatically retried if they fail\. Possible failure scenarios include:
-
 + Any non\-zero exit code from a container job
-
 + Amazon EC2 instance failure or termination
-
 + Internal AWS service error or outage
 
 When a job is submitted to a job queue and placed into the `RUNNING` state, that is considered an attempt\. By default, each job is given one attempt to move to either the `SUCCEEDED` or `FAILED` job state\. However, both the job definition and the job submission workflows allow you to specify a retry strategy with between 1 and 10 attempts\. For more information, see [Retry Strategy](job_definition_parameters.md#retryStrategy)\.

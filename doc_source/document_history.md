@@ -1,14 +1,13 @@
 # Document History<a name="document_history"></a>
 
 The following table describes the important changes to the documentation since the last release of AWS Batch\. We also update the documentation frequently to address the feedback that you send us\.
-
 +  **Current API version:** 2016\-08\-10 
-
-+  **Latest documentation update:** March 01, 2018 
++  **Latest documentation update:** April 5, 2018 
 
 
 | Feature | API Version | Description | Release Date | 
 | --- | --- | --- | --- | 
+|  AWS Batch Job Timeouts  | 2016\-08\-10 |  You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job Timeouts](job_timeouts.md)\.   | April 5, 2018 | 
 |  AWS Batch Jobs as CloudWatch Events Targets  | 2016\-08\-10 |  AWS Batch jobs are available as CloudWatch Events targets\. Using simple rules that you can quickly set up, you can match events and submit AWS Batch jobs in response to them\. For more information, see [AWS Batch Jobs as CloudWatch Events Targets](batch-cwe-target.md)\.  | March 01, 2018 | 
 |  CloudTrail Auditing for AWS Batch  | 2016\-08\-10 |  CloudTrail can audit calls made to AWS Batch APIs\. For more information, see [Logging AWS Batch API Calls with AWS CloudTrail](logging-using-cloudtrail.md)\.  | January 10, 2018 | 
 |  Array Jobs  |  2016\-08\-10  |  AWS Batch supports array jobs, which are useful for parameter sweep and Monte Carlo workloads\. For more information, see [Array Jobs](array_jobs.md)\.  | November 28, 2017 | 

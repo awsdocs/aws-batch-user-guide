@@ -2,7 +2,7 @@
 
 Compute environments are split into five basic components: the name, type, and state of the compute environment, the compute resource definition \(if it is a managed compute environment\), and the service role to use to provide IAM permissions to AWS Batch\.
 
-
+**Topics**
 + [Compute Environment Name](#compute_environment_name)
 + [Type](#compute_environment_type)
 + [State](#compute_environment_state)
@@ -21,7 +21,7 @@ Required: Yes
 `type`  
 The type of the compute environment\. Choose `MANAGED` to have AWS Batch manage the compute resources that you define\)\. For more information, see [Compute Resources](#compute_environment_compute_resources)\. Choose `UNMANAGED` to manage your own compute resources\.  
 Type: String  
-Valid values: `MANAGED` | `UNMANAGED`  
+Valid values: `MANAGED` \| `UNMANAGED`  
 Required: Yes
 
 ## State<a name="compute_environment_state"></a>
@@ -31,7 +31,7 @@ The state of the compute environment\.
 If the state is `ENABLED`, then the AWS Batch scheduler can attempt to place jobs from an associated job queue on the compute resources within the environment\. If the compute environment is managed, then it can scale its instances out or in automatically, based on job queue demand\.  
 If the state is `DISABLED`, then the AWS Batch scheduler does not attempt to place jobs within the environment\. Jobs in a `STARTING` or `RUNNING` state continue to progress normally\. Managed compute environments in the `DISABLED` state do not scale out; however, they scale in when instances are idle and nearing the end of an Amazon EC2 billing hour\.   
 Type: String  
-Valid values: `ENABLED` | `DISABLED`  
+Valid values: `ENABLED` \| `DISABLED`  
 Required: No
 
 ## Compute Resources<a name="compute_environment_compute_resources"></a>
@@ -42,7 +42,7 @@ Type: [ComputeResource](http://docs.aws.amazon.com/batch/latest/APIReference/API
 Required: this parameter is required for managed compute environments    
 `type`  
 The type of compute environment\. Use this parameter to specify whether to use Amazon EC2 On\-Demand Instances or Amazon EC2 Spot Instances in your compute environment\. If you choose `SPOT`, you must also specify an Amazon EC2 Spot Fleet role with the `spotIamFleetRole` parameter\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.  
-Valid values: `EC2` | `SPOT`  
+Valid values: `EC2` \| `SPOT`  
 Required: Yes  
 `minvCpus`  
 The minimum number of EC2 vCPUs that an environment should maintain\.  

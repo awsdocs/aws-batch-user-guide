@@ -10,7 +10,7 @@ Likewise, AWS Batch makes calls to other AWS services on your behalf, so the ser
 
 An IAM policy must grant or deny permissions to use one or more AWS Batch actions\.
 
-
+**Topics**
 + [Policy Structure](iam-policy-structure.md)
 + [AWS Batch Managed Policy](batch_managed_policies.md)
 + [Creating AWS Batch IAM Policies](batch_IAM_user_policies.md)
