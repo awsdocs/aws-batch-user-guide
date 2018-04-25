@@ -27,7 +27,7 @@ An empty compute environment template is shown below\. You can use this template
 ```
 
 **Note**  
-You can generate the above task definition template with the following AWS CLI command\.  
+You can generate the above compute environment template with the following AWS CLI command\.  
 
 ```
 $ aws batch create-compute-environment --generate-cli-skeleton
