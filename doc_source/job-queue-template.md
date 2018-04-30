@@ -15,7 +15,7 @@ An empty job queue template is shown below\. You can use this template to create
 ```
 
 **Note**  
-You can generate the above task definition template with the following AWS CLI command\.  
+You can generate the above job queue template with the following AWS CLI command\.  
 
 ```
 $ aws batch create-job-queue --generate-cli-skeleton
