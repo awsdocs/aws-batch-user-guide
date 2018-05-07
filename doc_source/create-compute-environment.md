@@ -30,7 +30,7 @@ Before you can run jobs in AWS Batch, you need to create a compute environment\.
 
    1. If you chose to use Spot Instances:
 
-      1. For **Maximum bid price**, choose the maximum percentage that a Spot Instance price must be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your bid percentage is 20%, then the Spot price must be below 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\.
+      1. \(Optional\) For **Maximum Price**, choose the maximum percentage that a Spot Instance price can be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your maximum price is 20%, then the Spot price must be below 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\. If you leave this field empty, the default value is 100% of the On\-Demand price\.
 
       1. For **Spot fleet role**, choose an existing Amazon EC2 Spot Fleet IAM role to apply to your Spot compute environment\. If you do not already have an existing Amazon EC2 Spot Fleet IAM role, you must create one first\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.
 **Important**  
