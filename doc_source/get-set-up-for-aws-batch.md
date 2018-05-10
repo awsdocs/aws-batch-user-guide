@@ -95,7 +95,7 @@ For more information about IAM, see the [AWS Identity and Access Management User
 
 ## Create IAM Roles for your Compute Environments and Container Instances<a name="create-an-iam-role"></a>
 
-Your AWS Batch compute environments and container instances require AWS account credentials to make calls to other AWS APIs on your behalf\. You must create IAM roles that provide these credentials to your compute environments and container instances, then associate those roles with your compute environments\.
+Your AWS Batch compute environments and container instances require AWS account credentials to make calls to other AWS APIs on your behalf\. You must create an IAM role that provides these credentials to your compute environments and container instances, then associate that roles with your compute environments\.
 
 **Note**  
 The AWS Batch compute environment and container instance roles are automatically created for you in the console first\-run experience, so if you intend to use the AWS Batch console, you can move ahead to the next section\. If you plan to use the AWS CLI instead, complete the procedures in [AWS Batch Service IAM Role](service_IAM_role.md) and [Amazon ECS Instance Role](instance_IAM_role.md) before creating your first compute environment\.
@@ -205,4 +205,4 @@ For security reasons, we don't recommend that you allow SSH access from all IP a
 
 ## Install the AWS CLI<a name="install_aws_cli"></a>
 
-To use the AWS CLI with AWS Batch, install the latest AWS CLI, version\. For information about installing the AWS CLI or upgrading it to the latest version, see [Installing the AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
+To use the AWS CLI with AWS Batch, install the latest AWS CLI version\. For information about installing the AWS CLI or upgrading it to the latest version, see [Installing the AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
