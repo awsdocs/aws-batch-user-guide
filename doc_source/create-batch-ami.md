@@ -44,3 +44,11 @@ If you choose a base AMI that does not support the `ecs-init` package, you must 
       ```
 
 1. Create a new AMI from your running instance\. For more information, see [Creating an Amazon EBS\-Backed Linux AMI](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html) in the *Amazon EC2 User Guide for Linux Instances* guide\.
+
+**To use your new AMI with AWS Batch**
+
+1. When the AMI creation process is complete, create a compute environment with your new AMI \(be sure to select **Enable user\-specified AMI ID** and specify your custom AMI ID in [Step 7](create-compute-environment.md#enable-custom-ami-step)\)\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
+
+1. Create a job queue and associate your new compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
+
+1. \(Optional\) Submit a sample job to your new job queue\. For more information, see [Example Job Definitions](example-job-definitions.md), [Creating a Job Definition](create-job-definition.md), and [Submitting a Job](submit_job.md)\.

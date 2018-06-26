@@ -44,13 +44,13 @@ To tag your Spot Instances on creation \(see [Step 7](#compute-environment-tag-s
 
    1. For **Maximum vCPUs**, choose the maximum number of EC2 vCPUs that your compute environment can scale out to, regardless of job queue demand\.
 
-   1. \(Optional\) Check **Enable user\-specified AMI ID** to use your own custom AMI\. By default, AWS Batch managed compute environments use a recent, approved version of the Amazon ECS\-optimized AMI for compute resources\. You can create and use your own AMI in your compute environment by following the compute resource AMI specification\. For more information, see [Compute Resource AMIs](compute_resource_AMIs.md)\.
+   1. <a name="enable-custom-ami-step"></a>\(Optional\) Check **Enable user\-specified AMI ID** to use your own custom AMI\. By default, AWS Batch managed compute environments use a recent, approved version of the Amazon ECS\-optimized AMI for compute resources\. You can create and use your own AMI in your compute environment by following the compute resource AMI specification\. For more information, see [Compute Resource AMIs](compute_resource_AMIs.md)\.
 
       1. For **AMI ID**, paste your custom AMI ID and choose **Validate AMI**\.
 
 1. Configure networking\.
 **Important**  
-Compute resources need external network access to communicate with the Amazon ECS service endpoint, so if your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT Gateways](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)
+Compute resources need external network access to communicate with the Amazon ECS service endpoint, so if your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT Gateways](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)\.
 
    1. For **VPC ID**, choose a VPC into which to launch your instances\.
 

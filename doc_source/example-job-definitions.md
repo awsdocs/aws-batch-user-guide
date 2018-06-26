@@ -70,36 +70,29 @@ For more information, see [Parameters](job_definition_parameters.md#parameters)\
 
 ## Test GPU Functionality<a name="example-test-gpu"></a>
 
-The following example job definition tests if the GPU workload AMI described in [Creating a GPU Workload AMI](batch-gpu-ami.md) is configured properly\. The `volumes` and `mountPoints` sections must be configured to create a Docker volume that mounts the host path `/var/lib/nvidia-docker/volumes/nvidia_driver/latest` at `/usr/local/nvidia` on the container\. The container must also be privileged to access the GPU hardware\.
+The following example job definition tests if the GPU workload AMI described in [Creating a GPU Workload AMI](batch-gpu-ami.md) is configured properly\. This example job definition runs the [Tensorflow deep MNIST](https://www.tensorflow.org/get_started/mnist/pros) classifier [example](https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/examples/tutorials/mnist/mnist_deep.py) from GitHub\.
 
 ```
 {
     "containerProperties": {
-        "mountPoints": [{
-            "sourceVolume": "nvidia",
-            "readOnly": false,
-            "containerPath": "/usr/local/nvidia"
-        }],
-        "image": "nvidia/cuda:9.0-cudnn7-devel",
-        "vcpus": 2,
-        "command": ["nvidia-smi"],
-        "volumes": [{
-            "host": {"sourcePath": "/var/lib/nvidia-docker/volumes/nvidia_driver/latest"},
-            "name": "nvidia"
-        }],
-        "memory": 2000,
-        "privileged": true,
-        "ulimits": []
+        "image": "tensorflow/tensorflow:1.8.0-devel-gpu",
+        "vcpus": 8,
+        "command": [
+            "sh",
+            "-c",
+            "cd /tensorflow/tensorflow/examples/tutorials/mnist; python mnist_deep.py"
+        ],
+        "memory": 32000
     },
     "type": "container",
-    "jobDefinitionName": "nvidia-smi"
+    "jobDefinitionName": "tensorflow_mnist_deep"
 }
 ```
 
-You can create a file with the JSON text above called `nvidia-smi.json` and then register an AWS Batch job definition with the following command:
+You can create a file with the JSON text above called `tensorflow_mnist_deep.json` and then register an AWS Batch job definition with the following command:
 
 ```
-aws batch register-job-definition --cli-input-json file://nvidia-smi.json
+aws batch register-job-definition --cli-input-json file://tensorflow_mnist_deep.json
 ```
 
 The image below shows what the volume and mount points should look like in the AWS Management Console\.

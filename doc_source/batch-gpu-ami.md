@@ -1,15 +1,12 @@
 # Creating a GPU Workload AMI<a name="batch-gpu-ami"></a>
 
-To run GPU workloads on your AWS Batch compute resources, you can start with the [Deep Learning AMI CUDA 9 Amazon Linux Version](https://aws.amazon.com/marketplace/pp/B076T8RSXY) as a base AMI and configure it to be able to run AWS Batch jobs\.
+To run GPU workloads on your AWS Batch compute resources, you can start with the [Deep Learning AMI \(Amazon Linux\)](https://aws.amazon.com/marketplace/pp/B077GF11NF) as a base AMI and configure it to be able to run AWS Batch jobs\.
 
-This deep learning AMI is based on Amazon Linux, so you can install the `ecs-init` package and make it compatible as a compute resource AMI\. The `nvidia-docker` RPM installs the required components for copying the NVIDIA drivers to the correct location for Docker containers in AWS Batch jobs, to be able to access the GPUs on supported instance types\.
-
-**Note**  
-Your associated GPU job definitions must use privileged containers that mount the host path `/var/lib/nvidia-docker/volumes/nvidia_driver/latest` at `/usr/local/nvidia`\. For more information, see [Test GPU Functionality](example-job-definitions.md#example-test-gpu)\.
+This deep learning AMI is based on Amazon Linux, so you can install the `ecs-init` package and make it compatible as a compute resource AMI\. The `nvidia-docker2` RPM installs the required components for Docker containers in AWS Batch jobs to be able to access the GPUs on supported instance types\.
 
 **To configure the Deep Learning AMI for AWS Batch**
 
-1. Launch a GPU instance type \(for example, P3\) with the [Deep Learning AMI CUDA 9 Amazon Linux Version](https://aws.amazon.com/marketplace/pp/B076T8RSXY) in a region that AWS Batch supports\. 
+1. Launch a GPU instance type \(for example, P3\) with the [Deep Learning AMI \(Amazon Linux\)](https://aws.amazon.com/marketplace/pp/B077GF11NF) in a region that AWS Batch supports\. 
 
 1. Connect to your instance with SSH\. For more information, see [Connecting to Your Linux Instance Using SSH](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 
@@ -17,33 +14,32 @@ Your associated GPU job definitions must use privileged containers that mount th
 
    ```
    #!/bin/bash
-   # Install ecs-init, start docker, and install nvidia-docker
+   # Install ecs-init, start docker, and install nvidia-docker 2
    sudo yum install -y ecs-init
    sudo service docker start
-   wget https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker-1.0.1-1.x86_64.rpm
-   sudo rpm -ivh --nodeps nvidia-docker-1.0.1-1.x86_64.rpm
+   distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+   curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | \
+     sudo tee /etc/yum.repos.d/nvidia-docker.repo
+   sudo yum install -y nvidia-docker2
+   sudo pkill -SIGHUP dockerd
    
-   # Validate installation
-   rpm -ql nvidia-docker
-   rm nvidia-docker-1.0.1-1.x86_64.rpm
+   # Run test container to verify installation
+   sudo docker run --privileged --runtime=nvidia --rm nvidia/cuda nvidia-smi
    
-   # Make sure the NVIDIA kernel modules and driver files are bootstraped
-   # Otherwise running a GPU job inside a container will fail with "cuda: unknown exception"
-   echo '#!/bin/bash' | sudo tee /var/lib/cloud/scripts/per-boot/00_nvidia-modprobe > /dev/null
-   echo 'nvidia-modprobe -u -c=0' | sudo tee --append /var/lib/cloud/scripts/per-boot/00_nvidia-modprobe > /dev/null
-   sudo chmod +x /var/lib/cloud/scripts/per-boot/00_nvidia-modprobe
-   sudo /var/lib/cloud/scripts/per-boot/00_nvidia-modprobe
+   # Update Docker daemon.json to user nvidia-container-runtime by default
+   sudo tee /etc/docker/daemon.json <<EOF
+   {
+       "runtimes": {
+           "nvidia": {
+               "path": "/usr/bin/nvidia-container-runtime",
+               "runtimeArgs": []
+           }
+       },
+       "default-runtime": "nvidia"
+   }
+   EOF
    
-   # Start the nvidia-docker-plugin and run a container with 
-   # nvidia-docker (retry up to 4 times if it fails initially)
-   sudo -b nohup nvidia-docker-plugin > /tmp/nvidia-docker.log
-   sudo docker pull nvidia/cuda:9.0-cudnn7-devel
-   COMMAND="sudo nvidia-docker run nvidia/cuda:9.0-cudnn7-devel nvidia-smi"
-   for i in {1..5}; do $COMMAND && break || sleep 15; done
-   
-   # Create symlink to latest nvidia-driver version
-   nvidia_base=/var/lib/nvidia-docker/volumes/nvidia_driver
-   sudo ln -s $nvidia_base/$(ls $nvidia_base | sort -n  | tail -1) $nvidia_base/latest
+   sudo service docker restart
    ```
 
 1. Run the script\.
@@ -55,25 +51,25 @@ Your associated GPU job definitions must use privileged containers that mount th
 1. Validate that you can run a Docker container and access the installed drivers with the following command\.
 
    ```
-   sudo docker run --privileged -v /var/lib/nvidia-docker/volumes/nvidia_driver/latest:/usr/local/nvidia nvidia/cuda:9.0-cudnn7-devel nvidia-smi
+   sudo docker run nvidia/cuda:latest nvidia-smi
    ```
 
    You should see something similar to the following output\.
 
    ```
    +-----------------------------------------------------------------------------+
-   | NVIDIA-SMI 384.81                 Driver Version: 384.81                    |
+   | NVIDIA-SMI 384.111                Driver Version: 384.111                   |
    |-------------------------------+----------------------+----------------------+
    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
    |===============================+======================+======================|
-   |   0  Tesla V100-SXM2...  Off  | 00000000:00:17.0 Off |                    0 |
-   | N/A   43C    P0    42W / 300W |     10MiB / 16152MiB |      0%      Default |
+   |   0  Tesla V100-SXM2...  On   | 00000000:00:1E.0 Off |                    0 |
+   | N/A   32C    P0    20W / 300W |      0MiB / 16152MiB |      1%      Default |
    +-------------------------------+----------------------+----------------------+
    
    +-----------------------------------------------------------------------------+
    | Processes:                                                       GPU Memory |
-   |  GPU       PID  Type  Process name                               Usage      |
+   |  GPU       PID   Type   Process name                             Usage      |
    |=============================================================================|
    |  No running processes found                                                 |
    +-----------------------------------------------------------------------------+
@@ -108,3 +104,11 @@ Your associated GPU job definitions must use privileged containers that mount th
       ```
 
 1. Create a new AMI from your running instance\. For more information, see [Creating an Amazon EBS\-Backed Linux AMI](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html) in the *Amazon EC2 User Guide for Linux Instances* guide\.
+
+**To use your new AMI with AWS Batch**
+
+1. When the AMI creation process is complete, create a compute environment with your new AMI \(be sure to select **Enable user\-specified AMI ID** and specify your custom AMI ID in [Step 7](create-compute-environment.md#enable-custom-ami-step)\)\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
+
+1. Create a job queue and associate your new compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
+
+1. \(Optional\) Submit a sample job to your new job queue to test the GPU functionality\. For more information, see [Test GPU Functionality](example-job-definitions.md#example-test-gpu), [Creating a Job Definition](create-job-definition.md), and [Submitting a Job](submit_job.md)\.

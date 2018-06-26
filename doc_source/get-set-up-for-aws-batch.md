@@ -110,7 +110,7 @@ If you haven't created a key pair already, you can create one using the Amazon E
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. From the navigation bar, select a region for the key pair\. You can select any region that's available to you, regardless of your location; however, key pairs are specific to a region\. For example, if you plan to launch an instance in the US West \(Oregon\) region, you must create a key pair for the instance in the same region\.
+1. From the navigation bar, select a region for the key pair\. You can select any region that's available to you, regardless of your location: however, key pairs are specific to a region\. For example, if you plan to launch an instance in the US West \(Oregon\) region, you must create a key pair for the instance in the same region\.
 
 1. In the navigation pane, choose **Key Pairs**, **Create Key Pair**\.
 
