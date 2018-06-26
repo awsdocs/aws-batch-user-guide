@@ -41,7 +41,7 @@ Note your AWS account number, because you'll need it for the next task\.
 
 ## Create an IAM User<a name="create-an-iam-user"></a>
 
-Services in AWS, such as Amazon EC2 and AWS Batch, require that you provide credentials when you access them, so that the service can determine whether you have permission to access its resources\. The console requires your password\. You can create access keys for your AWS account to access the command line interface or API\. However, we don't recommend that you access AWS using the credentials for your AWS account; we recommend that you use AWS Identity and Access Management \(IAM\) instead\. Create an IAM user, and then add the user to an IAM group with administrative permissions or and grant this user administrative permissions\. You can then access AWS using a special URL and the credentials for the IAM user\.
+Services in AWS, such as Amazon EC2 and AWS Batch, require that you provide credentials when you access them, so that the service can determine whether you have permission to access its resources\. The console requires your password\. You can create access keys for your AWS account to access the command line interface or API\. However, we don't recommend that you access AWS using the credentials for your AWS account; we recommend that you use AWS Identity and Access Management \(IAM\) instead\. Create an IAM user, and then add the user to an IAM group with administrative permissions or grant this user administrative permissions\. You can then access AWS using a special URL and the IAM user's credentials\.
 
 If you signed up for AWS but have not created an IAM user for yourself, you can create one using the IAM console\.
 
@@ -95,7 +95,7 @@ For more information about IAM, see the [AWS Identity and Access Management User
 
 ## Create IAM Roles for your Compute Environments and Container Instances<a name="create-an-iam-role"></a>
 
-Your AWS Batch compute environments and container instances require AWS account credentials to make calls to other AWS APIs on your behalf\. You must create IAM roles that provides these credentials to your compute environments and container instances and then associate that role with your compute environments\.
+Your AWS Batch compute environments and container instances require AWS account credentials to make calls to other AWS APIs on your behalf\. You must create an IAM role that provides these credentials to your compute environments and container instances, then associate that role with your compute environments\.
 
 **Note**  
 The AWS Batch compute environment and container instance roles are automatically created for you in the console first\-run experience, so if you intend to use the AWS Batch console, you can move ahead to the next section\. If you plan to use the AWS CLI instead, complete the procedures in [AWS Batch Service IAM Role](service_IAM_role.md) and [Amazon ECS Instance Role](instance_IAM_role.md) before creating your first compute environment\.
@@ -110,7 +110,7 @@ If you haven't created a key pair already, you can create one using the Amazon E
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. From the navigation bar, select a region for the key pair\. You can select any region that's available to you, regardless of your location: however, key pairs are specific to a region\. For example, if you plan to launch an instance in the US West \(Oregon\) region, you must create a key pair for the instance in the same region\.
+1. From the navigation bar, select a region for the key pair\. You can select any region that's available to you, regardless of your location; however, key pairs are specific to a region\. For example, if you plan to launch an instance in the US West \(Oregon\) region, you must create a key pair for the instance in the same region\.
 
 1. In the navigation pane, choose **Key Pairs**, **Create Key Pair**\.
 
@@ -205,4 +205,4 @@ For security reasons, we don't recommend that you allow SSH access from all IP a
 
 ## Install the AWS CLI<a name="install_aws_cli"></a>
 
-To use the AWS CLI with AWS Batch, install the latest AWS CLI, version\. For information about installing the AWS CLI or upgrading it to the latest version, see [Installing the AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
+To use the AWS CLI with AWS Batch, install the latest AWS CLI version\. For information about installing the AWS CLI or upgrading it to the latest version, see [Installing the AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
