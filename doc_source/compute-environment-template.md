@@ -5,20 +5,28 @@ An empty compute environment template is shown below\. You can use this template
 ```
 {
     "computeEnvironmentName": "",
-    "type": "",
-    "state": "",
+    "type": "UNMANAGED",
+    "state": "DISABLED",
     "computeResources": {
-        "type": "",
+        "type": "SPOT",
         "minvCpus": 0,
         "maxvCpus": 0,
         "desiredvCpus": 0,
-        "instanceTypes": [""],
+        "instanceTypes": [
+            ""
+        ],
         "imageId": "",
-        "subnets": [""],
-        "securityGroupIds": [""],
+        "subnets": [
+            ""
+        ],
+        "securityGroupIds": [
+            ""
+        ],
         "ec2KeyPair": "",
         "instanceRole": "",
-        "tags": {"KeyName": ""},
+        "tags": {
+            "KeyName": ""
+        },
         "bidPercentage": 0,
         "spotIamFleetRole": ""
     },

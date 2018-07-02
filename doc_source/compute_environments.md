@@ -12,14 +12,14 @@ Job queues are mapped to one or more compute environments\. Compute environments
 
 ## Managed Compute Environments<a name="managed_compute_environments"></a>
 
-Managed compute environments enable you to describe your business requirements\. In a managed compute environment, AWS Batch manages the compute resources within the environment, based on the compute resources that you specify\. Instances launched into a managed compute environment use a recent, approved version of the Amazon ECS\-optimized AMI\. You can choose to use Amazon EC2 On\-Demand Instances or Spot Instances in your managed compute environment\. You can optionally set a maximum price so that Spot Instances only launch when the Spot Instance price is below a specified percentage of the On\-Demand price\.
+Managed compute environments enable you to describe your business requirements\. In a managed compute environment, AWS Batch manages the capacity and instance types of the compute resources within the environment, based on the compute resource specification that you define when you create the compute environment\. You can choose to use Amazon EC2 On\-Demand Instances or Spot Instances in your managed compute environment\. You can optionally set a maximum price so that Spot Instances only launch when the Spot Instance price is below a specified percentage of the On\-Demand price\.
 
 Managed compute environments launch Amazon ECS container instances into the VPC and subnets that you specify when you create the compute environment\. Amazon ECS container instances need external network access to communicate with the Amazon ECS service endpoint\. If your container instances do not have public IP addresses \(because the subnets you've chosen do not provide them by default\), then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT Gateways](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For help creating a VPC, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)\.
 
 By default, AWS Batch managed compute environments use a recent, approved version of the Amazon ECS\-optimized AMI for compute resources\. However, you may want to create your own AMI to use for your managed compute environments for various reasons\. For more information, see [Compute Resource AMIs](compute_resource_AMIs.md)\.
 
 **Note**  
-AWS Batch does not upgrade the AMIs in a compute environment after it is created\. To use a new AMI for your AWS Batch jobs:  
+AWS Batch does not upgrade the AMIs in a compute environment after it is created \(for example, when a newer version of the Amazon ECS\-optimized AMI is available\)\. You are responsible for the management of the guest operating system \(including updates and security patches\) and any additional application software or utilities that you install on the compute resources\. To use a new AMI for your AWS Batch jobs:  
 Create a new compute environment with the new AMI\.
 Add the compute environment to an existing job queue\.
 Remove the old compute environment from your job queue\.
