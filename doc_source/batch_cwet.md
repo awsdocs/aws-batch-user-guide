@@ -27,7 +27,7 @@ This tutorial assumes that you have a working compute environment and job queue 
    ```
    import json
    
-   def handler(event, context):
+   def lambda_handler(event, context):
        if event["source"] != "aws.batch":
           raise ValueError("Function only supports input from events with a source type of: aws.batch")
           
