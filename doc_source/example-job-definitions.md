@@ -48,6 +48,7 @@ For more information, see [Parameters](job_definition_parameters.md#parameters)\
 {
     "jobDefinitionName": "ffmpeg_parameters",
     "type": "container",
+    "parameters": {"codec": "mp4"},
     "containerProperties": {
         "image": "my_repo/ffmpeg",
         "vcpus": 2,
@@ -62,7 +63,6 @@ For more information, see [Parameters](job_definition_parameters.md#parameters)\
             "Ref::outputfile"
         ],
         "jobRoleArn": "arn:aws:iam::012345678910:role/ECSTask-S3FullAccess",
-        "parameters": {"codec": "mp4"},
         "user": "nobody"
     }
 }
