@@ -3,7 +3,7 @@
 When you submit a job to an AWS Batch job queue, the job enters the `SUBMITTED` state\. It then passes through the following states until it succeeds \(exits with code `0`\) or fails \(exits with a non\-zero code\)\. AWS Batch jobs can have the following states:
 
 `SUBMITTED`  
-A job that has been submitted to the queue, and has yet been evaluated by the scheduler\. The scheduler evaluates the job to determine if it has any outstanding dependencies on the successful completion of any other jobs\. If there are dependencies, the job is moved to `PENDING`\. If there are no dependencies, the job is moved to `RUNNABLE`\.
+A job that has been submitted to the queue, and has not yet been evaluated by the scheduler\. The scheduler evaluates the job to determine if it has any outstanding dependencies on the successful completion of any other jobs\. If there are dependencies, the job is moved to `PENDING`\. If there are no dependencies, the job is moved to `RUNNABLE`\.
 
 `PENDING`  
 A job that resides in the queue and is not yet able to run due to a dependency on another job or resource\. After the dependencies are satisfied, the job is moved to `RUNNABLE`\.
