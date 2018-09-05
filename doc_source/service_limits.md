@@ -3,7 +3,7 @@
 The following table provides the service limits for AWS Batch, which cannot be changed\.
 
 
-| Resource | Default Limit | 
+| Resource | Limit | 
 | --- | --- | 
 | Maximum number of job queues | 20 | 
 | Maximum number of compute environments | 18 | 

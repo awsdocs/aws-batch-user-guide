@@ -6,9 +6,9 @@ An empty compute environment template is shown below\. You can use this template
 {
     "computeEnvironmentName": "",
     "type": "UNMANAGED",
-    "state": "DISABLED",
+    "state": "ENABLED",
     "computeResources": {
-        "type": "SPOT",
+        "type": "EC2",
         "minvCpus": 0,
         "maxvCpus": 0,
         "desiredvCpus": 0,

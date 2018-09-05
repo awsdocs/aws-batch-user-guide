@@ -9,6 +9,7 @@ You can submit a large number of independent, simple jobs\.
 **Topics**
 + [Submitting a Job](submit_job.md)
 + [Job States](job_states.md)
++ [AWS Batch Job Environment Variables](job_env_vars.md)
 + [Automated Job Retries](job_retries.md)
 + [Job Dependencies](job_dependencies.md)
 + [Job Timeouts](job_timeouts.md)
