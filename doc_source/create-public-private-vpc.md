@@ -87,7 +87,7 @@ The wizard creates a VPC with a single public and a single private subnet in a s
 ## Next Steps<a name="vpc-next-steps"></a>
 
 After you have created your VPC, you should consider the following next steps:
-+ Create security groups for your public and private resources if they require inbound network access\. For more information, see [Working with Security Groups](http://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#WorkingWithSecurityGroups) in the *Amazon VPC User Guide*\.
++ Create security groups for your public and private resources if they require inbound network access\. For more information, see [Working with Security Groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#WorkingWithSecurityGroups) in the *Amazon VPC User Guide*\.
 + Create an AWS Batch managed compute environment that launches compute resources into your new VPC\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\. If you use the compute environment creation wizard in the AWS Batch console, you can specify the VPC that you just created and the public or private subnets into which to launch your instances, depending on your use case\.
 + Create an AWS Batch job queue that is mapped to your new compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
 + Create a job definition to run your jobs with\. For more information, see [Creating a Job Definition](create-job-definition.md)\.

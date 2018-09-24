@@ -8,7 +8,7 @@ This deep learning AMI is based on Amazon Linux, so you can install the `ecs-ini
 
 1. Launch a GPU instance type \(for example, P3\) with the [Deep Learning AMI \(Amazon Linux\)](https://aws.amazon.com/marketplace/pp/B077GF11NF) in a region that AWS Batch supports\. 
 
-1. Connect to your instance with SSH\. For more information, see [Connecting to Your Linux Instance Using SSH](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) in the *Amazon EC2 User Guide for Linux Instances*\.
+1. Connect to your instance with SSH\. For more information, see [Connecting to Your Linux Instance Using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 
 1. With your favorite text editor, create a file called `configure-gpu.sh` with the following contents:
 
@@ -105,7 +105,7 @@ This deep learning AMI is based on Amazon Linux, so you can install the `ecs-ini
       sudo rm -rf /var/lib/ecs/data/ecs_agent_data.json
       ```
 
-1. Create a new AMI from your running instance\. For more information, see [Creating an Amazon EBS\-Backed Linux AMI](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html) in the *Amazon EC2 User Guide for Linux Instances* guide\.
+1. Create a new AMI from your running instance\. For more information, see [Creating an Amazon EBS\-Backed Linux AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html) in the *Amazon EC2 User Guide for Linux Instances* guide\.
 
 **To use your new AMI with AWS Batch**
 

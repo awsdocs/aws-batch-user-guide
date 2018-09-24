@@ -68,8 +68,11 @@ AWS Batch jobs send their log information to CloudWatch Logs\. To enable this, y
 Insufficient resources  
 If your job definitions specify more CPU or memory resources than your compute resources can allocate, then your jobs will never be placed\. For example, if your job specifies 4 GiB of memory, and your compute resources have less than that, then the job cannot be placed on those compute resources\. In this case, you must reduce the specified memory in your job definition or add larger compute resources to your environment\.
 
+No internet access for compute resources  
+Compute resources need external network access to communicate with the Amazon ECS service endpoint, so if your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT Gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)\.
+
 Amazon EC2 instance limit reached  
-The number of Amazon EC2 instances that your account can launch in an AWS region is determined by your EC2 instance limit\. Certain instance types have a per\-instance\-type limit as well\. For more information on your account's Amazon EC2 instance limits \(including how to request a limit increase\), see [Amazon EC2 Service Limits](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html) in the *Amazon EC2 User Guide for Linux Instances*
+The number of Amazon EC2 instances that your account can launch in an AWS region is determined by your EC2 instance limit\. Certain instance types have a per\-instance\-type limit as well\. For more information on your account's Amazon EC2 instance limits \(including how to request a limit increase\), see [Amazon EC2 Service Limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html) in the *Amazon EC2 User Guide for Linux Instances*
 
 ## Spot Instances Not Tagged on Creation<a name="spot-instance-no-tag"></a>
 

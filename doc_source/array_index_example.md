@@ -9,7 +9,7 @@ In this tutorial, you create a text file that has all of the colors of the rainb
 This tutorial has the following prerequisites:
 + An AWS Batch compute environment\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
 + An AWS Batch job queue and associated compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
-+ The AWS CLI installed on your local system\. For more information, see [Installing the AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
++ The AWS CLI installed on your local system\. For more information, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
 + Docker installed on your local system\. For more information, see [About Docker CE](https://docs.docker.com/install/) in the Docker documentation\.
 
 ## Step 1: Build a Container Image<a name="build-index-container"></a>
@@ -85,7 +85,7 @@ The `LINE` variable is set to the `AWS_BATCH_JOB_ARRAY_INDEX` \+ 1 because the a
 
 Now that you have built and tested your Docker container, you must push it to an image repository\. This example uses Amazon ECR, but you can also choose to use another registry, such as DockerHub\.
 
-1. Create an Amazon ECR image repository to store your container image\. For the sake of brevity, this example uses the AWS CLI, but you can also use the AWS Management Console\. For more information, see [Creating a Repository](http://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html) in the *Amazon Elastic Container Registry User Guide*\.
+1. Create an Amazon ECR image repository to store your container image\. For the sake of brevity, this example uses the AWS CLI, but you can also use the AWS Management Console\. For more information, see [Creating a Repository](https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html) in the *Amazon Elastic Container Registry User Guide*\.
 
    ```
    aws ecr create-repository --repository-name print-color
@@ -97,7 +97,7 @@ Now that you have built and tested your Docker container, you must push it to an
    docker tag print-color aws_account_id.dkr.ecr.region.amazonaws.com/print-color
    ```
 
-1. Retrieve the login command for your Amazon ECR registry\. For more information, see [Registry Authentication](http://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth) in the *Amazon Elastic Container Registry User Guide*\.
+1. Retrieve the login command for your Amazon ECR registry\. For more information, see [Registry Authentication](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth) in the *Amazon Elastic Container Registry User Guide*\.
 
    ```
    aws ecr get-login --no-include-email
@@ -113,7 +113,7 @@ Now that you have built and tested your Docker container, you must push it to an
 
 ## Step 3: Create and Register a Job Definition<a name="create-array-job-def"></a>
 
-Now that your Docker image is in an image registry, you can specify it in an AWS Batch job definition and use it later to run an array job\. For the sake of brevity, this example uses the AWS CLI, but you can also use the AWS Management Console\. For more information, see [Creating a Job Definition](http://docs.aws.amazon.com/AmazonECR/latest/userguide/create-job-definition.title) in the *Amazon Elastic Container Registry User Guide*\.
+Now that your Docker image is in an image registry, you can specify it in an AWS Batch job definition and use it later to run an array job\. For the sake of brevity, this example uses the AWS CLI, but you can also use the AWS Management Console\. For more information, see [Creating a Job Definition](create-job-definition.md)\.
 
 **To create a job definition**
 

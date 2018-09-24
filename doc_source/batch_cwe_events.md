@@ -13,7 +13,7 @@ Any time that an existing \(previously submitted\) job changes states, an event 
 Events are not created for the initial job submission\.
 
 **Example Job State Change Event**  
-Job state change events are delivered in the following format \(the `detail` section below resembles the [Job](http://docs.aws.amazon.com/batch/latest/APIReference/API_Job.html) object that is returned from a [DescribeJobs](http://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operation in the *AWS Batch API Reference*\)\. For more information about CloudWatch Events parameters, see [Events and Event Patterns](http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html) in the *Amazon CloudWatch Events User Guide*\.  
+Job state change events are delivered in the following format \(the `detail` section below resembles the [Job](https://docs.aws.amazon.com/batch/latest/APIReference/API_Job.html) object that is returned from a [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operation in the *AWS Batch API Reference*\)\. For more information about CloudWatch Events parameters, see [Events and Event Patterns](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html) in the *Amazon CloudWatch Events User Guide*\.  
 
 ```
 {

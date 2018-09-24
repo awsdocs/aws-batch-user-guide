@@ -1,6 +1,6 @@
 # AWS Batch Managed Policy<a name="batch_managed_policies"></a>
 
-AWS Batch provides a managed policy that you can attach to IAM users that provides permission to use AWS Batch resources and API operations\. You can apply this policy directly, or you can use it as a starting point for creating your own policies\. For more information about each API operation mentioned in these policies, see [Actions](http://docs.aws.amazon.com/batch/latest/APIReference/API_Operations.html) in the *AWS Batch API Reference*\.
+AWS Batch provides a managed policy that you can attach to IAM users that provides permission to use AWS Batch resources and API operations\. You can apply this policy directly, or you can use it as a starting point for creating your own policies\. For more information about each API operation mentioned in these policies, see [Actions](https://docs.aws.amazon.com/batch/latest/APIReference/API_Operations.html) in the *AWS Batch API Reference*\.
 
 ## AWSBatchFullAccess<a name="AWSBatchFullAccess"></a>
 

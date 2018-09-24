@@ -54,7 +54,7 @@ This tutorial assumes that you have a working compute environment and job queue 
    }
    ```
 
-   This code defines a CloudWatch Events rule that matches any event where the job status is `FAILED`\. For more information about event patterns, see [Events and Event Patterns](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CloudWatchEventsandEventPatterns.html) in the *Amazon CloudWatch User Guide*\. 
+   This code defines a CloudWatch Events rule that matches any event where the job status is `FAILED`\. For more information about event patterns, see [Events and Event Patterns](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CloudWatchEventsandEventPatterns.html) in the *Amazon CloudWatch User Guide*\. 
 
 1. For **Targets**, choose **Add target**\. For **Target type**, choose **SNS topic**, **JobFailedAlert**\.
 

@@ -47,7 +47,7 @@ When this job definition is submitted to run, the `Ref::codec` argument in the c
 
 `retryStrategy`  
 When you register a job definition, you can optionally specify a retry strategy to use for failed jobs that are submitted with this job definition\. By default, each job is attempted one time\. If you specify more than one attempt, the job is retried if it fails \(for example, if it returns a non\-zero exit code or the container instance is terminated\)\. For more information, see [Automated Job Retries](job_retries.md)\.  
-Type: [RetryStrategy](http://docs.aws.amazon.com/batch/latest/APIReference/API_RetryStrategy.html) object  
+Type: [RetryStrategy](https://docs.aws.amazon.com/batch/latest/APIReference/API_RetryStrategy.html) object  
 Required: No    
 `attempts`  
 The number of times to move a job to the `RUNNABLE` status\. You may specify between 1 and 10 attempts\. If `attempts` is greater than one, the job is retried that many times if it fails, until it has moved to `RUNNABLE`\.  
@@ -61,8 +61,8 @@ Required: No
 ## Timeout<a name="timeout"></a>
 
 `timeout`  
-You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job Timeouts](job_timeouts.md)\. If a job is terminated due to a timeout, it is not retried\. Any timeout configuration that is specified during a [SubmitJob](http://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the timeout configuration defined here\. For more information, see [Job Timeouts](job_timeouts.md)\.  
-Type: [JobTimeout](http://docs.aws.amazon.com/batch/latest/APIReference/API_JobTimeout.html) object  
+You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job Timeouts](job_timeouts.md)\. If a job is terminated due to a timeout, it is not retried\. Any timeout configuration that is specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the timeout configuration defined here\. For more information, see [Job Timeouts](job_timeouts.md)\.  
+Type: [JobTimeout](https://docs.aws.amazon.com/batch/latest/APIReference/API_JobTimeout.html) object  
 Required: No    
 `attemptDurationSeconds`  
 The time duration in seconds \(measured from the job attempt's `startedAt` timestamp\) after which AWS Batch terminates your jobs if they have not finished\. The minimum value for the timeout is 60 seconds\.   
@@ -74,7 +74,7 @@ Required: No
 When you register a job definition, you must specify a list of container properties that are passed to the Docker daemon on a container instance when the job is placed\. The following container properties are allowed in a job definition\.
 
 `command`  
-The command that is passed to the container\. This parameter maps to `Cmd` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `COMMAND` parameter to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. For more information about the Docker `CMD` parameter, see [https://docs\.docker\.com/engine/reference/builder/\#cmd](https://docs.docker.com/engine/reference/builder/#cmd)\.  
+The command that is passed to the container\. This parameter maps to `Cmd` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `COMMAND` parameter to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. For more information about the Docker `CMD` parameter, see [https://docs\.docker\.com/engine/reference/builder/\#cmd](https://docs.docker.com/engine/reference/builder/#cmd)\.  
 
 ```
 "command": ["string", ...]
@@ -83,7 +83,7 @@ Type: String array
 Required: No
 
 `environment`  
-The environment variables to pass to a container\. This parameter maps to `Env` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--env` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
+The environment variables to pass to a container\. This parameter maps to `Env` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--env` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
 We do not recommend using plaintext environment variables for sensitive information, such as credential data\.
 Type: Array of key\-value pairs  
 Required: No    
@@ -104,7 +104,7 @@ Required: Yes, when `environment` is used\.
 ```
 
 `image`  
-The image used to start a container\. This string is passed directly to the Docker daemon\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
+The image used to start a container\. This string is passed directly to the Docker daemon\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
 + Images in Amazon ECR repositories use the full `registry/repository:tag` naming convention\. For example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`
 + Images in official repositories on Docker Hub use a single name \(for example, `ubuntu` or `mongo`\)\.
 + Images in other repositories on Docker Hub are qualified with an organization name \(for example, `amazon/amazon-ecs-agent`\)\.
@@ -113,18 +113,18 @@ Type: String
 Required: Yes
 
 `jobRoleArn`  
-When you register a job definition, you can specify an IAM role\. The role provides the job container with permissions to call the API actions that are specified in its associated policies on your behalf\. For more information, see [IAM Roles for Tasks](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) in the *Amazon Elastic Container Service Developer Guide*\.   
+When you register a job definition, you can specify an IAM role\. The role provides the job container with permissions to call the API actions that are specified in its associated policies on your behalf\. For more information, see [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) in the *Amazon Elastic Container Service Developer Guide*\.   
 Type: String  
 Required: No
 
 `memory`  
-The hard limit \(in MiB\) of memory to present to the container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\.  
+The hard limit \(in MiB\) of memory to present to the container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\.  
 If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
 Type: Integer  
 Required: Yes
 
 `mountPoints`  
-The mount points for data volumes in your container\. This parameter maps to `Volumes` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--volume` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
+The mount points for data volumes in your container\. This parameter maps to `Volumes` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--volume` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
 
 ```
 "mountPoints": [
@@ -151,7 +151,7 @@ Type: Boolean
 Required: No
 
 `privileged`  
-When this parameter is true, the container is given elevated privileges on the host container instance \(similar to the `root` user\)\. This parameter maps to `Privileged` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--privileged` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
+When this parameter is true, the container is given elevated privileges on the host container instance \(similar to the `root` user\)\. This parameter maps to `Privileged` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--privileged` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
 
 ```
 "privileged": true|false
@@ -160,7 +160,7 @@ Type: Boolean
 Required: No
 
 `readonlyRootFilesystem`  
-When this parameter is true, the container is given read\-only access to its root file system\. This parameter maps to `ReadonlyRootfs` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--read-only` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
+When this parameter is true, the container is given read\-only access to its root file system\. This parameter maps to `ReadonlyRootfs` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--read-only` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
 
 ```
 "readonlyRootFilesystem": true|false
@@ -169,7 +169,7 @@ Type: Boolean
 Required: No
 
 `ulimits`  
-A list of `ulimits` values to set in the container\. This parameter maps to `Ulimits` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--ulimit` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.   
+A list of `ulimits` values to set in the container\. This parameter maps to `Ulimits` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--ulimit` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.   
 
 ```
 "ulimits": [
@@ -197,7 +197,7 @@ Type: Integer
 Required: Yes, when `ulimits` is used\.
 
 `user`  
-The user name to use inside the container\. This parameter maps to `User` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--user` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
+The user name to use inside the container\. This parameter maps to `User` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--user` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
 
 ```
 "user": "string"
@@ -206,7 +206,7 @@ Type: String
 Required: No
 
 `vcpus`  
-The number of vCPUs reserved for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#create-a-container) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least 1 vCPU\.  
+The number of vCPUs reserved for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least 1 vCPU\.  
 Type: Integer  
 Required: Yes
 

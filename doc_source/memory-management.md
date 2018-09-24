@@ -31,7 +31,7 @@ The default AWS Batch compute resource AMI reserves 32 MiB of memory for the Ama
 
 ## Viewing Compute Resource Memory<a name="viewing-memory"></a>
 
-You can view how much memory a compute resource registers with in the Amazon ECS console \(or with the [DescribeContainerInstances](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeContainerInstances.html) API operation\)\. If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, you can observe the memory available for that compute resource and then assign your jobs that much memory\.
+You can view how much memory a compute resource registers with in the Amazon ECS console \(or with the [DescribeContainerInstances](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeContainerInstances.html) API operation\)\. If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, you can observe the memory available for that compute resource and then assign your jobs that much memory\.
 
 **To view compute resource memory**
 

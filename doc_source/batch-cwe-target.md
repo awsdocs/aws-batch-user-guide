@@ -1,8 +1,8 @@
 # AWS Batch Jobs as CloudWatch Events Targets<a name="batch-cwe-target"></a>
 
-Amazon CloudWatch Events delivers a near real\-time stream of system events that describe changes in Amazon Web Services resources\. AWS Batch jobs are available as CloudWatch Events targets\. Using simple rules that you can quickly set up, you can match events and submit AWS Batch jobs in response to them\. For more information, see [What is Amazon CloudWatch Events?](http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) in the *Amazon CloudWatch Events User Guide*\.
+Amazon CloudWatch Events delivers a near real\-time stream of system events that describe changes in Amazon Web Services resources\. AWS Batch jobs are available as CloudWatch Events targets\. Using simple rules that you can quickly set up, you can match events and submit AWS Batch jobs in response to them\. For more information, see [What is Amazon CloudWatch Events?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) in the *Amazon CloudWatch Events User Guide*\.
 
-You can also use CloudWatch Events to schedule automated actions that self\-trigger at certain times using cron or rate expressions\. For more information, see [Schedule Expressions for Rules](http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html) in the *Amazon CloudWatch Events User Guide*\.
+You can also use CloudWatch Events to schedule automated actions that self\-trigger at certain times using cron or rate expressions\. For more information, see [Schedule Expressions for Rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html) in the *Amazon CloudWatch Events User Guide*\.
 
 Some common use cases for AWS Batch jobs as a CloudWatch Events target are:
 + Create a scheduled job that occurs at regular time intervals, such as a cron job that happens in low\-usage hours when Amazon EC2 Spot Instances are less expensive\.
@@ -22,9 +22,9 @@ The procedure below shows how to create a scheduled AWS Batch job and the requir
 
 1. In the left navigation, choose **Events**, **Create rule**\.
 
-1. For **Event source**, choose **Schedule**, and then choose whether to use a fixed interval schedule or a `cron` expression for your schedule rule\. For more information, see [Schedule Expressions for Rules](http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html) in the *Amazon CloudWatch Events User Guide*\.
+1. For **Event source**, choose **Schedule**, and then choose whether to use a fixed interval schedule or a `cron` expression for your schedule rule\. For more information, see [Schedule Expressions for Rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html) in the *Amazon CloudWatch Events User Guide*\.
    + For **Fixed rate of**, enter the interval and unit for your schedule\.
-   + For **Cron expression**, enter the `cron` expression for your task schedule\. These expressions have six required fields, and fields are separated by white space\. For more information, and examples of `cron` expressions, see [Cron Expressions](http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions) in the *Amazon CloudWatch Events User Guide*\.
+   + For **Cron expression**, enter the `cron` expression for your task schedule\. These expressions have six required fields, and fields are separated by white space\. For more information, and examples of `cron` expressions, see [Cron Expressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions) in the *Amazon CloudWatch Events User Guide*\.
 
 1. For **Targets**, choose **Add target**\. 
 
