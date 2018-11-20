@@ -47,7 +47,7 @@ If you choose a base AMI that does not support the `ecs-init` package, you must 
 
 **To use your new AMI with AWS Batch**
 
-1. When the AMI creation process is complete, create a compute environment with your new AMI \(be sure to select **Enable user\-specified AMI ID** and specify your custom AMI ID in [Step 7](create-compute-environment.md#enable-custom-ami-step)\)\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
+1. When the AMI creation process is complete, create a compute environment with your new AMI \(be sure to select **Enable user\-specified AMI ID** and specify your custom AMI ID in [Step 9](create-compute-environment.md#enable-custom-ami-step)\)\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
 
 1. Create a job queue and associate your new compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
 

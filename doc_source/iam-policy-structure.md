@@ -31,7 +31,7 @@ An IAM policy is a JSON document that consists of one or more statements\. Each 
 There are various elements that make up a statement:
 + **Effect:** The *effect* can be `Allow` or `Deny`\. By default, IAM users don't have permission to use resources and API actions, so all requests are denied\. An explicit allow overrides the default\. An explicit deny overrides any allows\.
 + **Action**: The *action* is the specific API action for which you are granting or denying permission\. To learn about specifying *action*, see [Actions for AWS Batch](#UsingWithbatch_Actions)\. 
-+ **Resource**: The resource that's affected by the action\.  AWS Batch API operations currently do not support resource level permissions, so you must use the \* wildcard to specify that all resources can be affected by the action\. 
++ **Resource**: The resource that's affected by the action\. Some AWS Batch API actions allow you to include specific resources in your policy that can be created or modified by the action\. To specify a resource in the statement, use its Amazon Resource Name \(ARN\)\. For more information, see [Supported Resource\-Level Permissions for AWS Batch API Actions](batch-supported-iam-actions-resources.md) and [Amazon Resource Names for AWS Batch](#batch_ARN_Format)\. If the AWS Batch API operation currently does not support resource\-level permissions, you must use the \* wildcard to specify that all resources can be affected by the action\. 
 + **Condition**: Conditions are optional\. They can be used to control when your policy is in effect\.
 
 For more information about example IAM policy statements for AWS Batch, see [Creating AWS Batch IAM Policies](batch_IAM_user_policies.md)\. 
@@ -85,7 +85,7 @@ The type of resource \(for example, `compute-environment`\)\.
 *resourcePath*  
 A path that identifies the resource\. You can use the \* wildcard in your paths\.
 
-AWS Batch API operations currently do not support resource level permissions\. To specify all resources, use the \* wildcard in the `Resource` element as follows:
+AWS Batch API operations currently supports resource\-level permissions on several API operations\. For more information, see [Supported Resource\-Level Permissions for AWS Batch API Actions](batch-supported-iam-actions-resources.md)\. To specify all resources, or if a specific API action does not support ARNs, use the \* wildcard in the `Resource` element as follows:
 
 ```
 "Resource": "*"
@@ -93,14 +93,14 @@ AWS Batch API operations currently do not support resource level permissions\. T
 
 ## Checking That Users Have the Required Permissions<a name="check-required-permissions"></a>
 
-After you've created an IAM policy, we recommend that you check whether it grants users the permissions to use the particular API actions and resources they need before you put the policy into production\.
+Before you put an IAM policy into production, we recommend that you check whether it grants users the permissions to use the particular API actions and resources they need\.
 
-First, create an IAM user for testing purposes, and then attach the IAM policy that you created to the test user\. Then, make a request as the test user\. You can make test requests in the console or with the AWS CLI\. 
+First, create an IAM user for testing purposes and attach the IAM policy to the test user\. Then, make a request as the test user\. You can make test requests in the console or with the AWS CLI\. 
 
 **Note**  
-You can also test your policies with the [IAM Policy Simulator](https://policysim.aws.amazon.com/home/index.jsp?#)\. For more information on the policy simulator, see [Working with the IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_testing-policies.html) in the *IAM User Guide*\.
+You can also test your policies with the [IAM Policy Simulator](https://policysim.aws.amazon.com/home/index.jsp?#)\. For more information about the policy simulator, see [Working with the IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_testing-policies.html) in the *IAM User Guide*\.
 
-If the policy doesn't grant the user the permissions that you expected, or is overly permissive, you can adjust the policy as needed and retest until you get the desired results\. 
+If the policy doesn't grant the user the permissions that you expected, or is overly permissive, you can adjust the policy as needed\. Retest until you get the desired results\. 
 
 **Important**  
 It can take several minutes for policy changes to propagate before they take effect\. Therefore, we recommend that you allow five minutes to pass before you test your policy updates\.

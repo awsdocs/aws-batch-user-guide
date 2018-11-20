@@ -1,6 +1,6 @@
 # Amazon EC2 Spot Fleet Role<a name="spot_fleet_IAM_role"></a>
 
-If you create a managed compute environment that uses Amazon EC2 Spot Fleet Instances, you must create a role that grants the Spot Fleet permission to bid on, launch, tag, and terminate instances on your behalf, and specify it in your Spot Fleet request\. You must also have the **AWSServiceRoleForEC2Spot** and **AWSServiceRoleForEC2SpotFleet** service\-linked roles for Amazon EC2 Spot and Spot Fleet\. Use the procedures below to create all of these roles\.
+If you create a managed compute environment that uses Amazon EC2 Spot Fleet Instances, you must create a role that grants the Spot Fleet permission to bid on, launch, tag, and terminate instances on your behalf\. Specify the role in your Spot Fleet request\. You must also have the **AWSServiceRoleForEC2Spot** and **AWSServiceRoleForEC2SpotFleet** service\-linked roles for Amazon EC2 Spot and Spot Fleet\. Use the procedures below to create all of these roles\.
 
 **Topics**
 + [Create Amazon EC2 Spot Fleet Roles in the AWS Management Console](#spot-fleet-roles-console)
@@ -14,9 +14,9 @@ If you create a managed compute environment that uses Amazon EC2 Spot Fleet Inst
 
 1. In the navigation pane, choose **Roles**, **Create role**\. 
 
-1. Choose **AWS service** as the trusted entity type, and then **EC2** as the service to use the role\.
+1. For **Select type of trusted entity**, choose **AWS service**\. For **Choose the service that will use this role**, choose **EC2**\.
 
-1. In the **Select your use case** section, choose **EC2 Spot Fleet Role** and then **Next: Permissions**\.
+1. In the **Select your use case** section, choose **EC2 Spot Fleet Role** and choose **Next: Permissions**\.
 
 1. Choose **Next: Review**\.
 **Note**  
@@ -32,13 +32,11 @@ Historically, there have been two managed policies for the Amazon EC2 Spot Fleet
 
 1. In the navigation pane, choose **Roles**, **Create role**\. 
 
-1. Choose **AWS service** as the trusted entity type, and then **EC2** as the service to use the role\.
+1. For **Select type of trusted entity**, choose **AWS service**\. For **Choose the service that will use this role**, choose **EC2**\.
 
 1. In the **Select your use case** section, choose **EC2 \- Spot Instances** and then choose **Next: Permissions**\.
 
-1. Choose **Next: Review**\.
-
-1. Choose **Create role**\.
+1. Choose **Next: Review**, **Create role**\.
 
 **To create the `AWSServiceRoleForEC2SpotFleet` IAM service\-linked role for Amazon EC2 Spot Fleet**
 
@@ -46,13 +44,11 @@ Historically, there have been two managed policies for the Amazon EC2 Spot Fleet
 
 1. In the navigation pane, choose **Roles**, **Create role**\. 
 
-1. Choose **AWS service** as the trusted entity type, and then **EC2** as the service to use the role\.
+1. For **Select type of trusted entity**, choose **AWS service**\. For **Choose the service that will use this role**, choose **EC2**\.
 
 1. In the **Select your use case** section, choose **EC2 \- Spot Fleet** and then choose **Next: Permissions**\.
 
-1. Choose **Next: Review**\.
-
-1. Choose **Create role**\.
+1. Choose **Next: Review**, **Create role**\.
 
 ## Create Amazon EC2 Spot Fleet Roles with the AWS CLI<a name="spot-fleet-roles-cli"></a>
 

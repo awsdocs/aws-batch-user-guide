@@ -18,6 +18,8 @@ The basic AWS Batch compute resource AMI specification consists of the following
 
 Required
 + A modern Linux distribution running at least version 3\.10 of the Linux kernel on an HVM virtualization type AMI\.
+**Important**  
+Multi\-node parallel jobs can only run on compute resources that were launched on an Amazon Linux instance with the `ecs-init` package installed\. We recommend that you use the default Amazon ECS\-optimized AMI when you create your compute environment \(by not specifying a custom AMI\)\. For more information, see [Multi\-node Parallel Jobs](multi-node-parallel-jobs.md)\.
 + The Amazon ECS container agent \(preferably the latest version\)\. For more information, see [Installing the Amazon ECS Container Agent](&url-ecs-dev:ecs-agent-install.html) in the *Amazon Elastic Container Service Developer Guide*\.
 + The `awslogs` log driver must be specified as an available log driver with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable when the Amazon ECS container agent is started\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\. 
 + A Docker daemon running at least version 1\.9, and any Docker runtime dependencies\. For more information, see [Check runtime dependencies](https://docs.docker.com/engine/installation/binaries/#check-runtime-dependencies) in the Docker documentation\.

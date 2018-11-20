@@ -28,7 +28,12 @@ An empty compute environment template is shown below\. You can use this template
             "KeyName": ""
         },
         "bidPercentage": 0,
-        "spotIamFleetRole": ""
+        "spotIamFleetRole": "",
+        "launchTemplate": {
+            "launchTemplateId": "",
+            "launchTemplateName": "",
+            "version": ""
+        }
     },
     "serviceRole": ""
 }

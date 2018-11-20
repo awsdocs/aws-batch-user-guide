@@ -6,6 +6,7 @@ Job queues are mapped to one or more compute environments\. Compute environments
 + [Managed Compute Environments](#managed_compute_environments)
 + [Unmanaged Compute Environments](#unmanaged_compute_environments)
 + [Compute Resource AMIs](compute_resource_AMIs.md)
++ [Launch Template Support](launch-templates.md)
 + [Creating a Compute Environment](create-compute-environment.md)
 + [Compute Environment Parameters](compute_environment_parameters.md)
 + [Compute Resource Memory Management](memory-management.md)

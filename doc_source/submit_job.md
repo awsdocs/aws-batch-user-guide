@@ -1,12 +1,12 @@
 # Submitting a Job<a name="submit_job"></a>
 
-After you have registered a job definition, you can submit it as a job to an AWS Batch job queue\. Many of the parameters that are specified in the job definition can be overridden at run time\.
+After you have registered a job definition, you can submit it as a job to an AWS Batch job queue\. Many of the parameters that are specified in the job definition can be overridden at runtime\.
 
 **To submit a job**
 
 1. Open the AWS Batch console at [https://console\.aws\.amazon\.com/batch/](https://console.aws.amazon.com/batch/)\.
 
-1. From the navigation bar, select the region to use\.
+1. From the navigation bar, select the Region to use\.
 
 1. In the navigation pane, choose **Jobs**, **Submit job**\.
 
@@ -16,7 +16,7 @@ After you have registered a job definition, you can submit it as a job to an AWS
 
 1. For **Job queue**, choose a previously created job queue\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
 
-1. For **Job type**, choose **Single** for a single job or **Array** to submit an array job\. For more information, see [Array Jobs](array_jobs.md)\.
+1. For **Job type**, choose **Single** for a single job or **Array** to submit an array job\. For more information, see [Array Jobs](array_jobs.md)\. This option is not available for multi\-node parallel jobs\.
 
 1. \(Array jobs only\) For **Array size**, specify an array size between 2 and 10,000\.
 
@@ -28,29 +28,33 @@ After you have registered a job definition, you can submit it as a job to an AWS
 
    1. \(Array jobs only\) Select **Run children sequentially** to create a `SEQUENTIAL` dependency for the current array job\. This ensures that each child index job waits for its earlier sibling to finish\. For example, `JobA:1` depends on `JobA:0` and so on\.
 
+1. For **Job attempts**, specify the maximum number of times to attempt your job \(in case it fails\)\. For more information, see [Automated Job Retries](job_retries.md)\.
+
+1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
+
+1. \(Optional\) In the **Parameters** section, you can specify parameter substitution default values and placeholders to use in the command that your job's container runs when it starts\. For more information, see [Parameters](job_definition_parameters.md#parameters)\.
+
+   1. Choose **Add parameter**\.
+
+   1. For **Key**, specify the key for your parameter\.
+
+   1. For **Value**, specify the value for your parameter\.
+
+1. For **vCPUs**, specify the number of vCPUs to reserve for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least one vCPU\.
+
+1. For **Memory**, specify the hard limit \(in MiB\) of memory to present to the job's container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\.
+
 1. For **Command**, specify the command to pass to the container\. For simple commands, you can type the command as you would at a command prompt in the **Space delimited** tab\. Verify that the JSON result \(which is passed to the Docker daemon\) is correct\. For more complicated commands \(for example, with special characters\), you can switch to the **JSON** tab and enter the string array equivalent there\.
 
    This parameter maps to `Cmd` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `COMMAND` parameter to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. For more information about the Docker `CMD` parameter, go to [https://docs\.docker\.com/engine/reference/builder/\#cmd](https://docs.docker.com/engine/reference/builder/#cmd)\.
 **Note**  
 You can use parameter substitution default values and placeholders in your command\. For more information, see [Parameters](job_definition_parameters.md#parameters)\.
 
-1. For **vCPUs**, specify the number of vCPUs to reserve for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least one vCPU\.
-
-1. For **Memory**, specify the hard limit \(in MiB\) of memory to present to the job's container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\.
-
-1. For **Job attempts**, specify the maximum number of times to attempt your job \(in case it fails\)\. For more information, see [Automated Job Retries](job_retries.md)\.
-
-1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds you would like to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
-
-1. \(Optional\) You can specify parameter substitution default values and placeholders to use in the command that your job's container runs when it starts\. For more information, see [Parameters](job_definition_parameters.md#parameters)\.
-
-   1. For **Key**, specify the key for your parameter\.
-
-   1. For **Value**, specify the value for your parameter\.
-
 1. \(Optional\) You can specify environment variables to pass to your job's container\. This parameter maps to `Env` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `--env` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 **Important**  
 We do not recommend using plaintext environment variables for sensitive information, such as credential data\.
+
+   1. Choose **Add environment variable**\.
 
    1. For **Key**, specify the key for your environment variable\.
 **Note**  

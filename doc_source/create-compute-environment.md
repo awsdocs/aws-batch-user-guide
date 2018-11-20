@@ -18,13 +18,13 @@ Before you can run jobs in AWS Batch, you need to create a compute environment\.
 
    1. For **Service role**, choose to create a new role or use an existing role\. The role allows the AWS Batch service to make calls to the required AWS APIs on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\. If you choose to create a new role, the required role \(`AWSBatchServiceRole`\) is created for you\.
 
-   1. For **EC2 instance role**, choose to create a new instance profile or use an existing instance profile that has the required IAM permissions attached\. This instance profile allows the Amazon ECS container instances that are created for your compute environment to make calls to the required AWS APIs on your behalf\. For more information, see [Amazon ECS Instance Role](instance_IAM_role.md)\. If you choose to create a new instance profile, the required role \(`ecsInstanceRole`\) is created for you\.
+   1. For **Instance role**, choose to create a new instance profile or use an existing instance profile that has the required IAM permissions attached\. This instance profile allows the Amazon ECS container instances that are created for your compute environment to make calls to the required AWS APIs on your behalf\. For more information, see [Amazon ECS Instance Role](instance_IAM_role.md)\. If you choose to create a new instance profile, the required role \(`ecsInstanceRole`\) is created for you\.
 
    1. For **EC2 key pair** choose an existing Amazon EC2 key pair to associate with the instance at launch\. This key pair allows you to connect to your instances with SSH \(ensure that your security group allows ingress on port 22\)\.
 
    1. Ensure that **Enable compute environment** is selected so that your compute environment can accept jobs from the AWS Batch job scheduler\.
 
-1. Configure your instances\.
+1. Configure your compute resources\.
 
    1. For **Provisioning model**, choose **On\-Demand** to launch Amazon EC2 On\-Demand Instances or **Spot** to use Amazon EC2 Spot Instances\.
 
@@ -37,6 +37,10 @@ Before you can run jobs in AWS Batch, you need to create a compute environment\.
 To tag your Spot Instances on creation \(see [Step 7](#compute-environment-tag-step)\), your Amazon EC2 Spot Fleet IAM role must use the newer **AmazonEC2SpotFleetTaggingRole** managed policy\. The **AmazonEC2SpotFleetRole** managed policy does not have the required permissions to tag Spot Instances\. For more information, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag)\.
 
    1. For **Allowed instance types**, choose the Amazon EC2 instance types that may be launched\. You can specify instance families to launch any instance type within those families \(for example, `c4` or `p3`\), or you can specify specific sizes within a family \(such as `c4.8xlarge`\)\. You can also choose `optimal` to pick instance types \(from the latest C, M, and R instance families\) on the fly that match the demand of your job queues\.
+
+   1. \(Optional\) For **Launch template**, select an existing Amazon EC2 launch template to configure your compute resources; the default version of the template is automatically populated\. For more information, see [Launch Template Support](launch-templates.md)\.
+
+   1. \(Optional\) For **Launch template version**, enter `$Default`, `$Latest`, or a specific version number to use\.
 
    1. For **Minimum vCPUs**, choose the minimum number of EC2 vCPUs that your compute environment should maintain, regardless of job queue demand\.
 

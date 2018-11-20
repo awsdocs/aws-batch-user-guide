@@ -70,7 +70,7 @@ The `AWSBatchServiceRole` policy is shown below\.
 }
 ```
 
-You can use the following procedure to check and see if your account already has the AWS Batch service role and to attach the managed IAM policy if needed\.<a name="procedure_check_service_role"></a>
+You can use the following procedure to see if your account already has the AWS Batch service role and attach the managed IAM policy if needed\.<a name="procedure_check_service_role"></a>
 
 **To check for the `AWSBatchServiceRole` in the IAM console**
 
@@ -86,7 +86,7 @@ You can use the following procedure to check and see if your account already has
 
    1. Choose **Attach Policy**\.
 
-   1. For **Filter**, type **AWSBatchServiceRole** to narrow the list of available policies to attach\.
+   1. To narrow the list of available policies to attach, for **Filter**, type **AWSBatchServiceRole**\.
 
    1. Select the **AWSBatchServiceRole** policy and choose **Attach Policy**\.
 
@@ -111,8 +111,8 @@ You can use the following procedure to check and see if your account already has
 
 1. In the navigation pane, choose **Roles**, **Create New Role**\. 
 
-1. On the **Select type of trusted entity** page, choose **AWS service**, **Batch**, and **Next: Permissions**\.
+1. For **Select type of trusted entity**, choose **AWS service**\. For **Choose the service that will use this role**, choose **Batch**\.
 
-1. Choose **Next: Review**\.
+1. Choose **Next: Permissions**, **Next: Review**\.
 
-1. For **Role Name**, type `AWSBatchServiceRole` and then choose **Create Role**\. 
+1. For **Role Name**, type `AWSBatchServiceRole` and choose **Create Role**\. 

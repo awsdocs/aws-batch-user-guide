@@ -25,8 +25,11 @@ This deep learning AMI is based on Amazon Linux, so you can install the `ecs-ini
    sudo yum install -y $PACKAGES
    sudo pkill -SIGHUP dockerd
    
+   # Get CUDA version
+   CUDA_VERSION=$(cat /usr/local/cuda/version.txt | awk '{ print $3 }' | cut -f1-2 -d".")
+   
    # Run test container to verify installation
-   sudo docker run --privileged --runtime=nvidia --rm nvidia/cuda nvidia-smi
+   sudo docker run --privileged --runtime=nvidia --rm nvidia/cuda:$CUDA_VERSION-base nvidia-smi
    
    # Update Docker daemon.json to user nvidia-container-runtime by default
    sudo tee /etc/docker/daemon.json <<EOF
@@ -50,10 +53,16 @@ This deep learning AMI is based on Amazon Linux, so you can install the `ecs-ini
    bash ./configure-gpu.sh
    ```
 
+1. Get the CUDA version that is installed on your instance\.
+
+   ```
+   CUDA_VERSION=$(cat /usr/local/cuda/version.txt | awk '{ print $3 }' | cut -f1-2 -d".")
+   ```
+
 1. Validate that you can run a Docker container and access the installed drivers with the following command\.
 
    ```
-   sudo docker run nvidia/cuda:latest nvidia-smi
+   sudo docker run --privileged --runtime=nvidia --rm nvidia/cuda:$CUDA_VERSION-base nvidia-smi
    ```
 
    You should see something similar to the following output\.
@@ -109,7 +118,7 @@ This deep learning AMI is based on Amazon Linux, so you can install the `ecs-ini
 
 **To use your new AMI with AWS Batch**
 
-1. When the AMI creation process is complete, create a compute environment with your new AMI \(be sure to select **Enable user\-specified AMI ID** and specify your custom AMI ID in [Step 7](create-compute-environment.md#enable-custom-ami-step)\)\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
+1. When the AMI creation process is complete, create a compute environment with your new AMI \(be sure to select **Enable user\-specified AMI ID** and specify your custom AMI ID in [Step 9](create-compute-environment.md#enable-custom-ami-step)\)\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
 
 1. Create a job queue and associate your new compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
 

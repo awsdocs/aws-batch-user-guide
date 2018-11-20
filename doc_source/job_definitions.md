@@ -1,9 +1,11 @@
 # Job Definitions<a name="job_definitions"></a>
 
-AWS Batch job definitions specify how jobs are to be run\. While each job must reference a job definition, many of the parameters that are specified in the job definition can be overridden at run time\. 
+AWS Batch job definitions specify how jobs are to be run\. While each job must reference a job definition, many of the parameters that are specified in the job definition can be overridden at runtime\. 
 
 **Topics**
 + [Creating a Job Definition](create-job-definition.md)
++ [Creating a Multi\-node Parallel Job Definition](multi-node-job-def.md)
++ [Job Definition Template](job-definition-template.md)
 + [Job Definition Parameters](job_definition_parameters.md)
 + [Example Job Definitions](example-job-definitions.md)
 

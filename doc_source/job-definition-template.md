@@ -47,7 +47,58 @@ An empty job definition template is shown below\. You can use this template to c
                 "softLimit": 0
             }
         ],
-        "user": ""
+        "user": "",
+        "instanceType": ""
+    },
+    "nodeProperties": {
+        "numNodes": 0,
+        "mainNode": 0,
+        "nodeRangeProperties": [
+            {
+                "targetNodes": "",
+                "container": {
+                    "image": "",
+                    "vcpus": 0,
+                    "memory": 0,
+                    "command": [
+                        ""
+                    ],
+                    "jobRoleArn": "",
+                    "volumes": [
+                        {
+                            "host": {
+                                "sourcePath": ""
+                            },
+                            "name": ""
+                        }
+                    ],
+                    "environment": [
+                        {
+                            "name": "",
+                            "value": ""
+                        }
+                    ],
+                    "mountPoints": [
+                        {
+                            "containerPath": "",
+                            "readOnly": true,
+                            "sourceVolume": ""
+                        }
+                    ],
+                    "readonlyRootFilesystem": true,
+                    "privileged": true,
+                    "ulimits": [
+                        {
+                            "hardLimit": 0,
+                            "name": "",
+                            "softLimit": 0
+                        }
+                    ],
+                    "user": "",
+                    "instanceType": ""
+                }
+            }
+        ]
     },
     "retryStrategy": {
         "attempts": 0

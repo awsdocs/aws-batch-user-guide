@@ -91,7 +91,24 @@ Required: No
 The Amazon Resource Name \(ARN\) of the Amazon EC2 Spot Fleet IAM role applied to a `SPOT` compute environment\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.  
 To tag your Spot Instances on creation, the Spot Fleet IAM role specified here must use the newer **AmazonEC2SpotFleetTaggingRole** managed policy\. The previously recommended **AmazonEC2SpotFleetRole** managed policy does not have the required permissions to tag Spot Instances\. For more information, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag)\.
 Type: String  
-Required: This parameter is required for `SPOT` compute environments\.
+Required: This parameter is required for `SPOT` compute environments\.  
+`launchTemplate`  
+An optional launch template to associate with your compute resources\. To use a launch template, you must specify either the launch template ID or launch template name in the request, but not both\. For more information, see [Launch Template Support](launch-templates.md)\.  
+Type: [LaunchTemplateSpecification](https://docs.aws.amazon.com/batch/latest/APIReference/API_LaunchTemplateSpecification.html)  
+ object  
+Required: No    
+`launchTemplateId`  
+The ID of the launch template\.  
+Type: String  
+Required: No  
+`launchTemplateName`  
+The name of the launch template\.  
+Type: String  
+Required: No  
+`version`  
+The version number of the launch template\.  
+Type: String  
+Required: No
 
 ## Service Role<a name="compute_environment_service_role"></a>
 
