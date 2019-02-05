@@ -26,7 +26,7 @@ This deep learning AMI is based on Amazon Linux, so you can install the `ecs-ini
    sudo pkill -SIGHUP dockerd
    
    # Get CUDA version
-   CUDA_VERSION=$(cat /usr/local/cuda/version.txt | awk '{ print $3 }' | cut -f1-2 -d".")
+   CUDA_VERSION=$(cat /usr/local/cuda/version.txt | grep "^CUDA Version" | awk '{ print $3 }' | cut -f1-2 -d".")
    
    # Run test container to verify installation
    sudo docker run --privileged --runtime=nvidia --rm nvidia/cuda:$CUDA_VERSION-base nvidia-smi
@@ -56,7 +56,7 @@ This deep learning AMI is based on Amazon Linux, so you can install the `ecs-ini
 1. Get the CUDA version that is installed on your instance\.
 
    ```
-   CUDA_VERSION=$(cat /usr/local/cuda/version.txt | awk '{ print $3 }' | cut -f1-2 -d".")
+   CUDA_VERSION=$(cat /usr/local/cuda/version.txt | grep "^CUDA Version" | awk '{ print $3 }' | cut -f1-2 -d".")
    ```
 
 1. Validate that you can run a Docker container and access the installed drivers with the following command\.
@@ -69,13 +69,13 @@ This deep learning AMI is based on Amazon Linux, so you can install the `ecs-ini
 
    ```
    +-----------------------------------------------------------------------------+
-   | NVIDIA-SMI 384.111                Driver Version: 384.111                   |
+   | NVIDIA-SMI 410.79       Driver Version: 410.79       CUDA Version: 10.0     |
    |-------------------------------+----------------------+----------------------+
    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
    |===============================+======================+======================|
    |   0  Tesla V100-SXM2...  On   | 00000000:00:1E.0 Off |                    0 |
-   | N/A   32C    P0    20W / 300W |      0MiB / 16152MiB |      1%      Default |
+   | N/A   38C    P0    25W / 300W |      0MiB / 16130MiB |      1%      Default |
    +-------------------------------+----------------------+----------------------+
    
    +-----------------------------------------------------------------------------+

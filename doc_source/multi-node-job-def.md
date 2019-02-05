@@ -18,7 +18,7 @@ To create a single\-node job definition, see [Creating a Job Definition](create-
 
 1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds you would like to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
 
-1. Select **Job requires multiple node configurations** and then complete the following substeps\. To create a multi\-node parallel job definition instead, see [Creating a Job Definition](create-job-definition.md)\.
+1. Select **Job requires multiple node configurations** and then complete the following substeps\. To create a single node parallel job definition instead, see [Creating a Job Definition](create-job-definition.md)\.
 
    1. <a name="num-node-step"></a>For **Number of nodes**, enter the total number of nodes to use for your job\.
 
@@ -43,6 +43,8 @@ Be sure to choose an instance type that is available for launch in your compute 
    You can create up to five node ranges for the number of nodes you specified for your job\. Node ranges use the index value for a node, and the node index begins at 0\. The range end index value of your final node group should be the number of nodes you specified in [Step 1](#num-node-step), minus one\. For example, If you specified 10 nodes, and you want to use a single node group, then your end range should be 9\.
 
 1. For **Container image**, choose the Docker image to use for your job\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
+**Note**  
+Docker image architecture must match the processor architecture of the compute resources that they're scheduled on\. For example, ARM\-based Docker images can only run on ARM\-based compute resources\.
    + Images in Amazon ECR repositories use the full `registry/repository:tag` naming convention\. For example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`
    + Images in official repositories on Docker Hub use a single name \(for example, `ubuntu` or `mongo`\)\.
    + Images in other repositories on Docker Hub are qualified with an organization name \(for example, `amazon/amazon-ecs-agent`\)\.

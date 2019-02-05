@@ -28,6 +28,7 @@ Required: Yes
 
 `computeEnvironmentOrder`  
 The set of compute environments mapped to a job queue and their order relative to each other\. The job scheduler uses this parameter to determine which compute environment should execute a given job\. Compute environments must be in the `VALID` state before you can associate them with a job queue\. You can associate up to three compute environments with a job queue\.  
+All compute environments that are associated with a job queue must share the same architecture\. AWS Batch doesn't support mixing compute environment architecture types in a single job queue\.
 Type: Array of [ComputeEnvironmentOrder](https://docs.aws.amazon.com/batch/latest/APIReference/API_ComputeEnvironmentOrder.html) objects  
 Required: Yes    
 `computeEnvironment`  

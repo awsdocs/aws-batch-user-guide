@@ -19,6 +19,8 @@ You also set a priority to the job queue that determines the order in which the 
 1. For **Priority**, enter an integer value for the job queue's priority\. Job queues with a higher priority \(or a higher integer value for the `priority` parameter\) are evaluated first when associated with the same compute environment\. Priority is determined in descending order, for example, a job queue with a priority value of 10 is given scheduling preference over a job queue with a priority value of 1\.
 
 1. In the **Connected compute environments for this queue** section, select one or more compute environments from the list to associate with the job queue, in the order that the queue should attempt placement\. The job scheduler uses compute environment order to determine which compute environment should execute a given job\. Compute environments must be in the `VALID` state before you can associate them with a job queue\. You can associate up to three compute environments with a job queue\.
+**Note**  
+All compute environments that are associated with a job queue must share the same architecture\. AWS Batch doesn't support mixing compute environment architecture types in a single job queue\.
 
    You can change the order of compute environments by choosing the up and down arrows next to the **Order** column in the table\.
 

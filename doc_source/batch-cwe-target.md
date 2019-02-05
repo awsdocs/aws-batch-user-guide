@@ -62,7 +62,7 @@ You can use the CloudWatch Events input transformer to pass event information to
 }
 ```
 
-Then, you simply create an AWS Batch even target that parses information from the event that triggers it and transforms it into a `parameters` object\. When the job runs, the parameters from the trigger event are passed to the job container's command\.
+Then, you simply create an AWS Batch event target that parses information from the event that triggers it and transforms it into a `parameters` object\. When the job runs, the parameters from the trigger event are passed to the job container's command\.
 
 **Note**  
 In this scenario, all of the AWS resources \(Amazon S3 bucket, CloudWatch Events rule, CloudTrail logs, etc\.\) must be in the same region\.

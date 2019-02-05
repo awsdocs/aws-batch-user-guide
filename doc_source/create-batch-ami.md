@@ -5,6 +5,8 @@ You can create your own custom compute resource AMI to use for your managed and 
 **To create a custom compute resource AMI**
 
 1. Choose a base AMI to start from\. The base AMI must use HVM virtualization, and it cannot be a Windows AMI\.
+**Note**  
+The AMI that you choose for a compute environment must match the architecture of the instance types that you intend to use for that compute environment\. For example, if your compute environment uses A1 instance types, the compute resource AMI that you choose must support ARM instances\. Amazon ECS vends both x86 and ARM versions of the Amazon ECS\-optimized Amazon Linux 2 AMI\. For more information, see [Amazon ECS\-optimized Amazon Linux 2 AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/al2ami.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
    The Amazon ECS\-optimized AMI is the default AMI for compute resources in managed compute environments\. The Amazon ECS\-optimized AMI is preconfigured and tested on AWS Batch by AWS engineers\. It is the simplest AMI for you to get started and to get your compute resources running on AWS quickly\. For more information, see [Amazon ECS\-Optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
@@ -48,7 +50,11 @@ If you choose a base AMI that does not support the `ecs-init` package, you must 
 **To use your new AMI with AWS Batch**
 
 1. When the AMI creation process is complete, create a compute environment with your new AMI \(be sure to select **Enable user\-specified AMI ID** and specify your custom AMI ID in [Step 9](create-compute-environment.md#enable-custom-ami-step)\)\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
+**Note**  
+The AMI that you choose for a compute environment must match the architecture of the instance types that you intend to use for that compute environment\. For example, if your compute environment uses A1 instance types, the compute resource AMI that you choose must support ARM instances\. Amazon ECS vends both x86 and ARM versions of the Amazon ECS\-optimized Amazon Linux 2 AMI\. For more information, see [Amazon ECS\-optimized Amazon Linux 2 AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/al2ami.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
 1. Create a job queue and associate your new compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
+**Note**  
+All compute environments that are associated with a job queue must share the same architecture\. AWS Batch doesn't support mixing compute environment architecture types in a single job queue\.
 
 1. \(Optional\) Submit a sample job to your new job queue\. For more information, see [Example Job Definitions](example-job-definitions.md), [Creating a Job Definition](create-job-definition.md), and [Submitting a Job](submit_job.md)\.
