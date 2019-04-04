@@ -48,7 +48,13 @@ An empty job definition template is shown below\. You can use this template to c
             }
         ],
         "user": "",
-        "instanceType": ""
+        "instanceType": "",
+        "resourceRequirements": [
+            {
+                "value": "",
+                "type": "GPU"
+            }
+        ]
     },
     "nodeProperties": {
         "numNodes": 0,
@@ -95,7 +101,13 @@ An empty job definition template is shown below\. You can use this template to c
                         }
                     ],
                     "user": "",
-                    "instanceType": ""
+                    "instanceType": "",
+                    "resourceRequirements": [
+                        {
+                            "value": "",
+                            "type": "GPU"
+                        }
+                    ]
                 }
             }
         ]
