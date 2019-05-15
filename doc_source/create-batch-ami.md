@@ -16,7 +16,7 @@ The AMI that you choose for a compute environment must match the architecture of
    sudo yum install -y ecs-init
    ```
 
-   For example, if you want to run GPU workloads on your AWS Batch compute resources, you could start with the [Amazon Linux Deep Learning AMI](https://aws.amazon.com/marketplace/pp/B01M0AXXQB) and configure it to be able to run AWS Batch jobs\. For more information, see [Creating a GPU Workload AMI](batch-gpu-ami.md)\.
+   For example, if you want to run GPU workloads on your AWS Batch compute resources, you could start with the [Amazon Linux Deep Learning AMI](https://aws.amazon.com/marketplace/pp/B01M0AXXQB) and configure it to be able to run AWS Batch jobs\. For more information, see [Using a GPU Workload AMI](batch-gpu-ami.md)\.
 **Important**  
 If you choose a base AMI that does not support the `ecs-init` package, you must configure a way to start the Amazon ECS agent at boot and keep it running\. To view several example user data configuration scripts that use `systemd` to start and monitor the Amazon ECS container agent, see [Example Container Instance User Data Configuration Scripts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/example_user_data_scripts.html) in the *Amazon Elastic Container Service Developer Guide*\.
 

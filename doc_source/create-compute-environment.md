@@ -36,9 +36,11 @@ Before you can run jobs in AWS Batch, you need to create a compute environment\.
 **Important**  
 To tag your Spot Instances on creation \(see [Step 7](#compute-environment-tag-step)\), your Amazon EC2 Spot Fleet IAM role must use the newer **AmazonEC2SpotFleetTaggingRole** managed policy\. The **AmazonEC2SpotFleetRole** managed policy does not have the required permissions to tag Spot Instances\. For more information, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag)\.
 
-   1. For **Allowed instance types**, choose the Amazon EC2 instance types that may be launched\. You can specify instance families to launch any instance type within those families \(for example, `c4` or `p3`\), or you can specify specific sizes within a family \(such as `c4.8xlarge`\)\. You can also choose `optimal` to pick instance types \(from the latest C, M, and R instance families\) on the fly that match the demand of your job queues\.
+   1. For **Allowed instance types**, choose the Amazon EC2 instance types that may be launched\. You can specify instance families to launch any instance type within those families \(for example, `c4` or `p3`\), or you can specify specific sizes within a family \(such as `c4.8xlarge`\)\. You can also choose `optimal` to pick instance types \(from the C, M, and R instance families\) on the fly that match the demand of your job queues\.
 **Note**  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
+**Note**  
+AWS Batch will scale GPUs based on the required amount in your job queues\. In order to use GPU scheduling, the compute environment must include instance types from the `p2` or `p3` families\.
 
    1. \(Optional\) For **Launch template**, select an existing Amazon EC2 launch template to configure your compute resources; the default version of the template is automatically populated\. For more information, see [Launch Template Support](launch-templates.md)\.
 

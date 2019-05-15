@@ -1,6 +1,6 @@
 # Amazon EC2 Spot Fleet Role<a name="spot_fleet_IAM_role"></a>
 
-If you create a managed compute environment that uses Amazon EC2 Spot Fleet Instances, you must create a role that grants the Spot Fleet permission to bid on, launch, tag, and terminate instances on your behalf\. Specify the role in your Spot Fleet request\. You must also have the **AWSServiceRoleForEC2Spot** and **AWSServiceRoleForEC2SpotFleet** service\-linked roles for Amazon EC2 Spot and Spot Fleet\. Use the procedures below to create all of these roles\.
+If you create a managed compute environment that uses Amazon EC2 Spot Fleet Instances, you must create a role that grants the Spot Fleet permission to bid on, launch, tag, and terminate instances on your behalf\. Specify the role in your Spot Fleet request\. You must also have the **AWSServiceRoleForEC2Spot** and **AWSServiceRoleForEC2SpotFleet** service\-linked roles for Amazon EC2 Spot and Spot Fleet\. Use the procedures below to create all of these roles\. For more information, see [Using Service\-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the *IAM User Guide*\.
 
 **Topics**
 + [Create Amazon EC2 Spot Fleet Roles in the AWS Management Console](#spot-fleet-roles-console)
@@ -57,13 +57,16 @@ Historically, there have been two managed policies for the Amazon EC2 Spot Fleet
 1. Run the following command with the AWS CLI:
 
    ```
-   aws iam create-role --role-name AmazonEC2SpotFleetRole --assume-role-policy-document '{"Version":"2012-10-17","Statement":[{"Sid":"","Effect":"Allow","Principal":{"Service":"spotfleet.amazonaws.com"},"Action":"sts:AssumeRole"}]}'
+   aws iam create-role --role-name AmazonEC2SpotFleetRole \
+       --assume-role-policy-document '{"Version":"2012-10-17","Statement":[{"Sid":"","Effect":"Allow","Principal":{"Service":"spotfleet.amazonaws.com"},"Action":"sts:AssumeRole"}]}'
    ```
 
 1. To attach the `AmazonEC2SpotFleetTaggingRole` managed IAM policy to your `AmazonEC2SpotFleetRole` role, run the following command with the AWS CLI: 
 
    ```
-   aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole --role-name AmazonEC2SpotFleetRole
+   aws iam attach-role-policy \
+       --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole \
+       --role-name AmazonEC2SpotFleetRole
    ```
 
 **To create the `AWSServiceRoleForEC2Spot` IAM service\-linked role for Amazon EC2 Spot**

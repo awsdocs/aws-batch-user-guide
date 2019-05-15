@@ -10,7 +10,7 @@ By default, AWS Batch managed compute environments use a recent, approved versio
 **Topics**
 + [Compute Resource AMI Specification](#batch-ami-spec)
 + [Creating a Compute Resource AMI](create-batch-ami.md)
-+ [Creating a GPU Workload AMI](batch-gpu-ami.md)
++ [Using a GPU Workload AMI](batch-gpu-ami.md)
 
 ## Compute Resource AMI Specification<a name="batch-ami-spec"></a>
 
