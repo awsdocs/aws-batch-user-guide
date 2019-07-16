@@ -4,7 +4,7 @@ AWS Batch provides a managed policy that you can attach to IAM users that provid
 
 ## AWSBatchFullAccess<a name="AWSBatchFullAccess"></a>
 
-This policy allows full administrator access to AWS Batch\. 
+This policy allows full administrator access to AWS Batch\.
 
 ```
 {

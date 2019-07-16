@@ -113,6 +113,6 @@ You can use the following procedure to see if your account already has the AWS B
 
 1. For **Select type of trusted entity**, choose **AWS service**\. For **Choose the service that will use this role**, choose **Batch**\.
 
-1. Choose **Next: Permissions**, **Next: Review**\.
+1. Choose **Next: Permissions**, **Next: Tags**, and **Next: Review**\.
 
 1. For **Role Name**, type `AWSBatchServiceRole` and choose **Create Role**\. 

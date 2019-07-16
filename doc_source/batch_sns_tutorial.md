@@ -12,7 +12,7 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 **To create an Amazon SNS topic**
 
-1. Open the Amazon SNS console at [https://console\.aws\.amazon\.com/sns/v2/home](https://console.aws.amazon.com/sns/v2/home)\.
+1. Open the Amazon SNS console at [https://console\.aws\.amazon\.com/sns/v3/home](https://console.aws.amazon.com/sns/v3/home)\.
 
 1. Choose **Topics**, **Create new topic**\.
 
