@@ -52,13 +52,17 @@ You can use default values for parameter substitution as well as placeholders in
 **Note**  
 If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
 
+1. \(Optional\) In the **Resource requirements** section, you can con configure resource requirements for your job's container\. For **Number of GPUs**, specify the number of GPUs your job will use\.
+
+   The job will run on a container with the specified number of GPUs pinned to that container\.
+
 1. \(Optional\) In the **Security** section, you can configure security options for your job's container\.
 
    1. To give your job's container elevated privileges on the host instance \(similar to the `root` user\), select **Privileged**\. This parameter maps to `Privileged` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--privileged` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 
    1. For **User**, enter the user name to use inside the container\. This parameter maps to `User` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--user` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 
-1. \(Optional\) Specify mount points for your job's container to access\.
+1. \(Optional\) In the **Mount points** section, you can configure mount points for your job's container to access\.
 
    1. For **Container path**, enter the path on the container at which to mount the host volume\.
 
@@ -66,13 +70,13 @@ If you are trying to maximize your resource utilization by providing your jobs a
 
    1. To make the volume read\-only for the container, choose **Read\-only**\.
 
-1. \(Optional\) You can specify data volumes for your job to pass to your job's container\.
+1. \(Optional\) In the **Volumes** section, you can specify data volumes for your job to pass to your job's container\.
 
    1. For **Name**, enter a name for your volume\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, and underscores are allowed\.
 
    1. \(Optional\) For **Source Path**, enter the path on the host instance to present to the container\. If you leave this field empty, then the Docker daemon assigns a host path for you\. If you specify a source path, then the data volume persists at the specified location on the host container instance until you delete it manually\. If the source path does not exist on the host container instance, the Docker daemon creates it\. If the location does exist, the contents of the source path folder are exported to the container\.
 
-1. \(Optional\) You can specify environment variables to pass to your job's container\. This parameter maps to `Env` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--env` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
+1. \(Optional\) In the **Environment variables** section, you can specify environment variables to pass to your job's container\. This parameter maps to `Env` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--env` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 **Important**  
 We do not recommend using plaintext environment variables for sensitive information, such as credential data\.
 
@@ -84,7 +88,7 @@ Environment variables must not start with `AWS_BATCH`; this naming convention is
 
    1. For **Value**, specify the value for your environment variable\.
 
-1. For **Ulimits**, configure any ulimit values to use for your job's container\.
+1. \(Optional\) In the **Ulimits** section, you can configure any `ulimit` values to use for your job's container\.
 
    1. Choose **Add limit**\.
 
@@ -93,5 +97,15 @@ Environment variables must not start with `AWS_BATCH`; this naming convention is
    1. For **Soft limit**, choose the soft limit to apply for the ulimit type\.
 
    1. For **Hard limit**, choose the hard limit to apply for the ulimit type\.
+
+1. \(Optional\) In the **Linux Parameters** section, you can configure any device mappings to use for your job's container so that the container can access a device on the host instance\.
+
+   1. In the **Devices** section, choose **Add device**\.
+
+   1. For **Host path**, specify the path of a device in the host instance\.
+
+   1. For **Container path**, specify the path of in the container instance to expose the device mapped to the host instance\. If this is left blank then the host path is used in the container\.
+
+   1. For **Permissions**, choose one or more permissions to apply to the device in the container\. The available permissions are `READ`, `WRITE`, and `MKNOD`\.
 
 1. Choose **Create job definition**\.
