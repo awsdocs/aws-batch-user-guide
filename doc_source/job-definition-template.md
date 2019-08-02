@@ -54,7 +54,18 @@ An empty job definition template is shown below\. You can use this template to c
                 "value": "",
                 "type": "GPU"
             }
-        ]
+        ],
+        "linuxParameters": {
+            "devices": [
+                {
+                    "hostPath": "",
+                    "containerPath": "",
+                    "permissions": [
+                        "WRITE"
+                    ]
+                }
+            ]
+        }
     },
     "nodeProperties": {
         "numNodes": 0,
@@ -107,7 +118,18 @@ An empty job definition template is shown below\. You can use this template to c
                             "value": "",
                             "type": "GPU"
                         }
-                    ]
+                    ],
+                    "linuxParameters": {
+                        "devices": [
+                            {
+                                "hostPath": "",
+                                "containerPath": "",
+                                "permissions": [
+                                    "READ"
+                                ]
+                            }
+                        ]
+                    }
                 }
             }
         ]

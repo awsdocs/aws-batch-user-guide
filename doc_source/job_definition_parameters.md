@@ -21,9 +21,9 @@ Required: Yes
 ## Type<a name="type"></a>
 
 `type`  
-When you register a job definition, you specify the type of job\. At this time, only container jobs are supported\.  
+When you register a job definition, you specify the type of job\. For more information about multi\-node parallel jobs, see [Creating a Multi\-node Parallel Job Definition](multi-node-job-def.md)\.  
 Type: String  
-Valid values: `container`  
+Valid values: `container` \| `multinode`  
 Required: Yes
 
 ## Parameters<a name="parameters"></a>
@@ -98,28 +98,6 @@ The hard limit \(in MiB\) of memory to present to the container\. If your contai
 If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
 Type: Integer  
 Required: Yes
-
-`resourceRequirements`  
-Indicates the number of GPUs to be reserved for your container\.  
-
-```
-"resourceRequirements" : [
-                           {
-                             "type": "GPU",
-                             "value": "number"
-                           }
-                         ]
-```
-Type: Object array  
-Required: No    
-`type`  
-The only supported value is `GPU`\.  
-Type: String  
-Required: Yes, when `resourceRequirements` is used\.  
-`value`  
-The number of physical GPUs each container will require\.  
-Type: String  
-Required: Yes, when `resourceRequirements` is used\.
 
 `mountPoints`  
 The mount points for data volumes in your container\. This parameter maps to `Volumes` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--volume` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
@@ -202,6 +180,64 @@ The user name to use inside the container\. This parameter maps to `User` in the
 ```
 Type: String  
 Required: No
+
+`resourceRequirements`  
+Indicates the number of GPUs to be reserved for your container\.  
+
+```
+"resourceRequirements" : [
+                           {
+                             "type": "GPU",
+                             "value": "number"
+                           }
+                         ]
+```
+Type: Object array  
+Required: No    
+`type`  
+The only supported value is `GPU`\.  
+Type: String  
+Required: Yes, when `resourceRequirements` is used\.  
+`value`  
+The number of physical GPUs each container will require\.  
+Type: String  
+Required: Yes, when `resourceRequirements` is used\.
+
+`linuxParameters`  
+Linux\-specific modifications that are applied to the container, such as details for device mappings\.  
+
+```
+"linuxParameters": {
+                       "devices": [
+                           {
+                               "hostPath": "string",
+                               "containerPath": "string",
+                               "permissions": [
+                                   "READ", "WRITE", "MKNOD"
+                               ]
+                           }
+                       ]
+                   }
+```
+Type: [LinuxParameters](https://docs.aws.amazon.com/batch/latest/APIReference/API_LinuxParameters.html) object  
+Required: No    
+`devices`  
+List of devices mapped into the container\.  
+Type: Array of [Device](https://docs.aws.amazon.com/batch/latest/APIReference/API_Device.html) objects  
+Required: No    
+`hostPath`  
+Path at which the device available in the host\.  
+Type: String  
+Required: Yes  
+`containerPath`  
+Path at which the device is exposed in the container\. If this is not specified the device is exposed at the same path as the host path\.  
+Type: String  
+Required: No  
+`permissions`  
+Permissions for the device in the container\. If this is not specified the permissions are set to `READ`, `WRITE`, and `MKNOD`\.  
+Type: Array of strings  
+Required: No  
+Valid values: `READ` \| `WRITE` \| `MKNOD`
 
 `vcpus`  
 The number of vCPUs reserved for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least one vCPU\.  

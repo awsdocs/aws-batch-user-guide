@@ -49,6 +49,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Compute Environment Template](compute-environment-template.md)
    + [Compute Environment Parameters](compute_environment_parameters.md)
    + [Compute Resource Memory Management](memory-management.md)
++ [Elastic Fabric Adapter](efa.md)
 + [AWS Batch IAM Policies, Roles, and Permissions](IAM_policies.md)
    + [Policy Structure](iam-policy-structure.md)
    + [Supported Resource-Level Permissions for AWS Batch API Actions](batch-supported-iam-actions-resources.md)
