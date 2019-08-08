@@ -34,10 +34,16 @@ If you choose a base AMI that does not support the `ecs-init` package, you must 
 1. If you started the Amazon ECS container agent on your instance, you must stop it and remove the persistent data checkpoint file before creating your AMI; otherwise, the agent will not start on instances that are launched from your AMI\. 
 
    1. Stop the Amazon ECS container agent\.
+      + Amazon ECS\-optimized Amazon Linux 2 AMI:
 
-      ```
-      sudo stop ecs
-      ```
+        ```
+        sudo systemctl stop ecs
+        ```
+      + Amazon ECS\-optimized Amazon Linux AMI:
+
+        ```
+        sudo stop ecs
+        ```
 
    1. Remove the persistent data checkpoint file\. By default, this file is located at `/var/lib/ecs/data/ecs_agent_data.json`\. Use the following command to remove the file\.
 
