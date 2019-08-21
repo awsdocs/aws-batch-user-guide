@@ -90,7 +90,7 @@ At this time, you can only create a managed compute environment in the first run
 
    1. For **Spot fleet role**, choose to create a new role or use an existing Amazon EC2 Spot Fleet IAM role to apply to your Spot compute environment\. If you choose to create a new role, the required role \(`aws-ec2-spot-fleet-role`\) is created for you\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.
 
-1. For **Allowed instance types**, choose the Amazon EC2 instance types that may launched\. You can specify instance families to launch any instance type within those families \(for example, `c4` or `p3`\), or you can specify specific sizes within a family \(such as `c4.8xlarge`\)\. You can also choose `optimal` to pick instance types \(from the C, M, and R instance families\) on the fly that match the demand of your job queues\.
+1. For **Allowed instance types**, choose the Amazon EC2 instance types that may launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types are not in the instance families \(for example `c5` does not include `c5.metal`\.\) You can also choose `optimal` to pick instance types \(from the C, M, and R instance families\) on the fly that match the demand of your job queues\.
 **Note**  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
 

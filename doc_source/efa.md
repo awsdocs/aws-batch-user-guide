@@ -6,7 +6,7 @@ An Elastic Fabric Adapter \(EFA\) is a network device to accelerate High Perform
 + The AMI has the EFA driver loaded\.
 + The security group for the EFA must allows all inbound and outbound traffic to and from the security group itself\.
 + All instances that use an EFA should be in the same cluster placement group\.
-+ The job definition must include a `devices` member with `hostPath` set to `/dev/infiniband/uverbs0` to allow the EFA device to be passed through to the container\. If `containerPath` is specified is must also be set to `/dev/infiniband/uverbs0`\. If `permissions` is set it must be set to `READ` \| `WRITE` \| `MKNOD`\.
++ The job definition must include a `devices` member with `hostPath` set to `/dev/infiniband/uverbs0` to allow the EFA device to be passed through to the container\. If `containerPath` is specified it must also be set to `/dev/infiniband/uverbs0`\. If `permissions` is set it must be set to `READ` \| `WRITE` \| `MKNOD`\.
 
   The location of the [LinuxParameters](https://docs.aws.amazon.com/batch/latest/APIReference/API_LinuxParameters.html) member will be different for multi\-node parallel jobs and single\-node container jobs\. The examples below demonstrate the differences but are missing required values\.  
 **Example Example for multi\-node parallel job**  
@@ -26,7 +26,6 @@ An Elastic Fabric Adapter \(EFA\) is a network device to accelerate High Perform
               "devices": [
                 {
                   "hostPath": "/dev/infiniband/uverbs0",
-                  "containerPath": "/dev/infiniband/uverbs0",
                   "containerPath": "/dev/infiniband/uverbs0",
                   "permissions": [
                       "READ", "WRITE", "MKNOD"

@@ -57,7 +57,7 @@ The desired number of EC2 vCPUS in the compute environment\. AWS Batch modifies 
 Type: Integer  
 Required: No  
 `instanceTypes`  
-The instance types that may be launched\. You can specify instance families to launch any instance type within those families \(for example, `c4` or `p3`\), or you can specify specific sizes within a family \(such as `c4.8xlarge`\)\. You can also choose `optimal` to pick instance types \(from the C, M, and R instance families\) on the fly that match the demand of your job queues\.  
+The instance types that may be launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types are not in the instance families \(for example `c5` does not include `c5.metal`\.\) You can also choose `optimal` to pick instance types \(from the C, M, and R instance families\) on the fly that match the demand of your job queues\.  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
 Type: Array of strings  
 Required: yes  
