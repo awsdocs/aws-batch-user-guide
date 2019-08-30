@@ -101,7 +101,7 @@ runcmd:
 - echo "${file_system_id_01}:/ ${efs_directory} efs tls,_netdev" >> /etc/fstab
 - mount -a -t efs defaults
 
---==MYBOUNDARY==
+--==MYBOUNDARY==--
 ```
 
 **Example Override default Amazon ECS container agent configuration**  
