@@ -4,6 +4,7 @@ The following table describes the important changes to the documentation since t
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Allocation Strategies](https://docs.aws.amazon.com/batch/latest/userguide/allocation-strategies.html ) | AWS Batch adds support for multiple strategies to choose instance types\. | October 16, 2019 | 
 | [EFA Support](https://docs.aws.amazon.com/batch/latest/userguide/efa.html) | AWS Batch adds support for Elastic Fabric Adapter \(EFA\) devices\. | August 2, 2019 | 
 | [GPU Scheduling](https://docs.aws.amazon.com/batch/latest/userguide/gpu-jobs.html) | GPU jobs enable you to specify the number of GPUs each job requires\. AWS Batch will scale up instances appropriate for your jobs\. | April 4, 2019 | 
 | [Multi\-node Parallel Jobs](https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html) | Multi\-node parallel jobs enable you to run single jobs that span multiple Amazon EC2 instances\. | November 19, 2018 | 

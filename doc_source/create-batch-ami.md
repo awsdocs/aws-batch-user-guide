@@ -55,7 +55,7 @@ If you choose a base AMI that does not support the `ecs-init` package, you must 
 
 **To use your new AMI with AWS Batch**
 
-1. When the AMI creation process is complete, create a compute environment with your new AMI \(be sure to select **Enable user\-specified AMI ID** and specify your custom AMI ID in [Step 9](create-compute-environment.md#enable-custom-ami-step)\)\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
+1. When the AMI creation process is complete, create a compute environment with your new AMI \(be sure to select **Enable user\-specified AMI ID** and specify your custom AMI ID in [Step 10](create-compute-environment.md#enable-custom-ami-step)\)\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
 **Note**  
 The AMI that you choose for a compute environment must match the architecture of the instance types that you intend to use for that compute environment\. For example, if your compute environment uses A1 instance types, the compute resource AMI that you choose must support ARM instances\. Amazon ECS vends both x86 and ARM versions of the Amazon ECS\-optimized Amazon Linux 2 AMI\. For more information, see [Amazon ECS\-optimized Amazon Linux 2 AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/al2ami.html) in the *Amazon Elastic Container Service Developer Guide*\.
 

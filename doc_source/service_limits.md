@@ -1,6 +1,6 @@
 # AWS Batch Service Limits<a name="service_limits"></a>
 
-The following table provides the service limits for AWS Batch, which cannot be changed\.
+The following table provides the service limits for AWS Batch, which cannot be changed\. Each limit is Region\-specific\.
 
 
 | Resource | Limit | 

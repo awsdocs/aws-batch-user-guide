@@ -42,6 +42,8 @@ When you create a compute environment, the instance types that you select for th
 **Note**  
 AWS Batch will scale GPUs based on the required amount in your job queues\. In order to use GPU scheduling, the compute environment must include instance types from the `p2` or `p3` families\.
 
+   1. For **Allocation strategy**, choose the allocation strategy to use when selecting instance types from the list of allowed instance types\. For more information, see [Allocation Strategies](allocation-strategies.md)\.
+
    1. \(Optional\) For **Launch template**, select an existing Amazon EC2 launch template to configure your compute resources; the default version of the template is automatically populated\. For more information, see [Launch Template Support](launch-templates.md)\.
 
    1. \(Optional\) For **Launch template version**, enter `$Default`, `$Latest`, or a specific version number to use\.

@@ -44,12 +44,17 @@ Required: this parameter is required for managed compute environments
 The type of compute environment\. Use this parameter to specify whether to use Amazon EC2 On\-Demand Instances or Amazon EC2 Spot Instances in your compute environment\. If you choose `SPOT`, you must also specify an Amazon EC2 Spot Fleet role with the `spotIamFleetRole` parameter\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.  
 Valid values: `EC2` \| `SPOT`  
 Required: Yes  
+`allocationStrategy`  
+The allocation strategy to use for the compute resource in case not enough instances of the best fitting instance type can be allocated\. This could be due to availability of the instance type in the region or [Amazon EC2 service limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html)\. If this is not specified, the default is `BEST_FIT`, which will use only the best fitting instance type, waiting for additional capacity if it's not available\. This allocation strategy keeps costs lower but can limit scaling\. `BEST_FIT_PROGRESSIVE` will select an additional instance type that is large enough to meet the requirements of the jobs in the queue, with a preference for an instance type with a lower cost\. SPOT\_CAPACITY\_OPTIMIZED is only available for Spot Instance compute resources and will select an additional instance type that is large enough to meet the requirements of the jobs in the queue, with a preference for an instance type that is less likely to be interrupted\.  
+Valid values: `BEST_FIT` \| `BEST_FIT_PROGRESSIVE` \| `SPOT_CAPACITY_OPTIMIZED`  
+Required: No  
 `minvCpus`  
 The minimum number of EC2 vCPUs that an environment should maintain \(even if a compute environment is `DISABLED`\)\.  
 Type: Integer  
 Required: Yes  
 `maxvCpus`  
-The maximum number of EC2 vCPUs that an environment can reach\.   
+The maximum number of EC2 vCPUs that an environment can reach\.  
+With both `BEST_FIT_PROGRESSIVE` and `SPOT_CAPACITY_OPTIMIZED` allocation strategies, AWS Batch may need to go above `maxvCpus` to meet your capacity requirements\. In this event, AWS Batch will never go above `maxvCpus` by more than a single instance \(e\.g\., no more than a single instance from among those specified in your compute environment\)\.
 Type: Integer  
 Required: Yes  
 `desiredvCpus`  

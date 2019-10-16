@@ -9,6 +9,7 @@ Job queues are mapped to one or more compute environments\. Compute environments
 + [Launch Template Support](launch-templates.md)
 + [Creating a Compute Environment](create-compute-environment.md)
 + [Compute Environment Parameters](compute_environment_parameters.md)
++ [Allocation Strategies](allocation-strategies.md)
 + [Compute Resource Memory Management](memory-management.md)
 
 ## Managed Compute Environments<a name="managed_compute_environments"></a>
