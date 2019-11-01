@@ -27,15 +27,15 @@ The policy attached to your CloudWatch Events IAM role should allow `batch:Submi
 
 ```
 {
-       "Version": "2012-10-17",
-       "Statement": [
-             {
-                "Effect": "Allow",
-                "Action": [
-                     "batch:SubmitJob"
-                 ],
-                 "Resource": "*"
-              }
-        ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "batch:SubmitJob"
+       ],
+      "Resource": "*"
+    }
+  ]
 }
 ```

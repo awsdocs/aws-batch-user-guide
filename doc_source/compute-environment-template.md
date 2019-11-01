@@ -8,7 +8,8 @@ An empty compute environment template is shown below\. You can use this template
     "type": "UNMANAGED",
     "state": "ENABLED",
     "computeResources": {
-        "type": "EC2",
+        "type": "SPOT",
+        "allocationStrategy": "SPOT_CAPACITY_OPTIMIZED",
         "minvCpus": 0,
         "maxvCpus": 0,
         "desiredvCpus": 0,
@@ -27,6 +28,7 @@ An empty compute environment template is shown below\. You can use this template
         "tags": {
             "KeyName": ""
         },
+        "placementGroup": "",
         "bidPercentage": 0,
         "spotIamFleetRole": "",
         "launchTemplate": {

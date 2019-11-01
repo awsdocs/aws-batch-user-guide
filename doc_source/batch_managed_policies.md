@@ -18,6 +18,10 @@ This policy allows full administrator access to AWS Batch\.
                 "ec2:DescribeSubnets",
                 "ec2:DescribeSecurityGroups",
                 "ec2:DescribeKeyPairs",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeImages",
+                "ec2:DescribeLaunchTemplates",
+                "ec2:DescribeLaunchTemplateVersions",
                 "ecs:DescribeClusters",
                 "ecs:Describe*",
                 "ecs:List*",
@@ -32,10 +36,14 @@ This policy allows full administrator access to AWS Batch\.
         },
         {
             "Effect": "Allow",
-            "Action": ["iam:PassRole"],
+            "Action": [
+                "iam:PassRole"
+            ],
             "Resource": [
                 "arn:aws:iam::*:role/AWSBatchServiceRole",
+                "arn:aws:iam::*:role/service-role/AWSBatchServiceRole",
                 "arn:aws:iam::*:role/ecsInstanceRole",
+                "arn:aws:iam::*:instance-profile/ecsInstanceRole",
                 "arn:aws:iam::*:role/iaws-ec2-spot-fleet-role",
                 "arn:aws:iam::*:role/aws-ec2-spot-fleet-role",
                 "arn:aws:iam::*:role/AWSBatchJobRole*"
