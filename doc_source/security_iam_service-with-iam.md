@@ -66,7 +66,7 @@ Some AWS Batch actions, such as those for creating resources, cannot be performe
 "Resource": "*"
 ```
 
-Many Amazon EC2 API actions involve multiple resources\. For example, `AttachVolume` attaches an Amazon EBS volume to an instance, so an IAM user must have permissions to use the volume and the instance\. To specify multiple resources in a single statement, separate the ARNs with commas\.
+One AWS Batch API action involves multiple resources\. `SubmitJob` submits a job to a job queue so an IAM user must have permissions to use the job definition and the job queue\. To specify multiple resources in a single statement, separate the ARNs with commas\.
 
 ```
 "Resource": [
@@ -85,8 +85,6 @@ If you specify multiple `Condition` elements in a statement, or multiple keys in
  You can also use placeholder variables when you specify conditions\. For example, you can grant an IAM user permission to access a resource only if it is tagged with their IAM user name\. For more information, see [IAM Policy Elements: Variables and Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html) in the *IAM User Guide*\.
 
 AWS Batch defines its own set of condition keys and also supports using some global condition keys\. To see all AWS global condition keys, see [AWS Global Condition Context Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) in the *IAM User Guide*\.
-
-
 
  The AWS Batch [RegisterJobDefinition](https://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) action supports the `batch:User`, `batch:Privileged`, and `batch:Image` condition keys\. For more information, see [Supported Resource\-Level Permissions for AWS Batch API Actions](batch-supported-iam-actions-resources.md)\.
 
