@@ -1,7 +1,7 @@
 # Elastic Fabric Adapter<a name="efa"></a>
 
 An Elastic Fabric Adapter \(EFA\) is a network device to accelerate High Performance Computing \(HPC\) applications\. AWS Batch supports applications that use EFA if the following conditions are met\.
-+ Compute environment contains only supported instance types \(`c5n.18xlarge`, `c5n.metal`, `i3en.24xlarge`, `p3dn.24xlarge`\)\.
++ Compute environment contains only supported instance types \(`c5n.18xlarge`, `c5n.metal`, `i3en.24xlarge`, `m5dn.24xlarge`, `m5n.24xlarge`, `r5dn.24xlarge`, `r5n.24xlarge`, and `p3dn.24xlarge`\)\.
 + The OS in the AMI supports EFA: Amazon Linux, Amazon Linux 2, Red Hat Enterprise Linux 7\.6, CentOS 7\.6, Ubuntu 16\.04, Ubuntu 18\.04\.
 + The AMI has the EFA driver loaded\.
 + The security group for the EFA must allows all inbound and outbound traffic to and from the security group itself\.

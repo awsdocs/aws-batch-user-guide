@@ -13,14 +13,14 @@ Although the command and environment variables are hard\-coded into the job defi
     "jobDefinitionName": "fetch_and_run",
     "type": "container",
     "containerProperties": {
-        "image": "012345678910.dkr.ecr.us-east-1.amazonaws.com/fetch_and_run",
+        "image": "123456789012.dkr.ecr.us-east-1.amazonaws.com/fetch_and_run",
         "vcpus": 2,
         "memory": 2000,
         "command": [
             "myjob.sh",
             "60"
         ],
-        "jobRoleArn": "arn:aws:iam::012345678910:role/AWSBatchS3ReadOnly",
+        "jobRoleArn": "arn:aws:iam::123456789012:role/AWSBatchS3ReadOnly",
         "environment": [
             {
                 "name": "BATCH_FILE_S3_URL",
@@ -62,7 +62,7 @@ For more information, see [Parameters](job_definition_parameters.md#parameters)\
             "-o",
             "Ref::outputfile"
         ],
-        "jobRoleArn": "arn:aws:iam::012345678910:role/ECSTask-S3FullAccess",
+        "jobRoleArn": "arn:aws:iam::123456789012:role/ECSTask-S3FullAccess",
         "user": "nobody"
     }
 }
@@ -93,4 +93,37 @@ You can create a file with the JSON text above called `tensorflow_mnist_deep.jso
 
 ```
 aws batch register-job-definition --cli-input-json file://tensorflow_mnist_deep.json
+```
+
+## Multi\-node Parallel Job<a name="example-mnp-job-definition"></a>
+
+The following example job definition illustrates a multi\-node parallel job\. For more details, see [Building a tightly coupled molecular dynamics workflow with multi\-node parallel jobs in AWS Batch](http://aws.amazon.com/blogs/compute/building-a-tightly-coupled-molecular-dynamics-workflow-with-multi-node-parallel-jobs-in-aws-batch/) in the *AWS Compute* blog\.
+
+```
+{
+  "jobDefinitionName": "gromacs-jobdef",
+  "jobDefinitionArn": "arn:aws:batch:us-east-2:123456789012:job-definition/gromacs-jobdef:1",
+  "revision": 6,
+  "status": "ACTIVE",
+  "type": "multinode",
+  "parameters": {},
+  "nodeProperties": {
+    "numNodes": 2,
+    "mainNode": 0,
+    "nodeRangeProperties": [
+      {
+        "targetNodes": "0:1",
+        "container": {
+          "image": "123456789012.dkr.ecr.us-east-2.amazonaws.com/gromacs_mpi:latest",
+          "vcpus": 8,
+          "memory": 24000,
+          "command": [],
+          "jobRoleArn": "arn:aws:iam::123456789012:role/ecsTaskExecutionRole",
+          "ulimits": [],
+          "instanceType": "p3.2xlarge"
+        }
+      }
+    ]
+  }
+}
 ```

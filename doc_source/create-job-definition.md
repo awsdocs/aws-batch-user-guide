@@ -52,7 +52,7 @@ You can use default values for parameter substitution as well as placeholders in
 **Note**  
 If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
 
-1. \(Optional\) In the **Resource requirements** section, you can con configure resource requirements for your job's container\. For **Number of GPUs**, specify the number of GPUs your job will use\.
+1. \(Optional\) In the **Resource requirements** section, you can configure resource requirements for your job's container\. For **Number of GPUs**, specify the number of GPUs your job will use\.
 
    The job will run on a container with the specified number of GPUs pinned to that container\.
 

@@ -40,7 +40,7 @@ To tag your Spot Instances on creation \(see [Step 7](#compute-environment-tag-s
 **Note**  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
 **Note**  
-AWS Batch will scale GPUs based on the required amount in your job queues\. In order to use GPU scheduling, the compute environment must include instance types from the `p2` or `p3` families\.
+AWS Batch will scale GPUs based on the required amount in your job queues\. In order to use GPU scheduling, the compute environment must include instance types from the `p2`, `p3`, `g3`, `g3s`, or `g4` families\.
 
    1. For **Allocation strategy**, choose the allocation strategy to use when selecting instance types from the list of allowed instance types\. For more information, see [Allocation Strategies](allocation-strategies.md)\.
 
