@@ -49,7 +49,7 @@ The `LINE` variable is set to the `AWS_BATCH_JOB_ARRAY_INDEX` \+ 1 because the a
    FROM busybox
    COPY print-color.sh /tmp/print-color.sh
    COPY colors.txt /tmp/colors.txt
-   RUN chmod +x /tmp/colors.txt
+   RUN chmod +x /tmp/colors.sh
    ENTRYPOINT /tmp/print-color.sh
    ```
 

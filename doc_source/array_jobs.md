@@ -12,7 +12,7 @@ For array job dependencies, you can specify a type for a dependency, such as `SE
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/batch/latest/userguide/images/sequential-dep.png)
 
-You can also specify an `N_TO_N` type dependency with a job ID for array jobs so that each index child of this job must wait for the corresponding index child of each dependency to complete before it can begin\. The figure below shows Job A and Job B, two array jobs with an array size of 4 each\. Each job in Job B's child index is dependent on the corresponding index in Job A\. Job B:1 can't start until job A:1 finishes\. 
+You can also specify an `N_TO_N` type dependency with a job ID for array jobs so that each index child of this job must wait for the corresponding index child of each dependency to complete before it can begin\. The figure below shows Job A and Job B, two array jobs with an array size of 10,000 each\. Each job in Job B's child index is dependent on the corresponding index in Job A\. Job B:1 can't start until job A:1 finishes\. 
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/batch/latest/userguide/images/n-to-n-dep.png)
 

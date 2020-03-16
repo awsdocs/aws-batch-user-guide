@@ -120,3 +120,44 @@ echo ECS_IMAGE_MINIMUM_CLEANUP_AGE=60m >> /etc/ecs/ecs.config
 
 --==MYBOUNDARY==--
 ```
+
+**Example Mount an existing Amazon FSx for Lustre file system**  
+This example MIME multi\-part file configures the compute resource to install the `lustre2.10` package from the Extras Library and mount an existing Amazon FSx for Lustre file system at `/scratch`\. This example is for Amazon Linux 2\. For installation instructions for other Linux distributions, see [Installing the Lustre Client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) in the *Amazon FSx for Lustre User Guide*\.  
+
+```
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==MYBOUNDARY=="
+
+--==MYBOUNDARY==
+Content-Type: text/cloud-config; charset="us-ascii"
+
+runcmd:
+- file_system_id_01=fs-0abcdef1234567890
+- region=us-east-2
+- fsx_directory=/scratch
+- amazon-linux-extras install -y lustre2.10
+- mkdir -p ${fsx_directory}
+- mount -t lustre ${file_system_id_01}.fsx.${region}.amazonaws.com@tcp:fsx ${fsx_directory}
+
+--==MYBOUNDARY==--
+```
+In the [volumes](https://docs.aws.amazon.com/atch/latest/APIReference/API_ContainerProperties.html#Batch-Type-ContainerProperties-volumes) and [mountPoints](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html#Batch-Type-ContainerProperties-mountPoints) members of the container properties the mount points must be mapped into the container\.  
+
+```
+{
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "/scratch"
+            },
+            "name": "Scratch"
+        }
+    ],
+    "mountPoints": [
+        {
+            "containerPath": "/scratch",
+            "sourceVolume": "Scratch"
+        }
+    ],
+}
+```

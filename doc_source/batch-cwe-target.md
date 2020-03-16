@@ -77,7 +77,7 @@ In this scenario, all of the AWS resources \(Amazon S3 bucket, CloudWatch Events
 
 1. For **Targets**, choose **Batch job queue** and then specify the job queue, job definition, and job name to use for the jobs that are triggered by this rule\.
 
-1. For **Configure input**, choose **Input Transformer**\.
+1. Choose **Configure input** and then choose **Input Transformer**\.
 
 1. For the upper input transformer text box, specify the values to parse from the triggering event\. For example, to parse the bucket and key name from an Amazon S3 event, use the following JSON\.
 

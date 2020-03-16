@@ -1,7 +1,7 @@
 # AWS Batch User Guide
 
 -----
-*****Copyright &copy; 2019 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -78,4 +78,3 @@ Amazon's trademarks and trade dress may not be used in
 + [AWS Batch Service Limits](service_limits.md)
 + [Troubleshooting AWS Batch](troubleshooting.md)
 + [Document History](document_history.md)
-+ [AWS Glossary](glossary.md)
