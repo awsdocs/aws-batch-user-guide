@@ -47,6 +47,8 @@ AWS Batch will scale GPUs based on the required amount in your job queues\. In o
    1. \(Optional\) For **Launch template**, select an existing Amazon EC2 launch template to configure your compute resources; the default version of the template is automatically populated\. For more information, see [Launch Template Support](launch-templates.md)\.
 
    1. \(Optional\) For **Launch template version**, enter `$Default`, `$Latest`, or a specific version number to use\.
+**Important**  
+After the compute environment is created, the launch template version used will not be changed, even if the `$Default` or `$Latest` version for the launch template is updated\. To use a new launch template version, create a new compute environment, add the new compute environment to the existing job queue, remove the old compute environment from the job queue, and delete the old compute environment\.
 
    1. For **Minimum vCPUs**, choose the minimum number of EC2 vCPUs that your compute environment should maintain, regardless of job queue demand\.
 

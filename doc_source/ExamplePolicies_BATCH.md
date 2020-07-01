@@ -5,7 +5,7 @@ The following examples show policy statements that you could use to control the 
 **Topics**
 + [Read\-Only Access](#iam-example-read-only)
 + [Restricting User, Image, Privilege, Role](#iam-example-job-def)
-+ [Restrict Job Definition](#iam-example-restrict-job-def)
++ [Restrict Job Submission](#iam-example-restrict-job-submission)
 + [Restrict Job Queue](#iam-example-restrict-job-queue)
 
 ## Example: Read\-Only Access<a name="iam-example-read-only"></a>
@@ -98,7 +98,7 @@ The third statement restricts a user to passing only a specific role to a job de
 }
 ```
 
-## Example: Restrict to Job Definition Prefix on Job Submission<a name="iam-example-restrict-job-def"></a>
+## Example: Restrict to Job Definition Prefix on Job Submission<a name="iam-example-restrict-job-submission"></a>
 
 The following policy allows a user to submit jobs to any job queue with any job definition name that begins with *JobDefA\_*\.
 

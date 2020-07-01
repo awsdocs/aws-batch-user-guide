@@ -55,7 +55,9 @@ You can supply Amazon EC2 user data in your launch template that is executed by 
 + [Installing packages](https://cloudinit.readthedocs.io/en/latest/topics/examples.html#install-arbitrary-packages)
 + [Creating partitions and file systems](https://cloudinit.readthedocs.io/en/latest/topics/examples.html#create-partitions-and-filesystems)
 
-Amazon EC2 user data in launch templates must be in the [MIME multi\-part archive](https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive) format, because your user data is merged with other AWS Batch user data that is required to configure your compute resources\. You can combine multiple user data blocks together into a single MIME multi\-part file\. For example, you might want to combine a cloud boothook that configures the Docker daemon with a user data shell script that writes configuration information for the Amazon ECS container agent\. 
+Amazon EC2 user data in launch templates must be in the [MIME multi\-part archive](https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive) format, because your user data is merged with other AWS Batch user data that is required to configure your compute resources\. You can combine multiple user data blocks together into a single MIME multi\-part file\. For example, you might want to combine a cloud boothook that configures the Docker daemon with a user data shell script that writes configuration information for the Amazon ECS container agent\.
+
+If you are using AWS CloudFormation, the [AWS::CloudFormation::Init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html) type can be used with the [cfn\-init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-init.html) helper script to perform common configuration scenarios\.
 
 A MIME multi\-part file consists of the following components:
 + The content type and part boundary declaration: `Content-Type: multipart/mixed; boundary="==BOUNDARY=="`
@@ -80,7 +82,14 @@ If you add user data to a launch template in the Amazon EC2 console, you can pas
 }
 ```
 
-**Example Mount an existing Amazon EFS file system**  
+**Topics**
++ [Example: Mount an existing Amazon EFS file system](#example-mount-an-existing-amazon-efs-file-system)
++ [Example: Override default Amazon ECS container agent configuration](#example-override-default-amazon-ecs-container-agent-configuration)
++ [Example: Mount an existing Amazon FSx for Lustre file system](#example-mount-an-existing-amazon-fsx-for-lustre-file-system)
+
+### Example: Mount an existing Amazon EFS file system<a name="example-mount-an-existing-amazon-efs-file-system"></a>
+
+**Example**  
 This example MIME multi\-part file configures the compute resource to install the `amazon-efs-utils` package and mount an existing Amazon EFS file system at `/mnt/efs`\.  
 
 ```
@@ -104,7 +113,9 @@ runcmd:
 --==MYBOUNDARY==--
 ```
 
-**Example Override default Amazon ECS container agent configuration**  
+### Example: Override default Amazon ECS container agent configuration<a name="example-override-default-amazon-ecs-container-agent-configuration"></a>
+
+**Example**  
 This example MIME multi\-part file overrides the default Docker image cleanup settings for a compute resource\.  
 
 ```
@@ -121,7 +132,9 @@ echo ECS_IMAGE_MINIMUM_CLEANUP_AGE=60m >> /etc/ecs/ecs.config
 --==MYBOUNDARY==--
 ```
 
-**Example Mount an existing Amazon FSx for Lustre file system**  
+### Example: Mount an existing Amazon FSx for Lustre file system<a name="example-mount-an-existing-amazon-fsx-for-lustre-file-system"></a>
+
+**Example**  
 This example MIME multi\-part file configures the compute resource to install the `lustre2.10` package from the Extras Library and mount an existing Amazon FSx for Lustre file system at `/scratch`\. This example is for Amazon Linux 2\. For installation instructions for other Linux distributions, see [Installing the Lustre Client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) in the *Amazon FSx for Lustre User Guide*\.  
 
 ```
@@ -141,7 +154,7 @@ runcmd:
 
 --==MYBOUNDARY==--
 ```
-In the [volumes](https://docs.aws.amazon.com/atch/latest/APIReference/API_ContainerProperties.html#Batch-Type-ContainerProperties-volumes) and [mountPoints](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html#Batch-Type-ContainerProperties-mountPoints) members of the container properties the mount points must be mapped into the container\.  
+In the [volumes](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html#Batch-Type-ContainerProperties-volumes) and [mountPoints](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html#Batch-Type-ContainerProperties-mountPoints) members of the container properties the mount points must be mapped into the container\.  
 
 ```
 {

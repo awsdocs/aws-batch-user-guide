@@ -98,13 +98,12 @@ Now that you have built and tested your Docker container, you must push it to an
    docker tag print-color aws_account_id.dkr.ecr.region.amazonaws.com/print-color
    ```
 
-1. Retrieve the login command for your Amazon ECR registry\. For more information, see [Registry Authentication](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth) in the *Amazon Elastic Container Registry User Guide*\.
+1. Login to your Amazon ECR registry\. For more information, see [Registry Authentication](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth) in the *Amazon Elastic Container Registry User Guide*\.
 
    ```
-   aws ecr get-login --no-include-email
+   aws ecr get-login-password --region region | docker login --username AWS \
+       --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
    ```
-
-1. Run the docker login \.\.\. command that was returned by the previous step\. 
 
 1. Push your image to Amazon ECR:
 
@@ -118,7 +117,7 @@ Now that your Docker image is in an image registry, you can specify it in an AWS
 
 **To create a job definition**
 
-1. Create a file called `print-color.json` in your workspace directory and paste the contents below into it\. Replace the image repository URI with your own image's URI\.
+1. Create a file called `print-color-job-def.json` in your workspace directory and paste the contents below into it\. Replace the image repository URI with your own image's URI\.
 
    ```
    {
@@ -135,7 +134,7 @@ Now that your Docker image is in an image registry, you can specify it in an AWS
 1. Register the job definition with AWS Batch:
 
    ```
-   aws batch register-job-definition --cli-input-json file://print-color.json
+   aws batch register-job-definition --cli-input-json file://print-color-job-def.json
    ```
 
 ## Step 4: Submit an AWS Batch Array Job<a name="submit-array-job"></a>
@@ -144,7 +143,7 @@ After you have registered your job definition, you can submit an AWS Batch array
 
 **To submit an AWS Batch array job**
 
-1. Create a file called `print-color-job-def.json` in your workspace directory and paste the contents below into it\.
+1. Create a file called `print-color-job.json` in your workspace directory and paste the contents below into it\.
 **Note**  
 This example assumes the default job queue name that is created by the AWS Batch first\-run wizard\. If your job queue name is different, replace the `first-run-job-queue` name with your job queue name\.
 
@@ -162,7 +161,7 @@ This example assumes the default job queue name that is created by the AWS Batch
 1. Submit the job to your AWS Batch job queue\. Note the job ID that is returned in the output\.
 
    ```
-   aws batch submit-job --cli-input-json file://print-color-job-def.json
+   aws batch submit-job --cli-input-json file://print-color-job.json
    ```
 
 1. Describe the job's status and wait for the job to move to `SUCCEEDED`\.

@@ -5,7 +5,7 @@ Job queues are split into four basic components: the name, state, and priority o
 ## Job Queue Name<a name="job_queue_name"></a>
 
 `jobQueueName`  
-The name for your compute environment\. Up to 128 letters \(uppercase and lowercase\), numbers, and underscores are allowed\.  
+The name for your job queue\. Up to 128 letters \(uppercase and lowercase\), numbers, and underscores are allowed\.  
 Type: String  
 Required: Yes
 

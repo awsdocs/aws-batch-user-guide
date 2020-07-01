@@ -29,7 +29,7 @@ Required: Yes
 `state`  
 The state of the compute environment\.  
 If the state is `ENABLED`, then the AWS Batch scheduler can attempt to place jobs from an associated job queue on the compute resources within the environment\. If the compute environment is managed, then it can scale its instances out or in automatically, based on job queue demand\.  
-If the state is `DISABLED`, then the AWS Batch scheduler does not attempt to place jobs within the environment\. Jobs in a `STARTING` or `RUNNING` state continue to progress normally\. Managed compute environments in the `DISABLED` state do not scale out; however, they scale in to `minvCpus` value once instances become idle\.  
+If the state is `DISABLED`, then the AWS Batch scheduler does not attempt to place jobs within the environment\. Jobs in a `STARTING` or `RUNNING` state continue to progress normally\. Managed compute environments in the `DISABLED` state do not scale out; however, they scale in to the fewest number of instances that satisfies the `minvCpus` value once instances become idle\.  
 Type: String  
 Valid values: `ENABLED` \| `DISABLED`  
 Required: No

@@ -13,3 +13,5 @@ The following table provides the service limits for AWS Batch, which cannot be c
 | Maximum job payload size \(for [https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) API operations\) | 30 KiB | 
 | Maximum array size for array jobs | 10000 | 
 | Maximum number of jobs in SUBMITTED state | 1000000 | 
+
+Depending on how you use AWS Batch, additional quotas may apply\. To learn about Amazon EC2 quotas, see [Amazon EC2 Service Quotas](https://docs.aws.amazon.com/general/latest/gr/ec2-service.html#limits_ec2) in the *AWS General Reference*\. To learn about Amazon ECS quotas, [Amazon ECS Service Quotas](https://docs.aws.amazon.com/general/latest/gr/ecs-service.html#limits_ecs) in the *AWS General Reference*\.

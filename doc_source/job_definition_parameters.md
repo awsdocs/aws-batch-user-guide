@@ -21,7 +21,7 @@ Required: Yes
 ## Type<a name="type"></a>
 
 `type`  
-When you register a job definition, you specify the type of job\. For more information about multi\-node parallel jobs, see [Creating a Multi\-node Parallel Job Definition](multi-node-job-def.md)\.  
+When you register a job definition, you specify the type of job\. For more information about multi\-node parallel jobs \(also called array jobs\), see [Creating a Multi\-node Parallel Job Definition](multi-node-job-def.md)\.  
 Type: String  
 Valid values: `container` \| `multinode`  
 Required: Yes

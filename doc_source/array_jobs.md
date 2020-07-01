@@ -1,6 +1,6 @@
 # Array Jobs<a name="array_jobs"></a>
 
-An array job is a job that shares common parameters, such as the job definition, vCPUs, and memory\. It runs as a collection of related, yet separate, basic jobs that may be distributed across multiple hosts and may run concurrently\. Array jobs are the most efficient way to execute embarrassingly parallel jobs such as Monte Carlo simulations, parametric sweeps, or large rendering jobs\.
+An array job is a job that shares common parameters, such as the job definition, vCPUs, and memory\. It runs as a collection of related, yet separate, basic jobs that may be distributed across multiple hosts and may run concurrently\. Array jobs are the most efficient way to execute extremely parallel jobs such as Monte Carlo simulations, parametric sweeps, or large rendering jobs\.
 
 AWS Batch array jobs are submitted just like regular jobs\. However, you specify an array size \(between 2 and 10,000\) to define how many child jobs should run in the array\. If you submit a job with an array size of 1000, a single job runs and spawns 1000 child jobs\. The array job is a reference or pointer to manage all the child jobs\. This allows you to submit large workloads with a single query\. 
 
