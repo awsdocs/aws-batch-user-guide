@@ -85,14 +85,7 @@ The third statement restricts a user to passing only a specific role to a job de
             ],
             "Resource": [
                 "arn:aws:iam::<aws_account_id>:role/MyBatchJobRole"
-            ],
-            "Condition": {
-                "StringEquals": {
-                    "iam:PassedToService": [
-                        "batch.amazonaws.com"
-                    ]
-                }
-            }
+            ]
         }
     ]
 }

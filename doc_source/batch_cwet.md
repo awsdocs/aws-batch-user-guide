@@ -16,27 +16,30 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 1. Choose **Create a Lambda function**, **Author from scratch**\. 
 
-1. For **Name**, enter **batch\-event\-stream\-handler**\.
+1. For **Function name**, enter **batch\-event\-stream\-handler**\.
 
-1. For **Role**, choose **Create a custom role**, **Allow**\.
+1. For **Runtime**, choose **Python 3\.8**\.
 
 1. Choose **Create function**\.
 
-1. In the **Function code** section, choose **Python 2\.7** for the runtime and edit the sample code to match the following example:
+1. In the **Function code** section, edit the sample code to match the following example:
 
    ```
    import json
    
-   def lambda_handler(event, context):
+   
+   def lambda_handler(event, _context):
+       # _context is not used
+       del _context
        if event["source"] != "aws.batch":
-          raise ValueError("Function only supports input from events with a source type of: aws.batch")
-          
+           raise ValueError("Function only supports input from events with a source type of: aws.batch")
+   
        print(json.dumps(event))
    ```
 
-   This is a simple Python 2\.7 function that prints the events sent by AWS Batch\. If everything is configured correctly, at the end of this tutorial, you see that the event details appear in the CloudWatch Logs log stream associated with this Lambda function\.
+   This is a simple Python 3\.8 function that prints the events sent by AWS Batch\. If everything is configured correctly, at the end of this tutorial, you see that the event details appear in the CloudWatch Logs log stream associated with this Lambda function\.
 
-1. Choose **Save**\.
+1. Choose **Deploy**\.
 
 ## Step 2: Register Event Rule<a name="cwet_register_event_rule"></a>
 

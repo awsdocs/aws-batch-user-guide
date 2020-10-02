@@ -143,7 +143,7 @@ To connect to your Linux instance from a computer running Mac or Linux, specify 
 
 1. Start PuTTYgen \(for example, from the **Start** menu, choose **All Programs, PuTTY, and PuTTYgen**\)\.
 
-1. Under **Type of key to generate**, choose **SSH\-2 RSA**\.  
+1. Under **Type of key to generate**, choose **RSA**\. If you're using an earlier version of PuTTYgen, choose **SSH\-2 RSA**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/batch/latest/userguide/images/puttygen-key-type.png)
 
 1. Choose **Load**\. By default, PuTTYgen displays only files with the extension `.ppk`\. To locate your `.pem` file, choose the option to display files of all types\.  

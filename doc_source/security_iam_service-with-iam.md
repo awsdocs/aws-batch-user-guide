@@ -21,7 +21,7 @@ To specify multiple actions in a single statement, separate them with commas as 
 ```
 "Action": [
       "batch:action1",
-      "batchaction2"
+      "batch:action2"
 ```
 
 You can specify multiple actions using wildcards \(\*\)\. For example, to specify all actions that begin with the word `Describe`, include the following action\.

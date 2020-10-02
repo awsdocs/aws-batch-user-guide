@@ -31,7 +31,7 @@ If you choose a base AMI that does not support the `ecs-init` package, you must 
 
    For more information, see [Connecting to Your Linux Instance Using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 
-1. If you started the Amazon ECS container agent on your instance, you must stop it and remove the persistent data checkpoint file before creating your AMI; otherwise, the agent will not start on instances that are launched from your AMI\. 
+1. If you started the Amazon ECS container agent on your instance, you must stop it and remove any persistent data checkpoint files before creating your AMI; otherwise, the agent will not start on instances that are launched from your AMI\. 
 
    1. Stop the Amazon ECS container agent\.
       + Amazon ECS\-optimized Amazon Linux 2 AMI:
@@ -45,10 +45,10 @@ If you choose a base AMI that does not support the `ecs-init` package, you must 
         sudo stop ecs
         ```
 
-   1. Remove the persistent data checkpoint file\. By default, this file is located at `/var/lib/ecs/data/ecs_agent_data.json`\. Use the following command to remove the file\.
+   1. Remove the persistent data checkpoint files\. By default, these files are located in the `/var/lib/ecs/data/` directory\. Use the following command to remove any such files\.
 
       ```
-      sudo rm -rf /var/lib/ecs/data/ecs_agent_data.json
+      sudo rm -rf /var/lib/ecs/data/*
       ```
 
 1. Create a new AMI from your running instance\. For more information, see [Creating an Amazon EBS\-Backed Linux AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html) in the *Amazon EC2 User Guide for Linux Instances* guide\.

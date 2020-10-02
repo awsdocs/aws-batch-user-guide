@@ -1,6 +1,6 @@
 # Compute Environments<a name="compute_environments"></a>
 
-Job queues are mapped to one or more compute environments\. Compute environments contain the Amazon ECS container instances that are used to run containerized batch jobs\. A given compute environment can also be mapped to one or many job queues\. Within a job queue, the associated compute environments each have an order that is used by the scheduler to determine where to place jobs that are ready to be executed\. If the first compute environment has free resources, the job is scheduled to a container instance within that compute environment\. If the compute environment is unable to provide a suitable compute resource, the scheduler attempts to run the job on the next compute environment\.
+Job queues are mapped to one or more compute environments\. Compute environments contain the Amazon ECS container instances that are used to run containerized batch jobs\. A given compute environment can also be mapped to one or many job queues\. Within a job queue, the associated compute environments each have an order that is used by the scheduler to determine where to place jobs that are ready to be executed\. If the first compute environment has available resources, the job is scheduled to a container instance within that compute environment\. If the compute environment is unable to provide a suitable compute resource, the scheduler attempts to run the job on the next compute environment\.
 
 **Topics**
 + [Managed Compute Environments](#managed_compute_environments)

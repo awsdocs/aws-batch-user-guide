@@ -9,7 +9,7 @@ An Elastic Fabric Adapter \(EFA\) is a network device to accelerate High Perform
 + The job definition must include a `devices` member with `hostPath` set to `/dev/infiniband/uverbs0` to allow the EFA device to be passed through to the container\. If `containerPath` is specified it must also be set to `/dev/infiniband/uverbs0`\. If `permissions` is set it must be set to `READ` \| `WRITE` \| `MKNOD`\.
 
   The location of the [LinuxParameters](https://docs.aws.amazon.com/batch/latest/APIReference/API_LinuxParameters.html) member will be different for multi\-node parallel jobs and single\-node container jobs\. The examples below demonstrate the differences but are missing required values\.  
-**Example Example for multi\-node parallel job**  
+**Example for multi\-node parallel job**  
 
   ```
   {
@@ -39,7 +39,7 @@ An Elastic Fabric Adapter \(EFA\) is a network device to accelerate High Perform
     },
   }
   ```  
-**Example Example for single\-node container job**  
+**Example for single\-node container job**  
 
   ```
   {

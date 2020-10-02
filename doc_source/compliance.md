@@ -1,6 +1,6 @@
 # Compliance Validation for AWS Batch<a name="compliance"></a>
 
-Third\-party auditors assess the security and compliance of AWS Batch as part of multiple AWS compliance programs\. These include SOC, PCI, ISO, HIPAA BAA, MTCS, and others\.
+Third\-party auditors assess the security and compliance of AWS Batch as part of multiple AWS compliance programs\. These include SOC, PCI, ISO, FedRAMP, DoD CC SRG, HIPAA BAA, IRAP, MTCS, ENS High, OSPAR, HITRUST CSF, and others\.
 
 For a list of AWS services in scope of specific compliance programs, see [AWS Services in Scope by Compliance Program](http://aws.amazon.com/compliance/services-in-scope/)\. For general information, see [AWS Compliance Programs](http://aws.amazon.com/compliance/programs/)\.
 

@@ -17,6 +17,7 @@ An empty job definition template is shown below\. You can use this template to c
             ""
         ],
         "jobRoleArn": "",
+        "executionRoleArn": "",
         "volumes": [
             {
                 "host": {
@@ -61,11 +62,42 @@ An empty job definition template is shown below\. You can use this template to c
                     "hostPath": "",
                     "containerPath": "",
                     "permissions": [
-                        "WRITE"
+                        "READ"
                     ]
                 }
+            ],
+            "initProcessEnabled": true,
+            "sharedMemorySize": 0,
+            "tmpfs": [
+                {
+                    "containerPath": "",
+                    "size": 0,
+                    "mountOptions": [
+                        ""
+                    ]
+                }
+            ],
+            "maxSwap": 0,
+            "swappiness": 0
+        },
+        "logConfiguration": {
+            "logDriver": "syslog",
+            "options": {
+                "KeyName": ""
+            },
+            "secretOptions": [
+                {
+                    "name": "",
+                    "valueFrom": ""
+                }
             ]
-        }
+        },
+        "secrets": [
+            {
+                "name": "",
+                "valueFrom": ""
+            }
+        ]
     },
     "nodeProperties": {
         "numNodes": 0,
@@ -81,6 +113,7 @@ An empty job definition template is shown below\. You can use this template to c
                         ""
                     ],
                     "jobRoleArn": "",
+                    "executionRoleArn": "",
                     "volumes": [
                         {
                             "host": {
@@ -125,11 +158,42 @@ An empty job definition template is shown below\. You can use this template to c
                                 "hostPath": "",
                                 "containerPath": "",
                                 "permissions": [
-                                    "READ"
+                                    "WRITE"
                                 ]
                             }
+                        ],
+                        "initProcessEnabled": true,
+                        "sharedMemorySize": 0,
+                        "tmpfs": [
+                            {
+                                "containerPath": "",
+                                "size": 0,
+                                "mountOptions": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "maxSwap": 0,
+                        "swappiness": 0
+                    },
+                    "logConfiguration": {
+                        "logDriver": "awslogs",
+                        "options": {
+                            "KeyName": ""
+                        },
+                        "secretOptions": [
+                            {
+                                "name": "",
+                                "valueFrom": ""
+                            }
                         ]
-                    }
+                    },
+                    "secrets": [
+                        {
+                            "name": "",
+                            "valueFrom": ""
+                        }
+                    ]
                 }
             }
         ]

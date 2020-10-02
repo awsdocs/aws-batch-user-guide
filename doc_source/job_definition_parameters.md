@@ -2,7 +2,7 @@
 
 Job definitions are split into four basic parts: the job definition name, the type of the job definition, parameter substitution placeholder defaults, and the container properties for the job\.
 
-**Topics**
+**Contents**
 + [Job Definition Name](#jobDefinitionName)
 + [Type](#type)
 + [Parameters](#parameters)
@@ -73,13 +73,18 @@ Required: Yes, when `environment` is used\.
 
 ```
 "environment" : [
-    { "name" : "string", "value" : "string" },
-    { "name" : "string", "value" : "string" }
+    { "name" : "envName1", "value" : "envValue1" },
+    { "name" : "envName2", "value" : "envValue2" }
 ]
 ```
 
+`executionRoleArn`  
+When you register a job definition, you can specify an IAM role\. The role provides the Amazon ECS container agent with permissions to call the API actions that are specified in its associated policies on your behalf\. For more information, see [AWS Batch execution IAM role](execution-IAM-role.md)\.  
+Type: String  
+Required: No
+
 `image`  
-The image used to start a container\. This string is passed directly to the Docker daemon\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
+The Docker image used to start a job\. This string is passed directly to the Docker daemon\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
 Docker image architecture must match the processor architecture of the compute resources that they're scheduled on\. For example, ARM\-based Docker images can only run on ARM\-based compute resources\.
 + Images in Amazon ECR repositories use the full `registry/repository:tag` naming convention\. For example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`
 + Images in official repositories on Docker Hub use a single name \(for example, `ubuntu` or `mongo`\)\.
@@ -88,13 +93,169 @@ Docker image architecture must match the processor architecture of the compute r
 Type: String  
 Required: Yes
 
+`instanceType`  
+The instance type to use for a multi\-node parallel job\. Currently all node groups in a multi\-node parallel job must use the same instance type\. This parameter is not valid for single\-node container jobs\.  
+Type: String  
+Required: No
+
 `jobRoleArn`  
 When you register a job definition, you can specify an IAM role\. The role provides the job container with permissions to call the API actions that are specified in its associated policies on your behalf\. For more information, see [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) in the *Amazon Elastic Container Service Developer Guide*\.   
 Type: String  
 Required: No
 
+`linuxParameters`  
+Linux\-specific modifications that are applied to the container, such as details for device mappings\.  
+
+```
+"linuxParameters": {
+    "devices": [
+        {
+            "hostPath": "string",
+            "containerPath": "string",
+            "permissions": [
+                "READ", "WRITE", "MKNOD"
+            ]
+        }
+    ],
+    "initProcessEnabled": true|false,
+    "sharedMemorySize": 0,
+    "tmpfs": [
+        {
+            "containerPath": "string",
+            "size": integer,
+            "mountOptions": [
+                "string"
+            ]
+        }
+    ],
+    "maxSwap": integer,
+    "swappiness": integer
+}
+```
+Type: [LinuxParameters](https://docs.aws.amazon.com/batch/latest/APIReference/API_LinuxParameters.html) object  
+Required: No    
+`devices`  
+List of devices mapped into the container\.  
+Type: Array of [Device](https://docs.aws.amazon.com/batch/latest/APIReference/API_Device.html) objects  
+Required: No    
+`hostPath`  
+Path at which the device available in the host\.  
+Type: String  
+Required: Yes  
+`containerPath`  
+Path at which the device is exposed in the container\. If this is not specified the device is exposed at the same path as the host path\.  
+Type: String  
+Required: No  
+`permissions`  
+Permissions for the device in the container\. If this is not specified the permissions are set to `READ`, `WRITE`, and `MKNOD`\.  
+Type: Array of strings  
+Required: No  
+Valid values: `READ` \| `WRITE` \| `MKNOD`  
+`initProcessEnabled`  
+If true, run an `init` process inside the container that forwards signals and reaps processes\. This parameter maps to the `--init` option to [docker run](https://docs.docker.com/engine/reference/run/)\. This parameter requires version 1\.25 of the Docker Remote API or greater on your container instance\. To check the Docker Remote API version on your container instance, log into your container instance and run the following command: `sudo docker version | grep "Server API version"`  
+Type: Boolean  
+Required: No  
+`maxSwap`  
+The total amount of swap memory \(in MiB\) a job can use\. This parameter will be translated to the `--memory-swap` option to [docker run](https://docs.docker.com/engine/reference/run/) where the value would be the sum of the container memory plus the `maxSwap` value\.  
+If a `maxSwap` value of `0` is specified, the container will not use swap\. Accepted values are `0` or any positive integer\. If the `maxSwap` parameter is omitted, the container will use the swap configuration for the container instance it is running on\. A `maxSwap` value must be set for the `swappiness` parameter to be used\.  
+Type: Integer  
+Required: No  
+`sharedMemorySize`  
+The value for the size \(in MiB\) of the `/dev/shm` volume\. This parameter maps to the `--shm-size` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
+Type: Integer  
+Required: No  
+`swappiness`  
+This allows you to tune a container's memory swappiness behavior\. A `swappiness` value of `0` will cause swapping to not happen unless absolutely necessary\. A `swappiness` value of `100` will cause pages to be swapped very aggressively\. Accepted values are whole numbers between `0` and `100`\. If the `swappiness` parameter is not specified, a default value of `60` is used\. If a value is not specified for `maxSwap` then this parameter is ignored\. This parameter maps to the `--memory-swappiness` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
+Type: Integer  
+Required: No  
+`tmpfs`  
+The container path, mount options, and size of the tmpfs mount\.  
+Type: Array of [Tmpfs](https://docs.aws.amazon.com/batch/latest/APIReference/API_Tmpfs.html) objects  
+Required: No    
+`containerPath`  
+The absolute file path in the container where the tmpfs volume is to be mounted\.  
+Type: String  
+Required: Yes  
+`mountOptions`  
+The list of tmpfs volume mount options\.  
+Valid values: "`defaults`" \| "`ro`" \| "`rw`" \| "`suid`" \| "`nosuid`" \| "`dev`" \| "`nodev`" \| "`exec`" \| "`noexec`" \| "`sync`" \| "`async`" \| "`dirsync`" \| "`remount`" \| "`mand`" \| "`nomand`" \| "`atime`" \| "`noatime`" \| "`diratime`" \| "`nodiratime`" \| "`bind`" \| "`rbind`" \| "`unbindable`" \| "`runbindable`" \| "`private`" \| "`rprivate`" \| "`shared`" \| "`rshared`" \| "`slave`" \| "`rslave`" \| "`relatime`" \| "`norelatime`" \| "`strictatime`" \| "`nostrictatime`" \| "`mode`" \| "`uid`" \| "`gid`" \| "`nr_inodes`" \| "`nr_blocks`" \| "`mpol`"  
+Type: Array of strings  
+Required: No  
+`size`  
+The size \(in MiB\) of the tmpfs volume\.  
+Type: Integer  
+Required: Yes
+
+`logConfiguration`  
+The log configuration specification for the job\.  
+
+```
+"logConfiguration": {
+    "devices": [
+        {
+            "logDriver": "string",
+            "options": {
+                "optionName1" : "optionValue1",
+                "optionName2" : "optionValue2"
+            }
+            "secretOptions": [
+              {
+                  "name" : "secretOptionName1",
+                  "valueFrom" : "secretOptionArn1"
+              },
+              {
+                  "name" : "secretOptionName2",
+                  "valueFrom" : "secretOptionArn2"
+              }
+            ]
+        }
+    ]
+}
+```
+Type: [LogConfiguration](https://docs.aws.amazon.com/batch/latest/APIReference/API_LogConfiguration.html) object  
+Required: No    
+`logDriver`  
+The log driver to use for the job\. By default, AWS Batch enables the `awslogs` log driver   
+This parameter maps to `LogConfig` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--log-driver` option to [docker run](https://docs.docker.com/engine/reference/run/)\. By default, jobs use the same logging driver that the Docker daemon uses\. However the job may use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the job definition\. To use a different logging driver for a job, the log system must be configured properly on the container instance in the compute environment \(or on a different log server for remote logging options\)\. For more information on the options for different supported log drivers, see [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation\.  
+AWS Batch currently supports a subset of the logging drivers available to the Docker daemon\. Additional log drivers may be available in future releases of the Amazon ECS container agent\.
+This parameter requires version 1\.18 of the Docker Remote API or greater on your container instance\. To check the Docker Remote API version on your container instance, log into your container instance and run the following command: `sudo docker version | grep "Server API version"`  
+The Amazon ECS container agent running on a container instance must register the logging drivers available on that instance with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable before containers placed on that instance can use these log configuration options\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\.  
+`awslogs`  
+Specifies the Amazon CloudWatch Logs logging driver\. For more information, see [Using the awslogs Log Driver](using_awslogs.md) and [Amazon CloudWatch Logs logging driver](https://docs.docker.com/config/containers/logging/awslogs/) in the Docker documentation\.  
+`fluentd`  
+Specifies the Fluentd logging driver\. For more information, including usage and options, see [Fluentd logging driver](https://docs.docker.com/config/containers/logging/fluentd/) in the Docker documentation\.  
+`gelf`  
+Specifies the Graylog Extended Format \(GELF\) logging driver\. For more information, including usage and options, see [Graylog Extended Format logging driver](https://docs.docker.com/config/containers/logging/gelf/) in the Docker documentation\.  
+`journald`  
+Specifies the journald logging driver\. For more information, including usage and options, see [Journald logging driver](https://docs.docker.com/config/containers/logging/journald/) in the Docker documentation\.  
+`json-file`  
+Specifies the JSON file logging driver\. For more information, including usage and options, see [JSON File logging driver](https://docs.docker.com/config/containers/logging/json-file/) in the Docker documentation\.  
+`splunk`  
+Specifies the Splunk logging driver\. For more information, including usage and options, see [Splunk logging driver](https://docs.docker.com/config/containers/logging/splunk/) in the Docker documentation\.  
+`syslog`  
+Specifies the syslog logging driver\. For more information, including usage and options, see [Syslog logging driver](https://docs.docker.com/config/containers/logging/syslog/) in the Docker documentation\.
+Type: String  
+Required: Yes  
+Valid values: `awslogs` \| `fluentd` \| `gelf` \| `journald` \| `json-file` \| `splunk` \| `syslog`  
+`options`  
+Log configuration options to send to a log driver for the job\.  
+Type: String to string map  
+Required: No  
+`secretOptions`  
+An object representing the secret to pass to the log configuration\. For more information, see [Specifying sensitive data](specifying-sensitive-data.md)\.  
+Type: object array  
+Required: No    
+`name`  
+The name of the log driver option to set in the job\.  
+Type: String  
+Required: Yes  
+`valueFrom`  
+The ARN of the secret to expose to the log configuration of the container\.  
+Type: String  
+Required: Yes
+
 `memory`  
-The hard limit \(in MiB\) of memory to present to the container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\.  
+The hard limit \(in MiB\) of memory to present to the container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\. This is required but can be specified in several places for multi\-node parallel \(MNP\) jobs; it must be specified for each node at least once\.  
 If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
 Type: Integer  
 Required: Yes
@@ -104,12 +265,12 @@ The mount points for data volumes in your container\. This parameter maps to `Vo
 
 ```
 "mountPoints": [
-                {
-                  "sourceVolume": "string",
-                  "containerPath": "string",
-                  "readOnly": true|false
-                }
-              ]
+  {
+    "sourceVolume": "string",
+    "containerPath": "string",
+    "readOnly": true|false
+  }
+]
 ```
 Type: Object array  
 Required: No    
@@ -144,18 +305,67 @@ When this parameter is true, the container is given read\-only access to its roo
 Type: Boolean  
 Required: No
 
+`resourceRequirements`  
+Indicates the number of GPUs to be reserved for your job\.  
+
+```
+"resourceRequirements" : [
+  {
+    "type": "GPU",
+    "value": "number"
+  }
+]
+```
+Type: Object array  
+Required: No    
+`type`  
+The only supported value is `GPU`\.  
+Type: String  
+Required: Yes, when `resourceRequirements` is used\.  
+`value`  
+The number of physical GPUs each container will require\.  
+Type: String  
+Required: Yes, when `resourceRequirements` is used\.
+
+`secrets`  
+The secrets for the job that will be exposed as environment variables\. For more information, see [Specifying sensitive data](specifying-sensitive-data.md)\.  
+
+```
+"secrets": [
+    {
+      "name": "secretName1",
+      "valueFrom": "secretArn1"
+    },
+    {
+      "name": "secretName2",
+      "valueFrom": "secretArn2"
+    }
+    ...
+]
+```
+Type: Object array  
+Required: No    
+`name`  
+The name of the environment variable that will contain the secret\.  
+Type: String  
+Required: Yes, when `secrets` is used\.  
+`valueFrom`  
+The ARN of the secret\.  
+Type: String  
+Required: Yes, when `secrets` is used\.
+
 `ulimits`  
 A list of `ulimits` values to set in the container\. This parameter maps to `Ulimits` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--ulimit` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.   
 
 ```
 "ulimits": [
-      {
-        "name": string,
-        "softLimit": integer,
-        "hardLimit": integer
-      }
-      ...
-    ]
+  {
+    "name": string,
+    "softLimit": integer,
+    "hardLimit": integer
+  }
+  ...
+]
 ```
 Type: Object array  
 Required: No    
@@ -181,66 +391,8 @@ The user name to use inside the container\. This parameter maps to `User` in the
 Type: String  
 Required: No
 
-`resourceRequirements`  
-Indicates the number of GPUs to be reserved for your container\.  
-
-```
-"resourceRequirements" : [
-                           {
-                             "type": "GPU",
-                             "value": "number"
-                           }
-                         ]
-```
-Type: Object array  
-Required: No    
-`type`  
-The only supported value is `GPU`\.  
-Type: String  
-Required: Yes, when `resourceRequirements` is used\.  
-`value`  
-The number of physical GPUs each container will require\.  
-Type: String  
-Required: Yes, when `resourceRequirements` is used\.
-
-`linuxParameters`  
-Linux\-specific modifications that are applied to the container, such as details for device mappings\.  
-
-```
-"linuxParameters": {
-                       "devices": [
-                           {
-                               "hostPath": "string",
-                               "containerPath": "string",
-                               "permissions": [
-                                   "READ", "WRITE", "MKNOD"
-                               ]
-                           }
-                       ]
-                   }
-```
-Type: [LinuxParameters](https://docs.aws.amazon.com/batch/latest/APIReference/API_LinuxParameters.html) object  
-Required: No    
-`devices`  
-List of devices mapped into the container\.  
-Type: Array of [Device](https://docs.aws.amazon.com/batch/latest/APIReference/API_Device.html) objects  
-Required: No    
-`hostPath`  
-Path at which the device available in the host\.  
-Type: String  
-Required: Yes  
-`containerPath`  
-Path at which the device is exposed in the container\. If this is not specified the device is exposed at the same path as the host path\.  
-Type: String  
-Required: No  
-`permissions`  
-Permissions for the device in the container\. If this is not specified the permissions are set to `READ`, `WRITE`, and `MKNOD`\.  
-Type: Array of strings  
-Required: No  
-Valid values: `READ` \| `WRITE` \| `MKNOD`
-
 `vcpus`  
-The number of vCPUs reserved for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least one vCPU\.  
+The number of vCPUs reserved for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least one vCPU\. This is required but can be specified in several places for multi\-node parallel \(MNP\) jobs; it must be specified for each node at least once\.  
 Type: Integer  
 Required: Yes
 

@@ -7,6 +7,8 @@ AWS Batch job definitions specify how jobs are to be run\. While each job must r
 + [Creating a Multi\-node Parallel Job Definition](multi-node-job-def.md)
 + [Job Definition Template](job-definition-template.md)
 + [Job Definition Parameters](job_definition_parameters.md)
++ [Using the awslogs Log Driver](using_awslogs.md)
++ [Specifying sensitive data](specifying-sensitive-data.md)
 + [Example Job Definitions](example-job-definitions.md)
 
 Some of the attributes specified in a job definition include:

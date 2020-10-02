@@ -68,5 +68,5 @@ Environment variables must not start with `AWS_BATCH`; this naming convention is
 
 1. Choose **Submit job**\.
 **Note**  
-Logs for `RUNNING`, `SUCCEEDED`, and `FAILED` jobs are available in CloudWatch Logs; the log group is `/aws/batch/job`, and the log stream name format is `jobDefinitionName/default/ecs_task_id` \(this format may change in the future\)\.  
+Logs for `RUNNING`, `SUCCEEDED`, and `FAILED` jobs are available in CloudWatch Logs; the log group is `/aws/batch/job`, and the log stream name format is `first200CharsOfJobDefinitionName/default/ecs_task_id` \(this format may change in the future\)\.  
 After a job reaches the `RUNNING` status, you can programmatically retrieve its log stream name with the [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operation\. For more information, see [View Log Data Sent to CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html#ViewingLogData) in the *Amazon CloudWatch Logs User Guide*\. By default, these logs are set to never expire, but you can modify the retention period\. For more information, see [Change Log Data Retention in CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SettingLogRetention.html) in the *Amazon CloudWatch Logs User Guide*\.

@@ -12,7 +12,7 @@ Required: Yes
 ## State<a name="job_queue_state"></a>
 
 `state`  
-The state of the job queue\. If the job queue state is `ENABLED` \(the default value\), it is able to accept jobs\.  
+The state of the job queue\. If the job queue state is `ENABLED` \(the default value\), it is able to accept jobs\. If the job queue state is `DISABLED`, new jobs cannot be added to the queue, but jobs already in the queue can finish\.  
 Type: String  
 Valid values: `ENABLED` \| `DISABLED`  
 Required: No

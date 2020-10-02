@@ -6,7 +6,7 @@ The following example job definitions illustrate how to use common patterns such
 
 The following example job definition uses environment variables to specify a file type and Amazon S3 URL\. This particular example is from the [Creating a Simple "Fetch & Run" AWS Batch Job](https://aws.amazon.com/blogs/compute/creating-a-simple-fetch-and-run-aws-batch-job/) compute blog post\. The [https://github.com/awslabs/aws-batch-helpers/blob/master/fetch-and-run/fetch_and_run.sh](https://github.com/awslabs/aws-batch-helpers/blob/master/fetch-and-run/fetch_and_run.sh) script that is described in the blog post uses these environment variables to download the `myjob.sh` script from S3 and declare its file type\.
 
-Although the command and environment variables are hard\-coded into the job definition in this example, you can submit a job with this definition and specify command and environment variable overrides to make the job definition more versatile\.
+Although the command and environment variables are hardcoded into the job definition in this example, you can submit a job with this definition and specify command and environment variable overrides to make the job definition more versatile\.
 
 ```
 {
