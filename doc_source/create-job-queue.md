@@ -24,4 +24,6 @@ All compute environments that are associated with a job queue must share the sam
 
    You can change the order of compute environments by choosing the up and down arrows next to the **Order** column in the table\.
 
+1. \(Optional\) In the **Tags** section, you can specify the key and value for each tag to associate with the job queue\. For more information, see [Tagging your AWS Batch resources](using-tags.md)\.
+
 1. Choose **Create** to finish and create your job queue\.

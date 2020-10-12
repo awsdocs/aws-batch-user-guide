@@ -4,8 +4,9 @@ The following table describes the important changes to the documentation since t
 
 | Change | Description | Date | 
 | --- |--- |--- |
-| [Secrets](https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html) | AWS Batch adds support for passing secrets to jobs\. | January 1, 2020 | 
-| [Logging](https://docs.aws.amazon.com/batch/latest/userguide/using_awslogs.html) | AWS Batch adds support for specifying additional log drivers for jobs\. | January 1, 2020 | 
+| [Resource Tagging](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html) | AWS Batch adds support for adding metadata tags to your compute environments, job definitions, job queues, and jobs\. | October 7, 2020 | 
+| [Secrets](https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html) | AWS Batch adds support for passing secrets to jobs\. | October 1, 2020 | 
+| [Logging](https://docs.aws.amazon.com/batch/latest/userguide/using_awslogs.html) | AWS Batch adds support for specifying additional log drivers for jobs\. | October 1, 2020 | 
 | [Allocation Strategies](https://docs.aws.amazon.com/batch/latest/userguide/allocation-strategies.html) | AWS Batch adds support for multiple strategies to choose instance types\. | October 16, 2019 | 
 | [EFA Support](https://docs.aws.amazon.com/batch/latest/userguide/efa.html) | AWS Batch adds support for Elastic Fabric Adapter \(EFA\) devices\. | August 2, 2019 | 
 | [GPU Scheduling](https://docs.aws.amazon.com/batch/latest/userguide/gpu-jobs.html) | GPU jobs enable you to specify the number of GPUs each job requires\. AWS Batch will scale up instances appropriate for your jobs\. | April 4, 2019 | 

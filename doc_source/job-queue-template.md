@@ -5,12 +5,17 @@ An empty job queue template is shown below\. You can use this template to create
 ```
 {
     "jobQueueName": "",
-    "state": "",
+    "state": "DISABLED",
     "priority": 0,
-    "computeEnvironmentOrder": [{
-        "order": 0,
-        "computeEnvironment": ""
-    }]
+    "computeEnvironmentOrder": [
+        {
+            "order": 0,
+            "computeEnvironment": ""
+        }
+    ],
+    "tags": {
+        "KeyName": ""
+    }
 }
 ```
 

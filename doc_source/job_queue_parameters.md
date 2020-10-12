@@ -37,3 +37,10 @@ Type: String
 Required: Yes  
 `order`  
 The order of the compute environment\. Compute environments are tried in ascending order\. For example, if two compute environments are associated with a job queue, the compute environment with a lower `order` integer value is tried for job placement first\.
+
+## Tags<a name="job_queue_tags"></a>
+
+`tags`  
+Key\-value pair tags to associate with the job queue\. For more information, see [Tagging your AWS Batch resources](using-tags.md)\.  
+Type: String to string map  
+Required: No

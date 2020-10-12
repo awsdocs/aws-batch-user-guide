@@ -4,6 +4,7 @@ Before you use IAM to manage access to AWS Batch, you should understand what IAM
 
 **Topics**
 + [AWS Batch Identity\-Based Policies](#security_iam_service-with-iam-id-based-policies)
++ [Authorization Based on AWS Batch Tags](#security_iam_service-with-iam-tags)
 + [AWS Batch IAM Roles](#security_iam_service-with-iam-roles)
 
 ## AWS Batch Identity\-Based Policies<a name="security_iam_service-with-iam-id-based-policies"></a>
@@ -66,7 +67,7 @@ Some AWS Batch actions, such as those for creating resources, cannot be performe
 "Resource": "*"
 ```
 
-One AWS Batch API action involves multiple resources\. `SubmitJob` submits a job to a job queue so an IAM user must have permissions to use the job definition and the job queue\. To specify multiple resources in a single statement, separate the ARNs with commas\.
+Several AWS Batch API operation involves multiple resources\. For example, `SubmitJob` submits a job to a job queue so an IAM user must have permissions to use the job definition and the job queue\. To specify multiple resources in a single statement, separate the ARNs with commas\.
 
 ```
 "Resource": [
@@ -96,9 +97,15 @@ To see a list of AWS Batch condition keys, see [Condition Keys for AWS Batch](ht
 
 To view examples of AWS Batch identity\-based policies, see [Identity\-Based Policy Examples](security_iam_id-based-policy-examples.md)\.
 
-AWS Batch does not support resource\-based policies\.
+AWS Batch does support resource\-based policies\.
 
-AWS Batch does not support tagging resources or controlling access based on tags\.
+AWS Batch does support tagging resources and controlling access based on tags\.
+
+## Authorization Based on AWS Batch Tags<a name="security_iam_service-with-iam-tags"></a>
+
+You can attach tags to AWS Batch resources or pass tags in a request to AWS Batch\. To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `batch:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\. For more information about tagging AWS Batch resources, see [Tagging your AWS Batch resources](using-tags.md)\.
+
+To view an example identity\-based policy for limiting access to a resource based on the tags on that resource, see [Identity\-Based Policy Examples](security_iam_id-based-policy-examples.md)\.
 
 ## AWS Batch IAM Roles<a name="security_iam_service-with-iam-roles"></a>
 

@@ -108,4 +108,6 @@ Environment variables must not start with `AWS_BATCH`; this naming convention is
 
    1. For **Permissions**, choose one or more permissions to apply to the device in the container\. The available permissions are `READ`, `WRITE`, and `MKNOD`\.
 
+1. \(Optional\) In the **Tags** section, you can specify the key and value for each tag to associate with the job definition\. For more information, see [Tagging your AWS Batch resources](using-tags.md)\.
+
 1. Choose **Create job definition**\.

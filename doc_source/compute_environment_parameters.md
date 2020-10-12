@@ -8,6 +8,7 @@ Compute environments are split into five basic components: the name, type, and s
 + [State](#compute_environment_state)
 + [Compute Resources](#compute_environment_compute_resources)
 + [Service Role](#compute_environment_service_role)
++ [Tags](#compute_environment_tags)
 
 ## Compute Environment Name<a name="compute_environment_name"></a>
 
@@ -123,3 +124,10 @@ Required: No
 The full Amazon Resource Name \(ARN\) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\.  
 Type: String  
 Required: Yes
+
+## Tags<a name="compute_environment_tags"></a>
+
+`tags`  
+Key\-value pair tags to associate with the compute environment\. For more information, see [Tagging your AWS Batch resources](using-tags.md)\.  
+Type: String to string map  
+Required: No

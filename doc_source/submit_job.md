@@ -66,6 +66,8 @@ Environment variables must not start with `AWS_BATCH`; this naming convention is
 
    1. For **Value**, specify the value for your environment variable\.
 
+1. \(Optional\) In the **Tags** section, you can specify the key and value for each tag to associate with the job\. For more information, see [Tagging your AWS Batch resources](using-tags.md)\.
+
 1. Choose **Submit job**\.
 **Note**  
 Logs for `RUNNING`, `SUCCEEDED`, and `FAILED` jobs are available in CloudWatch Logs; the log group is `/aws/batch/job`, and the log stream name format is `first200CharsOfJobDefinitionName/default/ecs_task_id` \(this format may change in the future\)\.  

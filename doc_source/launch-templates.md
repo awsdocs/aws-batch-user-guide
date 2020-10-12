@@ -22,7 +22,7 @@ You must create a launch template before you can associate it with a compute env
 }
 ```
 
-You can create the above launch template by saving the JSON to a file called `lt-data.json` and running the following AWS CLI command:
+You can create the previous launch template by saving the JSON to a file called `lt-data.json` and running the following AWS CLI command:
 
 ```
 aws ec2 --region <region> create-launch-template --cli-input-json file://lt-data.json

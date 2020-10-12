@@ -14,7 +14,7 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 1. Open the Amazon SNS console at [https://console\.aws\.amazon\.com/sns/v3/home](https://console.aws.amazon.com/sns/v3/home)\.
 
-1. Choose **Topics**, **Create new topic**\.
+1. Choose **Topics**, **Create topic**\.
 
 1. For **Topic name**, enter **JobFailedAlert** and choose **Create topic**\.
 

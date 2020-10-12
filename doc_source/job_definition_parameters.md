@@ -10,6 +10,7 @@ Job definitions are split into four basic parts: the job definition name, the ty
 + [Node Properties](#nodeProperties)
 + [Retry Strategy](#retryStrategy)
 + [Timeout](#timeout)
++ [Tags](#job-definition-parameters-tags)
 
 ## Job Definition Name<a name="jobDefinitionName"></a>
 
@@ -21,7 +22,7 @@ Required: Yes
 ## Type<a name="type"></a>
 
 `type`  
-When you register a job definition, you specify the type of job\. For more information about multi\-node parallel jobs \(also called array jobs\), see [Creating a Multi\-node Parallel Job Definition](multi-node-job-def.md)\.  
+When you register a job definition, you specify the type of job\. For more information about multi\-node parallel jobs, see [Creating a Multi\-node Parallel Job Definition](multi-node-job-def.md)\.  
 Type: String  
 Valid values: `container` \| `multinode`  
 Required: Yes
@@ -265,12 +266,12 @@ The mount points for data volumes in your container\. This parameter maps to `Vo
 
 ```
 "mountPoints": [
-  {
-    "sourceVolume": "string",
-    "containerPath": "string",
-    "readOnly": true|false
-  }
-]
+                {
+                  "sourceVolume": "string",
+                  "containerPath": "string",
+                  "readOnly": true|false
+                }
+              ]
 ```
 Type: Object array  
 Required: No    
@@ -474,4 +475,11 @@ Required: No
 `attemptDurationSeconds`  
 The time duration in seconds \(measured from the job attempt's `startedAt` timestamp\) after which AWS Batch terminates unfinished jobs\. The minimum value for the timeout is 60 seconds\.   
 Type: Integer  
+Required: No
+
+## Tags<a name="job-definition-parameters-tags"></a>
+
+`tags`  
+Key\-value pair tags to associate with the job definition\. For more information, see [Tagging your AWS Batch resources](using-tags.md)\.  
+Type: String to string map  
 Required: No

@@ -37,7 +37,10 @@ An empty compute environment template is shown below\. You can use this template
             "version": ""
         }
     },
-    "serviceRole": ""
+    "serviceRole": "",
+    "tags": {
+        "KeyName": ""
+    }
 }
 ```
 

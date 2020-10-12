@@ -203,6 +203,9 @@ An empty job definition template is shown below\. You can use this template to c
     },
     "timeout": {
         "attemptDurationSeconds": 0
+    },
+    "tags": {
+        "KeyName": ""
     }
 }
 ```

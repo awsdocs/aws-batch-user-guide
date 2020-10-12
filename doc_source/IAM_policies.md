@@ -14,7 +14,7 @@ An IAM policy must grant or deny permissions to use one or more AWS Batch action
 + [Policy Structure](iam-policy-structure.md)
 + [Supported Resource\-Level Permissions for AWS Batch API Actions](batch-supported-iam-actions-resources.md)
 + [Example Policies](ExamplePolicies_BATCH.md)
-+ [AWS Batch Managed Policy](batch_managed_policies.md)
++ [AWS Batch managed policy](batch_managed_policies.md)
 + [Creating AWS Batch IAM Policies](batch_IAM_user_policies.md)
 + [AWS Batch Service IAM Role](service_IAM_role.md)
 + [Amazon ECS Instance Role](instance_IAM_role.md)

@@ -34,7 +34,7 @@ Before you can run jobs in AWS Batch, you need to create a compute environment\.
 
       1. For **Spot fleet role**, choose an existing Amazon EC2 Spot Fleet IAM role to apply to your Spot compute environment\. If you do not already have an existing Amazon EC2 Spot Fleet IAM role, you must create one first\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.
 **Important**  
-To tag your Spot Instances on creation \(see [Step 7](#compute-environment-tag-step)\), your Amazon EC2 Spot Fleet IAM role must use the newer **AmazonEC2SpotFleetTaggingRole** managed policy\. The **AmazonEC2SpotFleetRole** managed policy does not have the required permissions to tag Spot Instances\. For more information, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag)\.
+To tag your Spot Instances on creation \(see [Step 7](#compute-environment-ec2-tag-step)\), your Amazon EC2 Spot Fleet IAM role must use the newer **AmazonEC2SpotFleetTaggingRole** managed policy\. The **AmazonEC2SpotFleetRole** managed policy does not have the required permissions to tag Spot Instances\. For more information, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag)\.
 
    1. For **Allowed instance types**, choose the Amazon EC2 instance types that may be launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types are not in the instance families \(for example `c5` does not include `c5.metal`\.\) You can also choose `optimal` to pick instance types \(from the C, M, and R instance families\) on the fly that match the demand of your job queues\.
 **Note**  
@@ -74,7 +74,9 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
    1. For **Security groups**, choose a security group to attach to your instances\. By default, the default security group for your VPC is chosen\.
 
-1. <a name="compute-environment-tag-step"></a>\(Optional\) Tag your instances\. For example, you can specify `"Name": "AWS Batch Instance - C4OnDemand"` as a tag so that each instance in your compute environment has that name\. This is helpful for recognizing your AWS Batch instances in the Amazon EC2 console\.
+1. <a name="compute-environment-ec2-tag-step"></a>\(Optional\) Tag your Amazon EC2 instances\. For example, you can specify `"Name": "AWS Batch Instance - C4OnDemand"` as a tag so that each instance in your compute environment has that name\. This is helpful for recognizing your AWS Batch instances in the Amazon EC2 console\.
+
+1. <a name="compute-environment-tag-step"></a>\(Optional\) In the **Tags** section, you can specify the key and value for each tag to associate with the compute environment\. For more information, see [Tagging your AWS Batch resources](using-tags.md)\.
 
 1. Choose **Create** to finish\.
 
