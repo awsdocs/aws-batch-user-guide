@@ -157,7 +157,7 @@ If true, run an `init` process inside the container that forwards signals and re
 Type: Boolean  
 Required: No  
 `maxSwap`  
-The total amount of swap memory \(in MiB\) a job can use\. This parameter will be translated to the `--memory-swap` option to [docker run](https://docs.docker.com/engine/reference/run/) where the value would be the sum of the container memory plus the `maxSwap` value\.  
+The total amount of swap memory \(in MiB\) a job can use\. This parameter will be translated to the `--memory-swap` option to [docker run](https://docs.docker.com/engine/reference/run/) where the value would be the sum of the container memory plus the `maxSwap` value\. For more information, see [`--memory-swap` details](https://docs.docker.com/config/containers/resource_constraints/#--memory-swap-details) in the Docker documentation\.  
 If a `maxSwap` value of `0` is specified, the container will not use swap\. Accepted values are `0` or any positive integer\. If the `maxSwap` parameter is omitted, the container will use the swap configuration for the container instance it is running on\. A `maxSwap` value must be set for the `swappiness` parameter to be used\.  
 Type: Integer  
 Required: No  
@@ -464,6 +464,38 @@ The number of times to move a job to the `RUNNABLE` status\. You may specify bet
 "attempts": integer
 ```
 Type: Integer  
+Required: No  
+`evaluateOnExit`  
+Array of up to 5 objects that specify conditions under which the job should be retried or failed\. If this parameter is specified, then the `attempts` parameter must also be specified\.  
+
+```
+"evaluateOnExit": [
+   {
+      "action": "string",
+      "onExitCode": "string",
+      "onReason": "string",
+      "onStatusReason": "string"
+   }
+]
+```
+Type: Array of [EvaluateOnExit](https://docs.aws.amazon.com/batch/latest/APIReference/API_EvaluateOnExit.html) objects  
+Required: No    
+`action`  
+Specifies the action to take if all of the specified conditions \(`onStatusReason`, `onReason`, and `onExitCode`\) are met\.  
+Type: String  
+Required: Yes  
+Valid values: `RETRY` \| `EXIT`  
+`onExitCode`  
+Contains a glob pattern to match against the decimal representation of the `ExitCode` returned for a job\. The patten can be up to 512 characters long, can contain only numbers, and can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
+Type: String  
+Required: No  
+`onReason`  
+Contains a glob pattern to match against the `Reason` returned for a job\. The patten can be up to 512 characters long, can contain letters, numbers, periods \(\.\), colons \(:\), and whitespace \(spaces, tabs\), and can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
+Type: String  
+Required: No  
+`onStatusReason`  
+Contains a glob pattern to match against the `StatusReason` returned for a job\. The patten can be up to 512 characters long, can contain letters, numbers, periods \(\.\), colons \(:\), and whitespace \(spaces, tabs\)\. and can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
+Type: String  
 Required: No
 
 ## Timeout<a name="timeout"></a>

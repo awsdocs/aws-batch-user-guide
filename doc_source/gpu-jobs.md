@@ -1,6 +1,6 @@
 # GPU Jobs<a name="gpu-jobs"></a>
 
-GPU jobs enable you to run jobs that use an instance's GPU\(s\)\.
+GPU jobs help you to run jobs that use an instance's GPU\(s\)\.
 
 The following Amazon EC2 GPU\-based instance types are supported\. For more information, see [Amazon EC2 G3 Instances](http://aws.amazon.com/ec2/instance-types/g3/), [Amazon EC2 G4 Instances](http://aws.amazon.com/ec2/instance-types/g4/), [Amazon EC2 P2 Instances](http://aws.amazon.com/ec2/instance-types/p2/), and [Amazon EC2 P3 Instances](http://aws.amazon.com/ec2/instance-types/p3/)\.
 
@@ -27,4 +27,4 @@ The following Amazon EC2 GPU\-based instance types are supported\. For more info
 
 The [resourceRequirements](https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html#ContainerDefinition-resourceRequirements) parameter for the job definition specifies the number of GPUs to be pinned to the container and not available to any other job running on that instance for the duration of that job\. All instance types in a compute environment that will run GPU jobs should be from the `p2`, `p3`, `g3`, `g3s`, or `g4` instance families\. If this is not done a GPU job could get stuck in the `RUNNABLE` status\.
 
-Jobs that do not use the GPUs can be run on GPU enabled instances but they may cost more to run on the GPU enabled instances than on similar non\-GPU enabled instances\. Depending on the specific vCPU, memory, and time needed, these non\-GPU jobs may block GPU jobs from running\.
+Jobs that do not use the GPUs can be run on GPU instances but they may cost more to run on the GPU instances than on similar non\-GPU instances\. Depending on the specific vCPU, memory, and time needed, these non\-GPU jobs may block GPU jobs from running\.

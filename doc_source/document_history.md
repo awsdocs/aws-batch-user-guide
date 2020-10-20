@@ -4,6 +4,7 @@ The following table describes the important changes to the documentation since t
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Enhanced retry strategy](https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html#retryStrategy) | AWS Batch enhances the retry strategy for jobs\. Now jobs can be retried or stop further retries by matching the `ExitCode`, `Reason`, or `StatusReason` of a job with patterns\. | October 20, 2020 | 
 | [Resource Tagging](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html) | AWS Batch adds support for adding metadata tags to your compute environments, job definitions, job queues, and jobs\. | October 7, 2020 | 
 | [Secrets](https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html) | AWS Batch adds support for passing secrets to jobs\. | October 1, 2020 | 
 | [Logging](https://docs.aws.amazon.com/batch/latest/userguide/using_awslogs.html) | AWS Batch adds support for specifying additional log drivers for jobs\. | October 1, 2020 | 
