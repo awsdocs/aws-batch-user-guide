@@ -7,7 +7,7 @@ Compute environments are split into five basic components: the name, type, and s
 + [Type](#compute_environment_type)
 + [State](#compute_environment_state)
 + [Compute Resources](#compute_environment_compute_resources)
-+ [Service Role](#compute_environment_service_role)
++ [Service role](#compute_environment_service_role)
 + [Tags](#compute_environment_tags)
 
 ## Compute Environment Name<a name="compute_environment_name"></a>
@@ -63,7 +63,7 @@ The desired number of Amazon EC2 vCPUS in the compute environment\. AWS Batch mo
 Type: Integer  
 Required: No  
 `instanceTypes`  
-The instance types that may be launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types are not in the instance families \(for example `c5` does not include `c5.metal`\.\) You can also choose `optimal` to pick instance types \(from the C, M, and R instance families\) on the fly that match the demand of your job queues\.  
+The instance types that may be launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types are not in the instance families \(for example `c5` does not include `c5.metal`\.\) You can also choose `optimal` to select instance types \(from the C, M, and R instance families\) on the fly that match the demand of your job queues\.  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
 Type: Array of strings  
 Required: yes  
@@ -79,6 +79,24 @@ Required: Yes
 `securityGroupIds`  
 The EC2 security groups to associate with the instances launched in the compute environment\.   
 Type: Array of strings  
+Required: Yes  
+`ec2Configuration`  
+Provides information used to select Amazon Machine Images \(AMIs\) for instances in the compute environment\. If `Ec2Configuration` is not specified, the default is currently [Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\) for non\-GPU instances\. This default will be changing to [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)\.  
+Type: Array of [Ec2Configuration](https://docs.aws.amazon.com/batch/latest/APIReference/API_Ec2Configuration.html) objects   
+Required: No    
+`imageIdOverride`  
+The AMI ID used for instances launched in the compute environment that match the image type\. This setting overrides the `imageId` set in the `computeResource` object\.  
+Type: String  
+Required: No  
+`imageType`  
+The image type to match with the instance type to select an AMI\. If the `imageIdOverride` parameter is not specified, then a recent [Amazon ECS\-optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) will be used\.    
+[Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)  
+ Default for all AWS Graviton\-based instance families \(for example, `C6g`, `M6g`, `R6g`, and `T4g`\) and can be used for all non\-GPU instance types\.  
+[Amazon Linux 2 \(GPU\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#gpuami) \(`ECS_AL2_NVIDIA`\)  
+Default for all GPU instance families \(for example `P4` and `G4`\) and can be used for all non\-AWS Graviton\-based instance types\.  
+[Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\)  
+Default for all non\-GPU, non\-AWS Graviton instance families\. Amazon Linux is reaching the end\-of\-life of standard support\. For more information, see [Amazon Linux AMI](https://aws.amazon.com/amazon-linux-ami/)\.
+Type: String  
 Required: Yes  
 `ec2KeyPair`  
 The EC2 key pair that is used for instances launched in the compute environment\. You can use this key pair to log in to your instances with SSH\.  
@@ -118,7 +136,7 @@ The version number of the launch template\.
 Type: String  
 Required: No
 
-## Service Role<a name="compute_environment_service_role"></a>
+## Service role<a name="compute_environment_service_role"></a>
 
 `serviceRole`  
 The full Amazon Resource Name \(ARN\) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\.  

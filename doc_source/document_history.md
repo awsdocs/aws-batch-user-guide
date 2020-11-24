@@ -4,6 +4,7 @@ The following table describes the important changes to the documentation since t
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Amazon Linux 2 support](https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_resources_ec2configuration) | AWS Batch adds support for automatic selection of Amazon Linux 2 AMIs in the compute environment using the EC2 Configuration parameters\. | November 24, 2020 | 
 | [Enhanced retry strategy](https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html#retryStrategy) | AWS Batch enhances the retry strategy for jobs\. Now jobs can be retried or stop further retries by matching the `ExitCode`, `Reason`, or `StatusReason` of a job with patterns\. | October 20, 2020 | 
 | [Resource Tagging](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html) | AWS Batch adds support for adding metadata tags to your compute environments, job definitions, job queues, and jobs\. | October 7, 2020 | 
 | [Secrets](https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html) | AWS Batch adds support for passing secrets to jobs\. | October 1, 2020 | 

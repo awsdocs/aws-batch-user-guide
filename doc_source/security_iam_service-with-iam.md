@@ -33,7 +33,7 @@ You can specify multiple actions using wildcards \(\*\)\. For example, to specif
 
 
 
-To see a list of AWS Batch actions, see [Actions Defined by AWS Batch](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsbatch.html#awsbatch-actions-as-permissions) in the *IAM User Guide*\.
+To see a list of AWS Batch actions, see [Actions Defined by AWS Batch](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsbatch.html#awsbatch-actions-as-permissions)\.
 
 ### Resources<a name="security_iam_service-with-iam-id-based-policies-resources"></a>
 
@@ -75,7 +75,7 @@ Several AWS Batch API operation involves multiple resources\. For example, `Subm
       "resource2"
 ```
 
-To see a list of AWS Batch resource types and their ARNs, see [Resources Defined by AWS Batch](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsbatch.html#awsbatch-resources-for-iam-policies) in the *IAM User Guide*\. To learn with which actions you can specify the ARN of each resource, see [Actions Defined by AWS Batch](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsbatch.html#awsbatch-actions-as-permissions)\.
+To see a list of AWS Batch resource types and their ARNs, see [Resources Defined by AWS Batch](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsbatch.html#awsbatch-resources-for-iam-policies)\. To learn with which actions you can specify the ARN of each resource, see [Actions Defined by AWS Batch](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsbatch.html#awsbatch-actions-as-permissions)\.
 
 ### Condition Keys<a name="security_iam_service-with-iam-id-based-policies-conditionkeys"></a>
 
@@ -89,7 +89,7 @@ AWS Batch defines its own set of condition keys and also supports using some glo
 
  The AWS Batch [RegisterJobDefinition](https://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) action supports the `batch:User`, `batch:Privileged`, and `batch:Image` condition keys\. For more information, see [Supported Resource\-Level Permissions for AWS Batch API Actions](batch-supported-iam-actions-resources.md)\.
 
-To see a list of AWS Batch condition keys, see [Condition Keys for AWS Batch](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsbatch.html#awsbatch-policy-keys) in the *IAM User Guide*\. To learn with which actions and resources you can use a condition key, see [Actions Defined by AWS Batch](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsbatch.html#awsbatch-actions-as-permissions)\.
+To see a list of AWS Batch condition keys, see [Condition Keys for AWS Batch](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsbatch.html#awsbatch-policy-keys)\. To learn with which actions and resources you can use a condition key, see [Actions Defined by AWS Batch](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsbatch.html#awsbatch-actions-as-permissions)\.
 
 ### Examples<a name="security_iam_service-with-iam-id-based-policies-examples"></a>
 

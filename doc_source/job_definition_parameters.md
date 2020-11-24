@@ -481,7 +481,7 @@ Array of up to 5 objects that specify conditions under which the job should be r
 Type: Array of [EvaluateOnExit](https://docs.aws.amazon.com/batch/latest/APIReference/API_EvaluateOnExit.html) objects  
 Required: No    
 `action`  
-Specifies the action to take if all of the specified conditions \(`onStatusReason`, `onReason`, and `onExitCode`\) are met\.  
+Specifies the action to take if all of the specified conditions \(`onStatusReason`, `onReason`, and `onExitCode`\) are met\. The values are not case sensitive\.  
 Type: String  
 Required: Yes  
 Valid values: `RETRY` \| `EXIT`  

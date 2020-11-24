@@ -71,7 +71,7 @@ A MIME multi\-part file consists of the following components:
 Below are some example MIME multi\-part files that you can use to create your own\.
 
 **Note**  
-If you add user data to a launch template in the Amazon EC2 console, you can paste it in as plain text, or upload from a file\. If you use the AWS CLI or an AWS SDK, you must first `base64` encode the user data and submit that string as the value of the `UserData` parameter when you call [CreateLaunchTemplate](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html), as shown in the JSON below\.  
+If you add user data to a launch template in the Amazon EC2 console, you can paste it in as plaintext, or upload from a file\. If you use the AWS CLI or an AWS SDK, you must first `base64` encode the user data and submit that string as the value of the `UserData` parameter when you call [CreateLaunchTemplate](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html), as shown in the JSON below\.  
 
 ```
 {
