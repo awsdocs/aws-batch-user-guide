@@ -48,7 +48,7 @@ When you have a compute environment in an `INVALID` state, you should update it 
 
 1. Open the AWS Batch console at [https://console\.aws\.amazon\.com/batch/](https://console.aws.amazon.com/batch/)\.
 
-1. From the navigation bar, select the region to use\.
+1. From the navigation bar, select the Region to use\.
 
 1. In the navigation pane, choose **Compute environments**\.
 
@@ -62,8 +62,8 @@ When you have a compute environment in an `INVALID` state, you should update it 
 
 If your compute environment contains compute resources, but your jobs do not progress beyond the `RUNNABLE` status, then there is something preventing the jobs from actually being placed on a compute resource\. Here are some common causes for this issue:
 
-The `awslogs` log driver is not configured on your compute resources  
-AWS Batch jobs send their log information to CloudWatch Logs\. To enable this, you must configure your compute resources to use the `awslogs` log driver\. If you base your compute resource AMI off of the Amazon ECS\-optimized AMI \(or Amazon Linux\), then this driver is registered by default with the `ecs-init` package\. If you use a different base AMI, then you must ensure that the `awslogs` log driver is specified as an available log driver with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable when the Amazon ECS container agent is started\. For more information, see [Compute Resource AMI Specification](compute_resource_AMIs.md#batch-ami-spec) and [Creating a Compute Resource AMI](create-batch-ami.md)\.
+The `awslogs` log driver isn't configured on your compute resources  
+AWS Batch jobs send their log information to CloudWatch Logs\. To enable this, you must configure your compute resources to use the `awslogs` log driver\. If you base your compute resource AMI off of the Amazon ECS\-optimized AMI \(or Amazon Linux\), then this driver is registered by default with the `ecs-init` package\. If you use a different base AMI, then you must ensure that the `awslogs` log driver is specified as an available log driver with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable when the Amazon ECS container agent is started\. For more information, see [Compute resource AMI specification](compute_resource_AMIs.md#batch-ami-spec) and [Creating a compute resource AMI](create-batch-ami.md)\.
 
 Insufficient resources  
 If your job definitions specify more CPU or memory resources than your compute resources can allocate, then your jobs will never be placed\. For example, if your job specifies 4 GiB of memory, and your compute resources have less than that available, then the job cannot be placed on those compute resources\. In this case, you must reduce the specified memory in your job definition or add larger compute resources to your environment\. Some memory is reserved for the Amazon ECS container agent and other critical system processes\. For more information, see [Compute Resource Memory Management](memory-management.md)\.
@@ -74,7 +74,7 @@ For more information about interface VPC endpoints, see [Amazon ECS Interface VP
 If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT Gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)\.
 
 Amazon EC2 instance limit reached  
-The number of Amazon EC2 instances that your account can launch in an AWS region is determined by your EC2 instance limit\. Certain instance types have a per\-instance\-type limit as well\. For more information on your account's Amazon EC2 instance limits \(including how to request a limit increase\), see [Amazon EC2 Service Limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html) in the *Amazon EC2 User Guide for Linux Instances*
+The number of Amazon EC2 instances that your account can launch in an AWS Region is determined by your EC2 instance limit\. Certain instance types have a per\-instance\-type limit as well\. For more information on your account's Amazon EC2 instance limits \(including how to request a limit increase\), see [Amazon EC2 Service Limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html) in the *Amazon EC2 User Guide for Linux Instances*
 
 For more information on diagnosing jobs stuck in `RUNNABLE` status, see [Why is my AWS Batch job stuck in RUNNABLE status?](https://aws.amazon.com/premiumsupport/knowledge-center/batch-job-stuck-runnable-status/) in the *AWS Knowledge Center*\.
 

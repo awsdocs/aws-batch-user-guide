@@ -116,11 +116,11 @@ If you haven't created a key pair already, you can create one using the Amazon E
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. From the navigation bar, select a region for the key pair\. You can select any region that's available to you, regardless of your location: however, key pairs are specific to a region\. For example, if you plan to launch an instance in the US West \(Oregon\) region, you must create a key pair for the instance in the same region\.
+1. From the navigation bar, select a Region for the key pair\. You can select any Region that's available to you, regardless of your location: however, key pairs are specific to a region\. For example, if you plan to launch an instance in the US West \(Oregon\) region, you must create a key pair for the instance in the same region\.
 
 1. In the navigation pane, choose **Key Pairs**, **Create Key Pair**\.
 
-1. In the **Create Key Pair** dialog box, for **Key pair name**, enter a name for the new key pair , and choose **Create**\. Choose a name that is easy for you to remember, such as your IAM user name, followed by `-key-pair`, plus the region name\. For example, *me*\-key\-pair\-*uswest2*\.
+1. In the **Create Key Pair** dialog box, for **Key pair name**, enter a name for the new key pair , and choose **Create**\. Choose a name that you can remember, such as your IAM user name, followed by `-key-pair`, plus the Region name\. For example, *me*\-key\-pair\-*uswest2*\.
 
 1. The private key file is automatically downloaded by your browser\. The base file name is the name you specified as the name of your key pair, and the file name extension is `.pem`\. Save the private key file in a safe place\.
 **Important**  
@@ -168,7 +168,7 @@ If your account supports EC2\-Classic in a region, then you do not have a defaul
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 
-1. From the navigation bar, select a region for the VPC\. VPCs are specific to a region, so you should select the same region in which you created your key pair\.
+1. From the navigation bar, select a Region for the VPC\. VPCs are specific to a region, so you should select the same Region in which you created your key pair\.
 
 1. On the VPC dashboard, choose **Start VPC Wizard**\.
 
@@ -191,11 +191,11 @@ You need the public IP address of your local computer, which you can get using a
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. From the navigation bar, select a region for the security group\. Security groups are specific to a region, so you should select the same region in which you created your key pair\.
+1. From the navigation bar, select a Region for the security group\. Security groups are specific to a region, so you should select the same Region in which you created your key pair\.
 
 1. In the navigation pane, choose **Security Groups**, **Create Security Group**\.
 
-1. Enter a name for the new security group and a description\. Choose a name that is easy for you to remember, such as your IAM user name, followed by \_SG\_, plus the region name\. For example, *me*\_SG\_*useast1*\.
+1. Enter a name for the new security group and a description\. Choose a name that you can remember, such as your IAM user name, followed by \_SG\_, plus the Region name\. For example, *me*\_SG\_*useast1*\.
 
 1. In the **VPC** list, ensure that your default VPC is selected; it's marked with an asterisk \(\*\)\.
 **Note**  

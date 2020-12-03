@@ -12,11 +12,11 @@ After you have registered a job definition, you can submit it as a job to an AWS
 
 1. For **Job name**, choose a unique name for your job\.
 
-1. For **Job definition**, choose a previously created job definition for your job\. For more information, see [Creating a Job Definition](create-job-definition.md)\.
+1. For **Job definition**, choose a previously created job definition for your job\. For more information, see [Creating a job definition](create-job-definition.md)\.
 
-1. For **Job queue**, choose a previously created job queue\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
+1. For **Job queue**, choose a previously created job queue\. For more information, see [Creating a job queue](create-job-queue.md)\.
 
-1. For **Job type**, choose **Single** for a single job or **Array** to submit an array job\. For more information, see [Array Jobs](array_jobs.md)\. This option is not available for multi\-node parallel jobs\.
+1. For **Job type**, choose **Single** for a single job or **Array** to submit an array job\. For more information, see [Array Jobs](array_jobs.md)\. This option isn't available for multi\-node parallel jobs\.
 
 1. \(Array jobs only\) For **Array size**, specify an array size between 2 and 10,000\.
 
@@ -31,6 +31,8 @@ After you have registered a job definition, you can submit it as a job to an AWS
 1. For **Job attempts**, specify the maximum number of times to attempt your job \(in case it fails\)\. For more information, see [Automated Job Retries](job_retries.md)\.
 
 1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
+**Important**  
+Jobs run on Fargate resources can't expect to run for more than 14 days\. After 14 days, the Fargate resources may no longer be available and the job will be terminated\.
 
 1. \(Optional\) In the **Parameters** section, you can specify parameter substitution default values and placeholders to use in the command that your job's container runs when it starts\. For more information, see [Parameters](job_definition_parameters.md#parameters)\.
 

@@ -7,8 +7,8 @@ In this tutorial, you create a text file that has all of the colors of the rainb
 ## Prerequisites<a name="array-tutorial-prereqs"></a>
 
 This tutorial has the following prerequisites:
-+ An AWS Batch compute environment\. For more information, see [Creating a Compute Environment](create-compute-environment.md)\.
-+ An AWS Batch job queue and associated compute environment\. For more information, see [Creating a Job Queue](create-job-queue.md)\.
++ An AWS Batch compute environment\. For more information, see [Creating a compute environment](create-compute-environment.md)\.
++ An AWS Batch job queue and associated compute environment\. For more information, see [Creating a job queue](create-job-queue.md)\.
 + The AWS CLI installed on your local system\. For more information, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
 + Docker installed on your local system\. For more information, see [About Docker CE](https://docs.docker.com/install/) in the Docker documentation\.
 
@@ -113,7 +113,7 @@ Now that you have built and tested your Docker container, you must push it to an
 
 ## Step 3: Create and Register a Job Definition<a name="create-array-job-def"></a>
 
-Now that your Docker image is in an image registry, you can specify it in an AWS Batch job definition and use it later to run an array job\. For the sake of brevity, this example uses the AWS CLI, but you can also use the AWS Management Console\. For more information, see [Creating a Job Definition](create-job-definition.md)\.
+Now that your Docker image is in an image registry, you can specify it in an AWS Batch job definition and use it later to run an array job\. For the sake of brevity, this example uses the AWS CLI, but you can also use the AWS Management Console\. For more information, see [Creating a job definition](create-job-definition.md)\.
 
 **To create a job definition**
 

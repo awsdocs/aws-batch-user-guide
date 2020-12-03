@@ -74,7 +74,7 @@ arn:aws:[service]:[region]:[account]:resourceType/resourcePath
 The service \(for example, `batch`\)\.
 
 *region*  
-The region for the resource \(for example, `us-east-2`\)\.
+The Region for the resource \(for example, `us-east-2`\)\.
 
 *account*  
 The AWS account ID, with no hyphens \(for example, `123456789012`\)\.

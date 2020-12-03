@@ -6,7 +6,7 @@ When you submit a job to an AWS Batch job queue, the job enters the `SUBMITTED` 
 A job that has been submitted to the queue, and has not yet been evaluated by the scheduler\. The scheduler evaluates the job to determine if it has any outstanding dependencies on the successful completion of any other jobs\. If there are dependencies, the job is moved to `PENDING`\. If there are no dependencies, the job is moved to `RUNNABLE`\.
 
 `PENDING`  
-A job that resides in the queue and is not yet able to run due to a dependency on another job or resource\. After the dependencies are satisfied, the job is moved to `RUNNABLE`\.
+A job that resides in the queue and isn't yet able to run due to a dependency on another job or resource\. After the dependencies are satisfied, the job is moved to `RUNNABLE`\.
 
 `RUNNABLE`  
 A job that resides in the queue, has no outstanding dependencies, and is therefore ready to be scheduled to a host\. Jobs in this state are started as soon as sufficient resources are available in one of the compute environments that are mapped to the job’s queue\. However, jobs can remain in this state indefinitely when sufficient resources are unavailable\.  

@@ -1,6 +1,6 @@
-# Compute Environment Template<a name="compute-environment-template"></a>
+# Compute environment template<a name="compute-environment-template"></a>
 
-An empty compute environment template is shown below\. You can use this template to create your compute environment that can then be saved to a file and used with the AWS CLI `--cli-input-json` option\. For more information about these parameters, see [CreateComputeEnvironment](https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html) in the *AWS Batch API Reference*\.
+The following example shows an empty compute environment template\. You can use this template to create your compute environment that can then be saved to a file and used with the AWS CLI `--cli-input-json` option\. For more information about these parameters, see [CreateComputeEnvironment](https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html) in the *AWS Batch API Reference*\.
 
 ```
 {
@@ -35,7 +35,13 @@ An empty compute environment template is shown below\. You can use this template
             "launchTemplateId": "",
             "launchTemplateName": "",
             "version": ""
-        }
+        },
+        "ec2Configuration": [
+            {
+                "imageType": "",
+                "imageIdOverride": ""
+            }
+        ]
     },
     "serviceRole": "",
     "tags": {
@@ -45,7 +51,7 @@ An empty compute environment template is shown below\. You can use this template
 ```
 
 **Note**  
-You can generate the above compute environment template with the following AWS CLI command\.  
+You can generate the preceding compute environment template with the following AWS CLI command\.  
 
 ```
 $ aws batch create-compute-environment --generate-cli-skeleton

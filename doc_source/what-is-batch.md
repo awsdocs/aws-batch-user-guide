@@ -10,11 +10,11 @@ AWS Batch is a regional service that simplifies running batch jobs across multip
 
 ### Jobs<a name="component_job"></a>
 
-A unit of work \(such as a shell script, a Linux executable, or a Docker container image\) that you submit to AWS Batch\. It has a name, and runs as a containerized application on an Amazon EC2 instance in your compute environment, using parameters that you specify in a job definition\. Jobs can reference other jobs by name or by ID, and can be dependent on the successful completion of other jobs\. For more information, see [Jobs](jobs.md)\.
+A unit of work \(such as a shell script, a Linux executable, or a Docker container image\) that you submit to AWS Batch\. It has a name, and runs as a containerized application on AWS Fargate or Amazon EC2 resources in your compute environment, using parameters that you specify in a job definition\. Jobs can reference other jobs by name or by ID, and can be dependent on the successful completion of other jobs\. For more information, see [Jobs](jobs.md)\.
 
 ### Job Definitions<a name="component_job_definition"></a>
 
-A job definition specifies how jobs are to be run; you can think of it as a blueprint for the resources in your job\. You can supply your job with an IAM role to provide programmatic access to other AWS resources, and you specify both memory and CPU requirements\. The job definition can also control container properties, environment variables, and mount points for persistent storage\. Many of the specifications in a job definition can be overridden by specifying new values when submitting individual Jobs\. For more information, see [Job Definitions](job_definitions.md)
+A job definition specifies how jobs are to be run; you can think of it as a blueprint for the resources in your job\. You can supply your job with an IAM role to provide programmatic access to other AWS resources, and you specify both memory and CPU requirements\. The job definition can also control container properties, environment variables, and mount points for persistent storage\. Many of the specifications in a job definition can be overridden by specifying new values when submitting individual Jobs\. For more information, see [Job definitions](job_definitions.md)
 
 ### Job Queues<a name="component_job_queue"></a>
 
@@ -22,7 +22,7 @@ When you submit an AWS Batch job, you submit it to a particular job queue, where
 
 ### Compute Environment<a name="component_compute_environment"></a>
 
-A compute environment is a set of managed or unmanaged compute resources that are used to run jobs\. Managed compute environments allow you to specify desired instance types at several levels of detail\. You can set up compute environments that use a particular type of instance, a particular model such as `c4.2xlarge` or `m4.10xlarge`, or simply specify that you want to use the newest instance types\. You can also specify the minimum, desired, and maximum number of vCPUs for the environment, along with the amount you are willing to pay for a Spot Instance as a percentage of the On\-Demand Instance price and a target set of VPC subnets\. AWS Batch will efficiently launch, manage, and terminate EC2 instances as needed\. You can also manage your own compute environments\. In this case you are responsible for setting up and scaling the instances in an Amazon ECS cluster that AWS Batch creates for you\. For more information, see [Compute Environments](compute_environments.md)\.
+A compute environment is a set of managed or unmanaged compute resources that are used to run jobs\. Managed compute environments allow you to specify desired compute type \(Fargate or EC2\) at several levels of detail\. You can set up compute environments that use a particular type of EC2 instance, a particular model such as `c5.2xlarge` or `m5.10xlarge`, or simply specify that you want to use the newest instance types\. You can also specify the minimum, desired, and maximum number of vCPUs for the environment, along with the amount you are willing to pay for a Spot Instance as a percentage of the On\-Demand Instance price and a target set of VPC subnets\. AWS Batch will efficiently launch, manage, and terminate compute types as needed\. You can also manage your own compute environments\. In this case you are responsible for setting up and scaling the instances in an Amazon ECS cluster that AWS Batch creates for you\. For more information, see [Compute environment](compute_environments.md)\.
 
 ## Getting Started<a name="intro_getting_started"></a>
 

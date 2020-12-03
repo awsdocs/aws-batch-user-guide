@@ -13,7 +13,7 @@ Amazon ECS enables you to inject sensitive data into your containers by storing 
 
 The following should be considered when specifying sensitive data for containers using Systems Manager Parameter Store parameters\.
 + This feature requires that your container instance have version 1\.22\.0 or later of the container agent\. However, we recommend using the latest container agent version\. For information about checking your agent version and updating to the latest version, see [Updating the Amazon ECS container agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html) in the *Amazon Elastic Container Service Developer Guide*\.
-+ Sensitive data is injected into the container for your job when the container is initially started\. If the secret or Parameter Store parameter is subsequently updated or rotated, the container will not receive the updated value automatically\. You must launch a new job to force the launch of a fresh job with updated secrets\.
++ Sensitive data is injected into the container for your job when the container is initially started\. If the secret or Parameter Store parameter is subsequently updated or rotated, the container doesn't receive the updated value automatically\. You must launch a new job to force the launch of a fresh job with updated secrets\.
 
 ## Required IAM permissions for Amazon ECS secrets<a name="secrets-iam-parameters"></a>
 
@@ -23,8 +23,8 @@ To use this feature, you must have the execution role and reference it in your j
 You must use the Amazon ECS agent configuration variable `ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true` to use this feature\. You can add it to the `./etc/ecs/ecs.config` file during container instance creation or you can add it to an existing instance and then restart the ECS agent\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
 To provide access to the AWS Systems Manager Parameter Store parameters that you create, manually add the following permissions as an inline policy to the execution role\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
-+ `ssm:GetParameters`—Required if you are referencing a Systems Manager Parameter Store parameter in a task definition\.
-+ `secretsmanager:GetSecretValue`—Required if you are referencing a Secrets Manager secret either directly or if your Systems Manager Parameter Store parameter is referencing a Secrets Manager secret in a task definition\.
++ `ssm:GetParameters`—Required if you're referencing a Systems Manager Parameter Store parameter in a task definition\.
++ `secretsmanager:GetSecretValue`—Required if you're referencing a Secrets Manager secret either directly or if your Systems Manager Parameter Store parameter is referencing a Secrets Manager secret in a task definition\.
 + `kms:Decrypt`—Required only if your secret uses a custom KMS key and not the default key\. The ARN for your custom key should be added as a resource\.
 
 The following example inline policy adds the required permissions:
@@ -54,7 +54,7 @@ The following example inline policy adds the required permissions:
 
 Within your container definition, specify `secrets` with the name of the environment variable to set in the container and the full ARN of the Systems Manager Parameter Store parameter containing the sensitive data to present to the container\.
 
-The following is a snippet of a task definition showing the format when referencing an Systems Manager Parameter Store parameter\. If the Systems Manager Parameter Store parameter exists in the same Region as the task you are launching, then you can use either the full ARN or name of the parameter\. If the parameter exists in a different Region, then the full ARN must be specified\.
+The following is a snippet of a task definition showing the format when referencing an Systems Manager Parameter Store parameter\. If the Systems Manager Parameter Store parameter exists in the same Region as the task you're launching, then you can use either the full ARN or name of the parameter\. If the parameter exists in a different Region, then the full ARN must be specified\.
 
 ```
 {
@@ -72,7 +72,7 @@ The following is a snippet of a task definition showing the format when referenc
 Within your container definition, when specifying a `logConfiguration` you can specify `secretOptions` with the name of the log driver option to set in the container and the full ARN of the Systems Manager Parameter Store parameter containing the sensitive data to present to the container\.
 
 **Important**  
-If the Systems Manager Parameter Store parameter exists in the same Region as the task you are launching, then you can use either the full ARN or name of the parameter\. If the parameter exists in a different Region, then the full ARN must be specified\.
+If the Systems Manager Parameter Store parameter exists in the same Region as the task you're launching, then you can use either the full ARN or name of the parameter\. If the parameter exists in a different Region, then the full ARN must be specified\.
 
 The following is a snippet of a task definition showing the format when referencing an Systems Manager Parameter Store parameter\.
 

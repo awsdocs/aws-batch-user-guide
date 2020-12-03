@@ -1,8 +1,11 @@
-# Launch Template Support<a name="launch-templates"></a>
+# Launch template support<a name="launch-templates"></a>
 
-AWS Batch supports using Amazon EC2 launch templates with your compute environments\. Launch template support allows you to modify the default configuration of your AWS Batch compute resources without requiring you to create customized AMIs\.
+AWS Batch supports using Amazon EC2 launch templates with your EC2 compute environments\. With launch templates, you can modify the default configuration of your AWS Batch compute resources without needing to create customized AMIs\.
 
-You must create a launch template before you can associate it with a compute environment\. You can create a launch template in the Amazon EC2 console, or you can use the AWS CLI or an AWS SDK\. For example, the JSON file below represents a launch template that resizes the Docker data volume for the default AWS Batch compute resource AMI and also sets it to be encrypted\.
+**Note**  
+Launch templates aren't supported on AWS Fargate resources\.
+
+You must create a launch template before you can associate it with a compute environment\. You can create a launch template in the Amazon EC2 console, or you can use the AWS CLI or an AWS SDK\. For example, the following JSON file represents a launch template that resizes the Docker data volume for the default AWS Batch compute resource AMI and also sets it to be encrypted\.
 
 ```
 {
@@ -46,32 +49,32 @@ The following launch template parameters are **ignored** by AWS Batch:
 + Instance market options \(AWS Batch must control Spot Instance configuration\)
 + Disable API termination \(AWS Batch must control instance lifecycle\)
 
-AWS Batch does not support updating a compute environment with a new launch template version\. If you update your launch template, you must create a new compute environment with the new template for the changes to take effect\. 
+AWS Batch doesn't support updating a compute environment with a new launch template version\. If you update your launch template, you must create a new compute environment with the new template for the changes to take effect\. 
 
-## Amazon EC2 User Data in Launch Templates<a name="lt-user-data"></a>
+## Amazon EC2 user data in launch templates<a name="lt-user-data"></a>
 
-You can supply Amazon EC2 user data in your launch template that is executed by [cloud\-init](https://cloudinit.readthedocs.io/en/latest/index.html) when your instances launch\. Your user data can perform common configuration scenarios, including but not limited to:
+You can supply Amazon EC2 user data in your launch template that's run by [cloud\-init](https://cloudinit.readthedocs.io/en/latest/index.html) when your instances launch\. Your user data can perform common configuration scenarios, including but not limited to:
 + [Including users or groups](https://cloudinit.readthedocs.io/en/latest/topics/examples.html#including-users-and-groups)
 + [Installing packages](https://cloudinit.readthedocs.io/en/latest/topics/examples.html#install-arbitrary-packages)
 + [Creating partitions and file systems](https://cloudinit.readthedocs.io/en/latest/topics/examples.html#create-partitions-and-filesystems)
 
-Amazon EC2 user data in launch templates must be in the [MIME multi\-part archive](https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive) format, because your user data is merged with other AWS Batch user data that is required to configure your compute resources\. You can combine multiple user data blocks together into a single MIME multi\-part file\. For example, you might want to combine a cloud boothook that configures the Docker daemon with a user data shell script that writes configuration information for the Amazon ECS container agent\.
+Amazon EC2 user data in launch templates must be in the [MIME multi\-part archive](https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive) format\. This is because your user data is merged with other AWS Batch user data that's required to configure your compute resources\. You can combine multiple user data blocks together into a single MIME multi\-part file\. For example, you might want to combine a cloud boothook that configures the Docker daemon with a user data shell script that writes configuration information for the Amazon ECS container agent\.
 
-If you are using AWS CloudFormation, the [AWS::CloudFormation::Init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html) type can be used with the [cfn\-init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-init.html) helper script to perform common configuration scenarios\.
+If you're using AWS CloudFormation, the [AWS::CloudFormation::Init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html) type can be used with the [cfn\-init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-init.html) helper script to perform common configuration scenarios\.
 
 A MIME multi\-part file consists of the following components:
 + The content type and part boundary declaration: `Content-Type: multipart/mixed; boundary="==BOUNDARY=="`
 + The MIME version declaration: `MIME-Version: 1.0`
-+ One or more user data blocks, which contain the following components:
-  + The opening boundary, which signals the beginning of a user data block: `--==BOUNDARY==`
++ One or more user data blocks that contain the following components:
+  + The opening boundary that signals the beginning of a user data block: `--==BOUNDARY==`
   + The content type declaration for the block: `Content-Type: text/cloud-config; charset="us-ascii"`\. For more information about content types, see the [Cloud\-Init documentation](https://cloudinit.readthedocs.io/en/latest/topics/format.html)\. 
   + The content of the user data, for example, a list of shell commands or `cloud-init` directives
-+ The closing boundary, which signals the end of the MIME multi\-part file: `--==BOUNDARY==--`
++ The closing boundary that signals the end of the MIME multi\-part file: `--==BOUNDARY==--`
 
-Below are some example MIME multi\-part files that you can use to create your own\.
+The follwing are example MIME multi\-part files that you can use to create your own\.
 
 **Note**  
-If you add user data to a launch template in the Amazon EC2 console, you can paste it in as plaintext, or upload from a file\. If you use the AWS CLI or an AWS SDK, you must first `base64` encode the user data and submit that string as the value of the `UserData` parameter when you call [CreateLaunchTemplate](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html), as shown in the JSON below\.  
+If you add user data to a launch template in the Amazon EC2 console, you can paste it in as plaintext, or upload from a file\. If you use the AWS CLI or an AWS SDK, you must first `base64` encode the user data and submit that string as the value of the `UserData` parameter when you call [CreateLaunchTemplate](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html), as shown in this JSON\.  
 
 ```
 {

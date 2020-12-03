@@ -1,13 +1,13 @@
-# How AWS Batch Works with IAM<a name="security_iam_service-with-iam"></a>
+# How AWS Batch works with IAM<a name="security_iam_service-with-iam"></a>
 
-Before you use IAM to manage access to AWS Batch, you should understand what IAM features are available to use with AWS Batch\. To get a high\-level view of how AWS Batch and other AWS services work with IAM, see [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) in the *IAM User Guide*\.
+Before you use IAM to manage access to AWS Batch, you should understand what IAM features are available to use with AWS Batch\. To get a high\-level view of how AWS Batch a nd other AWS services work with IAM, see [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) in the *IAM User Guide*\.
 
 **Topics**
-+ [AWS Batch Identity\-Based Policies](#security_iam_service-with-iam-id-based-policies)
-+ [Authorization Based on AWS Batch Tags](#security_iam_service-with-iam-tags)
-+ [AWS Batch IAM Roles](#security_iam_service-with-iam-roles)
++ [AWS Batch identity\-based policies](#security_iam_service-with-iam-id-based-policies)
++ [Authorization based on AWS Batch tags](#security_iam_service-with-iam-tags)
++ [AWS Batch IAM roles](#security_iam_service-with-iam-roles)
 
-## AWS Batch Identity\-Based Policies<a name="security_iam_service-with-iam-id-based-policies"></a>
+## AWS Batch identity\-based policies<a name="security_iam_service-with-iam-id-based-policies"></a>
 
 With IAM identity\-based policies, you can specify allowed or denied actions and resources as well as the conditions under which actions are allowed or denied\. AWS Batch supports specific actions, resources, and condition keys\. To learn about all of the elements that you use in a JSON policy, see [IAM JSON Policy Elements Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html) in the *IAM User Guide*\.
 
@@ -15,7 +15,7 @@ With IAM identity\-based policies, you can specify allowed or denied actions and
 
 The `Action` element of an IAM identity\-based policy describes the specific action or actions that will be allowed or denied by the policy\. Policy actions usually have the same name as the associated AWS API operation\. The action is used in a policy to grant permissions to perform the associated operation\.
 
-Policy actions in AWS Batch use the following prefix before the action: `batch:`\. For example, to grant someone permission to submitan AWS Batch job with the AWS Batch `SubmitJob` API operation, you include the `batch:SubmitJob` action in their policy\. Policy statements must include either an `Action` or `NotAction` element\. AWS Batch defines its own set of actions that describe tasks that you can perform with this service\.
+Policy actions in AWS Batch use the following prefix before the action: `batch:`\. For example, to grant someone permission to submit an AWS Batch job with the AWS Batch `SubmitJob` API operation, you include the `batch:SubmitJob` action in their policy\. Policy statements must include either an `Action` or `NotAction` element\. AWS Batch defines its own set of actions that describe tasks that you can perform with this service\.
 
 To specify multiple actions in a single statement, separate them with commas as follows\.
 
@@ -25,7 +25,7 @@ To specify multiple actions in a single statement, separate them with commas as 
       "batch:action2"
 ```
 
-You can specify multiple actions using wildcards \(\*\)\. For example, to specify all actions that begin with the word `Describe`, include the following action\.
+You can specify multiple actions using wildcards \(\*\)\. For example, to specify all actions that begin with the word `Describe`, for example, include the following action\.
 
 ```
 "Action": "batch:Describe*"
@@ -77,7 +77,7 @@ Several AWS Batch API operation involves multiple resources\. For example, `Subm
 
 To see a list of AWS Batch resource types and their ARNs, see [Resources Defined by AWS Batch](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsbatch.html#awsbatch-resources-for-iam-policies)\. To learn with which actions you can specify the ARN of each resource, see [Actions Defined by AWS Batch](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsbatch.html#awsbatch-actions-as-permissions)\.
 
-### Condition Keys<a name="security_iam_service-with-iam-id-based-policies-conditionkeys"></a>
+### Condition keys<a name="security_iam_service-with-iam-id-based-policies-conditionkeys"></a>
 
 The `Condition` element \(or `Condition` *block*\) lets you specify conditions in which a statement is in effect\. The `Condition` element is optional\. You can build conditional expressions that use [condition operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html), such as equals or less than, to match the condition in the policy with values in the request\.
 
@@ -101,29 +101,29 @@ AWS Batch does support resource\-based policies\.
 
 AWS Batch does support tagging resources and controlling access based on tags\.
 
-## Authorization Based on AWS Batch Tags<a name="security_iam_service-with-iam-tags"></a>
+## Authorization based on AWS Batch tags<a name="security_iam_service-with-iam-tags"></a>
 
 You can attach tags to AWS Batch resources or pass tags in a request to AWS Batch\. To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `batch:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\. For more information about tagging AWS Batch resources, see [Tagging your AWS Batch resources](using-tags.md)\.
 
 To view an example identity\-based policy for limiting access to a resource based on the tags on that resource, see [Identity\-Based Policy Examples](security_iam_id-based-policy-examples.md)\.
 
-## AWS Batch IAM Roles<a name="security_iam_service-with-iam-roles"></a>
+## AWS Batch IAM roles<a name="security_iam_service-with-iam-roles"></a>
 
 An [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) is an entity within your AWS account that has specific permissions\.
 
-### Using Temporary Credentials with AWS Batch<a name="security_iam_service-with-iam-roles-tempcreds"></a>
+### Using temporary credentials with AWS Batch<a name="security_iam_service-with-iam-roles-tempcreds"></a>
 
 You can use temporary credentials to sign in with federation, assume an IAM role, or to assume a cross\-account role\. You obtain temporary security credentials by calling AWS STS API operations such as [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) or [GetFederationToken](https://docs.aws.amazon.com/STS/latest/APIReference/API_GetFederationToken.html)\.
 
 AWS Batch supports using temporary credentials\.
 
-### Service\-Linked Roles<a name="security_iam_service-with-iam-roles-service-linked"></a>
+### Service\-linked roles<a name="security_iam_service-with-iam-roles-service-linked"></a>
 
 [Service\-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role) allow AWS services to access resources in other services to complete an action on your behalf\. Service\-linked roles appear in your IAM account and are owned by the service\. An IAM administrator can view but not edit the permissions for service\-linked roles\.
 
 AWS Batch does not support service\-linked roles\.
 
-### Service Roles<a name="security_iam_service-with-iam-roles-service"></a>
+### Service roles<a name="security_iam_service-with-iam-roles-service"></a>
 
 This feature allows a service to assume a [service role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-role) on your behalf\. This role allows the service to access resources in other services to complete an action on your behalf\. Service roles appear in your IAM account and are owned by the account\. This means that an IAM administrator can change the permissions for this role\. However, doing so might break the functionality of the service\.
 

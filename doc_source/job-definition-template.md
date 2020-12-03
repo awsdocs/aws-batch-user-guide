@@ -1,6 +1,6 @@
-# Job Definition Template<a name="job-definition-template"></a>
+# Job definition template<a name="job-definition-template"></a>
 
-An empty job definition template is shown below\. You can use this template to create your job definition, which can then be saved to a file and used with the AWS CLI `--cli-input-json` option\. For more information about these parameters, see [Job Definition Parameters](job_definition_parameters.md)\.
+The following is an empty job definition template\. You can use this template to create your job definition, which can then be saved to a file and used with the AWS CLI `--cli-input-json` option\. For more information about these parameters, see [Job definition parameters](job_definition_parameters.md)\.
 
 ```
 {
@@ -81,7 +81,7 @@ An empty job definition template is shown below\. You can use this template to c
             "swappiness": 0
         },
         "logConfiguration": {
-            "logDriver": "syslog",
+            "logDriver": "journald",
             "options": {
                 "KeyName": ""
             },
@@ -97,7 +97,13 @@ An empty job definition template is shown below\. You can use this template to c
                 "name": "",
                 "valueFrom": ""
             }
-        ]
+        ],
+        "networkConfiguration": {
+            "assignPublicIp": "DISABLED"
+        },
+        "fargatePlatformConfiguration": {
+            "platformVersion": ""
+        }
     },
     "nodeProperties": {
         "numNodes": 0,
@@ -158,7 +164,7 @@ An empty job definition template is shown below\. You can use this template to c
                                 "hostPath": "",
                                 "containerPath": "",
                                 "permissions": [
-                                    "WRITE"
+                                    "MKNOD"
                                 ]
                             }
                         ],
@@ -193,25 +199,43 @@ An empty job definition template is shown below\. You can use this template to c
                             "name": "",
                             "valueFrom": ""
                         }
-                    ]
+                    ],
+                    "networkConfiguration": {
+                        "assignPublicIp": "DISABLED"
+                    },
+                    "fargatePlatformConfiguration": {
+                        "platformVersion": ""
+                    }
                 }
             }
         ]
     },
     "retryStrategy": {
-        "attempts": 0
+        "attempts": 0,
+        "evaluateOnExit": [
+            {
+                "onStatusReason": "",
+                "onReason": "",
+                "onExitCode": "",
+                "action": "EXIT"
+            }
+        ]
     },
+    "propagateTags": true,
     "timeout": {
         "attemptDurationSeconds": 0
     },
     "tags": {
         "KeyName": ""
-    }
+    },
+    "platformCapabilities": [
+        "EC2"
+    ]
 }
 ```
 
 **Note**  
-You can generate the above job definition template with the following AWS CLI command:  
+You can generate the preceding job definition template with the following AWS CLI command:  
 
 ```
 $ aws batch register-job-definition --generate-cli-skeleton

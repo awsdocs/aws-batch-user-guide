@@ -10,19 +10,19 @@ The following should be considered when using Secrets Manager to specify sensiti
 + To inject a secret using a specific JSON key or version of a secret, the container instance in your compute environment must have version 1\.37\.0 or later of the Amazon ECS container agent\. However, we recommend using the latest container agent version\. For information about checking your agent version and updating to the latest version, see [Updating the Amazon ECS container agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
   To inject the full contents of a secret as an environment variable or to inject a secret in a log configuration, your container instance must have version 1\.22\.0 or later of the container agent\.
-+ Only secrets that store text data, which are secrets created with the `SecretString` parameter of the [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) API, are supported\. Secrets that store binary data, which are secrets created with the `SecretBinary` parameter of the [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) API are not supported\.
-+ When using a job definition that references Secrets Manager secrets to retrieve sensitive data for your jobs, if you are also using interface VPC endpoints, you must create the interface VPC endpoints for Secrets Manager\. For more information, see [Using Secrets Manager with VPC Endpoints](https://docs.aws.amazon.com/secretsmanager/latest/userguide/vpc-endpoint-overview.html) in the *AWS Secrets Manager User Guide*\.
-+ Sensitive data is injected into your job when the job is initially started\. If the secret is subsequently updated or rotated, the job will not receive the updated value automatically\. You must launch a new job to force the service to launch a fresh job with the updated secret value\.
++ Only secrets that store text data, which are secrets created with the `SecretString` parameter of the [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) API, are supported\. Secrets that store binary data, which are secrets created with the `SecretBinary` parameter of the [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) API aren't supported\.
++ When using a job definition that references Secrets Manager secrets to retrieve sensitive data for your jobs, if you're also using interface VPC endpoints, you must create the interface VPC endpoints for Secrets Manager\. For more information, see [Using Secrets Manager with VPC Endpoints](https://docs.aws.amazon.com/secretsmanager/latest/userguide/vpc-endpoint-overview.html) in the *AWS Secrets Manager User Guide*\.
++ Sensitive data is injected into your job when the job is initially started\. If the secret is subsequently updated or rotated, the job doesn't receive the updated value automatically\. You must launch a new job to force the service to launch a fresh job with the updated secret value\.
 
 ## Required IAM permissions for AWS Batch secrets<a name="secrets-iam"></a>
 
 To use this feature, you must have the execution role and reference it in your job definition\. This allows the container agent to pull the necessary Secrets Manager resources\. For more information, see [AWS Batch execution IAM role](execution-IAM-role.md)\.
 
 **Important**  
-You must use the Amazon ECS container agent configuration variable `ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true` to use this feature\. You can add it to the `./etc/ecs/ecs.config` file during container instance creation or you can add it to an existing instance and then restart the Amazon ECS container agent\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\.
+It's necessary that you use the Amazon ECS container agent configuration variable `ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true` to use this feature\. You can add it to the `./etc/ecs/ecs.config` file during container instance creation or o an existing instance and then restart the Amazon ECS container agent\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
 To provide access to the Secrets Manager secrets that you create, manually add the following permissions as an inline policy to the execution role\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
-+ `secretsmanager:GetSecretValue`–Required if you are referencing a Secrets Manager secret\.
++ `secretsmanager:GetSecretValue`–Required if you're referencing a Secrets Manager secret\.
 + `kms:Decrypt`–Required only if your secret uses a custom KMS key and not the default key\. The ARN for your custom key should be added as a resource\.
 
 The following example inline policy adds the required permissions\.
@@ -59,17 +59,17 @@ The following example shows the full syntax that must be specified for the Secre
 arn:aws:secretsmanager:region:aws_account_id:secret:secret-name
 ```
 
-The following section describes the additional parameters\. These parameters are optional, but if you do not use them, you must include the colons `:` to use the default values\. Examples are provided below for more context\.
+The following section describes the additional parameters\. These parameters are optional, but if you don't use them, you must include the colons `:` to use the default values\. Examples are provided below for more context\.
 
 `json-key`  
-Specifies the name of the key in a key\-value pair with the value that you want to set as the environment variable value\. Only values in JSON format are supported\. If you do not specify a JSON key, then the full contents of the secret is used\.
+Specifies the name of the key in a key\-value pair with the value that you want to set as the environment variable value\. Only values in JSON format are supported\. If you don't specify a JSON key, then the full contents of the secret is used\.
 
 `version-stage`  
-Specifies the staging label of the version of a secret that you want to use\. If a version staging label is specified, you cannot specify a version ID\. If no version stage is specified, the default behavior is to retrieve the secret with the `AWSCURRENT` staging label\.  
+Specifies the staging label of the version of a secret that you want to use\. If a version staging label is specified, you can't specify a version ID\. If no version stage is specified, the default behavior is to retrieve the secret with the `AWSCURRENT` staging label\.  
 Staging labels are used to keep track of different versions of a secret when they are either updated or rotated\. Each version of a secret has one or more staging labels and an ID\. For more information, see [Key Terms and Concepts for AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_secret) in the *AWS Secrets Manager User Guide*\.
 
 `version-id`  
-Specifies the unique identifier of the version of a secret that you want to use\. If a version ID is specified, you cannot specify a version staging label\. If no version ID is specified, the default behavior is to retrieve the secret with the `AWSCURRENT` staging label\.  
+Specifies the unique identifier of the version of a secret that you want to use\. If a version ID is specified, you can't specify a version staging label\. If no version ID is specified, the default behavior is to retrieve the secret with the `AWSCURRENT` staging label\.  
 Version IDs are used to keep track of different versions of a secret when they are either updated or rotated\. Each version of a secret has an ID\. For more information, see [Key Terms and Concepts for AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_secret) in the *AWS Secrets Manager User Guide*\.
 
 ### Example container definitions<a name="secrets-examples"></a>

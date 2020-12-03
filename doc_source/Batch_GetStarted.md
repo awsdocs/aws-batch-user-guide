@@ -70,7 +70,7 @@ We do not recommend using plaintext environment variables for sensitive informat
 A compute environment is a way to reference your compute resources \(Amazon EC2 instances\): the settings and constraints that tell AWS Batch how instances should be configured and automatically launched\. You submit your jobs to a job queue that stores jobs until the AWS Batch scheduler runs the job on a compute resource within your compute environment\.
 
 **Note**  
-At this time, you can only create a managed compute environment in the first run wizard\. To create an unmanaged compute environment, see [Creating a Compute Environment](create-compute-environment.md)\.
+At this time, you can only create a managed compute environment in the first run wizard\. To create an unmanaged compute environment, see [Creating a compute environment](create-compute-environment.md)\.
 
 **To configure your compute environment type**
 
@@ -129,5 +129,5 @@ You submit your jobs to a job queue which stores jobs until the AWS Batch schedu
 
 **To review and create**
 
-The **Connected compute environments for this job queue** section shows that your new compute environment is associated with your new job queue and its order\. Later, you can associate other compute environments with the job queue\. The job scheduler uses the compute environment order to determine which compute environment should execute a given job\. Compute environments must be in the `VALID` state before you can associate them with a job queue\. You can associate up to three compute environments with a job queue\.
+The **Connected compute environments for this job queue** section shows that your new compute environment is associated with your new job queue and its order\. Later, you can associate other compute environments with the job queue\. The job scheduler uses the compute environment order to determine which compute environment should start a given job\. Compute environments must be in the `VALID` state before you can associate them with a job queue\. You can associate up to three compute environments with a job queue\.
 + Review the compute environment and job queue configuration and choose **Create** to create your compute environment\.
