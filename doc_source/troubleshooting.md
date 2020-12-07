@@ -1,6 +1,6 @@
 # Troubleshooting AWS Batch<a name="troubleshooting"></a>
 
-You may find the need to troubleshoot issues with your compute environments, job queues, job definitions, or jobs\. This chapter helps you troubleshoot and repair issues with your AWS Batch environment\. 
+You might find the need to troubleshoot issues with your compute environments, job queues, job definitions, or jobs\. This chapter helps you troubleshoot and repair issues with your AWS Batch environment\. 
 
 ## `INVALID` Compute Environment<a name="invalid_compute_environment"></a>
 
@@ -24,7 +24,7 @@ For an invalid Spot Fleet role:
 CLIENT_ERROR - Parameter: SpotFleetRequestConfig.IamFleetRole is invalid. (Service: AmazonEC2; Status Code: 400; Error Code: InvalidSpotFleetRequestConfig; Request ID: 331205f0-5ae3-4cea-bac4-897769639f8d)  Parameter: SpotFleetRequestConfig.IamFleetRole is invalid
 ```
 
-One common cause for this issue is if you only specify the name of an IAM role when using the AWS CLI or the AWS SDKs, instead of the full ARN\. This is because depending on how you created the role, the ARN may contain a `service-role` path prefix\. For example, if you manually create the AWS Batch service role using the procedures in [AWS Batch Service IAM Role](service_IAM_role.md), your service role ARN would look like this:
+One common cause for this issue is if you only specify the name of an IAM role when using the AWS CLI or the AWS SDKs, instead of the full ARN\. This is because depending on how you created the role, the ARN might contain a `service-role` path prefix\. For example, if you manually create the AWS Batch service role using the procedures in [AWS Batch Service IAM Role](service_IAM_role.md), your service role ARN would look like this:
 
 ```
 arn:aws:iam::123456789012:role/AWSBatchServiceRole
@@ -38,7 +38,7 @@ arn:aws:iam::123456789012:role/service-role/AWSBatchServiceRole
 
 When you only specify the name of an IAM role when using the AWS CLI or the AWS SDKs, AWS Batch assumes that your ARN does not use the `service-role` path prefix\. Because of this, we recommend that you specify the full ARN for your IAM roles when you create compute environments\.
 
-To repair a compute environment that is misconfigured this way, see [Repairing an `INVALID` Compute Environment](#repairing_invalid_compute_environment)\.
+To repair a compute environment that's misconfigured this way, see [Repairing an `INVALID` Compute Environment](#repairing_invalid_compute_environment)\.
 
 ### Repairing an `INVALID` Compute Environment<a name="repairing_invalid_compute_environment"></a>
 
@@ -60,7 +60,7 @@ When you have a compute environment in an `INVALID` state, you should update it 
 
 ## Jobs Stuck in `RUNNABLE` Status<a name="job_stuck_in_runnable"></a>
 
-If your compute environment contains compute resources, but your jobs do not progress beyond the `RUNNABLE` status, then there is something preventing the jobs from actually being placed on a compute resource\. Here are some common causes for this issue:
+If your compute environment contains compute resources, but your jobs don't progress beyond the `RUNNABLE` status, then there is something preventing the jobs from actually being placed on a compute resource\. Here are some common causes for this issue:
 
 The `awslogs` log driver isn't configured on your compute resources  
 AWS Batch jobs send their log information to CloudWatch Logs\. To enable this, you must configure your compute resources to use the `awslogs` log driver\. If you base your compute resource AMI off of the Amazon ECS\-optimized AMI \(or Amazon Linux\), then this driver is registered by default with the `ecs-init` package\. If you use a different base AMI, then you must ensure that the `awslogs` log driver is specified as an available log driver with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable when the Amazon ECS container agent is started\. For more information, see [Compute resource AMI specification](compute_resource_AMIs.md#batch-ami-spec) and [Creating a compute resource AMI](create-batch-ami.md)\.
@@ -82,7 +82,7 @@ For more information on diagnosing jobs stuck in `RUNNABLE` status, see [Why is 
 
 Spot Instance tagging for AWS Batch compute resources is supported as of October 25, 2017\. Prior to that support, the recommended IAM managed policy \(`AmazonEC2SpotFleetRole`\) for the Amazon EC2 Spot Fleet role did not contain permissions to tag Spot Instances at launch\. The new recommended IAM managed policy is called `AmazonEC2SpotFleetTaggingRole`\.
 
-To fix Spot Instance tagging on creation, follow the procedure below to apply the current recommended IAM managed policy to your Amazon EC2 Spot Fleet role, and then any future Spot Instances that are created with that role have permissions to apply instance tags on creation\.
+To fix Spot Instance tagging on creation, follow the following procedure to apply the current recommended IAM managed policy to your Amazon EC2 Spot Fleet role, and then any future Spot Instances that are created with that role have permissions to apply instance tags on creation\.
 
 **To apply the current IAM managed policy to your Amazon EC2 Spot Fleet role**
 

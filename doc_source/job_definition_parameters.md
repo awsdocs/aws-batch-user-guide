@@ -57,7 +57,7 @@ Required: No
 
 ## Propagate tags<a name="job-definition-parameters-propagate-tags"></a>
 
-`platformCapabilities`  
+`propagateTags`  
 Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task\. If no value is specified, the tags aren't propagated\. Tags can only be propagated to the tasks during task creation\. For tags with the same name, job tags are given priority over job definitions tags\. If the total number of combined tags from the job and job definition is over 50, the job's moved to the `FAILED` state\.  
 Type: Boolean  
 Required: No
@@ -388,7 +388,7 @@ type="GPU"
 The number of physical GPUs to reserve for the container\. The number of GPUs reserved for all containers in a job shouldn't exceed the number of available GPUs on the compute resource that the job is launched on\.  
 type="MEMORY"  
 For jobs that are running on EC2 resources, the hard limit \(in MiB\) of memory to present to the container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [docker run](https://docs.docker.com/engine/reference/run/)\. You must specify at least 4 MiB of memory for a job\. This is required but can be specified in several places for multi\-node parallel \(MNP\) jobs; it must be specified for each node at least once\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [docker run](https://docs.docker.com/engine/reference/run/)\. You must specify at least 4 MiB of memory for a job\.  
-If you're trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Memory Management](https://docs.aws.amazon.com/memory-management.html) in the *AWS Batch User Guide*\.
+If you're trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
 For jobs that are running on Fargate resources, then `value` is the hard limit \(in GB\), represented in decimal form\. This hard limit must match one of the supported values \(0\.5 and whole numbers between 1 and 30, inclusive\)\. Moreover, the `VCPU` values must be one of the values supported for that memory value\.      
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html)  
 type="VCPU"  
