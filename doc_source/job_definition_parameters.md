@@ -197,7 +197,13 @@ This parameter isn't applicable to jobs running on Fargate resources and shouldn
 Type: Integer  
 Required: No  
 `swappiness`  
-This allows you to tune a container's memory swappiness behavior\. A `swappiness` value of `0` will cause swapping to not happen unless absolutely necessary\. A `swappiness` value of `100` will cause pages to be swapped very aggressively\. Accepted values are whole numbers between `0` and `100`\. If the `swappiness` parameter isn't specified, a default value of `60` is used\. If a value isn't specified for `maxSwap` then this parameter is ignored\. This parameter maps to the `--memory-swappiness` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
+This allows you to tune a container's memory swappiness behavior\. A `swappiness` value of `0` will cause swapping to not happen unless absolutely necessary\. A `swappiness` value of `100` will cause pages to be swapped very aggressively\. Accepted values are whole numbers between `0` and `100`\. If the `swappiness` parameter isn't specified, a default value of `60` is used\. If a value isn't specified for `maxSwap` then this parameter is ignored\. If `maxSwap` is set to 0, the container doesn't use swap\. This parameter maps to the `--memory-swappiness` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
+Consider the following when you use a per\-container swap configuration\.  
++ Swap space must be enabled and allocated on the container instance for the containers to use\.
+**Note**  
+The Amazon ECS optimized AMIs don't have swap enabled by default\. You must enable swap on the instance to use this feature\. For more information, see [Instance Store Swap Volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-store-swap-volumes.html) in the *Amazon EC2 User Guide for Linux Instances* or [How do I allocate memory to work as swap space in an Amazon EC2 instance by using a swap file?](http://aws.amazon.com/premiumsupport/knowledge-center/ec2-memory-swap-file/)
++ The swap space parameters are only supported for job definitions using EC2 resources\.
++ If the `maxSwap` and `swappiness` parameters are omitted from a job definition, each container will have a default `swappiness` value of 60 and the total swap usage will be limited to two times the memory reservation of the container\.
 This parameter isn't applicable to jobs running on Fargate resources and shouldn't be provided\.
 Type: Integer  
 Required: No  
@@ -222,7 +228,7 @@ Required: Yes
 
 `logConfiguration`  
 The log configuration specification for the job\.  
-This parameter maps to `LogConfig` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--log-driver` option to [docker run](https://docs.docker.com/engine/reference/run/)\. By default, containers use the same logging driver that the Docker daemon uses\. However the container may use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the container definition\. To use a different logging driver for a container, the log system must be either configured on the container instance or on another log server to provide remote logging options\. For more information about the options for different supported log drivers, see [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation\.  
+This parameter maps to `LogConfig` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--log-driver` option to [docker run](https://docs.docker.com/engine/reference/run/)\. By default, containers use the same logging driver that the Docker daemon uses\. However the container can use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the container definition\. To use a different logging driver for a container, the log system must be either configured on the container instance or on another log server to provide remote logging options\. For more information about the options for different supported log drivers, see [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation\.  
 AWS Batch currently supports a subset of the logging drivers available to the Docker daemon \(shown in the [LogConfiguration](https://docs.aws.amazon.com/batch/latest/APIReference/API_LogConfiguration.html) data type\)\.
 This parameter requires version 1\.18 of the Docker Remote API or greater on your container instance\. To check the Docker Remote API version on your container instance, log into your container instance and run the following command: `sudo docker version | grep "Server API version"`   
 
@@ -253,8 +259,8 @@ Type: [LogConfiguration](https://docs.aws.amazon.com/batch/latest/APIReference/A
 Required: No    
 `logDriver`  
 The log driver to use for the job\. By default, AWS Batch enables the `awslogs` log driver\. The valid values listed for this parameter are log drivers that the Amazon ECS container agent can communicate with by default\.  
-This parameter maps to `LogConfig` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--log-driver` option to [docker run](https://docs.docker.com/engine/reference/run/)\. By default, jobs use the same logging driver that the Docker daemon uses\. However the job may use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the job definition\. If you want to specify another logging driver for a job, then the log system must be configured on the container instance in the compute environment\. Or, alternatively, you should configure it on another log server to provide remote logging options\. For more information about the options for different supported log drivers, see [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation\.  
-AWS Batch currently supports a subset of the logging drivers available to the Docker daemon\. Additional log drivers may be available in future releases of the Amazon ECS container agent\.
+This parameter maps to `LogConfig` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--log-driver` option to [docker run](https://docs.docker.com/engine/reference/run/)\. By default, jobs use the same logging driver that the Docker daemon uses\. However the job can use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the job definition\. If you want to specify another logging driver for a job, then the log system must be configured on the container instance in the compute environment\. Or, alternatively, you should configure it on another log server to provide remote logging options\. For more information about the options for different supported log drivers, see [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation\.  
+AWS Batch currently supports a subset of the logging drivers available to the Docker daemon\. Additional log drivers might be available in future releases of the Amazon ECS container agent\.
 The supported log drivers are `awslogs`, `fluentd`, `gelf`, `json-file`, `journald`, `logentries`, `syslog`, and `splunk`\.  
 Jobs that are running on Fargate resources are restricted to the `awslogs` and `splunk` log drivers\.
 This parameter requires version 1\.18 of the Docker Remote API or greater on your container instance\. To check the Docker Remote API version on your container instance, log into your container instance and run the following command: `sudo docker version | grep "Server API version"`  
@@ -276,7 +282,7 @@ Specifies the syslog logging driver\. For more information, including usage and 
 Type: String  
 Required: Yes  
 Valid values: `awslogs` \| `fluentd` \| `gelf` \| `journald` \| `json-file` \| `splunk` \| `syslog`  
-If you have a custom driver that isn't listed earlier that you would like to work with the Amazon ECS container agent, you can fork the Amazon ECS container agent project that's [available on GitHub](https://github.com/aws/amazon-ecs-agent) and customize it to work with that driver\. We encourage you to submit pull requests for changes that you would like to have included\. However, Amazon Web Services doesn't currently support that are running modified copies of this software\.  
+If you have a custom driver that's not listed earlier that you would like to work with the Amazon ECS container agent, you can fork the Amazon ECS container agent project that's [available on GitHub](https://github.com/aws/amazon-ecs-agent) and customize it to work with that driver\. We encourage you to submit pull requests for changes that you would like to have included\. However, Amazon Web Services doesn't currently support that are running modified copies of this software\.  
 `options`  
 Log configuration options to send to a log driver for the job\.  
 This parameter requires version 1\.19 of the Docker Remote API or greater on your container instance\.  
@@ -398,7 +404,7 @@ Type: String
 Required: Yes, when `resourceRequirements` is used\.
 
 `secrets`  
-The secrets for the job that is exposed as environment variables\. For more information, see [Specifying sensitive data](specifying-sensitive-data.md)\.  
+The secrets for the job that are exposed as environment variables\. For more information, see [Specifying sensitive data](specifying-sensitive-data.md)\.  
 
 ```
 "secrets": [
@@ -419,6 +425,7 @@ Required: No
 The name of the environment variable that contains the secret\.  
 Type: String  
 Required: Yes, when `secrets` is used\.  
+  
 `valueFrom`  
 The secret to expose to the container\. The supported values are either the full ARN of the Secrets Manager secret or the full ARN of the parameter in the SSM Parameter Store\.  
 If the SSM Parameter Store parameter exists in the same Region as the job you're launching, then you can use either the full ARN or name of the parameter\. If the parameter exists in a different Region, then the full ARN must be specified\.
@@ -444,14 +451,17 @@ Required: No
 The `type` of the `ulimit`\.  
 Type: String  
 Required: Yes, when `ulimits` is used\.  
+  
 `hardLimit`  
 The hard limit for the `ulimit` type\.  
 Type: Integer  
 Required: Yes, when `ulimits` is used\.  
+  
 `softLimit`  
 The soft limit for the `ulimit` type\.  
 Type: Integer  
-Required: Yes, when `ulimits` is used\.
+Required: Yes, when `ulimits` is used\.  
+
 
 `user`  
 The user name to use inside the container\. This parameter maps to `User` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--user` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
@@ -514,7 +524,7 @@ A list of node ranges and their properties associated with a multi\-node paralle
 Type: Array of [NodeRangeProperty](https://docs.aws.amazon.com/batch/latest/APIReference/API_NodeRangeProperty.html) objects  
 Required: Yes    
 `targetNodes`  
-The range of nodes, using node index values\. A range of `0:3` indicates nodes with index values of `0` through `3`\. If the starting range value is omitted \(`:n`\), then 0`` is used to start the range\. If the ending range value is omitted \(`n:`\), then the highest possible node index is used to end the range\. Your accumulative node ranges must account for all nodes \(`0:n`\)\. You may nest node ranges, for example `0:10` and `4:5`, in which case the `4:5` range properties override the `0:10` properties\.   
+The range of nodes, using node index values\. A range of `0:3` indicates nodes with index values of `0` through `3`\. If the starting range value is omitted \(`:n`\), then 0`` is used to start the range\. If the ending range value is omitted \(`n:`\), then the highest possible node index is used to end the range\. Your accumulative node ranges must account for all nodes \(`0:n`\)\. You can nest node ranges, for example `0:10` and `4:5`, in which case the `4:5` range properties override the `0:10` properties\.   
 Type: String  
 Required: No  
 `container`  
@@ -529,7 +539,7 @@ When you register a job definition, you can optionally specify a retry strategy 
 Type: [RetryStrategy](https://docs.aws.amazon.com/batch/latest/APIReference/API_RetryStrategy.html) object  
 Required: No    
 `attempts`  
-The number of times to move a job to the `RUNNABLE` status\. You may specify between 1 and 10 attempts\. If `attempts` is greater than one, the job is retried that many times if it fails, until it has moved to `RUNNABLE`\.  
+The number of times to move a job to the `RUNNABLE` status\. You can specify between 1 and 10 attempts\. If `attempts` is greater than one, the job is retried that many times if it fails, until it has moved to `RUNNABLE`\.  
 
 ```
 "attempts": integer
@@ -557,15 +567,15 @@ Type: String
 Required: Yes  
 Valid values: `RETRY` \| `EXIT`  
 `onExitCode`  
-Contains a glob pattern to match against the decimal representation of the `ExitCode` that is returned for a job\. The pattern can be up to 512 characters long\. It can contain only numbers \(not letters or other special characters\)\. It can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
+Contains a glob pattern to match against the decimal representation of the `ExitCode` that's returned for a job\. The pattern can be up to 512 characters long\. It can contain only numbers \(not letters or other special characters\)\. It can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
 Type: String  
 Required: No  
 `onReason`  
-Contains a glob pattern to match against the `Reason` that is returned for a job\. The pattern can be up to 512 characters long\. It can contain letters, numbers, periods \(\.\), colons \(:\), and white space \(spaces, tabs\)\. It can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
+Contains a glob pattern to match against the `Reason` that's returned for a job\. The pattern can be up to 512 characters long\. It can contain letters, numbers, periods \(\.\), colons \(:\), and white space \(spaces, tabs\)\. It can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
 Type: String  
 Required: No  
 `onStatusReason`  
-Contains a glob pattern to match against the `StatusReason` that is returned for a job\. The pattern can be up to 512 characters long\. It can contain letters, numbers, periods \(\.\), colons \(:\), and white space \(spaces, tabs\)\. and can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
+Contains a glob pattern to match against the `StatusReason` that's returned for a job\. The pattern can be up to 512 characters long\. It can contain letters, numbers, periods \(\.\), colons \(:\), and white space \(spaces, tabs\)\. and can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
 Type: String  
 Required: No
 
@@ -579,7 +589,7 @@ Required: No
 ## Timeout<a name="timeout"></a>
 
 `timeout`  
-You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job Timeouts](job_timeouts.md)\. If a job is terminated due to a timeout, it isn't retried\. Any timeout configuration that is specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the timeout configuration defined here\. For more information, see [Job Timeouts](job_timeouts.md)\.  
+You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job Timeouts](job_timeouts.md)\. If a job is terminated due to a timeout, it isn't retried\. Any timeout configuration that's specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the timeout configuration defined here\. For more information, see [Job Timeouts](job_timeouts.md)\.  
 Type: [JobTimeout](https://docs.aws.amazon.com/batch/latest/APIReference/API_JobTimeout.html) object  
 Required: No    
 `attemptDurationSeconds`  

@@ -87,7 +87,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
    1. If you chose to use Spot Instances:
 
-      1. \(Optional\) For **Maximum % on\-demand price**, choose the maximum percentage that a Spot Instance price can be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your maximum price is 20%, then the Spot price must be below 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\. If you leave this field empty, the default value is 100% of the On\-Demand price\.
+      1. \(Optional\) For **Maximum % on\-demand price**, choose the maximum percentage that a Spot Instance price can be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your maximum price is 20%, then the Spot price must be less than 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\. If you leave this field empty, the default value is 100% of the On\-Demand price\.
 
    1. For **Minimum vCPUs**, choose the minimum number of EC2 vCPUs that your compute environment should maintain, regardless of job queue demand\.
 
@@ -95,11 +95,13 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
    1. For **Desired vCPUs**, choose the number of EC2 vCPUs that your compute environment should launch with\. As your job queue demand increases, AWS Batch can increase the desired number of vCPUs in your compute environment and add EC2 instances, up to the maximum vCPUs\. As demand decreases, AWS Batch can decrease the desired number of vCPUs in your compute environment and remove instances, down to the minimum vCPUs\.
 
-   1. For **Allowed instance types**, choose the Amazon EC2 instance types that may be launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types aren't in the instance families\. For example, `c5` doesn't include `c5.metal`\. You can also choose `optimal` to select instance types \(from the C, M, and R instance families\) as you need that match the demand of your job queues\.
+   1. For **Allowed instance types**, choose the Amazon EC2 instance types that can be launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types aren't in the instance families\. For example, `c5` doesn't include `c5.metal`\. You can also choose `optimal` to select instance types \(from the C4, M4, and R4 instance families\) as you need that match the demand of your job queues\.
 **Note**  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
 **Note**  
 AWS Batch will scale GPUs based on the required amount in your job queues\. In order to use GPU scheduling, the compute environment must include instance types from the `p2`, `p3`, `g3`, `g3s`, or `g4` families\.
+**Note**  
+Currently, `optimal` uses instance types from the C4, M4, and R4 instance families\. In Regions that don't have instance types from those instance families, instance types from the C5, M5\. and R5 instance families are used\.
 
    1. For **Allocation strategy**, choose the allocation strategy to use when selecting instance types from the list of allowed instance types\. **BEST\_FIT\_PROGRESSIVE** is usually the better choice for EC2 On\-Demand compute environments, and **SPOT\_CAPACITY\_OPTIMIZED** for EC2 Spot compute environments\. For more information, see [Allocation strategies](allocation-strategies.md)\.
 

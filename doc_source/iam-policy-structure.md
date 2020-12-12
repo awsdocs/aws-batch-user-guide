@@ -66,6 +66,8 @@ Each IAM policy statement applies to the resources that you specify using their 
 
 An ARN has the following general syntax:
 
+ 
+
 ```
 arn:aws:[service]:[region]:[account]:resourceType/resourcePath
 ```

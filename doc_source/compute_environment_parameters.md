@@ -73,8 +73,9 @@ This parameter isn't applicable to jobs running on Fargate resources, and should
 Type: Integer  
 Required: No  
 `instanceTypes`  <a name="compute-environment-compute-resources-instanceTypes"></a>
-The instance types that may be launched\. This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\)\. Or, you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types aren't in the instance families \(for example `c5` does not include `c5.metal`\.\) You can also choose `optimal` to select instance types \(from the C, M, and R instance families\) that match the demand of your job queues\.  
+The instance types that can be launched\. This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\)\. Or, you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types aren't in the instance families \(for example `c5` does not include `c5.metal`\.\) You can also choose `optimal` to select instance types \(from the C4, M4, and R4 instance families\) that match the demand of your job queues\.  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
+Currently, `optimal` uses instance types from the C4, M4, and R4 instance families\. In Regions that don't have instance types from those instance families, instance types from the C5, M5\. and R5 instance families are used\.
 Type: Array of strings  
 Required: yes  
 `imageId`  <a name="compute-environment-compute-resources-imageId"></a>
@@ -93,7 +94,7 @@ The Amazon EC2 security groups associated with instances launched in the compute
 Type: Array of strings  
 Required: Yes  
 `ec2KeyPair`  <a name="compute-environment-compute-resources-ec2KeyPair"></a>
-The EC2 key pair that is used for instances launched in the compute environment\. You can use this key pair to log in to your instances with SSH\.  
+The EC2 key pair that's used for instances launched in the compute environment\. You can use this key pair to log in to your instances with SSH\.  
 This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 Type: String  
 Required: No  
@@ -103,6 +104,7 @@ Type: String
 Required: No  
 `tags`  <a name="compute-environment-compute-resources-tags"></a>
 Key\-value pair tags to be applied to EC2 instances that are launched in the compute environment\. For example, you can specify `"Name": "AWS Batch Instance - C4OnDemand"` as a tag so that each instance in your compute environment has that name\. This is helpful for recognizing your AWS Batch instances in the Amazon EC2 console\. These tags can't be updated or removed after the compute environment has been created\. Any changes require creating a new compute environment and removing the previous compute environment\. These tags aren't seen when using the AWS Batch [ListTagsForResource](https://docs.aws.amazon.com/batch/latest/APIReference/API_ListTagsForResource.html) API operation\.  
+This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 Type: String to string map  
 Required: No  
 `placementGroup`  <a name="compute-environment-compute-resources-placementGroup"></a>
@@ -110,7 +112,7 @@ The Amazon EC2 placement group to associate with your compute resources\. This p
 Type: String  
 Required: No  
 `bidPercentage`  <a name="compute-environment-compute-resources-bidPercentage"></a>
-The maximum percentage that an EC2 Spot Instance price can be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your maximum percentage is 20%, then the Spot price must be below 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\. If you leave this field empty, the default value is 100% of the On\-Demand price\.  
+The maximum percentage that an EC2 Spot Instance price can be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your maximum percentage is 20%, then the Spot price must be less than 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\. If you leave this field empty, the default value is 100% of the On\-Demand price\.  
 This parameter isn't applicable to jobs running on Fargate resources, and shouldn't be specified\.
 Required: No  
 `spotIamFleetRole`  <a name="compute-environment-compute-resources-spotIamFleetRole"></a>

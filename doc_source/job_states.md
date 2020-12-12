@@ -9,7 +9,7 @@ A job that has been submitted to the queue, and has not yet been evaluated by th
 A job that resides in the queue and isn't yet able to run due to a dependency on another job or resource\. After the dependencies are satisfied, the job is moved to `RUNNABLE`\.
 
 `RUNNABLE`  
-A job that resides in the queue, has no outstanding dependencies, and is therefore ready to be scheduled to a host\. Jobs in this state are started as soon as sufficient resources are available in one of the compute environments that are mapped to the job’s queue\. However, jobs can remain in this state indefinitely when sufficient resources are unavailable\.  
+A job that resides in the queue, has no outstanding dependencies, and is therefore ready to be scheduled to a host\. Jobs in this state are started as soon as sufficient resources are available in one of the compute environments that are mapped to the job's queue\. However, jobs can remain in this state indefinitely when sufficient resources are unavailable\.  
 If your jobs do not progress to `STARTING`, see [Jobs Stuck in `RUNNABLE` Status](troubleshooting.md#job_stuck_in_runnable) in the troubleshooting section\.
 
 `STARTING`  
@@ -21,11 +21,11 @@ Logs for `RUNNING` jobs are available in CloudWatch Logs; the log group is `/aws
 After a job reaches the `RUNNING` status, you can programmatically retrieve its log stream name with the [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operation\. For more information, see [View Log Data Sent to CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html#ViewingLogData) in the *Amazon CloudWatch Logs User Guide*\. By default, these logs are set to never expire, but you can modify the retention period\. For more information, see [Change Log Data Retention in CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SettingLogRetention.html) in the *Amazon CloudWatch Logs User Guide*\.
 
 `SUCCEEDED`  
-The job has successfully completed with an exit code of `0`\. The job state for `SUCCEEDED` jobs is persisted in AWS Batch for 24 hours\.  
+The job has successfully completed with an exit code of `0`\. The job state for `SUCCEEDED` jobs is persisted in AWS Batch for at least 24 hours\.  
 Logs for `SUCCEEDED` jobs are available in CloudWatch Logs; the log group is `/aws/batch/job`, and the log stream name format is `first200CharsOfJobDefinitionName/default/ecs_task_id` \(this format may change in the future\)\.  
 After a job reaches the `RUNNING` status, you can programmatically retrieve its log stream name with the [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operation\. For more information, see [View Log Data Sent to CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html#ViewingLogData) in the *Amazon CloudWatch Logs User Guide*\. By default, these logs are set to never expire, but you can modify the retention period\. For more information, see [Change Log Data Retention in CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SettingLogRetention.html) in the *Amazon CloudWatch Logs User Guide*\.
 
 `FAILED`  
-The job has failed all available attempts\. The job state for `FAILED` jobs is persisted in AWS Batch for 24 hours\.  
+The job has failed all available attempts\. The job state for `FAILED` jobs is persisted in AWS Batch for at least 24 hours\.  
 Logs for `FAILED` jobs are available in CloudWatch Logs; the log group is `/aws/batch/job`, and the log stream name format is `first200CharsOfJobDefinitionName/default/ecs_task_id` \(this format may change in the future\)\.  
 After a job reaches the `RUNNING` status, you can programmatically retrieve its log stream with the [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operation\. For more information, see [View Log Data Sent to CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html#ViewingLogData) in the *Amazon CloudWatch Logs User Guide*\. By default, these logs are set to never expire, but you can modify the retention period\. For more information, see [Change Log Data Retention in CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SettingLogRetention.html) in the *Amazon CloudWatch Logs User Guide*\.

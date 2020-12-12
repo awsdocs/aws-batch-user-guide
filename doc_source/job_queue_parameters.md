@@ -2,6 +2,8 @@
 
 Job queues are split into four basic components: the name, state, and priority of the job queue, and the compute environment order\.
 
+
+
 ## Job queue name<a name="job_queue_name"></a>
 
 `jobQueueName`  

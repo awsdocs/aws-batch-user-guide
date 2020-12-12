@@ -50,7 +50,7 @@ Not applicable for jobs running on Fargate resources\.
 These settings must be specified in `resourceRequirements`
 
 `privileged`  
-Either don’t specify this parameter, or specify `false`\.  
+Either don't specify this parameter, or specify `false`\.  
 
 ```
 "privileged": false
@@ -76,11 +76,11 @@ Only `awslogs` and `fluentd` are supported\. For more information, see [Using th
 
 Members in `networkConfiguration`    
 `assignPublicIp`  
-If the private subnet does not have a NAT gateway attached to send traffic to the Internet, `[assignPublicIp](https://docs.aws.amazon.com/batch/latest/APIReference/API_NetworkConfiguration.html#Batch-Type-NetworkConfiguration-assignPublicIp)` must be “`ENABLED`”\. For more information, see For more information, see [AWS Batch execution IAM role](execution-IAM-role.md)\.\.
+If the private subnet does not have a NAT gateway attached to send traffic to the Internet, `[assignPublicIp](https://docs.aws.amazon.com/batch/latest/APIReference/API_NetworkConfiguration.html#Batch-Type-NetworkConfiguration-assignPublicIp)` must be "`ENABLED`"\. For more information, see For more information, see [AWS Batch execution IAM role](execution-IAM-role.md)\.
 
 ## Job queues on Fargate<a name="fargate-job-queues"></a>
 
-AWS Batch job queues on Fargate are essentially unchanged\. The only restriction is that the compute environments listed in `computeEnvironmentOrder` must all be Fargate compute environments \(`FARGATE` or `FARGATE_SPOT`\)\. EC2 and Fargate compute environments can’t be mixed\.
+AWS Batch job queues on Fargate are essentially unchanged\. The only restriction is that the compute environments listed in `computeEnvironmentOrder` must all be Fargate compute environments \(`FARGATE` or `FARGATE_SPOT`\)\. EC2 and Fargate compute environments can't be mixed\.
 
 ## Compute environments on Fargate<a name="fargate-compute-environments"></a>
 

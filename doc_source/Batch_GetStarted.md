@@ -5,7 +5,9 @@ Get started with AWS Batch by creating a job definition, compute environment, an
 The AWS Batch first\-run wizard gives you the option of creating a compute environment and a job queue and submitting a sample hello world job\. If you already have a Docker image you would like to launch in AWS Batch, you can create a job definition with that image and submit that to your queue instead\.
 
 **Important**  
-Before you begin, be sure that you've completed the steps in [Setting Up with AWS Batch](get-set-up-for-aws-batch.md) and that your AWS user has the required permissions \(admin users do not need to worry about permissions issues\)\. For more information, see [Creating Your First IAM Admin User and Group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) in the *IAM User Guide\.*
+Before you begin, be sure that you've completed the steps in [Setting Up with AWS Batch](get-set-up-for-aws-batch.md) and that your AWS user has the required permissions \(admin users don't need to worry about permissions issues\)\. For more information, see [Creating Your First IAM Admin User and Group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) in the *IAM User Guide\.*
+
+
 
 ## Step 1: Define a Job<a name="first-run-step-1"></a>
 
@@ -59,7 +61,7 @@ You can optionally specify parameter substitution default values and placeholder
 
 You can optionally specify environment variables to pass to your job's container\. This parameter maps to `Env` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--env` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 **Important**  
-We do not recommend using plaintext environment variables for sensitive information, such as credential data\.
+We don't recommend using plaintext environment variables for sensitive information, such as credential data\.
 
 1. For **Key**, specify the key for your environment variable\.
 
@@ -67,12 +69,16 @@ We do not recommend using plaintext environment variables for sensitive informat
 
 ## Step 2: Configure the Compute Environment and Job Queue<a name="first-run-step-2"></a>
 
+
+
 A compute environment is a way to reference your compute resources \(Amazon EC2 instances\): the settings and constraints that tell AWS Batch how instances should be configured and automatically launched\. You submit your jobs to a job queue that stores jobs until the AWS Batch scheduler runs the job on a compute resource within your compute environment\.
 
 **Note**  
 At this time, you can only create a managed compute environment in the first run wizard\. To create an unmanaged compute environment, see [Creating a compute environment](create-compute-environment.md)\.
 
 **To configure your compute environment type**
+
+
 
 1. For **Compute environment name**, specify a unique name for your compute environment\.
 
@@ -82,17 +88,21 @@ At this time, you can only create a managed compute environment in the first run
 
 **To configure your instances**
 
+
+
 1. For **Provisioning model**, choose **On\-Demand** to launch Amazon EC2 On\-Demand instances or **Spot** to use Amazon EC2 Spot Instances\.
 
 1. If you chose to use Amazon EC2 Spot Instances:
 
-   1. For **Maximum bid price**, choose the maximum percentage that a Spot Instance price must be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your bid percentage is 20%, then the Spot price must be below 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\.
+   1. For **Maximum bid price**, choose the maximum percentage that a Spot Instance price must be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your bid percentage is 20%, then the Spot price must be less than 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\.
 
    1. For **Spot fleet role**, choose to create a new role or use an existing Amazon EC2 Spot Fleet IAM role to apply to your Spot compute environment\. If you choose to create a new role, the required role \(`aws-ec2-spot-fleet-role`\) is created for you\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.
 
-1. For **Allowed instance types**, choose the Amazon EC2 instance types that may launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types are not in the instance families \(for example `c5` does not include `c5.metal`\.\) You can also choose `optimal` to pick instance types \(from the C, M, and R instance families\) on the fly that match the demand of your job queues\.
+1. For **Allowed instance types**, choose the Amazon EC2 instance types that can be launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types are not in the instance families \(for example `c5` does not include `c5.metal`\.\) You can also choose `optimal` to pick instance types \(from the C4, M4, and R4 instance families\) on the fly that match the demand of your job queues\.
 **Note**  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
+**Note**  
+Currently, `optimal` uses instance types from the C4, M4, and R4 instance families\. In Regions that don't have instance types from those instance families, instance types from the C5, M5\. and R5 instance families are used\.
 
 1. For **Minimum vCPUs**, choose the minimum number of EC2 vCPUs that your compute environment should maintain, regardless of job queue demand\.
 
