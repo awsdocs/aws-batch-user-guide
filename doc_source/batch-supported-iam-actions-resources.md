@@ -62,7 +62,7 @@ arn:aws::batch:*region*:*account*:compute\-environment/*compute\-environment\-na
 Filters actions based on the tags associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_DeleteJobQueue.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_DeleteJobQueue.html)  <a name="batch-supported-actions-deletejobqueue"></a>
-Deletes the specified job queue\.    
+Deletes the specified job queue\. Deleting the job queue eventually deletes all of the jobs in the queue\. Jobs are deleted at a rate of about 16 jobs each second\.    
 **Resource**    
 **Job Queue**  
 arn:aws:batch:*region*:*account*:job\-queue/*queue\-name*    
