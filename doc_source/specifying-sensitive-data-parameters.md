@@ -58,7 +58,7 @@ The following is a snippet of a task definition showing the format when referenc
 
 ```
 {
-  "containerDefinitions": [{
+  "containerProperties": [{
     "secrets": [{
       "name": "environment_variable_name",
       "valueFrom": "arn:aws:ssm:region:aws_account_id:parameter/parameter_name"
@@ -78,7 +78,7 @@ The following is a snippet of a task definition showing the format when referenc
 
 ```
 {
-  "containerDefinitions": [{
+  "containerProperties": [{
     "logConfiguration": [{
       "logDriver": "fluentd",
       "options": {
