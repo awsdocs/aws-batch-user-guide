@@ -25,6 +25,6 @@ The following Amazon EC2 GPU\-based instance types are supported\. For more info
 | p3\.16xlarge | 8 | 128 GiB | 64 | 488 GiB | 25 Gbps | 
 | p3dn\.24xlarge | 8 | 256 GiB | 96 | 768 GiB | 100 Gbps | 
 
-The [resourceRequirements](https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html#ContainerDefinition-resourceRequirements) parameter for the job definition specifies the number of GPUs to be pinned to the container\. This number of GPUs isn't available to any other job running on that instance for the duration of that job\. All instance types in a compute environment that run GPU jobs should be from the `p2`, `p3`, `g3`, `g3s`, or `g4` instance families\. If this isn't done a GPU job might get stuck in the `RUNNABLE` status\.
+The [resourceRequirements](job_definition_parameters.md#ContainerProperties-resourceRequirements) parameter for the job definition specifies the number of GPUs to be pinned to the container\. This number of GPUs isn't available to any other job running on that instance for the duration of that job\. All instance types in a compute environment that run GPU jobs should be from the `p2`, `p3`, `g3`, `g3s`, or `g4` instance families\. If this isn't done a GPU job might get stuck in the `RUNNABLE` status\.
 
 Jobs that don't use the GPUs can be run on GPU instances\. However, they might cost more to run on the GPU instances than on similar non\-GPU instances\. Depending on the specific vCPU, memory, and time needed, these non\-GPU jobs might block GPU jobs from running\.

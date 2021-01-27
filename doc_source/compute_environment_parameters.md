@@ -86,7 +86,7 @@ The AMI that you choose for a compute environment must match the architecture of
 Type: String  
 Required: No  
 `subnets`  <a name="compute-environment-compute-resources-subnets"></a>
-The VPC subnets into which the compute resources are launched\. These subnets must be within the same VPC\. This parameter is required for jobs running on Fargate resources, where it can contain a maximum of 16 subnets\. For more information, see [VPCs and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html) in the *Amazon VPC User Guide*\.  
+The VPC subnets into which the compute resources are launched\. These subnets must be within the same VPC\. Fargate compute resources can contain a maximum of 16 subnets\. For more information, see [VPCs and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html) in the *Amazon VPC User Guide*\.  
 Type: Array of strings  
 Required: Yes  
 `securityGroupIds`  <a name="compute-environment-compute-resources-securityGroupIds"></a>

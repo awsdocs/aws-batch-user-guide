@@ -91,6 +91,12 @@ In this scenario, all of the AWS resources \(Amazon S3 bucket, CloudWatch Events
    {"Parameters" : {"S3bucket": <S3BucketValue>, "S3key": <S3KeyValue>}}
    ```
 
+   You can also update the [ContainerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html) structure to pass to update commands, environment variables, and other settings\.
+
+   ```
+   {"Parameters" : {"S3bucket": <S3BucketValue>}, "ContainerOverrides" : {"Command": ["echo","Ref::S3bucket"]}}
+   ```
+
 1. Choose an existing CloudWatch Events IAM role to use for your job, or **Create a new role for this specific resource** to create a new one\. For more information, see [CloudWatch Events IAM Role](CWE_IAM_role.md)\.
 
 1. Choose **Configure details** and then for **Rule definition**, fill in the following fields appropriately, and then choose **Create rule**\.

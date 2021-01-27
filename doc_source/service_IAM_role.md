@@ -52,6 +52,7 @@ The `AWSBatchServiceRole` policy is shown below\.
                 "ecs:DescribeContainerInstances",
                 "ecs:DescribeTaskDefinition",
                 "ecs:DescribeTasks",
+                "ecs:ListAccountSettings",
                 "ecs:ListClusters",
                 "ecs:ListContainerInstances",
                 "ecs:ListTaskDefinitionFamilies",
@@ -74,6 +75,13 @@ The `AWSBatchServiceRole` policy is shown below\.
                 "iam:GetRole"
             ],
             "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ecs:TagResource",
+            "Resource": [
+                "arn:aws:ecs:*:*:task/*_Batch_*"
+            ]
         },
         {
             "Effect": "Allow",
@@ -116,7 +124,7 @@ The `AWSBatchServiceRole` policy is shown below\.
             ],
             "Condition": {
                 "StringEquals": {
-                    "ec2:CreateAction": "RunInstances"
+                    "ec2:CreateAction" : "RunInstances"
                 }
             }
         }

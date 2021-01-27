@@ -81,7 +81,7 @@ The following is a snippet of a task definition showing the format when referenc
 
 ```
 {
-  "containerDefinitions": [{
+  "containerProperties": [{
     "secrets": [{
       "name": "environment_variable_name",
       "valueFrom": "arn:aws:secretsmanager:region:aws_account_id:secret:secret_name-AbCdEf"
@@ -109,7 +109,7 @@ Reference a specific key from the previous output in a container definition by s
 
 ```
 {
-  "containerDefinitions": [{
+  "containerProperties": [{
     "secrets": [{
       "name": "environment_variable_name",
       "valueFrom": "arn:aws:secretsmanager:region:aws_account_id:secret:appauthexample-AbCdEf:username1::"
@@ -144,7 +144,7 @@ Reference a specific version staging label from the previous output in a contain
 
 ```
 {
-  "containerDefinitions": [{
+  "containerProperties": [{
     "secrets": [{
       "name": "environment_variable_name",
       "valueFrom": "arn:aws:secretsmanager:region:aws_account_id:secret:appauthexample-AbCdEf::AWSPREVIOUS:"
@@ -156,7 +156,7 @@ Reference a specific version ID from the previous output in a container definiti
 
 ```
 {
-  "containerDefinitions": [{
+  "containerProperties": [{
     "secrets": [{
       "name": "environment_variable_name",
       "valueFrom": "arn:aws:secretsmanager:region:aws_account_id:secret:appauthexample-AbCdEf::9d4cb84b-ad69-40c0-a0ab-cead36b967e8"
@@ -170,7 +170,7 @@ The following shows how to reference both a specific key within a secret and a s
 
 ```
 {
-  "containerDefinitions": [{
+  "containerProperties": [{
     "secrets": [{
       "name": "environment_variable_name",
       "valueFrom": "arn:aws:secretsmanager:region:aws_account_id:secret:appauthexample-AbCdEf:username1:AWSPREVIOUS:"
@@ -182,7 +182,7 @@ To specify a specific key and version ID, use the following syntax\.
 
 ```
 {
-  "containerDefinitions": [{
+  "containerProperties": [{
     "secrets": [{
       "name": "environment_variable_name",
       "valueFrom": "arn:aws:secretsmanager:region:aws_account_id:secret:appauthexample-AbCdEf:username1::9d4cb84b-ad69-40c0-a0ab-cead36b967e8"
@@ -199,7 +199,7 @@ The following is a snippet of a job definition showing the format when referenci
 
 ```
 {
-  "containerDefinitions": [{
+  "containerProperties": [{
     "logConfiguration": [{
       "logDriver": "splunk",
       "options": {

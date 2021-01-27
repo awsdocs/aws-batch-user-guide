@@ -57,7 +57,7 @@ Either don't specify this parameter, or specify `false`\.
 ```
 
 `resourceRequirements`  
-Both memory and vCPU requirements must be specified, using [supported values](job_definition_parameters.md#ContainerDefinition-resourceRequirements-Fargate-memory-vcpu)\. GPU resources are not supported for jobs running on Fargate resources\.  
+Both memory and vCPU requirements must be specified, using [supported values](job_definition_parameters.md#ContainerProperties-resourceRequirements-Fargate-memory-vcpu)\. GPU resources are not supported for jobs running on Fargate resources\.  
 
 ```
 "resourceRequirements": [
