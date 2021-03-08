@@ -137,11 +137,12 @@ Required: No
 `version`  <a name="compute-environment-compute-resources-version"></a>
 The version number of the launch template, `$Latest`, or `$Default`\.  
 If the value is `$Latest`, the latest version of the launch template is used\. If the value is `$Default`, the default version of the launch template is used\.  
+After the compute environment is created, the launch template version used will not be changed, even if the `$Default` or `$Latest` version for the launch template is updated\. To use a new launch template version, create a new compute environment, add the new compute environment to the existing job queue, remove the old compute environment from the job queue, and delete the old compute environment\.
 Default: `$Default`\.  
 Type: String  
 Required: No  
 `ec2Configuration`  <a name="compute-environment-compute-resources-ec2Configuration"></a>
-Provides information used to select Amazon Machine Images \(AMIs\) for instances in the EC2 compute environment\. If `Ec2Configuration` isn't specified, the default is currently [Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\) for non\-GPU instances\. In the future, this default will be changing to [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)\.  
+Provides information used to select Amazon Machine Images \(AMIs\) for instances in the EC2 compute environment\. If `Ec2Configuration` isn't specified, the default is currently [Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\) for non\-GPU, non\-Graviton instances\. Starting on March 31, 2021, this default will be changing to [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)\.  
 This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 Type: Array of [Ec2Configuration](https://docs.aws.amazon.com/batch/latest/APIReference/API_Ec2Configuration.html) objects   
 Required: No    

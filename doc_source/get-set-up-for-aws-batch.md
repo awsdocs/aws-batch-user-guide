@@ -110,13 +110,13 @@ The AWS Batch compute environment and container instance roles are automatically
 
 AWS uses public\-key cryptography to secure the login information for your instance\. A Linux instance, such as an AWS Batch compute environment container instance, has no password to use for SSH access; you use a key pair to log in to your instance securely\. You specify the name of the key pair when you create your compute environment, then provide the private key when you log in using SSH\. 
 
-If you haven't created a key pair already, you can create one using the Amazon EC2 console\. Note that if you plan to launch instances in multiple regions, you'll need to create a key pair in each region\. For more information about regions, see [Regions and Availability Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html) in the *Amazon EC2 User Guide for Linux Instances*\.
+If you haven't created a key pair already, you can create one using the Amazon EC2 console\. Note that if you plan to launch instances in multiple Regions, you'll need to create a key pair in each Region\. For more information about Regions, see [Regions and Availability Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 
 **To create a key pair**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. From the navigation bar, select a Region for the key pair\. You can select any Region that's available to you, regardless of your location: however, key pairs are specific to a region\. For example, if you plan to launch an instance in the US West \(Oregon\) region, you must create a key pair for the instance in the same region\.
+1. From the navigation bar, select a Region for the key pair\. You can select any Region that's available to you, regardless of your location: however, key pairs are specific to a Region\. For example, if you plan to launch an instance in the US West \(Oregon\) Region, you must create a key pair for the instance in the same Region\.
 
 1. In the navigation pane, choose **Key Pairs**, **Create Key Pair**\.
 
@@ -162,13 +162,13 @@ Amazon Virtual Private Cloud \(Amazon VPC\) enables you to launch AWS resources 
 If you have a default VPC, you also can skip this section and move to the next task, [Create a Security Group](#create-a-base-security-group)\. To determine whether you have a default VPC, see [Supported Platforms in the Amazon EC2 Console](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html#console-updates) in the *Amazon EC2 User Guide for Linux Instances*\. Otherwise, you can create a nondefault VPC in your account using the steps below\.
 
 **Important**  
-If your account supports EC2\-Classic in a region, then you do not have a default VPC in that region\.
+If your account supports EC2\-Classic in a Region, then you do not have a default VPC in that Region\.
 
 **To create a nondefault VPC**
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 
-1. From the navigation bar, select a Region for the VPC\. VPCs are specific to a region, so you should select the same Region in which you created your key pair\.
+1. From the navigation bar, select a Region for the VPC\. VPCs are specific to a Region, so you should select the same Region in which you created your key pair\.
 
 1. On the VPC dashboard, choose **Start VPC Wizard**\.
 
@@ -182,7 +182,7 @@ For more information about Amazon VPC, see [What is Amazon VPC?](https://docs.aw
 
 Security groups act as a firewall for associated compute environment container instances, controlling both inbound and outbound traffic at the container instance level\. You can add rules to a security group that enable you to connect to your container instance from your IP address using SSH\. You can also add rules that allow inbound and outbound HTTP and HTTPS access from anywhere\. Add any rules to open ports that are required by your tasks\.
 
-Note that if you plan to launch container instances in multiple regions, you need to create a security group in each region\. For more information, see [Regions and Availability Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html) in the *Amazon EC2 User Guide for Linux Instances*\.
+Note that if you plan to launch container instances in multiple Regions, you need to create a security group in each Region\. For more information, see [Regions and Availability Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 
 **Note**  
 You need the public IP address of your local computer, which you can get using a service\. For example, we provide the following service: [http://checkip\.amazonaws\.com/](http://checkip.amazonaws.com/) or [https://checkip\.amazonaws\.com/](https://checkip.amazonaws.com/)\. To locate another service that provides your IP address, use the search phrase "what is my IP address\." If you are connecting through an Internet service provider \(ISP\) or from behind a firewall without a static IP address, you need to find out the range of IP addresses used by client computers\.
@@ -191,7 +191,7 @@ You need the public IP address of your local computer, which you can get using a
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. From the navigation bar, select a Region for the security group\. Security groups are specific to a region, so you should select the same Region in which you created your key pair\.
+1. From the navigation bar, select a Region for the security group\. Security groups are specific to a Region, so you should select the same Region in which you created your key pair\.
 
 1. In the navigation pane, choose **Security Groups**, **Create Security Group**\.
 

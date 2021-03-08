@@ -8,7 +8,7 @@ Some common use cases for AWS Batch jobs as a CloudWatch Events target are:
 + Create a scheduled job that occurs at regular time intervals, such as a cron job that happens in low\-usage hours when Amazon EC2 Spot Instances are less expensive\.
 + Run an AWS Batch job in response to an API operation logged in CloudTrail, such as automatically submitting a job when an object is uploaded to a specified Amazon S3 bucket, and passing the bucket and key name of the object to AWS Batch parameters using the CloudWatch Events input transformer\.
 **Note**  
-In this scenario, all of the AWS resources \(Amazon S3 bucket, CloudWatch Events rule, CloudTrail logs, etc\.\) must be in the same region\.
+In this scenario, all of the AWS resources \(Amazon S3 bucket, CloudWatch Events rule, CloudTrail logs, etc\.\) must be in the same Region\.
 
 Before you can submit AWS Batch jobs with CloudWatch Events rules and targets, the CloudWatch Events service needs permissions to run AWS Batch jobs on your behalf\. When you create a rule in the CloudWatch Events console that specifies an AWS Batch job as a target, you are provided with an opportunity to create this role\. For more information about the required service principal and IAM permissions for this role, see [CloudWatch Events IAM Role](CWE_IAM_role.md)\.
 
@@ -65,7 +65,7 @@ You can use the CloudWatch Events input transformer to pass event information to
 Then, you simply create an AWS Batch event target that parses information from the event that triggers it and transforms it into a `parameters` object\. When the job runs, the parameters from the trigger event are passed to the job container's command\.
 
 **Note**  
-In this scenario, all of the AWS resources \(Amazon S3 bucket, CloudWatch Events rule, CloudTrail logs, etc\.\) must be in the same region\.
+In this scenario, all of the AWS resources \(Amazon S3 bucket, CloudWatch Events rule, CloudTrail logs, etc\.\) must be in the same Region\.
 
 **To create an AWS Batch target that uses the input transformer**
 

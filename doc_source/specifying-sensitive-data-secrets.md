@@ -1,13 +1,13 @@
 # Specifying sensitive data using Secrets Manager<a name="specifying-sensitive-data-secrets"></a>
 
-AWS Batch enables you to inject sensitive data into your jobs by storing your sensitive data in AWS Secrets Manager secrets and then referencing them in your job definition\. Sensitive data stored in Secrets Manager secrets can be exposed to a job as environment variables or as part of the log configuration\.
+With AWS Batch, you can inject sensitive data into your jobs by storing your sensitive data in AWS Secrets Manager secrets and then referencing them in your job definition\. Sensitive data stored in Secrets Manager secrets can be exposed to a job as environment variables or as part of the log configuration\.
 
 When you inject a secret as an environment variable, you can specify a JSON key or version of a secret to inject\. This process helps you control the sensitive data exposed to your job\. For more information about secret versioning, see [Key Terms and Concepts for AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_secret) in the *AWS Secrets Manager User Guide*\.
 
 ## Considerations for specifying sensitive data using Secrets Manager<a name="secrets-considerations"></a>
 
 The following should be considered when using Secrets Manager to specify sensitive data for jobs\.
-+ To inject a secret using a specific JSON key or version of a secret, the container instance in your compute environment must have version 1\.37\.0 or later of the Amazon ECS container agent\. However, we recommend using the latest container agent version\. For information about checking your agent version and updating to the latest version, see [Updating the Amazon ECS container agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html) in the *Amazon Elastic Container Service Developer Guide*\.
++ To inject a secret using a specific JSON key or version of a secret, the container instance in your compute environment must have version 1\.37\.0 or later of the Amazon ECS container agent installed\. However, we recommend using the latest container agent version\. For information about checking your agent version and updating to the latest version, see [Updating the Amazon ECS container agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
   To inject the full contents of a secret as an environment variable or to inject a secret in a log configuration, your container instance must have version 1\.22\.0 or later of the container agent\.
 + Only secrets that store text data, which are secrets created with the `SecretString` parameter of the [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) API, are supported\. Secrets that store binary data, which are secrets created with the `SecretBinary` parameter of the [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) API aren't supported\.
@@ -19,7 +19,7 @@ The following should be considered when using Secrets Manager to specify sensiti
 To use this feature, you must have the execution role and reference it in your job definition\. This allows the container agent to pull the necessary Secrets Manager resources\. For more information, see [AWS Batch execution IAM role](execution-IAM-role.md)\.
 
 **Important**  
-It's necessary that you use the Amazon ECS container agent configuration variable `ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true` to use this feature\. You can add it to the `./etc/ecs/ecs.config` file during container instance creation or o an existing instance and then restart the Amazon ECS container agent\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\.
+It's necessary that you use the Amazon ECS container agent configuration variable `ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true` to use this feature\. You can add it to the `./etc/ecs/ecs.config` file during container instance creation\. Or, you can add it to an existing instance, and then restart the Amazon ECS container agent\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
 To provide access to the Secrets Manager secrets that you create, manually add the following permissions as an inline policy to the execution role\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
 + `secretsmanager:GetSecretValue`–Required if you're referencing a Secrets Manager secret\.
@@ -48,7 +48,7 @@ The following example inline policy adds the required permissions\.
 
 ## Injecting sensitive data as an environment variable<a name="secrets-envvar"></a>
 
-Within your job definition, you can specify the following:
+Within your job definition, you can specify the following items:
 + The `secrets` object containing the name of the environment variable to set in the job
 + The Amazon Resource Name \(ARN\) of the Secrets Manager secret
 + Additional parameters that contain the sensitive data to present to the job
@@ -59,7 +59,7 @@ The following example shows the full syntax that must be specified for the Secre
 arn:aws:secretsmanager:region:aws_account_id:secret:secret-name
 ```
 
-The following section describes the additional parameters\. These parameters are optional, but if you don't use them, you must include the colons `:` to use the default values\. Examples are provided below for more context\.
+The following section describes the additional parameters\. These parameters are optional\. However, if you don't use them, you must include the colons `:` to use the default values\. Examples are provided below for more context\.
 
 `json-key`  
 Specifies the name of the key in a key\-value pair with the value that you want to set as the environment variable value\. Only values in JSON format are supported\. If you don't specify a JSON key, then the full contents of the secret is used\.
@@ -74,7 +74,7 @@ Version IDs are used to keep track of different versions of a secret when they a
 
 ### Example container definitions<a name="secrets-examples"></a>
 
-The following examples show ways in which you can reference Secrets Manager secrets in your container definitions\.
+The following examples show ways that you can reference Secrets Manager secrets in your container definitions\.
 
 **Example referencing a full secret**  
 The following is a snippet of a task definition showing the format when referencing the full text of a Secrets Manager secret\.  
@@ -228,7 +228,7 @@ Use Secrets Manager to create a secret for your sensitive data\.
 
 1. For **Select secret type**, choose **Other type of secrets**\.
 
-1. Specify the details of your custom secret as **Key** and **Value** pairs\. For example, you can specify a key of `UserName`, and then supply the appropriate user name as its value\. Add a second key with the name of `Password` and the password text as its value\. You could also add entries for a database name, server address, TCP port, and so on\. You can add as many pairs as you need to store the information you require\.
+1. Specify the details of your custom secret as **Key** and **Value** pairs\. For example, you can specify a key of `UserName`, and then supply the appropriate user name as its value\. Add a second key with the name of `Password` and the password text as its value\. You could also add entries for a database name, server address, or TCP port\. You can add as many pairs as you need to store the information you require\.
 
    Alternatively, you can choose the **Plaintext** tab and enter the secret value in any way you like\.
 

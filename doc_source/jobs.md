@@ -1,6 +1,6 @@
 # Jobs<a name="jobs"></a>
 
-Jobs are the unit of work executed by AWS Batch\. Jobs can be executed as containerized applications running on Amazon ECS container instances in an ECS cluster\.
+Jobs are the unit of work invoked by AWS Batch\. Jobs can be invoked as containerized applications running on Amazon ECS container instances in an ECS cluster\.
 
 Containerized jobs can reference a container image, command, and parameters\. For more information, see [Job definition parameters](job_definition_parameters.md)\.
 

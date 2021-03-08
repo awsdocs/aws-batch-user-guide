@@ -1,6 +1,6 @@
 # Specifying sensitive data<a name="specifying-sensitive-data"></a>
 
-AWS Batch enables you to inject sensitive data into your jobs by storing your sensitive data in either AWS Secrets Manager secrets or AWS Systems Manager Parameter Store parameters and then referencing them in your job definition\.
+With AWS Batch, you can inject sensitive data into your jobs by storing your sensitive data in either AWS Secrets Manager secrets or AWS Systems Manager Parameter Store parameters, and then reference them in your job definition\.
 
 Secrets can be exposed to a job in the following ways:
 + To inject sensitive data into your containers as environment variables, use the `secrets` job definition parameter\.

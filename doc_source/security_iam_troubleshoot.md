@@ -13,7 +13,7 @@ Use the following information to help you diagnose and fix common issues that yo
 
 If the AWS Management Console tells you that you're not authorized to perform an action, then you must contact your administrator for assistance\. Your administrator is the person that provided you with your user name and password\.
 
-The following example error occurs when the `mateojackson` IAM user tries to use the console to view details about a compute environment but does not have `batch:DescribeComputeEnvironments` permissions\.
+The following example error occurs when the `mateojackson` IAM user tries to use the console to view details about a compute environment but doesn't have `batch:DescribeComputeEnvironments` permissions\.
 
 ```
 User: arn:aws:iam::123456789012:user/mateojackson is not authorized to perform: batch:DescribeComputeEnvironments on resource: my-example-compute-environment

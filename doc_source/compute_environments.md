@@ -10,6 +10,7 @@ Job queues are mapped to one or more compute environments\. Compute environments
 + [Creating a compute environment](create-compute-environment.md)
 + [Compute environment template](compute-environment-template.md)
 + [Compute environment parameters](compute_environment_parameters.md)
++ [EC2 Configurations](ec2-configurations.md)
 + [Allocation strategies](allocation-strategies.md)
 + [Compute Resource Memory Management](memory-management.md)
 

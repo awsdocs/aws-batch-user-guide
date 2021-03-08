@@ -4,13 +4,13 @@ You might find the need to troubleshoot issues with your compute environments, j
 
 ## `INVALID` Compute Environment<a name="invalid_compute_environment"></a>
 
-It is possible to incorrectly configure a managed compute environment so that it enters an `INVALID` state and cannot accept jobs for placement\. These sections describe the possible causes and how to fix them\.
+It's possible to incorrectly configure a managed compute environment so that it enters an `INVALID` state and cannot accept jobs for placement\. These sections describe the possible causes and how to fix them\.
 
 ### Incorrect Role Name or ARN<a name="invalid_service_role_arn"></a>
 
-The most common cause for invalid compute environments is an incorrect name or ARN for the AWS Batch service role or the Amazon EC2 Spot Fleet role\. This is more of an issue for compute environments that are created with the AWS CLI or the AWS SDKs; when you create a compute environment in the AWS Management Console, AWS Batch can help you choose the correct service or Spot Fleet roles and you cannot misspell the name or deform the ARN\.
+The most common cause for invalid compute environments is an incorrect name or ARN for the AWS Batch service role or the Amazon EC2 Spot Fleet role\. This is more of an issue for compute environments that are created with the AWS CLI or the AWS SDKs\. When you create a compute environment in the AWS Management Console, AWS Batch can help you choose the correct service or Spot Fleet roles\. However, you can't misspell the name or deform the ARN\.
 
-However, if you manually type the name or ARN for an IAM in an AWS CLI command or your SDK code, AWS Batch is unable to validate the string and it accepts the bad value and attempts to create the environment\. After failing to create the environment, the environment moves to an `INVALID` state, and you see the following errors\.
+However, if you manually type the name or ARN for an IAM in an AWS CLI command or your SDK code, AWS Batch can't validate the string and it accepts the bad value and attempts to create the environment\. After failing to create the environment, the environment moves to an `INVALID` state, and you see the following errors\.
 
 For an invalid service role:
 
@@ -36,7 +36,7 @@ However, if you created the service role as part of the console first run wizard
 arn:aws:iam::123456789012:role/service-role/AWSBatchServiceRole
 ```
 
-When you only specify the name of an IAM role when using the AWS CLI or the AWS SDKs, AWS Batch assumes that your ARN does not use the `service-role` path prefix\. Because of this, we recommend that you specify the full ARN for your IAM roles when you create compute environments\.
+When you only specify the name of an IAM role when using the AWS CLI or the AWS SDKs, AWS Batch assumes that your ARN doesn't use the `service-role` path prefix\. Because of this, we recommend that you specify the full ARN for your IAM roles when you create compute environments\.
 
 To repair a compute environment that's misconfigured this way, see [Repairing an `INVALID` Compute Environment](#repairing_invalid_compute_environment)\.
 
@@ -63,10 +63,10 @@ When you have a compute environment in an `INVALID` state, you should update it 
 If your compute environment contains compute resources, but your jobs don't progress beyond the `RUNNABLE` status, then there is something preventing the jobs from actually being placed on a compute resource\. Here are some common causes for this issue:
 
 The `awslogs` log driver isn't configured on your compute resources  
-AWS Batch jobs send their log information to CloudWatch Logs\. To enable this, you must configure your compute resources to use the `awslogs` log driver\. If you base your compute resource AMI off of the Amazon ECS\-optimized AMI \(or Amazon Linux\), then this driver is registered by default with the `ecs-init` package\. If you use a different base AMI, then you must ensure that the `awslogs` log driver is specified as an available log driver with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable when the Amazon ECS container agent is started\. For more information, see [Compute resource AMI specification](compute_resource_AMIs.md#batch-ami-spec) and [Creating a compute resource AMI](create-batch-ami.md)\.
+AWS Batch jobs send their log information to CloudWatch Logs\. To enable this, you must configure your compute resources to use the `awslogs` log driver\. If you base your compute resource AMI off of the Amazon ECS optimized AMI \(or Amazon Linux\), then this driver is registered by default with the `ecs-init` package\. If you use a different base AMI, then you must ensure that the `awslogs` log driver is specified as an available log driver with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable when the Amazon ECS container agent is started\. For more information, see [Compute resource AMI specification](compute_resource_AMIs.md#batch-ami-spec) and [Creating a compute resource AMI](create-batch-ami.md)\.
 
 Insufficient resources  
-If your job definitions specify more CPU or memory resources than your compute resources can allocate, then your jobs will never be placed\. For example, if your job specifies 4 GiB of memory, and your compute resources have less than that available, then the job cannot be placed on those compute resources\. In this case, you must reduce the specified memory in your job definition or add larger compute resources to your environment\. Some memory is reserved for the Amazon ECS container agent and other critical system processes\. For more information, see [Compute Resource Memory Management](memory-management.md)\.
+If your job definitions specify more CPU or memory resources than your compute resources can allocate, then your jobs is never placed\. For example, if your job specifies 4 GiB of memory, and your compute resources have less than that available, then the job can't be placed on those compute resources\. In this case, you must reduce the specified memory in your job definition or add larger compute resources to your environment\. Some memory is reserved for the Amazon ECS container agent and other critical system processes\. For more information, see [Compute Resource Memory Management](memory-management.md)\.
 
 No internet access for compute resources  
 Compute resources need access to communicate with the Amazon ECS service endpoint\. This can be through an interface VPC endpoint or through your compute resources having public IP addresses\.  
@@ -80,7 +80,7 @@ For more information on diagnosing jobs stuck in `RUNNABLE` status, see [Why is 
 
 ## Spot Instances Not Tagged on Creation<a name="spot-instance-no-tag"></a>
 
-Spot Instance tagging for AWS Batch compute resources is supported as of October 25, 2017\. Prior to that support, the recommended IAM managed policy \(`AmazonEC2SpotFleetRole`\) for the Amazon EC2 Spot Fleet role did not contain permissions to tag Spot Instances at launch\. The new recommended IAM managed policy is called `AmazonEC2SpotFleetTaggingRole`\.
+Spot Instance tagging for AWS Batch compute resources is supported as of October 25, 2017\. Before this, the recommended IAM managed policy \(`AmazonEC2SpotFleetRole`\) for the Amazon EC2 Spot Fleet role didn't contain permissions to tag Spot Instances at launch\. The new recommended IAM managed policy is called `AmazonEC2SpotFleetTaggingRole`\.
 
 To fix Spot Instance tagging on creation, follow the following procedure to apply the current recommended IAM managed policy to your Amazon EC2 Spot Fleet role, and then any future Spot Instances that are created with that role have permissions to apply instance tags on creation\.
 

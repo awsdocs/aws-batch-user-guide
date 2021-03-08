@@ -1,9 +1,9 @@
-# AWS Batch service limits<a name="service_limits"></a>
+# AWS Batch service quotas<a name="service_limits"></a>
 
-The following table provides the service limits for AWS Batch that can't be changed\. Each limit is Region specific\.
+The following table provides the service quotas for AWS Batch that can't be changed\. Each quota is Region specific\.
 
 
-| Resource | Limit | 
+| Resource | Quota | 
 | --- | --- | 
 | Maximum number of job queues\. For more information, see [Job queues](job_queues.md)\. | 20 | 
 | Maximum number of compute environments\. For more information, see [Compute environment](compute_environments.md)\. | 50 | 

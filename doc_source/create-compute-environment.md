@@ -143,7 +143,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
       1. <a name="compute-environment-ec2-tag-step"></a>\(Optional\) In the **EC2 tags**, you can tag the Amazon EC2 instances used by your On\-Demand Instances\. For example, you can specify `"Name": "AWS Batch Instance - C4OnDemand"` as a tag so that each instance in your compute environment has that name\. This is helpful for recognizing your AWS Batch instances in the Amazon EC2 console\.
 **Note**  
-**EC2 tags** isn't available when using either Spot or Fargate provisioning models\.
+**EC2 tags** isn't available when using either Fargate or Fargate Spot provisioning models\.
 
 1. <a name="compute-environment-tag-step"></a>\(Optional\) In the **Tags** section, you can specify the key and value for each tag to associate with the compute environment\. For more information, see [Tagging your AWS Batch resources](using-tags.md)\.
 
