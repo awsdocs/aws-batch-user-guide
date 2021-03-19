@@ -41,7 +41,9 @@ After you created your unmanaged compute environment, use the [DescribeComputeEn
 The following AWS CLI command also provides the Amazon ECS cluster ARN:
 
 ```
-aws batch describe-compute-environments --compute-environments unmanagedCE --query computeEnvironments[].ecsClusterArn
+$ aws batch describe-compute-environments \
+    --compute-environments unmanagedCE \
+    --query computeEnvironments[].ecsClusterArn
 ```
 
 For more information, see [Launching an Amazon ECS container instance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html) in the *Amazon Elastic Container Service Developer Guide*\. When you launch your compute resources, specify the Amazon ECS cluster ARN that the resources should register with the following Amazon EC2 user data\. Replace *ecsClusterArn* with the cluster ARN you obtained with the previous command\.

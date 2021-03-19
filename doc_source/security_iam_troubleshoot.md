@@ -13,13 +13,13 @@ Use the following information to help you diagnose and fix common issues that yo
 
 If the AWS Management Console tells you that you're not authorized to perform an action, then you must contact your administrator for assistance\. Your administrator is the person that provided you with your user name and password\.
 
-The following example error occurs when the `mateojackson` IAM user tries to use the console to view details about a compute environment but doesn't have `batch:DescribeComputeEnvironments` permissions\.
+The following example error occurs when the `mateojackson` IAM user tries to use the console to view details about a fictional `my-example-widget` resource but does not have the fictional `batch:GetWidget` permissions\.
 
 ```
-User: arn:aws:iam::123456789012:user/mateojackson is not authorized to perform: batch:DescribeComputeEnvironments on resource: my-example-compute-environment
+User: arn:aws:iam::123456789012:user/mateojackson is not authorized to perform: batch:GetWidget on resource: my-example-widget
 ```
 
-In this case, Mateo asks his administrator to update his policies to allow him to access the `my-example-compute-environment` resource using the `batch:DescribeComputeEnvironments` action\.
+In this case, Mateo asks his administrator to update his policies to allow him to access the `my-example-widget` resource using the `batch:GetWidget` action\.
 
 ## I am not authorized to perform iam:PassRole<a name="security_iam_troubleshoot-passrole"></a>
 

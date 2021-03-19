@@ -165,10 +165,11 @@ Required: Yes
 
 `serviceRole`  
 The full Amazon Resource Name \(ARN\) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\.  
+If your account has already created the AWS Batch service\-linked role \(**AWSServiceRoleForBatch**\), that role is used by default for your compute environment unless you specify a role here\. If the AWS Batch service\-linked role does not exist in your account, and no role is specified here, the service will try to create the AWS Batch service\-linked role in your account\. For more information about the **AWSServiceRoleForBatch** service\-linked role, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.
 If your specified role has a path other than `/`, then you must either specify the full role ARN \(this is recommended\) or prefix the role name with the path\.  
 Depending on how you created your AWS Batch service role, its ARN might contain the `service-role` path prefix\. When you only specify the name of the service role, AWS Batch assumes that your ARN doesn't use the `service-role` path prefix\. Because of this, we recommend that you specify the full ARN of your service role when you create compute environments\.
 Type: String  
-Required: Yes
+Required: No
 
 ## Tags<a name="compute_environment_tags"></a>
 

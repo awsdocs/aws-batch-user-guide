@@ -25,7 +25,7 @@ Before you can run jobs in AWS Batch, you need to create a compute environment\.
 
    1. \(Optional\) Expand **Additional settings: service role, instance role, EC2 key pair**\.
 
-      1. For **Service role**, choose to create a new role or use an existing role\. The role allows the AWS Batch service to make calls to the required AWS API operations on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\. If you choose to create a new role, the required role \(`AWSBatchServiceRole`\) is created for you\.
+      1. For **Service role**, choose **Batch service\-linked role**\. The role allows the AWS Batch service to make calls to the required AWS API operations on your behalf\. For more information, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.
 
       1. For **Instance role**, choose to create a new instance profile or use an existing instance profile that has the required IAM permissions attached\. This instance profile allows the Amazon ECS container instances that are created for your compute environment to make calls to the required AWS API operations on your behalf\. For more information, see [Amazon ECS Instance Role](instance_IAM_role.md)\. If you choose to create a new instance profile, the required role \(`ecsInstanceRole`\) is created for you\.
 
@@ -75,7 +75,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
    1. \(Optional\) Expand **Additional settings: service role, instance role, EC2 key pair**\.
 
-      1. For **Service role**, choose to create a new role or use an existing role\. The role allows the AWS Batch service to make calls to the required AWS API operations on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\. If you choose to create a new role, the required role \(`AWSBatchServiceRole`\) is created for you\.
+      1. For **Service role**, choose **Batch service\-linked role**\. The role allows the AWS Batch service to make calls to the required AWS API operations on your behalf\. For more information, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.
 
       1. For **Instance role**, choose to create a new instance profile or use an existing instance profile that has the required IAM permissions attached\. This instance profile allows the Amazon ECS container instances that are created for your compute environment to make calls to the required AWS API operations on your behalf\. For more information, see [Amazon ECS Instance Role](instance_IAM_role.md)\. If you choose to create a new instance profile, the required role \(`ecsInstanceRole`\) is created for you\.
 
@@ -163,7 +163,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
 1. For **Compute environment name**, specify a unique name for your compute environment\. You can use up to 128 letters \(uppercase and lowercase\), numbers, hyphens, and underscores\.
 
-1. For **Service role**, choose to create a new role or use an existing role that allows the AWS Batch service to make calls to the required AWS API operations on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\. If you choose to create a new role, the required role \(`AWSBatchServiceRole`\) is created for you\.
+1. For **Service role**, choose **Batch service\-linked role**\. The role allows the AWS Batch service to make calls to the required AWS API operations on your behalf\. For more information, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.
 
 1. Ensure that **Enable compute environment** is selected so that your compute environment can accept jobs from the AWS Batch job scheduler\.
 

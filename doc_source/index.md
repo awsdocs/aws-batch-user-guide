@@ -1,7 +1,7 @@
 # AWS Batch User Guide
 
 -----
-*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -79,8 +79,10 @@ Amazon's trademarks and trade dress may not be used in
    + [Identity and Access Management for AWS Batch](security-iam.md)
       + [How AWS Batch works with IAM](security_iam_service-with-iam.md)
       + [AWS Batch execution IAM role](execution-IAM-role.md)
-      + [AWS Batch identity-based policy examples](security_iam_id-based-policy-examples.md)
+      + [Identity-based policy examples for AWS Batch](security_iam_id-based-policy-examples.md)
       + [Troubleshooting AWS Batch identity and access](security_iam_troubleshoot.md)
+      + [Using service-linked roles for AWS Batch](using-service-linked-roles.md)
+      + [AWS managed policies for AWS Batch](security-iam-awsmanpol.md)
    + [Compliance Validation for AWS Batch](compliance.md)
    + [Infrastructure Security in AWS Batch](infrastructure-security.md)
 + [Tagging your AWS Batch resources](using-tags.md)

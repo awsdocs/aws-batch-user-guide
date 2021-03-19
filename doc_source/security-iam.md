@@ -1,5 +1,9 @@
 # Identity and Access Management for AWS Batch<a name="security-iam"></a>
 
+
+
+
+
 AWS Identity and Access Management \(IAM\) is an AWS service that helps an administrator securely control access to AWS resources\. IAM administrators control who can be *authenticated* \(signed in\) and *authorized* \(have permissions\) to use AWS Batch resources\. IAM is an AWS service that you can use with no additional charge\.
 
 **Topics**
@@ -8,8 +12,10 @@ AWS Identity and Access Management \(IAM\) is an AWS service that helps an admin
 + [Managing access using policies](#security_iam_access-manage)
 + [How AWS Batch works with IAM](security_iam_service-with-iam.md)
 + [AWS Batch execution IAM role](execution-IAM-role.md)
-+ [AWS Batch identity\-based policy examples](security_iam_id-based-policy-examples.md)
++ [Identity\-based policy examples for AWS Batch](security_iam_id-based-policy-examples.md)
 + [Troubleshooting AWS Batch identity and access](security_iam_troubleshoot.md)
++ [Using service\-linked roles for AWS Batch](using-service-linked-roles.md)
++ [AWS managed policies for AWS Batch](security-iam-awsmanpol.md)
 
 ## Audience<a name="security_iam_audience"></a>
 
@@ -19,7 +25,7 @@ How you use AWS Identity and Access Management \(IAM\) differs, depending on the
 
 **Service administrator** – If you're in charge of AWS Batch resources at your company, you probably have full access to AWS Batch\. It's your job to determine which AWS Batch features and resources your employees should access\. You must then submit requests to your IAM administrator to change the permissions of your service users\. Review the information on this page to understand the basic concepts of IAM\. To learn more about how your company can use IAM with AWS Batch, see [How AWS Batch works with IAM](security_iam_service-with-iam.md)\.
 
-**IAM administrator** – If you're an IAM administrator, you might want to learn details about how you can write policies to manage access to AWS Batch\. To view example AWS Batch identity\-based policies that you can use in IAM, see [Identity\-Based Policy Examples](security_iam_id-based-policy-examples.md)\.
+**IAM administrator** – If you're an IAM administrator, you might want to learn details about how you can write policies to manage access to AWS Batch\. To view example AWS Batch identity\-based policies that you can use in IAM, see [Identity\-based policy examples for AWS Batch](security_iam_id-based-policy-examples.md)\.
 
 ## Authenticating with identities<a name="security_iam_authentication"></a>
 
@@ -35,7 +41,7 @@ Regardless of the authentication method that you use, you might also be required
 
   When you first create an AWS account, you begin with a single sign\-in identity that has complete access to all AWS services and resources in the account\. This identity is called the AWS account *root user* and is accessed by signing in with the email address and password that you used to create the account\. We strongly recommend that you don't use the root user for your everyday tasks, even the administrative ones\. Instead, adhere to a [best practice of using the root user only to create your first IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#create-iam-users)\. Then securely lock away the root user credentials and use them to perform only a few account and service management tasks\. 
 
-### IAM user and groups<a name="security_iam_authentication-iamuser"></a>
+### IAM users and groups<a name="security_iam_authentication-iamuser"></a>
 
 An *[IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html)* is an identity within your AWS account that has specific permissions for a single person or application\. An IAM user can have long\-term credentials such as a user name and password or a set of access keys\. To learn how to generate access keys, see [Managing Access Keys for IAM Users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) in the *IAM User Guide*\. When you generate access keys for an IAM user, make sure you view and securely save the key pair\. You cannot recover the secret access key in the future\. Instead, you must generate a new access key pair\.
 
@@ -74,7 +80,7 @@ Identity\-based policies can be further categorized as *inline policies* or *man
 
 Resource\-based policies are JSON policy documents that you attach to a resource such as an Amazon S3 bucket\. Service administrators can use these policies to define what actions a specified principal \(account member, user, or role\) can perform on that resource and under what conditions\. Resource\-based policies are inline policies\. There are no managed resource\-based policies\.
 
-### Access Control Lists \(ACLs\)<a name="security_iam_access-manage-acl"></a>
+### Access control lists \(ACLs\)<a name="security_iam_access-manage-acl"></a>
 
 Access control policies \(ACLs\) control which principals \(account members, users, or roles\) have permissions to access a resource\. ACLs are similar to resource\-based policies, although they are the only policy type that doesn't use the JSON policy document format\. Amazon S3, AWS WAF, and Amazon VPC are examples of services that support ACLs\. To learn more about ACLs, see [Access Control List \(ACL\) Overview](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
@@ -85,10 +91,11 @@ AWS supports additional, less\-common policy types\. These policy types can set 
 + **Service control policies \(SCPs\)** – SCPs are JSON policies that specify the maximum permissions for an organization or organizational unit \(OU\) in AWS Organizations\. AWS Organizations is a service for grouping and centrally managing multiple AWS accounts that your business owns\. If you enable all features in an organization, then you can apply service control policies \(SCPs\) to any or all of your accounts\. The SCP limits permissions for entities in member accounts, including each AWS account root user\. For more information about Organizations and SCPs, see [How SCPs Work](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_about-scps.html) in the *AWS Organizations User Guide*\.
 + **Session policies** – Session policies are advanced policies that you pass as a parameter when you programmatically create a temporary session for a role or federated user\. The resulting session's permissions are the intersection of the user or role's identity\-based policies and the session policies\. Permissions can also come from a resource\-based policy\. An explicit deny in any of these policies overrides the allow\. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the *IAM User Guide*\.
 
-### Multiple policy<a name="security_iam_access-manage-multiple-policies"></a>
+### Multiple policy types<a name="security_iam_access-manage-multiple-policies"></a>
 
 When multiple types of policies apply to a request, the resulting permissions are more complicated to understand\. To learn how AWS determines whether to allow a request when multiple policy types are involved, see [Policy Evaluation Logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) in the *IAM User Guide*\.
 
-For more information about identity and access management for AWS Batch, continue to the following pages\.
-+ [How AWS Batch works with IAM](security_iam_service-with-iam.md)
-+ [Troubleshooting AWS Batch identity and access](security_iam_troubleshoot.md)
+
+
+
+

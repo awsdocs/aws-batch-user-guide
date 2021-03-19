@@ -48,6 +48,18 @@ This policy allows full administrator access to AWS Batch\.
         "arn:aws:iam::*:role/aws-ec2-spot-fleet-role",
         "arn:aws:iam::*:role/AWSBatchJobRole*"
       ]
+    },
+    {
+      "Effect":"Allow",
+      "Action":[
+        "iam:CreateServiceLinkedRole"
+      ],
+      "Resource":"arn:aws:iam::*:role/*Batch*",
+      "Condition": {
+        "StringEquals": {
+          "iam:AWSServiceName": "batch.amazonaws.com"
+          }
+      }
     }
   ]
 }
