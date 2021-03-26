@@ -63,6 +63,21 @@ The role permissions policy allows AWS Batch to complete the following actions o
         {
             "Effect": "Allow",
             "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/batch/job*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/batch/job*:log-stream:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
                 "autoscaling:CreateOrUpdateTags"
             ],
             "Resource": "*",
@@ -202,7 +217,11 @@ The role permissions policy allows AWS Batch to complete the following actions o
                 "arn:aws:ec2:*:*:security-group/*",
                 "arn:aws:ec2:*:*:volume/*",
                 "arn:aws:ec2:*:*:key-pair/*",
-                "arn:aws:ec2:*:*:launch-template/*"
+                "arn:aws:ec2:*:*:launch-template/*",
+                "arn:aws:ec2:*:*:placement-group/*",
+                "arn:aws:ec2:*:*:capacity-reservation/*",
+                "arn:aws:ec2:*:*:elastic-gpu/*",
+                "arn:aws:ec2:*:*:elastic-inference-accelerator/*"
             ]
         },
         {
@@ -232,21 +251,6 @@ The role permissions policy allows AWS Batch to complete the following actions o
                     ]
                 }
             }
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                  "logs:CreateLogGroup",
-                  "logs:CreateLogStream"
-            ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/batch/job*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "logs:PutLogEvents"
-            ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/batch/job*:log-stream:*"
         }
     ]
 }

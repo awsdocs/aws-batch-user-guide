@@ -79,6 +79,21 @@ This policy grants AWS Batch permissions that grants access to related services 
         {
             "Effect": "Allow",
             "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/batch/job*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/batch/job*:log-stream:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
                 "autoscaling:CreateOrUpdateTags"
             ],
             "Resource": "*",
@@ -218,7 +233,11 @@ This policy grants AWS Batch permissions that grants access to related services 
                 "arn:aws:ec2:*:*:security-group/*",
                 "arn:aws:ec2:*:*:volume/*",
                 "arn:aws:ec2:*:*:key-pair/*",
-                "arn:aws:ec2:*:*:launch-template/*"
+                "arn:aws:ec2:*:*:launch-template/*",
+                "arn:aws:ec2:*:*:placement-group/*",
+                "arn:aws:ec2:*:*:capacity-reservation/*",
+                "arn:aws:ec2:*:*:elastic-gpu/*",
+                "arn:aws:ec2:*:*:elastic-inference-accelerator/*"
             ]
         },
         {
@@ -248,21 +267,6 @@ This policy grants AWS Batch permissions that grants access to related services 
                     ]
                 }
             }
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                  "logs:CreateLogGroup",
-                  "logs:CreateLogStream"
-            ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/batch/job*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "logs:PutLogEvents"
-            ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/batch/job*:log-stream:*"
         }
     ]
 }
@@ -345,8 +349,11 @@ View details about updates to AWS managed policies for AWS Batch since this serv
 
 
 
+**[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy updated \(March 26, 2021\)  
+Updated to add support for placement group, capacity reservation, elastic GPU, and Elastic Inference resources in Amazon EC2\.
+
 **[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy added \(March 10, 2021\)  
-With the **BatchServiceRolePolicy** managed policy for the **AWSServiceRoleForBatch** service\-linked role, you canuse a service\-linked role managed by AWS Batch instead of maintaining your own role for use in your compute environments\.
+With the **BatchServiceRolePolicy** managed policy for the **AWSServiceRoleForBatch** service\-linked role, you can use a service\-linked role managed by AWS Batch instead of maintaining your own role for use in your compute environments\.
 
 **[BatchFullAccess](#security-iam-awsmanpol-BatchFullAccess)** \- add permission to add service\-linked role \(March 10, 2021\)  
 Add IAM permissions to allow the **AWSServiceRoleForBatch** service\-linked role to be added to the account\.
