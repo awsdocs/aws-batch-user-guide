@@ -38,6 +38,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Specifying sensitive data](specifying-sensitive-data.md)
       + [Specifying sensitive data using Secrets Manager](specifying-sensitive-data-secrets.md)
       + [Specifying sensitive data using Systems Manager Parameter Store](specifying-sensitive-data-parameters.md)
+   + [Amazon EFS volumes](efs-volumes.md)
    + [Example job definitions](example-job-definitions.md)
 + [Job queues](job_queues.md)
    + [Creating a job queue](create-job-queue.md)

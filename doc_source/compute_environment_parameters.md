@@ -13,7 +13,7 @@ Compute environments are split into five basic components: the name, type, and s
 ## Compute environment name<a name="compute_environment_name"></a>
 
 `computeEnvironmentName`  
-The name for your compute environment\. You can use up to 128 characters\. Valid characters are letters \(uppercase and lowercase\), numbers, hyphens \(\-\), and underscores \(\_\)\.  
+The name for your compute environment\. The name can be up to 128 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), and underscores \(\_\)\.  
 Type: String  
 Required: Yes
 
@@ -30,7 +30,7 @@ Required: Yes
 `state`  
 The state of the compute environment\.  
 If the state is `ENABLED`, the AWS Batch scheduler attempts to place jobs within the environment\. These jobs are from an associated job queue on the compute resources\. If the compute environment is managed, it can scale its instances out or in automatically based on job queue demand\.  
-If the state is `DISABLED`, the AWS Batch scheduler doesn't attempt to place jobs within the environment\. Jobs in a `STARTING` or `RUNNING` state continue to progress normally\. Managed compute environments in the `DISABLED` state don't scale out\. However,after instances go idle, they scale in to the smallest number of instances that satisfies the `minvCpus` value\.  
+If the state is `DISABLED`, the AWS Batch scheduler doesn't attempt to place jobs within the environment\. Jobs in a `STARTING` or `RUNNING` state continue to progress normally\. Managed compute environments in the `DISABLED` state don't scale out\. However, after instances go idle, they scale in to the smallest number of instances that satisfies the `minvCpus` value\.  
 Type: String  
 Valid values: `ENABLED` \| `DISABLED`  
 Required: No
@@ -47,7 +47,7 @@ Valid values: `EC2` \| `SPOT` \| `FARGATE` \| `FARGATE_SPOT`
 Required: Yes  
 `allocationStrategy`  <a name="compute-environment-compute-resources-allocationStrategy"></a>
 The allocation strategy to use for the compute resource if not enough instances of the best fitting EC2 instance type can be allocated\. This might be due to availability of the instance type in the Region or [Amazon EC2 service limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html)\. For more information, see [Allocation strategies](allocation-strategies.md)\.  
-This parameter isn't applicable to jobs running on Fargate resources, and shouldn't be specified\.  
+This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.  
 `BEST_FIT` \(default\)  
 AWS Batch selects an instance type that best fits the needs of the jobs with a preference for the lowest cost instance type\. If additional instances of the selected instance type aren't available, AWS Batch waits for the additional instances to be available\. If there aren't enough instances available, or if you're hitting [Amazon EC2 service limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html) then additional jobs don't run until currently running jobs have completed\. This allocation strategy keeps costs lower but can limit scaling\. If you're using Spot Fleets with `BEST_FIT` then the Spot Fleet IAM Role must be specified\.  
 `BEST_FIT_PROGRESSIVE`  
@@ -81,7 +81,7 @@ Required: yes
 `imageId`  <a name="compute-environment-compute-resources-imageId"></a>
 *This parameter is deprecated\.*  
 The Amazon Machine Image \(AMI\) ID used for instances launched in the compute environment\. This parameter is overridden by the `imageIdOverride` member of the `Ec2Configuration` structure\.  
-This parameter isn't applicable to jobs running on Fargate resources, and shouldn't be specified\.
+This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 The AMI that you choose for a compute environment must match the architecture of the instance types that you intend to use for that compute environment\. For example, if your compute environment uses A1 instance types, the compute resource AMI that you choose must support ARM instances\. Amazon ECS vends both x86 and ARM versions of the Amazon ECS optimized Amazon Linux 2 AMI\. For more information, see [Amazon ECS optimized Amazon Linux 2 AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#ecs-optimized-ami-linux-variants.html) in the *Amazon Elastic Container Service Developer Guide*\.
 Type: String  
 Required: No  
@@ -113,11 +113,11 @@ Type: String
 Required: No  
 `bidPercentage`  <a name="compute-environment-compute-resources-bidPercentage"></a>
 The maximum percentage that an EC2 Spot Instance price can be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your maximum percentage is 20%, then the Spot price must be less than 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\. If you leave this field empty, the default value is 100% of the On\-Demand price\.  
-This parameter isn't applicable to jobs running on Fargate resources, and shouldn't be specified\.
+This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 Required: No  
 `spotIamFleetRole`  <a name="compute-environment-compute-resources-spotIamFleetRole"></a>
 The Amazon Resource Name \(ARN\) of the Amazon EC2 Spot Fleet IAM role applied to a `SPOT` compute environment\. This role is required if the allocation strategy set to `BEST_FIT` or if the allocation strategy isn't specified\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.  
-This parameter isn't applicable to jobs running on Fargate resources, and shouldn't be specified\.
+This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 To tag your Spot Instances on creation, the Spot Fleet IAM role specified here must use the newer **AmazonEC2SpotFleetTaggingRole** managed policy\. The previously recommended **AmazonEC2SpotFleetRole** managed policy doesn't have the required permissions to tag Spot Instances\. For more information, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag)\.
 Type: String  
 Required: This parameter is required for `SPOT` compute environments\.  
@@ -142,7 +142,7 @@ Default: `$Default`\.
 Type: String  
 Required: No  
 `ec2Configuration`  <a name="compute-environment-compute-resources-ec2Configuration"></a>
-Provides information used to select Amazon Machine Images \(AMIs\) for instances in the EC2 compute environment\. If `Ec2Configuration` isn't specified, the default is currently [Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\) for non\-GPU, non\-Graviton instances\. Starting on March 31, 2021, this default will be changing to [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)\.  
+Provides information used to select Amazon Machine Images \(AMIs\) for instances in the EC2 compute environment\. If `Ec2Configuration` isn't specified, the default is currently [Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\) for non\-GPU, non AWS Graviton instances\. Starting on March 31, 2021, this default will be changing to [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)\.  
 This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 Type: Array of [Ec2Configuration](https://docs.aws.amazon.com/batch/latest/APIReference/API_Ec2Configuration.html) objects   
 Required: No    
@@ -151,13 +151,13 @@ The AMI ID used for instances launched in the compute environment that matches t
 Type: String  
 Required: No  
 `imageType`  <a name="compute-environment-compute-resources-imageType"></a>
-The image type to match with the instance type to select an AMI\. If the `imageIdOverride` parameter isn't specified, then a recent [Amazon ECS\-optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) is used\.    
+The image type to match with the instance type to select an AMI\. If the `imageIdOverride` parameter isn't specified, then a recent [Amazon ECS optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) is used\.    
 [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)  
  Default for all AWS Graviton based instance families \(for example, `C6g`, `M6g`, `R6g`, and `T4g`\) and can be used for all non\-GPU instance types\.  
 [Amazon Linux 2 \(GPU\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#gpuami) \(`ECS_AL2_NVIDIA`\)  
-Default for all GPU instance families \(for example `P4` and `G4`\) and can be used for all non\-AWS Graviton based instance types\.  
+Default for all GPU instance families \(for example `P4` and `G4`\) and can be used for all non AWS Graviton based instance types\.  
 [Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\)  
-Default for all non\-GPU, non\-AWS Graviton instance families\. Amazon Linux is reaching the end\-of\-life of standard support\. For more information, see [Amazon Linux AMI](https://aws.amazon.com/amazon-linux-ami/)\.
+Default for all non\-GPU, non AWS Graviton instance families\. Amazon Linux will discontinue standard support\. For more information, see [Amazon Linux AMI](https://aws.amazon.com/amazon-linux-ami/)\.
 Type: String  
 Required: Yes
 
@@ -165,7 +165,7 @@ Required: Yes
 
 `serviceRole`  
 The full Amazon Resource Name \(ARN\) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\.  
-If your account has already created the AWS Batch service\-linked role \(**AWSServiceRoleForBatch**\), that role is used by default for your compute environment unless you specify a role here\. If the AWS Batch service\-linked role does not exist in your account, and no role is specified here, the service will try to create the AWS Batch service\-linked role in your account\. For more information about the **AWSServiceRoleForBatch** service\-linked role, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.
+If your account has already created the AWS Batch service\-linked role \(**AWSServiceRoleForBatch**\), that role is used by default for your compute environment unless you specify a role here\. If the AWS Batch service\-linked role doesn't exist in your account, and no role is specified here, the service tries to create the AWS Batch service\-linked role in your account\. For more information about the **AWSServiceRoleForBatch** service\-linked role, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.
 If your specified role has a path other than `/`, then you must either specify the full role ARN \(this is recommended\) or prefix the role name with the path\.  
 Depending on how you created your AWS Batch service role, its ARN might contain the `service-role` path prefix\. When you only specify the name of the service role, AWS Batch assumes that your ARN doesn't use the `service-role` path prefix\. Because of this, we recommend that you specify the full ARN of your service role when you create compute environments\.
 Type: String  

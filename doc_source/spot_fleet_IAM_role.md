@@ -1,6 +1,6 @@
 # Amazon EC2 Spot Fleet Role<a name="spot_fleet_IAM_role"></a>
 
-If you create a managed compute environment that uses Amazon EC2 Spot Fleet Instances, you must create a role that grants the Spot Fleet permission to launch, tag, and terminate instances on your behalf\. Specify the role in your Spot Fleet request\. You must also have the **AWSServiceRoleForEC2Spot** and **AWSServiceRoleForEC2SpotFleet** service\-linked roles for Amazon EC2 Spot and Spot Fleet\. Use the procedures below to create all of these roles\. For more information, see [Using Service\-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) and [Creating a Role to Delegate Permissions to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\.
+If you create a managed compute environment that uses Amazon EC2 Spot Fleet Instances, you must create a role that grants the Spot Fleet permission to launch, tag, and terminate instances on your behalf\. Specify the role in your Spot Fleet request\. You must also have the **AWSServiceRoleForEC2Spot** and **AWSServiceRoleForEC2SpotFleet** service\-linked roles for Amazon EC2 Spot and Spot Fleet\. Use the following instruction to create all of these roles\. For more information, see [Using Service\-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) and [Creating a Role to Delegate Permissions to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\.
 
 **Topics**
 + [Create Amazon EC2 Spot Fleet Roles in the AWS Management Console](#spot-fleet-roles-console)
@@ -37,8 +37,8 @@ If you create a managed compute environment that uses Amazon EC2 Spot Fleet Inst
 1. For **Role Name**, type `AWSServiceRoleForEC2SpotFleet`\. Choose **Create role**\.
 
 **Note**  
-Historically, there have been two managed policies for the Amazon EC2 Spot Fleet role\.  
-**AmazonEC2SpotFleetRole**: This was the original managed policy for the Spot Fleet role\. It has tighter IAM permissions, but it does not support Spot Instance tagging in compute environments\. If you've previously created a Spot Fleet role with this policy, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag) to apply the new recommended policy to that role\.
+In the past, there have been two managed policies for the Amazon EC2 Spot Fleet role\.  
+**AmazonEC2SpotFleetRole**: This was the original managed policy for the Spot Fleet role\. It has tighter IAM permissions, but it doesn't support Spot Instance tagging in compute environments\. If you've previously created a Spot Fleet role with this policy, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag) to apply the new recommended policy to that role\.
 **AmazonEC2SpotFleetTaggingRole**: This role provides all of the necessary permissions to tag Amazon EC2 Spot Instances\. Use this role to allow Spot Instance tagging on your AWS Batch compute environments\.
 
 ## Create Amazon EC2 Spot Fleet Roles with the AWS CLI<a name="spot-fleet-roles-cli"></a>

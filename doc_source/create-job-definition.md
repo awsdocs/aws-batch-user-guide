@@ -12,17 +12,17 @@ To create a multi\-node parallel job definition, see [Creating a multi\-node par
 
 1. In the navigation pane, choose **Job definitions**, **Create**\.
 
-1. For **Name**, enter a unique name for your job definition\. Up to 128 letters \(uppercase and lowercase\), numbers, hyphens, and underscores are allowed\.
+1. For **Name**, enter a unique name for your job definition\. The name can be up to 128 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), and underscores \(\_\)\.
 
-1. For **Platform**, choose **EC2** if the job runs on EC2 instances, or **Fargate**, If the job runs on AWS Fargate capacity\. For more information, see [AWS Batch on AWS Fargate](fargate.md)\.
+1. For **Platform**, choose **EC2** if the job runs on EC2 instances, or **Fargate** if the job runs on AWS Fargate capacity\. For more information, see [AWS Batch on AWS Fargate](fargate.md)\.
 
-1. In the **Retry Strategies** section, you can specify the number of times to retry a job\. You can also create conditions to decide whether a failed job should be retried\. These conditions are based on string matching of the error code and reasons listed for the job attempt\. For more information, see [Automated Job Retries](job_retries.md)\.
+1. In the **Retry Strategies** section, you can specify the number of times to retry a job\. You can also create conditions to decide whether a failed job should be retried\. These conditions are based on string matching of the error code and reasons that are listed for the job attempt\. For more information, see [Automated Job Retries](job_retries.md)\.
 
-   1. For **Job attempts**, specify the number of times to attempt your job \(in case it fails\)\. This number must be between one \(1\) and ten \(10\), inclusive\.
+   1. For **Job attempts**, specify the number of times to attempt your job if it fails\. This number must be between one \(1\) and ten \(10\), inclusive\.
 
-   1. \(Optional\) Select **Add evaluate on exit** to add up to five \(5\) conditions to match string patterns with the exit code, status reason, and reason that is returned in the job attempt\. For each set of conditions, **Action** must be set to either **Retry** \(to retry until the number of job attempts has been reached\), or **Exit** to stop retrying the job\.
+   1. \(Optional\) Select **Add evaluate on exit** to add up to five \(5\) conditions to match string patterns with the exit code, status reason, and reason that are returned in the job attempt\. For each set of conditions, **Action** must be set to either **Retry** \(to retry until the number of job attempts has been reached\), or **Exit** to stop retrying the job\.
 
-1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds you would like to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
+1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds that you want to allow your job attempts to run\. If an attempt exceeds the timeout duration, it's stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
 
 1. For **Multi\-node parallel**, leave this box unchecked\. To create a multi\-node parallel job definition instead, see [Creating a multi\-node parallel job definition](multi-node-job-def.md)\. 
 
@@ -31,7 +31,7 @@ To create a multi\-node parallel job definition, see [Creating a multi\-node par
    1. For **Image**, choose the Docker image to use for your job\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 **Note**  
 Docker image architecture must match the processor architecture of the compute resources that they're scheduled on\. For example, ARM\-based Docker images can only run on ARM\-based compute resources\.
-      + Images in Amazon ECR repositories use the full `registry/repository:tag` naming convention\. For example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`
+      + Images in Amazon ECR repositories use the full `registry/repository:tag` naming convention\. For example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`\.
       + Images in official repositories on Docker Hub use a single name \(for example, `ubuntu` or `mongo`\)\.
       + Images in other repositories on Docker Hub are qualified with an organization name \(for example, `amazon/amazon-ecs-agent`\)\.
       + Images in other online repositories are qualified further by a domain name \(for example, `quay.io/assemblyline/ubuntu`\)\.
@@ -46,7 +46,7 @@ You can use default values for parameter substitution as well as placeholders in
 
    1. For **Memory**, specify the hard limit \(in MiB\) of memory to present to the job's container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\.
 **Note**  
-You can maximize your resource utilization by prioritizing memory for jobs of a specific instance type\. For more information about how to do this, see [Compute Resource Memory Management](memory-management.md)\.
+You can maximize your resource utilization by prioritizing memory for jobs of a specific instance type\. For instructions, see [Compute Resource Memory Management](memory-management.md)\.
 
    1. \(Optional\) For **Number of GPUs**, specify the number of GPUs your job uses\.
 
@@ -64,11 +64,7 @@ Only roles that have the **Amazon Elastic Container Service Task Role** trust re
 **Note**  
 An execution role is required for jobs running on Fargate resources\.
 
-      1. \(Optional\) In the **Volumes** section, you can specify data volumes for your job to pass to your job's container\.
-
-         1. For **Name**, enter a name for your volume\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, and underscores are allowed\.
-
-         1. \(Optional\) For **Source Path**, enter the path on the host instance to present to the container\. If you leave this field empty, then the Docker daemon assigns a host path for you\. If you specify a source path, then the data volume persists at the specified location on the host container instance until you delete it manually\. If the source path doesn't exist on the host container instance, the Docker daemon creates it\. If the location does exist, the contents of the source path folder are exported to the container\.
+      1. \(Optional, only for jobs running on Fargate resources\) In the **Assign public IP** section, select **Enable** to give the job a public IP address\. For a job that's running in a private subnet to send outbound traffic to the internet, the private subnet requires a NAT gateway be attached to route requests to the internet\. You might want to do this so that you can pull container images\. For more information, see [Amazon ECS task networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
       1. \(Optional\) In the **Mount points** section, you can configure mount points for your job's container to access\.
 
@@ -78,7 +74,7 @@ An execution role is required for jobs running on Fargate resources\.
 
          1. To make the volume read\-only for the container, choose **Read\-only**\.
 
-      1. \(Optional\) In the **Ulimits** section, you can configure any `ulimit` values to use for your job's container\.
+      1. \(Optional, only for jobs running on EC2 resources\) In the **Ulimits** section, you can configure any `ulimit` values to use for your job's container\.
 
          1. Choose **Add limit**\.
 
@@ -90,15 +86,35 @@ An execution role is required for jobs running on Fargate resources\.
 
       1. \(Optional\) In the **Environment variables** section, you can specify environment variables to pass to your job's container\. This parameter maps to `Env` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--env` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 **Important**  
-We don't recommend using plaintext environment variables for sensitive information, such as credential data\.
+We don't recommend that you use plaintext environment variables for sensitive information, such as credential data\.
 
          1. Choose **Add environment variable**\.
 
          1. For **Key**, specify the key for your environment variable\.
 **Note**  
-Environment variables must not start with `AWS_BATCH`; this naming convention is reserved for variables that are set by the AWS Batch service\.
+Environment variables must not start with `AWS_BATCH`\. This naming convention is reserved for variables that are set by the AWS Batch service\.
 
          1. For **Value**, specify the value for your environment variable\.
+
+      1. \(Optional\) In the **Volumes** section, you can specify data volumes for your job to pass to your job's container\. To add a volume, select **Add volume**\.
+
+         1. For **Name**, enter a name for your volume\. The name can be up to 255 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), and underscores \(\_\)\.
+
+         1. \(Optional\) To use an Amazon EFS file system, select **Enable EFS**
+
+            1. For **Filesystem ID**, enter the file system ID\.
+
+            1. \(Optional\) For **Root directory**, enter the directory within the Amazon EFS file system to mount as the root directory inside the host\. If this parameter is omitted, the root of the Amazon EFS volume is used\. Specifying `/` has the same effect as omitting this parameter\.
+
+         1. \(Optional, only for jobs running on EC2 resources\) For **Source Path**, enter the path on the host instance to present to the container\. If you leave this field empty, then the Docker daemon assigns a host path for you\. If you specify a source path, then the data volume persists at the specified location on the host container instance until you delete it\. If the source path doesn't exist on the host container instance, the Docker daemon creates it\. If the location does exist, the contents of the source path folder are exported to the container\.
+
+         1. \(Optional\) To use transit encryption, select **Enable transit encryption**\. Transit encryption enables encryption for Amazon EFS data in transit between the AWS Batch host and the Amazon EFS server\. Transit encryption must be enabled if Amazon EFS IAM authorization is used\. For more information, see [Encrypting data in transit](https://docs.aws.amazon.com/efs/latest/ug/encryption-in-transit.html) in the *Amazon Elastic File System User Guide*\.
+
+            1. \(Optional\) For **Transit encryption port**, enter the port to use when sending encrypted data between the AWS Batch host and the Amazon EFS server\. If you don't specify a transit encryption port, it uses the port selection strategy that the Amazon EFS mount helper uses\. The value must be between 0 and 65,535\. For more information, see [EFS Mount Helper](https://docs.aws.amazon.com/efs/latest/ug/efs-mount-helper.html) in the *Amazon Elastic File System User Guide*\.
+
+            1. \(Optional\) For **Access point ID**, enter the access point ID to use\. If an access point is specified, the root directory value must either be omitted or set to `/`\. For more information, see [Working with Amazon EFS Access Points](https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html) in the *Amazon Elastic File System User Guide*\.
+
+            1. \(Optional\) To use the execution role when mounting the Amazon EFS file system, select **Use selected job role**\. For more information, see [AWS Batch execution IAM role](execution-IAM-role.md)\.
 
       1. \(Optional\) In the **Security** section, you can configure security options for your job's container\.
 

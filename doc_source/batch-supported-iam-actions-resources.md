@@ -5,7 +5,7 @@ The term *resource\-level permissions* refers to the ability to specify the reso
 The following list describes the AWS Batch API actions that currently support resource\-level permissions, as well as the supported resources, resource ARNs, and condition keys for each action\.
 
 **Important**  
-If an AWS Batch API action isn't listed in this list, then it does not support resource\-level permissions\. If an AWS Batch API action doesn't support resource\-level permissions, you can grant users permission to use the action, but you have to specify a wildcard \(\*\) for the resource element of your policy statement\.
+If an AWS Batch API action isn't listed in this list, then it doesn't support resource\-level permissions\. If an AWS Batch API action doesn't support resource\-level permissions, you can grant users permission to use the action, but you have to specify a wildcard \(\*\) for the resource element of your policy statement\.
 
 Actions  
 [CancelJob](#batch-supported-actions-canceljob), [CreateComputeEnvironment](#batch-supported-actions-createcomputeenvironment), [CreateJobQueue](#batch-supported-actions-createjobqueue), [DeleteComputeEnvironment](#batch-supported-actions-deletecomputeenvironment), [DeleteJobQueue](#batch-supported-actions-deletejobqueue), [DeregisterJobDefinition](#batch-supported-actions-deregisterjobdefinition), [ListTagsForResource](#batch-supported-actions-listtagsforresource), [RegisterJobDefinition](#batch-supported-actions-registerjobdefinition), [SubmitJob](#batch-supported-actions-submitjob), [TagResource](#batch-supported-actions-tagresource), [TerminateJob](#batch-supported-actions-terminatejob), [UntagResource](#batch-supported-actions-untagresource), [UpdateComputeEnvironment](#batch-supported-actions-updatecomputeenvironment), [UpdateJobQueue](#batch-supported-actions-updatejobqueue)
@@ -40,12 +40,12 @@ Creates an AWS Batch job queue\.
 arn:aws::batch:*region*:*account*:compute\-environment/*compute\-environment\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job Queue**  
 arn:aws:batch:*region*:*account*:job\-queue/*queue\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Condition keys**    
 `aws:RequestTag/${TagKey}` \(String\)  
 Filters actions based on the tags that are passed in the request\.  
@@ -59,7 +59,7 @@ Deletes an AWS Batch compute environment\.
 arn:aws::batch:*region*:*account*:compute\-environment/*compute\-environment\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.
+Filters actions based on the tags that are associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_DeleteJobQueue.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_DeleteJobQueue.html)  <a name="batch-supported-actions-deletejobqueue"></a>
 Deletes the specified job queue\. Deleting the job queue eventually deletes all of the jobs in the queue\. Jobs are deleted at a rate of about 16 jobs each second\.    
@@ -68,7 +68,7 @@ Deletes the specified job queue\. Deleting the job queue eventually deletes all 
 arn:aws:batch:*region*:*account*:job\-queue/*queue\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.
+Filters actions based on the tags that are associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_DeregisterJobDefinition.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_DeregisterJobDefinition.html)  <a name="batch-supported-actions-deregisterjobdefinition"></a>
 Deregisters an AWS Batch job definition\.    
@@ -77,7 +77,7 @@ Deregisters an AWS Batch job definition\.
 arn:aws:batch:*region*:*account*:job\-definition/*definition\-name*:*revision*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.
+Filters actions based on the tags that are associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html)  <a name="batch-supported-actions-listtagsforresource"></a>
 Lists the tags for the specified resource\.    
@@ -86,22 +86,22 @@ Lists the tags for the specified resource\.
 arn:aws::batch:*region*:*account*:compute\-environment/*compute\-environment\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job**  
 arn:aws:batch:*region*:*account*:job/*jobId*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job Definition**  
 arn:aws:batch:*region*:*account*:job\-definition/*definition\-name*:*revision*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job Queue**  
 arn:aws:batch:*region*:*account*:job\-queue/*queue\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.
+Filters actions based on the tags that are associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html)  <a name="batch-supported-actions-registerjobdefinition"></a>
 Registers an AWS Batch definition\.    
@@ -110,10 +110,10 @@ Registers an AWS Batch definition\.
 arn:aws:batch:*region*:*account*:job\-definition/*definition\-name*:*revision*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Condition keys**    
 `batch:AWSLogsCreateGroup` \(Boolean\)  
-When this parameter is true, the `awslogs-group` will be created for the logs\.  
+When this parameter is true, the `awslogs-group` is created for the logs\.  
 `batch:AWSLogsGroup` \(String\)  
 The `awslogs` group where the logs are located\.  
 `batch:AWSLogsRegion` \(String\)  
@@ -150,7 +150,7 @@ Filters actions based on the tags associated with the resource\.
 arn:aws:batch:*region*:*account*:job\-queue/*queue\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.
+Filters actions based on the tags that are associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html)  <a name="batch-supported-actions-tagresource"></a>
 Tags the specified resource\.    
@@ -159,22 +159,22 @@ Tags the specified resource\.
 arn:aws::batch:*region*:*account*:compute\-environment/*compute\-environment\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job**  
 arn:aws:batch:*region*:*account*:job/*jobId*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job Definition**  
 arn:aws:batch:*region*:*account*:job\-definition/*definition\-name*:*revision*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job Queue**  
 arn:aws:batch:*region*:*account*:job\-queue/*queue\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Condition keys**    
 `aws:RequestTag/${TagKey}` \(String\)  
 Filters actions based on the tags that are passed in the request\.  
@@ -188,7 +188,7 @@ Terminates a job in an AWS Batch job queue\.
 arn:aws:batch:*region*:*account*:job/*jobId*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.
+Filters actions based on the tags that are associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html)  <a name="batch-supported-actions-untagresource"></a>
 Untags the specified resource\.    
@@ -197,22 +197,22 @@ Untags the specified resource\.
 arn:aws::batch:*region*:*account*:compute\-environment/*compute\-environment\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job**  
 arn:aws:batch:*region*:*account*:job/*jobId*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job Definition**  
 arn:aws:batch:*region*:*account*:job\-definition/*definition\-name*:*revision*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job Queue**  
 arn:aws:batch:*region*:*account*:job\-queue/*queue\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Condition keys**    
 `aws:TagKeys` \(String\)  
 Filters actions based on the tag keys that are passed in the request\.
@@ -224,7 +224,7 @@ Updates an AWS Batch compute environment\.
 arn:aws::batch:*region*:*account*:compute\-environment/*compute\-environment\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.
+Filters actions based on the tags that are associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_UpdateJobQueue.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_UpdateJobQueue.html)  <a name="batch-supported-actions-updatejobqueue"></a>
 Updates a job queue\.    
@@ -233,4 +233,4 @@ Updates a job queue\.
 arn:aws:batch:*region*:*account*:job\-queue/*queue\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.
+Filters actions based on the tags that are associated with the resource\.

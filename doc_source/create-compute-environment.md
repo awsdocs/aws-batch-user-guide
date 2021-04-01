@@ -19,7 +19,7 @@ Before you can run jobs in AWS Batch, you need to create a compute environment\.
 
    1. For **Compute environment type**, choose **Managed**\.
 
-   1. For **Compute environment name**, specify a unique name for your compute environment\. You can use up to 128 characters\. Valid characters are letters \(both uppercase and lowercase\), numbers, hyphens \(\-\), and underscores \(\_\)\.
+   1. For **Compute environment name**, specify a unique name for your compute environment\. The name can contain up to 128 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), and underscores \(\_\)\.
 
    1. Ensure that **Enable compute environment** is selected so that your compute environment can accept jobs from the AWS Batch job scheduler\.
 
@@ -65,7 +65,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
    1. For **Compute environment type**, choose **Managed**\.
 
-   1. For **Compute environment name**, specify a unique name for your compute environment\. You can use up to 128 characters\. Valid characters are letters \(both uppercase and lowercase\), numbers, hyphens \(\-\), and underscores \(\_\)\.
+   1. For **Compute environment name**, specify a unique name for your compute environment\. The name can contain up to 128 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), and underscores \(\_\)\.
 
    1. Ensure that **Enable compute environment** is selected so that your compute environment can accept jobs from the AWS Batch job scheduler\.
 
@@ -75,7 +75,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
       1. For **Instance role**, choose to create a new instance profile or use an existing instance profile that has the required IAM permissions attached\. This instance profile allows the Amazon ECS container instances that are created for your compute environment to make calls to the required AWS API operations on your behalf\. For more information, see [Amazon ECS Instance Role](instance_IAM_role.md)\. If you choose to create a new instance profile, the required role \(`ecsInstanceRole`\) is created for you\.
 
-      1. For **EC2 key pair** choose an existing Amazon EC2 key pair to associate with the instance at launch\. This key pair allows you to connect to your instances with SSH \(verify that your security group allows incoming traffic on port 22\)\.
+      1. For **EC2 key pair** choose an existing Amazon EC2 key pair to associate with the instance at launch\. You can use this key pair to connect to your instances with SSH\. Make sure to verify that your security group allows incoming traffic on port 22\.
 
 1. Configure your Instance configuration\.
 
@@ -95,7 +95,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 **Note**  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
 **Note**  
-AWS Batch will scale GPUs based on the required amount in your job queues\. In order to use GPU scheduling, the compute environment must include instance types from the `p2`, `p3`, `g3`, `g3s`, or `g4` families\.
+AWS Batch will scale GPUs based on the required amount in your job queues\. To use GPU scheduling, the compute environment must include instance types from the `p2`, `p3`, `g3`, `g3s`, or `g4` families\.
 **Note**  
 Currently, `optimal` uses instance types from the C4, M4, and R4 instance families\. In Regions that don't have instance types from those instance families, instance types from the C5, M5\. and R5 instance families are used\.
 
@@ -103,11 +103,11 @@ Currently, `optimal` uses instance types from the C4, M4, and R4 instance famili
 
    1. \(Optional\) Expand **Additional settings: launch template, user specified AMI**\.
 
-      1. \(Optional\) For **Launch template**, select an existing Amazon EC2 launch template to configure your compute resources; the default version of the template is automatically populated\. For more information, see [Launch template support](launch-templates.md)\.
+      1. \(Optional\) For **Launch template**, select an existing Amazon EC2 launch template to configure your compute resources\. The default version of the template is automatically populated\. For more information, see [Launch template support](launch-templates.md)\.
 
       1. \(Optional\) For **Launch template version**, enter `$Default`, `$Latest`, or a specific version number to use\.
 **Important**  
-After the compute environment is created, the launch template version used will not be changed, even if the `$Default` or `$Latest` version for the launch template is updated\. To use a new launch template version, create a new compute environment, add the new compute environment to the existing job queue, remove the old compute environment from the job queue, and delete the old compute environment\.
+After the compute environment is created, the launch template version used isn't changed even if the `$Default` or `$Latest` version for the launch template is updated\. To use a new launch template version, create a new compute environment, add the new compute environment to the existing job queue, remove the old compute environment from the job queue, and delete the old compute environment\.
 
       1. <a name="enable-custom-ami-step"></a>\(Optional\) Check **Enable user\-specified AMI ID** to use your own custom AMI\. By default, AWS Batch managed compute environments use a recent, approved version of the Amazon ECS optimized AMI for compute resources\. You can create and use your own AMI in your compute environment by following the compute resource AMI specification\. For more information, see [Compute resource AMIs](compute_resource_AMIs.md)\.
 **Note**  
@@ -115,13 +115,13 @@ The AMI that you choose for a compute environment must match the architecture of
 
          1. For **AMI ID**, paste your custom AMI ID and choose **Validate AMI**\.
 
-      1. \(Optional\) For **EC2 configuration** choose **Image type** and **Image ID override** values to provide information for AWS Batch to select Amazon Machine Images \(AMIs\) for instances in the compute environment\. If the **Image ID override** isn't specified for each **Image type**, AWS Batch selects a recent [Amazon ECS optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)\. If no **Image type** is specified, the default is a **Amazon Linux** for non\-GPU, non\-AWS Graviton instance\. In the future, this default will change to **Amazon Linux 2** for all non\-GPU instances\.  
+      1. \(Optional\) For **EC2 configuration** choose **Image type** and **Image ID override** values to provide information for AWS Batch to select Amazon Machine Images \(AMIs\) for instances in the compute environment\. If the **Image ID override** isn't specified for each **Image type**, AWS Batch selects a recent [Amazon ECS optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)\. If no **Image type** is specified, the default is a **Amazon Linux** for non\-GPU, non AWS Graviton instance\. In the future, this default will change to **Amazon Linux 2** for all non\-GPU instances\.  
 [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami)  
  Default for all AWS Graviton\-based instance families \(for example, `C6g`, `M6g`, `R6g`, and `T4g`\) and can be used for all non\-GPU instance types\.  
 [Amazon Linux 2 \(GPU\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#gpuami)  
-Default for all GPU instance families \(for example `P4` and `G4`\) and can be used for all non\-AWS Graviton\-based instance types\.  
+Default for all GPU instance families \(for example `P4` and `G4`\) and can be used for all non AWS Graviton\-based instance types\.  
 [Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami)  
-Default for all non\-GPU, non\-AWS Graviton instance families\. Amazon Linux is reaching the end\-of\-life of standard support\. For more information, see [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/)\.
+Default for all non\-GPU, non AWS Graviton instance families\. Amazon Linux is reaching the end\-of\-life of standard support\. For more information, see [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/)\.
 
 1. Configure networking\.
 **Important**  
@@ -129,7 +129,7 @@ Compute resources need access to communicate with the Amazon ECS service endpoin
 For more information about interface VPC endpoints, see [Amazon ECS Interface VPC Endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/vpc-endpoints.html) in the *Amazon Elastic Container Service Developer Guide*\.  
 If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT Gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)\.
 
-   1. For **VPC ID**, choose a VPC into which to launch your instances\.
+   1. For **VPC ID**, choose a VPC where to launch your instances\.
 
    1. For **Subnets**, choose which subnets in the selected VPC should host your instances\. By default, all subnets within the selected VPC are chosen\.
 
@@ -157,7 +157,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
 1. For **Compute environment type**, choose **Unmanaged**\.
 
-1. For **Compute environment name**, specify a unique name for your compute environment\. You can use up to 128 letters \(uppercase and lowercase\), numbers, hyphens, and underscores\.
+1. For **Compute environment name**, specify a unique name for your compute environment\. The name can be up to 128 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), and underscores \(\_\)\.
 
 1. For **Service role**, choose **Batch service\-linked role**\. The role allows the AWS Batch service to make calls to the required AWS API operations on your behalf\. For more information, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.
 
@@ -178,4 +178,4 @@ If you do not have an interface VPC endpoint configured and your compute resourc
    echo "ECS_CLUSTER=ecsClusterArn" >> /etc/ecs/ecs.config
    ```
 **Note**  
-Your unmanaged compute environment does not have any compute resources until you launch them manually\.
+Your unmanaged compute environment doesn't have any compute resources until you launch them manually\.

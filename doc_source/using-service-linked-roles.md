@@ -260,7 +260,7 @@ You must configure permissions to allow an IAM entity \(such as a user, group, o
 
 ## Creating a service\-linked role for AWS Batch<a name="create-slr"></a>
 
-You don't need to manually create a service\-linked role\. When you CreateComputeEnvironment in the AWS Management Console, the AWS CLI, or the AWS API, and do not specify a value for the `serviceRole` parameter, AWS Batch creates the service\-linked role for you\.
+You don't need to manually create a service\-linked role\. When you CreateComputeEnvironment in the AWS Management Console, the AWS CLI, or the AWS API, and don't specify a value for the `serviceRole` parameter, AWS Batch creates the service\-linked role for you\.
 
 **Important**  
 This service\-linked role can appear in your account if you completed an action in another service that uses the features supported by this role\. Also, if you were using the AWS Batch service before March 10, 2021, when it began supporting service\-linked roles, then AWS Batch created the AWSServiceRoleForBatch role in your account\. To learn more, see [A New Role Appeared in My IAM Account](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_roles.html#troubleshoot_roles_new-role-appeared)\.
@@ -269,11 +269,11 @@ If you delete this service\-linked role, and then need to create it again, you c
 
 ## Editing a service\-linked role for AWS Batch<a name="edit-slr"></a>
 
-AWS Batch does not allow you to edit the AWSServiceRoleForBatch service\-linked role\. After you create a service\-linked role, you cannot change the name of the role because various entities might reference the role\. However, you can edit the description of the role using IAM\. For more information, see [Editing a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role) in the *IAM User Guide*\.
+With AWS Batch, you can't edit the AWSServiceRoleForBatch service\-linked role\. After you create a service\-linked role, you can't change the name of the role because various entities might reference the role\. However, you can edit the description of the role using IAM\. For more information, see [Editing a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role) in the *IAM User Guide*\.
 
 **To allow an IAM entity to edit the description of the AWSServiceRoleForBatch service\-linked role**
 
-Add the following statement to the permissions policy for the IAM entity that needs to edit the description of a service\-linked role:
+Add the following statement to the permissions policy\. This allows the IAM entity to edit the description of a service\-linked role\.
 
 ```
 {
@@ -288,11 +288,11 @@ Add the following statement to the permissions policy for the IAM entity that ne
 
 ## Deleting a service\-linked role for AWS Batch<a name="delete-slr"></a>
 
-If you no longer need to use a feature or service that requires a service\-linked role, we recommend that you delete that role\. That way you don’t have an unused entity that is not actively monitored or maintained\. However, you must clean up the resources for your service\-linked role before you can manually delete it\.
+We recommend, if you no longer need to use a feature or service that requires a service\-linked role, you delete that role\. That way, you don’t have an unused entity that's not actively monitored or maintained\. However, you must clean up the resources for your service\-linked role before you can manually delete it\.
 
 **To allow an IAM entity to delete the AWSServiceRoleForBatch service\-linked role**
 
-Add the following statement to the permissions policy for the IAM entity that needs to delete a service\-linked role:
+Add the following statement to the permissions policy\. This allows the IAM entity to delete a service\-linked role\.
 
 ```
 {
@@ -308,17 +308,17 @@ Add the following statement to the permissions policy for the IAM entity that ne
 
 ### Cleaning up a service\-linked role<a name="service-linked-role-review-before-delete"></a>
 
-Before you can use IAM to delete a service\-linked role, you must first confirm that the role has no active sessions and delete all AWS Batch compute environments that use the role in all AWS Regions in a single partition\.
+Before you can use IAM to delete a service\-linked role, you must first confirm that the role has no active sessions and delete all of the AWS Batch compute environments that use the role in all AWS Regions in a single partition\.
 
 **To check whether the service\-linked role has an active session**
 
 1. Open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
-1. In the navigation pane, choose **Roles** and choose the AWSServiceRoleForBatch name \(not the check box\)\.
+1. In the navigation pane, choose **Roles** and then the AWSServiceRoleForBatch name \(not the check box\)\.
 
 1. On the **Summary** page, choose **Access Advisor** and review recent activity for the service\-linked role\.
 **Note**  
-If you are unsure whether AWS Batch is using the AWSServiceRoleForBatch role, you can try to delete the role\. If the service is using the role, then the deletion fails and you can view the Regions where the role is being used\. If the role is being used, then you must wait for the session to end before you can delete the role\. You cannot revoke the session for a service\-linked role\.
+If you don't know whether AWS Batch is using the AWSServiceRoleForBatch role, you can try to delete the role\. If the service is using the role, then the role will fail to delete\. You can view the Regions where the role is being used\. If the role is being used, then you must wait for the session to end before you can delete the role\. You can't revoke the session for a service\-linked role\.
 
 **To remove AWS Batch resources used by the AWSServiceRoleForBatch service\-linked role**
 
@@ -338,7 +338,7 @@ You must delete all AWS Batch compute environments that use the AWSServiceRoleFo
 
 1. Choose **Delete**\. Confirm that you want to delete the compute environment by choosing **Delete compute environment**\.
 
-1. Repeat steps 1\-7 for all compute environments that use the service\-linked role in all Regions\.
+1. Repeat steps 1–7 for all compute environments that use the service\-linked role in all Regions\.
 
 ### Deleting a service\-linked role in IAM \(Console\)<a name="delete-service-linked-role-iam-console"></a>
 
@@ -367,7 +367,7 @@ You can use IAM commands from the AWS Command Line Interface to delete a service
 
 **To delete a service\-linked role \(CLI\)**
 
-1. Because a service\-linked role cannot be deleted if it is being used or has associated resources, you must submit a deletion request\. That request can be denied if these conditions are not met\. You must capture the `deletion-task-id` from the response to check the status of the deletion task\. Enter the following command to submit a service\-linked role deletion request:
+1. Because a service\-linked role can't be deleted if it's being used or has associated resources, you must submit a deletion request\. That request can be denied if these conditions aren't met\. You must capture the `deletion-task-id` from the response to check the status of the deletion task\. Enter the following command to submit a service\-linked role deletion request:
 
    ```
    $ aws iam delete-service-linked-role --role-name AWSServiceRoleForBatch
@@ -381,7 +381,7 @@ You can use IAM commands from the AWS Command Line Interface to delete a service
 
    The status of the deletion task can be `NOT_STARTED`, `IN_PROGRESS`, `SUCCEEDED`, or `FAILED`\. If the deletion fails, the call returns the reason that it failed so that you can troubleshoot\. If the deletion fails because the role is using the service's resources, then the notification includes a list of resources, if the service returns that information\. You can then [clean up the resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-review-before-delete) and submit the deletion again\.
 **Note**  
-You might have to repeat this process several times, depending on the information that the service returns\. For example, your service\-linked role might use six resources and your service might return information about five of them\. If you clean up the five resources and submit the role for deletion again, the deletion fails and the service reports the one remaining resource\. A service might return all of the resources, a few of them, or it might not report any resources\. To learn how to clean up the resources for a service that does not report any resources, see [AWS services that work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html)\. Find your service in the table, and choose the **Yes** link to view the service\-linked role documentation for that service\.
+You might have to repeat this process several times, depending on the information that the service returns\. For example, your service\-linked role might use six resources and your service might return information about five of them\. If you clean up the five resources and submit the role for deletion again, the deletion fails and the service reports the one remaining resource\. A service might return all of the resources, a few of them\. Or, it might not report any resources\. To learn how to clean up the resources for a service that doesn't report any resources, see [AWS services that work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html)\. Find your service in the table, and choose the **Yes** link to view the service\-linked role documentation for that service\.
 
 ### Deleting a service\-linked role in IAM \(AWSAPI\)<a name="delete-service-linked-role-iam-api"></a>
 

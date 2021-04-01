@@ -1,6 +1,6 @@
 # Compute environment<a name="compute_environments"></a>
 
-Job queues are mapped to one or more compute environments\. Compute environments contain the Amazon ECS container instances that are used to run containerized batch jobs\. A specific compute environment can also be mapped to one or many job queues\. Within a job queue, the associated compute environments each have an order that's used by the scheduler to determine where jobs that are ready to be run should run\. If the first compute environment has available resources, the job is scheduled to a container instance within that compute environment\. If the compute environment can't provide a suitable compute resource, the scheduler attempts to run the job on the next compute environment\.
+Job queues are mapped to one or more compute environments\. Compute environments contain the Amazon ECS container instances that are used to run containerized batch jobs\. A specific compute environment can also be mapped to one or more than one job queue\. Within a job queue, the associated compute environments each have an order that's used by the scheduler to determine where jobs that are ready to be run should run\. If the first compute environment has available resources, the job is scheduled to a container instance within that compute environment\. If the compute environment can't provide a suitable compute resource, the scheduler attempts to run the job on the next compute environment\.
 
 **Topics**
 + [Managed compute environments](#managed_compute_environments)
@@ -16,7 +16,7 @@ Job queues are mapped to one or more compute environments\. Compute environments
 
 ## Managed compute environments<a name="managed_compute_environments"></a>
 
-Managed compute environments help you to meet your business requirements\. In a managed compute environment, AWS Batch manages the capacity and instance types of the compute resources within the environment\. This is based on the compute resource specification that you define when you create the compute environment\. You can choose either to use EC2 On\-Demand Instances and EC2 Spot Instances\. Or, you can alternatively use Fargate and Fargate Spot capacity in your managed compute environment\. You can optionally set a maximum price so that Spot Instances only launch when the Spot Instance price is under a specified percentage of the On\-Demand price\.
+You can use managed compute environments to meet business requirements\. In a managed compute environment, AWS Batch helps you to manage the capacity and instance types of the compute resources within the environment\. This is based on the compute resource specification that you define when you create the compute environment\. You can choose either to use EC2 On\-Demand Instances and EC2 Spot Instances\. Or, you can alternatively use Fargate and Fargate Spot capacity in your managed compute environment\. You can optionally set a maximum price so that Spot Instances only launch when the Spot Instance price is under a specified percentage of the On\-Demand price\.
 
 Managed compute environments launch Amazon ECS container instances into the VPC and subnets that you specify when you create the compute environment\. Amazon ECS container instances need external network access to communicate with the Amazon ECS service endpoint\. Some subnets don't provide container instances with public IP addresses\. If your container instances don't have public IP addresses, they must use network address translation \(NAT\) to gain this access\. For more information, see [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information about how to create a VPC, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)\.
 
@@ -34,7 +34,7 @@ Delete the earlier compute environment\.
 In an unmanaged compute environment, you manage your own compute resources\. You must verify that the AMI you use for your compute resources meets the Amazon ECS container instance AMI specification\. For more information, see [Compute resource AMI specification](compute_resource_AMIs.md#batch-ami-spec) and [Creating a compute resource AMI](create-batch-ami.md)\.
 
 **Note**  
-AWS Fargate resources are not supported in unmanaged compute environments\.
+AWS Fargate resources aren't supported in unmanaged compute environments\.
 
 After you created your unmanaged compute environment, use the [DescribeComputeEnvironments](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeComputeEnvironments.html) API operation to view the compute environment details\. Find the Amazon ECS cluster that's associated with the environment and then manually launch your container instances into that Amazon ECS cluster\.
 

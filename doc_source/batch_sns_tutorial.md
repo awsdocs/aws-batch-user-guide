@@ -1,10 +1,10 @@
 # Tutorial: Sending Amazon Simple Notification Service Alerts for Failed Job Events<a name="batch_sns_tutorial"></a>
 
-In this tutorial, you configure a CloudWatch Events event rule that only captures job events where the job has moved to a `FAILED` status\. At the end of this tutorial, you can submit a job to this job queue to test that you have configured your Amazon SNS alerts correctly\.
+In this tutorial, you configure a CloudWatch Events event rule that only captures job events where the job has moved to a `FAILED` status\. At the end of this tutorial, you can optionally also submit a job to this job queue\. This is to test that you have configured your Amazon SNS alerts correctly\.
 
 ## Prerequisites<a name="batch_sns_prereq"></a>
 
-This tutorial assumes that you have a working compute environment and job queue that are ready to accept jobs\. If you do not have a running compute environment and job queue to capture events from, follow the steps in [Getting Started with AWS Batch](Batch_GetStarted.md) to create one\. 
+This tutorial assumes that you have a working compute environment and job queue that are ready to accept jobs\. If you don't have a running compute environment and job queue to capture events from, follow the steps in [Getting Started with AWS Batch](Batch_GetStarted.md) to create one\. 
 
 ## Step 1: Create and Subscribe to an Amazon SNS Topic<a name="batch_sns_create_topic"></a>
 
@@ -20,7 +20,7 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 1. Select the topic that you just created\. On the **Topic details: JobFailedAlert** screen, choose **Create subscription**\. 
 
-1. For **Protocol**, choose **Email**\. For **Endpoint**, enter an email address to which you currently have access and choose **Create subscription**\. 
+1. For **Protocol**, choose **Email**\. For **Endpoint**, enter an email address that you currently have access to and choose **Create subscription**\. 
 
 1.  Check your email account, and wait to receive a subscription confirmation email message\. When you receive it, choose **Confirm subscription**\. 
 
@@ -60,11 +60,11 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 1. Choose **Configure details**\.
 
-1. For **Rule definition**, type a name and description for your rule and then choose **Create rule**\.
+1. For **Rule definition**, enter a name and description for your rule, and then choose **Create rule**\.
 
 ## Step 3: Test Your Rule<a name="batch_sns_test_rule"></a>
 
- To test your rule, submit a job that exits shortly after it starts with a non\-zero exit code\. If your event rule is configured correctly, you receive an email message within a few minutes with the event text\. 
+ To test your rule, submit a job that exits shortly after it starts with a non\-zero exit code\. If your event rule is configured correctly, you should receive an email message within a few minutes with the event text\. 
 
 **To test a rule**
 
@@ -76,4 +76,4 @@ This tutorial assumes that you have a working compute environment and job queue 
    /bin/sh, -c, 'exit 1'
    ```
 
-1. Check your email to confirm that you have received an email alert for the failed job notification\.
+1. Check your email to confirm that you received an email alert for the failed job notification\.

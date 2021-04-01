@@ -140,7 +140,7 @@ You can use the following procedure to see if your account already has the AWS B
 
 1. In the navigation pane, choose **Roles**\. 
 
-1. Search the list of roles for `AWSBatchServiceRole`\. If the role does not exist, use the procedure below to create the role\. If the role does exist, select the role to view the attached policies\.
+1. Search the list of roles for `AWSBatchServiceRole`\. If the role doesn't exist, use the procedure below to create the role\. If the role does exist, select the role to view the attached policies\.
 
 1. Choose **Permissions**\.
 
@@ -154,7 +154,7 @@ You can use the following procedure to see if your account already has the AWS B
 
 1. Choose **Trust Relationships**, **Edit Trust Relationship**\.
 
-1. Verify that the trust relationship contains the following policy\. If the trust relationship matches the policy below, choose **Cancel**\. If the trust relationship does not match, copy the policy into the **Policy Document** window and choose **Update Trust Policy**\.
+1. Verify that the trust relationship contains the following policy\. If the trust relationship matches the following policy, choose **Cancel**\. If the trust relationship doesn't match, copy the policy into the **Policy Document** window and choose **Update Trust Policy**\.
 
    ```
    {
