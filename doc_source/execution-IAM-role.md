@@ -75,10 +75,12 @@ If your account does not already have an execution role, use the following steps
 
 1. In the navigation pane, choose **Roles**, **Create role**\. 
 
-1. In the **Select type of trusted entity** section, choose **Elastic Container Service**\.
+1. In the **Select type of trusted entity** section, choose **AWS service**\.
+
+1. In the **Choose a use case** section, in the **Or select a service to view its use cases** section, choose **Elastic Container Service**\.
 
 1. For **Select your use case**, choose **Elastic Container Service Task**, then choose **Next: Permissions**\.
 
-1. In the **Attach permissions policy** section, search for **AmazonECSTaskExecutionRolePolicy**, select the policy, and then choose **Next: Review**\.
+1. In the **Attach permissions policy** section, search for **AmazonECSTaskExecutionRolePolicy**, select the policy, and then choose **Next: Tags**, and then **Next: Review**\.
 
 1. For **Role Name**, type `ecsTaskExecutionRole` and choose **Create role**\.

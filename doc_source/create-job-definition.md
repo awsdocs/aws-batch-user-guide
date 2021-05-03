@@ -118,19 +118,51 @@ Environment variables must not start with `AWS_BATCH`\. This naming convention i
 
       1. \(Optional\) In the **Security** section, you can configure security options for your job's container\.
 
-         1. To give your job's container elevated privileges on the host instance \(similar to the `root` user\), select **Privileged**\. This parameter maps to `Privileged` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--privileged` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
+         1. To give your job's container elevated permissions on the host instance \(similar to the `root` user\), select **Enable privileged mode**\. This parameter maps to `Privileged` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--privileged` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 
          1. For **User**, enter the user name to use inside the container\. This parameter maps to `User` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--user` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 
       1. \(Optional\) In the **Linux Parameters** section, you can configure any device mappings to use for your job's container\. This allows the container to be able to access a device on the host instance\.
 
-         1. In the **Devices** section, choose **Add device**\.
+         1. \(Optional\) In the **Devices** section, choose **Add device**\.
 
-         1. For **Host path**, specify the path of a device in the host instance\.
+            1. \(Optional\) In the **Devices** section, to add a device choose **Add device**\.
 
-         1. For **Container path**, specify the path of in the container instance to expose the device mapped to the host instance\. If this is left blank \(unspecified\), then the host path is used in the container\.
+            1. For **Host path**, specify the path of a device in the host instance\.
 
-         1. For **Permissions**, choose one or more permissions to apply to the device in the container\. The available permissions are `READ`, `WRITE`, and `MKNOD`\.
+            1. For **Container path**, specify the path of in the container instance to expose the device mapped to the host instance\. If this is left blank \(unspecified\), then the host path is used in the container\.
+
+            1. For **Permissions**, choose one or more permissions to apply to the device in the container\. The available permissions are `READ`, `WRITE`, and `MKNOD`\.
+
+         1. \(Optional\) In the **Shared memory size** section, enter the size \(in MiB\) of the `/dev/shm` volume\.
+
+         1. \(Optional\) In the **Max swap size** section, enter the total amount of swap memory \(in MiB\) that the container can use\.
+
+         1. \(Optional\) In the **Swappiness** section, enter a value between 0 and 100 to indicate the swappiness behavior of the container\. If it's not specified and swapping is enabled, the default value is 60\. For more information, see [swappiness](job_definition_parameters.md#ContainerProperties-linuxParameters-swappiness) in [Job definition parameters](job_definition_parameters.md)\.
+
+         1. \(Optional\) In the **Tmpfs** section, to add a tmpfs mount, choose **Add tmpfs**\.
+
+            1. In the **Container path** field, enter the absolute file path in the container where the tmpfs volume is mounted\.
+
+            1. In the **Size** field, enter size \(in MiB\) of the tmpfs volume\.
+
+            1. \(Optional\) In the **Mount options** field, enter the mount options\. For more information, including the list of available mount options, see [mountOptions](job_definition_parameters.md#ContainerProperties-linuxParameters-tmpfs-mountOptions) in [Job definition parameters](job_definition_parameters.md)\.
+
+      1. \(Optional\) In the **Log configuration** section, you can configure the log driver to use for your job's container\. By default, the `awslogs` log driver is used\.
+
+         1. In the **Log driver** section, select the log driver to use\. For more information on the available log drivers, see [logDriver](job_definition_parameters.md#ContainerProperties-logConfiguration-logDriver) in [Job definition parameters](job_definition_parameters.md)\.
+
+         1. \(Optional\) In the **Options** section, select **Add option** to add an option\.
+
+            1. In the **Name** field, enter the name of the option\. The options available vary by log driver; see the documentation for the log driver for more information\.
+
+            1. In the **Value** field, enter the value of the option\.
+
+         1. \(Optional\) In the **Secrets** section, select **Add secret** to add a secret\.
+
+            1. In the **Name** field, enter the name of the secret\. For more information, see [secretOptions](job_definition_parameters.md#ContainerProperties-logConfiguration-secretOptions) in [Job definition parameters](job_definition_parameters.md)\.
+
+            1. In the **Value** field, enter the ARN of the secret\.
 
 1. \(Optional\) In the **Parameters** section, you can specify parameter substitution default values and placeholders to use in the command that your job's container runs when it starts\. For more information, see [Parameters](job_definition_parameters.md#parameters)\.
 

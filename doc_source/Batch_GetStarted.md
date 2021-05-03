@@ -2,7 +2,7 @@
 
 Get started with AWS Batch by creating a job definition, compute environment, and a job queue in the AWS Batch console\. 
 
-With the AWS Batch first\-run wizard, you can create a compute environment and a job queue and can optionally also submit a sample hello world job\. If you already have a Docker image that you wantto launch in AWS Batch, you can create a job definition with that image and submit that to your queue instead\.
+With the AWS Batch first\-run wizard, you can create a compute environment and a job queue and can optionally also submit a sample hello world job\. If you already have a Docker image that you want to launch in AWS Batch, you can create a job definition with that image and submit that to your queue instead\.
 
 **Important**  
 Before you begin, be sure that you completed the steps in [Setting Up with AWS Batch](get-set-up-for-aws-batch.md) and that your AWS user has the required permissions\. Admin users don't need to worry about permissions issues\. For more information, see [Creating Your First IAM Admin User and Group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) in the *IAM User Guide\.*
@@ -102,7 +102,7 @@ At this time, you can only create a managed compute environment in the first run
 **Note**  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
 **Note**  
-Currently, `optimal` uses instance types from the C4, M4, and R4 instance families\. In Regions that don't have instance types from those instance families, instance types from the C5, M5\. and R5 instance families are used\.
+Currently, `optimal` uses instance types from the C4, M4, and R4 instance families\. In Regions that don't have instance types from those instance families, instance types from the C5, M5, and R5 instance families are used\.
 
 1. For **Minimum vCPUs**, choose the minimum number of EC2 vCPUs that your compute environment should maintain, regardless of job queue demand\.
 
@@ -116,7 +116,7 @@ Compute resources are launched into the VPC and subnets that you specify here\. 
 **Important**  
 Compute resources need access to communicate with the Amazon ECS service endpoint\. This can be through an interface VPC endpoint or through your compute resources having public IP addresses\.  
 For more information about interface VPC endpoints, see [Amazon ECS Interface VPC Endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/vpc-endpoints.html) in the *Amazon Elastic Container Service Developer Guide*\.  
-If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT Gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)\.
+If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)\.
 
 1. For **VPC Id**, choose a VPC to launch your instances into\.
 

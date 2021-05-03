@@ -17,7 +17,7 @@ Job definitions are split into four basic parts: the job definition name, the ty
 ## Job definition name<a name="jobDefinitionName"></a>
 
 `jobDefinitionName`  
-When you register a job definition, you specify a name\. Up to 128 letters \(uppercase and lowercase\), numbers, hyphens, and underscores are allowed\. The first job definition that's registered with that name is given a revision of 1\. Any subsequent job definitions that are registered with that name are given an incremental revision number\.   
+When you register a job definition, you specify a name\. The name can be up to 128 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), and underscores \(\_\)\. The first job definition that's registered with that name is given a revision of 1\. Any subsequent job definitions that are registered with that name are given an incremental revision number\.   
 Type: String  
 Required: Yes
 
@@ -50,7 +50,7 @@ When this job definition is submitted to run, the `Ref::codec` argument in the c
 ## Platform capabilities<a name="job-definition-parameters-platform-capabilities"></a>
 
 `platformCapabilities`  
-The platform capabilities that's required by the job definition\. If no value is specified, it defaults to `EC2`\. Jobs run on Fargate resources specify `FARGATE`\.  
+The platform capabilities that's required by the job definition\. If no value is specified, it defaults to `EC2`\. For jobs that run on Fargate resources, `FARGATE` is specified\.  
 Type: String  
 Valid values: `EC2` \| `FARGATE`  
 Required: No
@@ -303,7 +303,7 @@ Type: String
 Required: Yes
 
 `memory`  
-This parameter is no longer supported for jobs that run on Fargate resources\. Use `ResourceRequirement` instead\. For jobs run on EC2 resources that aren't using `ResourceRequirement`, the number of MiB of memory reserved for the job\. For other jobs, see `resourceRequirements`\. If your container attempts to exceed the memory specified here, the container is stoped\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\. This is required but can be specified in several places for multi\-node parallel \(MNP\) jobs\. It must be specified for each node at least once\.  
+This parameter is no longer supported for jobs that run on Fargate resources\. Use `ResourceRequirement` instead\. For jobs run on EC2 resources that aren't using `ResourceRequirement`, the number of MiB of memory reserved for the job\. For other jobs, see `resourceRequirements`\. If your container attempts to exceed the memory specified here, the container is stopped\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\. This is required but can be specified in several places for multi\-node parallel \(MNP\) jobs\. It must be specified for each node at least once\.  
 If you're trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
 Type: Integer  
 Required: Yes
@@ -516,7 +516,7 @@ If the `host` parameter contains a `sourcePath` file location, then the data vol
 Type: String  
 Required: No  
 `efsVolumeConfiguration`  
-This parameter is specified when you're using an Amazon Elastic File System file system for task storage\. For more information, see [Amazon EFS Volumes](https://docs.aws.amazon.com/batch/latest/ug/efs-volumes.html) in the *AWS Batch User Guide*\.  
+This parameter is specified when you're using an Amazon Elastic File System file system for task storage\. For more information, see [Amazon EFS Volumes](https://docs.aws.amazon.com/batch/latest/userguide/efs-volumes.html) in the *AWS Batch User Guide*\.  
 Type: Object  
 Required: No    
 `authorizationConfig`  
@@ -528,7 +528,7 @@ The Amazon EFS access point ID to use\. If an access point is specified, the roo
 Type: String  
 Required: No  
 `iam`  
-Determines whether to use the AWS Batch job IAM role defined in a job definition when mounting the Amazon EFS file system\. If enabled, transit encryption must be enabled in the `EFSVolumeConfiguration`\. If this parameter is omitted, the default value of `DISABLED` is used\. For more information, see [Using Amazon EFS Access Points](https://docs.aws.amazon.com/batch/latest/ug/efs-volumes.html#efs-volume-accesspoints) in the *AWS Batch User Guide*\.  
+Determines whether to use the AWS Batch job IAM role defined in a job definition when mounting the Amazon EFS file system\. If enabled, transit encryption must be enabled in the `EFSVolumeConfiguration`\. If this parameter is omitted, the default value of `DISABLED` is used\. For more information, see [Using Amazon EFS Access Points](https://docs.aws.amazon.com/batch/latest/userguide/efs-volumes.html#efs-volume-accesspoints) in the *AWS Batch User Guide*\.  
 Type: String  
 Valid values: `ENABLED` \| `DISABLED`  
 Required: No  
@@ -613,7 +613,7 @@ Type: String
 Required: Yes  
 Valid values: `RETRY` \| `EXIT`  
 `onExitCode`  
-Contains a glob pattern to match against the decimal representation of the `ExitCode` that's returned for a job\. The pattern can be up to 512 characters in length\. It can contain only numbers\. It cannot contain letters or other special characters\. It can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
+Contains a glob pattern to match against the decimal representation of the `ExitCode` that's returned for a job\. The pattern can be up to 512 characters in length\. It can contain only numbers\. It cannot contain letters or special characters\. It can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
 Type: String  
 Required: No  
 `onReason`  

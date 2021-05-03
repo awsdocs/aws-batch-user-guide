@@ -5,7 +5,7 @@ The following table describes the important changes to the documentation since t
 | Change | Description | Date | 
 | --- |--- |--- |
 | [Amazon EFS](https://docs.aws.amazon.com/batch/latest/userguide/efs-volumes.html) | AWS Batch adds support for adding Amazon EFS file systems to you job definitions\. | April 1, 2021 | 
-| [Added service\-linked role](https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html.html) | AWS Batch adds the **AWSServiceRoleForBatch** service\-linked role\. | March 10, 2021 | 
+| [Added service\-linked role](https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html) | AWS Batch adds the **AWSServiceRoleForBatch** service\-linked role\. | March 10, 2021 | 
 | [AWS Fargate support](https://docs.aws.amazon.com/batch/latest/userguide/fargate.html) | AWS Batch adds support for running jobs on Fargate resources\. | December 3, 2020 | 
 | [Amazon Linux 2 support](https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_resources_ec2configuration) | AWS Batch adds support for automatic selection of Amazon Linux 2 AMIs in the compute environment using the EC2 Configuration parameters\. | November 24, 2020 | 
 | [Enhanced retry strategy](https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html#retryStrategy) | AWS Batch enhances the retry strategy for jobs\. Now jobs can be retried or stop further retries by matching the `ExitCode`, `Reason`, or `StatusReason` of a job with patterns\. | October 20, 2020 | 

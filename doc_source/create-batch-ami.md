@@ -8,12 +8,13 @@ You can create your own custom compute resource AMI to use for your managed and 
 **Note**  
 The AMI that you choose for a compute environment must match the architecture of the instance types that you intend to use for that compute environment\. For example, if your compute environment uses A1 instance types, the compute resource AMI that you choose must support ARM instances\. Amazon ECS vends both x86 and ARM versions of the Amazon ECS optimized Amazon Linux 2 AMI\. For more information, see [Amazon ECS optimized Amazon Linux 2 AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#ecs-optimized-ami-linux-variants.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
-   The Amazon ECS optimized AMI is the default AMI for compute resources in managed compute environments\. The Amazon ECS optimized AMI is preconfigured and tested on AWS Batch by AWS engineers\. It's the simplest AMI for you to get started and to get your compute resources that are running on AWS quickly\. For more information, see [Amazon ECS Optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) in the *Amazon Elastic Container Service Developer Guide*\.
+   The Amazon ECS optimized Amazon Linux 2 AMI is the default AMI for compute resources in managed compute environments\. The Amazon ECS optimized Amazon Linux 2 AMI is preconfigured and tested on AWS Batch by AWS engineers\. It's the simplest AMI for you to get started and to get your compute resources that are running on AWS quickly\. For more information, see [Amazon ECS Optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
-   Alternatively, you can choose another Amazon Linux variant and install the `ecs-init` package with the following command:
+   Alternatively, you can choose another Amazon Linux 2 variant and install the `ecs-init` package with the commands below\. For more information, see [Installing the Amazon ECS container agent on an Amazon Linux 2 EC2 instance ](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-install.html#ecs-agent-install-al2) in the *Amazon Elastic Container Service Developer Guide*:
 
    ```
-   sudo yum install -y ecs-init
+   $ sudo amazon-linux-extras disable docker
+   $ sudo amazon-linux-extras install ecs-init
    ```
 
    For example, if you want to run GPU workloads on your AWS Batch compute resources, you can start with the [Amazon Linux Deep Learning AMI](https://aws.amazon.com/marketplace/pp/B01M0AXXQB) and configure it to be able to run AWS Batch jobs\. For more information, see [Using a GPU workload AMI](batch-gpu-ami.md)\.
