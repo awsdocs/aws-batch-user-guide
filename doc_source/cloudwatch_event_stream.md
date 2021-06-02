@@ -2,7 +2,7 @@
 
 You can use the AWS Batch event stream for CloudWatch Events to receive near real\-time notifications regarding the current state of jobs in your job queues\.
 
-You can use CloudWatch Eventsto gain further insights about your AWS Batch service\. More specifcally, you can use it to check the progress of jobs, build AWS Batch custom workflows, generate usage reports or metrics, or build your own dashboards\. With AWS Batch and CloudWatch Events, you don't need scheduling and monitoring code that continuously polls AWS Batch for job status changes\. Instead, you can handle AWS Batch job state changes asynchronously using a variety of CloudWatch Events targets\. These include AWS Lambda, Amazon Simple Queue Service, Amazon Simple Notification Service, or Amazon Kinesis Data Streams\.
+You can use CloudWatch Events to gain further insights about your AWS Batch service\. More specifcally, you can use it to check the progress of jobs, build AWS Batch custom workflows, generate usage reports or metrics, or build your own dashboards\. With AWS Batch and CloudWatch Events, you don't need scheduling and monitoring code that continuously polls AWS Batch for job status changes\. Instead, you can handle AWS Batch job state changes asynchronously using a variety of CloudWatch Events targets\. These include AWS Lambda, Amazon Simple Queue Service, Amazon Simple Notification Service, or Amazon Kinesis Data Streams\.
 
 Events from the AWS Batch event stream are ensured to be delivered at least one time\. In the event that duplicate events are sent, the event provides enough information to identify duplicates\. That way, you can compare the time stamp of the event and the job status\.
 
