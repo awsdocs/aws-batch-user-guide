@@ -42,7 +42,7 @@ Details of the compute resources managed by the compute environment\. For more i
 Type: [ComputeResource](https://docs.aws.amazon.com/batch/latest/APIReference/API_ComputeResource.html) object  
 Required: This parameter is required for managed compute environments    
 `type`  <a name="compute-environment-compute-resources-type"></a>
-The type of compute environment\. You can choose either to use EC2 On\-Demand Instances \(`EC2`\) and EC2 Spot Instances \(`SPOT`\), or to use Fargate capacity \(`FARGATE`\) and Fargate Spot capacity \(`FARGATE_SPOT`\) in your managed compute environment\. If you choose `SPOT`, you must also specify an Amazon EC2 Spot Fleet role with the `spotIamFleetRole` parameter\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.  
+The type of compute environment\. You can choose either to use EC2 On\-Demand Instances \(`EC2`\) and EC2 Spot Instances \(`SPOT`\), or to use Fargate capacity \(`FARGATE`\) and Fargate Spot capacity \(`FARGATE_SPOT`\) in your managed compute environment\. If you choose `SPOT`, you must also specify an Amazon EC2 Spot Fleet role with the `spotIamFleetRole` parameter\. For more information, see [Amazon EC2 spot fleet role](spot_fleet_IAM_role.md)\.  
 Valid values: `EC2` \| `SPOT` \| `FARGATE` \| `FARGATE_SPOT`  
 Required: Yes  
 `allocationStrategy`  <a name="compute-environment-compute-resources-allocationStrategy"></a>
@@ -99,7 +99,7 @@ This parameter isn't applicable to jobs that are running on Fargate resources, a
 Type: String  
 Required: No  
 `instanceRole`  <a name="compute-environment-compute-resources-instanceRole"></a>
-The Amazon ECS instance profile to attach to Amazon EC2 instances in a compute environment\. This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\. You can specify the short name or full Amazon Resource Name \(ARN\) of an instance profile\. For example, `ecsInstanceRole` or `arn:aws:iam::aws_account_id:instance-profile/ecsInstanceRole`\. For more information, see [Amazon ECS Instance Role](instance_IAM_role.md)\.  
+The Amazon ECS instance profile to attach to Amazon EC2 instances in a compute environment\. This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\. You can specify the short name or full Amazon Resource Name \(ARN\) of an instance profile\. For example, `ecsInstanceRole` or `arn:aws:iam::aws_account_id:instance-profile/ecsInstanceRole`\. For more information, see [Amazon ECS instance role](instance_IAM_role.md)\.  
 Type: String  
 Required: No  
 `tags`  <a name="compute-environment-compute-resources-tags"></a>
@@ -116,7 +116,7 @@ The maximum percentage that an EC2 Spot Instance price can be when compared with
 This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 Required: No  
 `spotIamFleetRole`  <a name="compute-environment-compute-resources-spotIamFleetRole"></a>
-The Amazon Resource Name \(ARN\) of the Amazon EC2 Spot Fleet IAM role applied to a `SPOT` compute environment\. This role is required if the allocation strategy set to `BEST_FIT` or if the allocation strategy isn't specified\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.  
+The Amazon Resource Name \(ARN\) of the Amazon EC2 Spot Fleet IAM role applied to a `SPOT` compute environment\. This role is required if the allocation strategy set to `BEST_FIT` or if the allocation strategy isn't specified\. For more information, see [Amazon EC2 spot fleet role](spot_fleet_IAM_role.md)\.  
 This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 To tag your Spot Instances on creation, the Spot Fleet IAM role specified here must use the newer **AmazonEC2SpotFleetTaggingRole** managed policy\. The previously recommended **AmazonEC2SpotFleetRole** managed policy doesn't have the required permissions to tag Spot Instances\. For more information, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag)\.
 Type: String  
@@ -142,7 +142,7 @@ Default: `$Default`\.
 Type: String  
 Required: No  
 `ec2Configuration`  <a name="compute-environment-compute-resources-ec2Configuration"></a>
-Provides information used to select Amazon Machine Images \(AMIs\) for instances in the EC2 compute environment\. If `Ec2Configuration` isn't specified, the default is currently [Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\) for non\-GPU, non AWS Graviton instances\. Starting on March 31, 2021, this default will be changing to [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)\.  
+Provides information used to select Amazon Machine Images \(AMIs\) for instances in the EC2 compute environment\. If `Ec2Configuration` isn't specified, the default is [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)\. Before March 31, 2021, this default was [Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\) for non\-GPU, non AWS Graviton instances\.  
 This parameter isn't applicable to jobs that are running on Fargate resources, and shouldn't be specified\.
 Type: Array of [Ec2Configuration](https://docs.aws.amazon.com/batch/latest/APIReference/API_Ec2Configuration.html) objects   
 Required: No    
@@ -164,7 +164,7 @@ Required: Yes
 ## Service role<a name="compute_environment_service_role"></a>
 
 `serviceRole`  
-The full Amazon Resource Name \(ARN\) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\.  
+The full Amazon Resource Name \(ARN\) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf\. For more information, see [AWS Batch service IAM role](service_IAM_role.md)\.  
 If your account has already created the AWS Batch service\-linked role \(**AWSServiceRoleForBatch**\), that role is used by default for your compute environment unless you specify a role here\. If the AWS Batch service\-linked role doesn't exist in your account, and no role is specified here, the service tries to create the AWS Batch service\-linked role in your account\. For more information about the **AWSServiceRoleForBatch** service\-linked role, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.
 If your specified role has a path other than `/`, then you must either specify the full role ARN \(this is recommended\) or prefix the role name with the path\.  
 Depending on how you created your AWS Batch service role, its ARN might contain the `service-role` path prefix\. When you only specify the name of the service role, AWS Batch assumes that your ARN doesn't use the `service-role` path prefix\. Because of this, we recommend that you specify the full ARN of your service role when you create compute environments\.

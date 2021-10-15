@@ -1,4 +1,4 @@
-# CloudWatch Events IAM Role<a name="CWE_IAM_role"></a>
+# CloudWatch Events IAM role<a name="CWE_IAM_role"></a>
 
 Amazon CloudWatch Events delivers a near\-real time stream of system events that describe changes in Amazon Web Services resources\. AWS Batch jobs are available as CloudWatch Events targets\. Using simple rules that you can quickly set up, you can match events and submit AWS Batch jobs in response to them\. Before you can submit AWS Batch jobs with CloudWatch Events rules and targets, CloudWatch Events must have permissions to run AWS Batch jobs on your behalf\.
 

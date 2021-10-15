@@ -104,7 +104,7 @@ For more information about IAM, see the [AWS Identity and Access Management User
 Your AWS Batch compute environments and container instances require AWS account credentials to make calls to other AWS APIs on your behalf\. You must create an IAM role that provides these credentials to your compute environments and container instances, then associate that role with your compute environments\.
 
 **Note**  
-The AWS Batch compute environment and container instance roles are automatically created for you in the console first\-run experience, so if you intend to use the AWS Batch console, you can move ahead to the next section\. If you plan to use the AWS CLI instead, complete the procedures in [AWS Batch Service IAM Role](service_IAM_role.md) and [Amazon ECS Instance Role](instance_IAM_role.md) before creating your first compute environment\.
+The AWS Batch compute environment and container instance roles are automatically created for you in the console first\-run experience, so if you intend to use the AWS Batch console, you can move ahead to the next section\. If you plan to use the AWS CLI instead, complete the procedures in [AWS Batch service IAM role](service_IAM_role.md) and [Amazon ECS instance role](instance_IAM_role.md) before creating your first compute environment\.
 
 ## Create a Key Pair<a name="create-a-key-pair"></a>
 

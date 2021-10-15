@@ -20,8 +20,16 @@ For example:
       "jobQueue": "ProdQueue",
       "jobDefinition": "JobB-CPU-Intensive-Processing:1",
       "containerOverrides": {
-          "vcpus": 32,
-          "memory": 4096
+          "resourceRequirements": [
+              {
+                  "type": "MEMORY",
+                  "value": "4096"
+              },
+              {
+                  "type": "VCPU",
+                  "value": "32"
+              }
+          ]
      }
       "arrayProperties": {
           "size": 10000
@@ -41,8 +49,16 @@ For example:
       "jobQueue": "ProdQueue",
       "jobDefinition": "JobC-Memory-Intensive-Processing:1",
       "containerOverrides": {
-          "vcpus": 1,
-          "memory": 32768
+          "resourceRequirements": [
+              {
+                  "type": "MEMORY",
+                  "value": "32768"
+              },
+              {
+                  "type": "VCPU",
+                  "value": "1"
+              }
+          ]
      }
       "arrayProperties": {
           "size": 10000
@@ -63,8 +79,16 @@ For example:
       "jobQueue": "ProdQueue",
       "jobDefinition": "JobD-Sequential-Validation:1",
       "containerOverrides": {
-          "vcpus": 1,
-          "memory": 32768
+          "resourceRequirements": [
+              {
+                  "type": "MEMORY",
+                  "value": "32768"
+              },
+              {
+                  "type": "VCPU",
+                  "value": "1"
+              }
+          ]
      }
       "arrayProperties": {
           "size": 10

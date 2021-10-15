@@ -14,8 +14,16 @@ Even though the command and environment variables are hardcoded into the job def
     "type": "container",
     "containerProperties": {
         "image": "123456789012.dkr.ecr.us-east-1.amazonaws.com/fetch_and_run",
-        "vcpus": 2,
-        "memory": 2000,
+        "resourceRequirements": [
+            {
+                "type": "MEMORY",
+                "value": "2000"
+            },
+            {
+                "type": "VCPU",
+                "value": "2"
+            }
+        ],
         "command": [
             "myjob.sh",
             "60"
@@ -51,8 +59,16 @@ For more information, see [Parameters](job_definition_parameters.md#parameters)\
     "parameters": {"codec": "mp4"},
     "containerProperties": {
         "image": "my_repo/ffmpeg",
-        "vcpus": 2,
-        "memory": 2000,
+        "resourceRequirements": [
+            {
+                "type": "MEMORY",
+                "value": "2000"
+            },
+            {
+                "type": "VCPU",
+                "value": "2"
+            }
+        ],
         "command": [
             "ffmpeg",
             "-i",
@@ -76,13 +92,21 @@ The following example job definition tests if the GPU workload AMI described in 
 {
     "containerProperties": {
         "image": "tensorflow/tensorflow:1.8.0-devel-gpu",
-        "vcpus": 8,
+        "resourceRequirements": [
+            {
+                "type": "MEMORY",
+                "value": "32000"
+            },
+            {
+                "type": "VCPU",
+                "value": "8"
+            }
+        ],
         "command": [
             "sh",
             "-c",
             "cd /tensorflow/tensorflow/examples/tutorials/mnist; python mnist_deep.py"
-        ],
-        "memory": 32000
+        ]
     },
     "type": "container",
     "jobDefinitionName": "tensorflow_mnist_deep"
@@ -115,8 +139,16 @@ The following example job definition illustrates a multi\-node parallel job\. Fo
         "targetNodes": "0:1",
         "container": {
           "image": "123456789012.dkr.ecr.us-east-2.amazonaws.com/gromacs_mpi:latest",
-          "vcpus": 8,
-          "memory": 24000,
+          "resourceRequirements": [
+              {
+                  "type": "MEMORY",
+                  "value": "24000"
+              },
+              {
+                  "type": "VCPU",
+                  "value": "8"
+              }
+          ],
           "command": [],
           "jobRoleArn": "arn:aws:iam::123456789012:role/ecsTaskExecutionRole",
           "ulimits": [],

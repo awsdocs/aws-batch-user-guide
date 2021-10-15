@@ -82,9 +82,9 @@ At this time, you can only create a managed compute environment in the first run
 
 1. For **Compute environment name**, specify a unique name for your compute environment\.
 
-1. For **Service role**, choose to create a new role or use an existing role that allows the AWS Batch service to make calls to the required AWS APIs on your behalf\. For more information, see [AWS Batch Service IAM Role](service_IAM_role.md)\. If you choose to create a new role, the required role \(`AWSBatchServiceRole`\) is created for you\.
+1. For **Service role**, choose to create a new role or use an existing role that allows the AWS Batch service to make calls to the required AWS APIs on your behalf\. For more information, see [AWS Batch service IAM role](service_IAM_role.md)\. If you choose to create a new role, the required role \(`AWSBatchServiceRole`\) is created for you\.
 
-1. For **EC2 instance role**, choose to create a new role or use an existing role that allows the Amazon ECS container instances that are created for your compute environment to make calls to the required AWS APIs on your behalf\. For more information, see [Amazon ECS Instance Role](instance_IAM_role.md)\. If you choose to create a new role, the required role \(`ecsInstanceRole`\) is created for you\.
+1. For **EC2 instance role**, choose to create a new role or use an existing role that allows the Amazon ECS container instances that are created for your compute environment to make calls to the required AWS APIs on your behalf\. For more information, see [Amazon ECS instance role](instance_IAM_role.md)\. If you choose to create a new role, the required role \(`ecsInstanceRole`\) is created for you\.
 
 **To configure your instances**
 
@@ -96,7 +96,7 @@ At this time, you can only create a managed compute environment in the first run
 
    1. For **Maximum bid price**, choose the maximum percentage that a Spot Instance price must be compared with the On\-Demand price for that instance type before instances are launched\. For example, if your bid percentage is 20%, then the Spot price must be less than 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\.
 
-   1. For **Spot fleet role**, choose to create a new role or use an existing Amazon EC2 Spot Fleet IAM role to apply to your Spot compute environment\. If you choose to create a new role, the required role \(`aws-ec2-spot-fleet-role`\) is created for you\. For more information, see [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)\.
+   1. For **Spot fleet role**, choose to create a new role or use an existing Amazon EC2 Spot Fleet IAM role to apply to your Spot compute environment\. If you choose to create a new role, the required role \(`aws-ec2-spot-fleet-role`\) is created for you\. For more information, see [Amazon EC2 spot fleet role](spot_fleet_IAM_role.md)\.
 
 1. For **Allowed instance types**, choose the Amazon EC2 instance types that can be launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types aren't in the instance families \(for example, `c5` doesn't include `c5.metal`\)\. You can also choose `optimal` to pick instance types \(from the C4, M4, and R4 instance families\) on the fly that match the demand of your job queues\.
 **Note**  

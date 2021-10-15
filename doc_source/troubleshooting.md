@@ -24,7 +24,7 @@ For an invalid Spot Fleet role:
 CLIENT_ERROR - Parameter: SpotFleetRequestConfig.IamFleetRole is invalid. (Service: AmazonEC2; Status Code: 400; Error Code: InvalidSpotFleetRequestConfig; Request ID: 331205f0-5ae3-4cea-bac4-897769639f8d)  Parameter: SpotFleetRequestConfig.IamFleetRole is invalid
 ```
 
-One common cause for this issue is if you only specify the name of an IAM role when using the AWS CLI or the AWS SDKs, instead of the full ARN\. This is because depending on how you created the role, the ARN might contain a `service-role` path prefix\. For example, if you manually create the AWS Batch service role using the procedures in [AWS Batch Service IAM Role](service_IAM_role.md), your service role ARN would look like this:
+One common cause for this issue is if you only specify the name of an IAM role when using the AWS CLI or the AWS SDKs, instead of the full ARN\. This is because depending on how you created the role, the ARN might contain a `service-role` path prefix\. For example, if you manually create the AWS Batch service role using the procedures in [AWS Batch service IAM role](service_IAM_role.md), your service role ARN would look like this:
 
 ```
 arn:aws:iam::123456789012:role/AWSBatchServiceRole
@@ -63,7 +63,7 @@ When you have a compute environment in an `INVALID` state, you should update it 
 If your compute environment contains compute resources, but your jobs don't progress beyond the `RUNNABLE` status, then there is something preventing the jobs from actually being placed on a compute resource\. Here are some common causes for this issue:
 
 The `awslogs` log driver isn't configured on your compute resources  
-AWS Batch jobs send their log information to CloudWatch Logs\. To enable this, you must configure your compute resources to use the `awslogs` log driver\. If you base your compute resource AMI off of the Amazon ECS optimized AMI \(or Amazon Linux\), then this driver is registered by default with the `ecs-init` package\. If you use a different base AMI, then you must ensure that the `awslogs` log driver is specified as an available log driver with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable when the Amazon ECS container agent is started\. For more information, see [Compute resource AMI specification](compute_resource_AMIs.md#batch-ami-spec) and [Creating a compute resource AMI](create-batch-ami.md)\.
+AWS Batch jobs send their log information to CloudWatch Logs\. To enable this, you must configure your compute resources to use the `awslogs` log driver\. If you base your compute resource AMI off of the Amazon ECS optimized AMI \(or Amazon Linux\), then this driver is registered by default with the `ecs-init` package\. If you use a different base AMI, then you must verify that the `awslogs` log driver is specified as an available log driver with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable when the Amazon ECS container agent is started\. For more information, see [Compute resource AMI specification](compute_resource_AMIs.md#batch-ami-spec) and [Creating a compute resource AMI](create-batch-ami.md)\.
 
 Insufficient resources  
 If your job definitions specify more CPU or memory resources than your compute resources can allocate, then your jobs is never placed\. For example, if your job specifies 4 GiB of memory, and your compute resources have less than that available, then the job can't be placed on those compute resources\. In this case, you must reduce the specified memory in your job definition or add larger compute resources to your environment\. Some memory is reserved for the Amazon ECS container agent and other critical system processes\. For more information, see [Compute Resource Memory Management](memory-management.md)\.
@@ -97,3 +97,114 @@ To fix Spot Instance tagging on creation, follow the following procedure to appl
 1. Choose your Amazon EC2 Spot Fleet role again to remove the previous policy\.
 
 1. Select the **x** to the right of the **AmazonEC2SpotFleetRole** policy, and choose **Detach**\.
+
+## Spot Instances not scaling down<a name="spot-fleet-not-authorized"></a>
+
+AWS Batch introduced the **AWSServiceRoleForBatch** service\-linked role on March 10,2021\. This service\-linked role is used as the service role if no role is specified in the `serviceRole` parameter of the compute environment\. If the service\-linked role is used in an EC2 Spot compute environment, but the Spot role used does not include the **AmazonEC2SpotFleetTaggingRole** managed policy, the Spot instances will not scale down\. The error seen is "You are not authorized to perform this operation\." Use the following instruction to update the spot fleet role that you use in the `spotIamFleetRole` parameter\. For more information, see [Using service\-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) and [Creating a role to delegate permissions to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\.
+
+**Topics**
++ [Attach **AmazonEC2SpotFleetTaggingRole** managed policy to your Spot Fleet role in the AWS Management Console](#spot-fleet-not-authorized-console)
++ [Attach **AmazonEC2SpotFleetTaggingRole** managed policy to your Spot Fleet role with the AWS CLI](#spot-fleet-not-authorized-cli)
+
+### Attach **AmazonEC2SpotFleetTaggingRole** managed policy to your Spot Fleet role in the AWS Management Console<a name="spot-fleet-not-authorized-console"></a>
+
+**To apply the current IAM managed policy to your Amazon EC2 Spot Fleet role**
+
+1. Open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
+
+1. Choose **Roles**, and choose your Amazon EC2 Spot Fleet role\.
+
+1. Choose **Attach policy**\.
+
+1. Select the **AmazonEC2SpotFleetTaggingRole** and choose **Attach policy**\.
+
+1. Choose your Amazon EC2 Spot Fleet role again to remove the previous policy\.
+
+1. Select the **x** to the right of the **AmazonEC2SpotFleetRole** policy, and choose **Detach**\.
+
+### Attach **AmazonEC2SpotFleetTaggingRole** managed policy to your Spot Fleet role with the AWS CLI<a name="spot-fleet-not-authorized-cli"></a>
+
+The example commands assume that your Amazon EC2 Spot Fleet role is named *AmazonEC2SpotFleetRole*\. If your role uses a different name, adjust the commands to match\.
+
+**To attach the **AmazonEC2SpotFleetTaggingRole** managed policy to your Spot Fleet role**
+
+1. To attach the **AmazonEC2SpotFleetTaggingRole** managed IAM policy to your *AmazonEC2SpotFleetRole* role, run the following command with the AWS CLI: 
+
+   ```
+   aws iam attach-role-policy \
+       --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole \
+       --role-name AmazonEC2SpotFleetRole
+   ```
+
+1. To detach the **AmazonEC2SpotFleetRole** managed IAM policy from your *AmazonEC2SpotFleetRole* role, run the following command with the AWS CLI: 
+
+   ```
+   aws iam detach-role-policy \
+       --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetRole \
+       --role-name AmazonEC2SpotFleetRole
+   ```
+
+## Can't retrieve Secrets Manager secrets<a name="troubleshooting-cant-specify-secrets"></a>
+
+If you are using an AMI with an Amazon ECS agent earlier than version 1\.16\.0\-1, then you must use the Amazon ECS agent configuration variable `ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true` to use this feature\. You can add it to the `./etc/ecs/ecs.config` file during container instance creation or you can add it to an existing instance and then restart the ECS agent\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\.
+
+## Can't override job definition resource requirements<a name="override-resource-requirements"></a>
+
+Memory and vCPU overrides that are specified in the `memory` and `vcpus` members of the [containerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html) structure passed to [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) cannot override memory and vCPU requirements that are specified in the [resourceRequirements](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html#Batch-Type-ContainerProperties-resourceRequirements) structure in the job definition\.
+
+If you try to override those resource requirements, you may receive one an error like this\.
+
+"This value was submitted in a deprecated key and may conflict with the value provided by the job definition's resource requirements\."
+
+To correct this, specify the memory and vCPU requirements in the [resourceRequirements](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html#Batch-Type-ContainerOverrides-resourceRequirements) member of the [containerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html)\. For example, if your memory and vCPU overrides are specified in lines like this:
+
+```
+"containerOverrides": {
+   "memory": 8192,
+   "vcpus": 4
+}
+```
+
+Change them to lines like this:
+
+```
+"containerOverrides": {
+   "resourceRequirements": [
+      {
+         "type": "MEMORY",
+         "value": "8192"
+      },
+      {
+         "type": "VCPU",
+         "value": "4"
+      }
+   ],
+}
+```
+
+The same should be done for the memory and vCPU requirements specified in the [containerProperties](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html) object in the job definition\. For example, if your memory and vCPU requirements are specified in lines like this:
+
+```
+{
+   "containerProperties": {
+      "memory": 4096,
+      "vcpus": 2,
+}
+```
+
+Change them to lines like this:
+
+```
+"containerProperties": {
+   "resourceRequirements": [
+      {
+         "type": "MEMORY",
+         "value": "4096"
+      },
+      {
+         "type": "VCPU",
+         "value": "2"
+      }
+   ],
+}
+```

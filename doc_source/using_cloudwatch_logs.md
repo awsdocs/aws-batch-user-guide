@@ -53,7 +53,7 @@ Before your jobs can send log data to CloudWatch Logs, you must create an IAM po
 
 1. In the navigation pane, choose **Roles**\. 
 
-1. Choose `ecsInstanceRole`\. If the role does not exist, follow the procedures in [Amazon ECS Instance Role](instance_IAM_role.md) to create the role\.
+1. Choose `ecsInstanceRole`\. If the role does not exist, follow the procedures in [Amazon ECS instance role](instance_IAM_role.md) to create the role\.
 
 1. Choose **Permissions**, **Attach policies**\.
 

@@ -23,7 +23,17 @@ The following is an empty job definition template\. You can use this template to
                 "host": {
                     "sourcePath": ""
                 },
-                "name": ""
+                "name": "",
+                "efsVolumeConfiguration": {
+                    "fileSystemId": "",
+                    "rootDirectory": "",
+                    "transitEncryption": "ENABLED",
+                    "transitEncryptionPort": 0,
+                    "authorizationConfig": {
+                        "accessPointId": "",
+                        "iam": "ENABLED"
+                    }
+                }
             }
         ],
         "environment": [
@@ -53,7 +63,7 @@ The following is an empty job definition template\. You can use this template to
         "resourceRequirements": [
             {
                 "value": "",
-                "type": "GPU"
+                "type": "VCPU"
             }
         ],
         "linuxParameters": {
@@ -62,7 +72,7 @@ The following is an empty job definition template\. You can use this template to
                     "hostPath": "",
                     "containerPath": "",
                     "permissions": [
-                        "READ"
+                        "MKNOD"
                     ]
                 }
             ],
@@ -81,7 +91,7 @@ The following is an empty job definition template\. You can use this template to
             "swappiness": 0
         },
         "logConfiguration": {
-            "logDriver": "journald",
+            "logDriver": "json-file",
             "options": {
                 "KeyName": ""
             },
@@ -99,7 +109,7 @@ The following is an empty job definition template\. You can use this template to
             }
         ],
         "networkConfiguration": {
-            "assignPublicIp": "DISABLED"
+            "assignPublicIp": "ENABLED"
         },
         "fargatePlatformConfiguration": {
             "platformVersion": ""
@@ -125,7 +135,17 @@ The following is an empty job definition template\. You can use this template to
                             "host": {
                                 "sourcePath": ""
                             },
-                            "name": ""
+                            "name": "",
+                            "efsVolumeConfiguration": {
+                                "fileSystemId": "",
+                                "rootDirectory": "",
+                                "transitEncryption": "DISABLED",
+                                "transitEncryptionPort": 0,
+                                "authorizationConfig": {
+                                    "accessPointId": "",
+                                    "iam": "DISABLED"
+                                }
+                            }
                         }
                     ],
                     "environment": [
@@ -229,7 +249,7 @@ The following is an empty job definition template\. You can use this template to
         "KeyName": ""
     },
     "platformCapabilities": [
-        "EC2"
+        "FARGATE"
     ]
 }
 ```

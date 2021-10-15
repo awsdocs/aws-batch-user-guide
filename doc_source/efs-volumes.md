@@ -61,22 +61,22 @@ To use Amazon EFS file system volumes for your containers, you must specify the 
                     "containerPath": "/mount/efs",
                     "readOnly": true
                 }
-            ]
-        }
-    ],
-    "volumes": [
-        {
-            "name": "myEfsVolume",
-            "efsVolumeConfiguration": {
-                "fileSystemId": "fs-12345678",
-                "rootDirectory": "/path/to/my/data",
-                "transitEncryption": "ENABLED",
-                "transitEncryptionPort": integer,
-                "authorizationConfig": {
-                    "accessPointId": "fsap-1234567890abcdef1",
-                    "iam": "ENABLED"
+            ],
+            "volumes": [
+                {
+                    "name": "myEfsVolume",
+                    "efsVolumeConfiguration": {
+                        "fileSystemId": "fs-12345678",
+                        "rootDirectory": "/path/to/my/data",
+                        "transitEncryption": "ENABLED",
+                        "transitEncryptionPort": integer,
+                        "authorizationConfig": {
+                            "accessPointId": "fsap-1234567890abcdef1",
+                            "iam": "ENABLED"
+                        }
+                    }
                 }
-            }
+            ]
         }
     ]
 }

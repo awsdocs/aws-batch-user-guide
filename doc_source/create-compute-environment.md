@@ -73,7 +73,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
       1. For **Service role**, choose **Batch service\-linked role**\. The role allows the AWS Batch service to make calls to the required AWS API operations on your behalf\. For more information, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.
 
-      1. For **Instance role**, choose to create a new instance profile or use an existing instance profile that has the required IAM permissions attached\. This instance profile allows the Amazon ECS container instances that are created for your compute environment to make calls to the required AWS API operations on your behalf\. For more information, see [Amazon ECS Instance Role](instance_IAM_role.md)\. If you choose to create a new instance profile, the required role \(`ecsInstanceRole`\) is created for you\.
+      1. For **Instance role**, choose to create a new instance profile or use an existing instance profile that has the required IAM permissions attached\. This instance profile allows the Amazon ECS container instances that are created for your compute environment to make calls to the required AWS API operations on your behalf\. For more information, see [Amazon ECS instance role](instance_IAM_role.md)\. If you choose to create a new instance profile, the required role \(`ecsInstanceRole`\) is created for you\.
 
       1. For **EC2 key pair** choose an existing Amazon EC2 key pair to associate with the instance at launch\. You can use this key pair to connect to your instances with SSH\. Make sure to verify that your security group allows incoming traffic on port 22\.
 
@@ -95,7 +95,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 **Note**  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
 **Note**  
-AWS Batch will scale GPUs based on the required amount in your job queues\. To use GPU scheduling, the compute environment must include instance types from the `p2`, `p3`, `g3`, `g3s`, or `g4` families\.
+AWS Batch will scale GPUs based on the required amount in your job queues\. To use GPU scheduling, the compute environment must include instance types from the `p2`, `p3`, `p4`, `g3`, `g3s`, or `g4` families\.
 **Note**  
 Currently, `optimal` uses instance types from the C4, M4, and R4 instance families\. In Regions that don't have instance types from those instance families, instance types from the C5, M5\. and R5 instance families are used\.
 
@@ -168,7 +168,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 1. \(Optional\) Retrieve the Amazon ECS cluster ARN for the associated cluster\. The following AWS CLI command provides the Amazon ECS cluster ARN for a compute environment:
 
    ```
-   aws batch describe-compute-environments --compute-environments unmanagedCE --query computeEnvironments[].ecsClusterArn
+   aws batch describe-compute-environments --compute-environments unmanagedCE --query "computeEnvironments[].ecsClusterArn"
    ```
 
 1. \(Optional\) Launch container instances into the associated Amazon ECS cluster\. For more information, see [Launching an Amazon ECS container instance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html) in the *Amazon Elastic Container Service Developer Guide*\. When you launch your compute resources, specify the Amazon ECS cluster ARN that the resources should register with the following Amazon EC2 user data\. Replace *ecsClusterArn* with the cluster ARN you obtained with the previous command\.

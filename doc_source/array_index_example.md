@@ -125,8 +125,16 @@ Now that your Docker image is in an image registry, you can specify it in an AWS
      "type": "container",
      "containerProperties": {
        "image": "aws_account_id.dkr.ecr.region.amazonaws.com/print-color",
-       "vcpus": 1,
-       "memory": 250
+       "resourceRequirements": [
+           {
+               "type": "MEMORY",
+               "value": "250"
+           },
+           {
+               "type": "VCPU",
+               "value": "1"
+           }
+       ]
      }
    }
    ```

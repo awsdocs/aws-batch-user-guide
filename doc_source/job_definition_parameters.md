@@ -303,8 +303,27 @@ Type: String
 Required: Yes
 
 `memory`  
-This parameter is no longer supported for jobs that run on Fargate resources\. Use `ResourceRequirement` instead\. For jobs run on EC2 resources that aren't using `ResourceRequirement`, the number of MiB of memory reserved for the job\. For other jobs, see `resourceRequirements`\. If your container attempts to exceed the memory specified here, the container is stopped\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\. This is required but can be specified in several places for multi\-node parallel \(MNP\) jobs\. It must be specified for each node at least once\.  
-If you're trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
+*This parameter is deprecated, use `resourceRequirements` instead\.*  
+The number of MiB of memory reserved for the job\.  
+As an example of how to use `resourceRequirements`, if your job definition contains lines similar to this:  
+
+```
+"containerProperties": {
+  "memory": 512
+}
+```
+The equivalent lines using `resourceRequirements` would be as follows\.  
+
+```
+"containerProperties": {
+  "resourceRequirements": [
+    {
+      "type": "MEMORY",
+      "value": "512"
+    }
+  ]
+}
+```
 Type: Integer  
 Required: Yes
 
@@ -473,7 +492,27 @@ Type: String
 Required: No
 
 `vcpus`  
-The number of vCPUs reserved for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least one vCPU\. This is required but can be specified in several places for multi\-node parallel \(MNP\) jobs\. It must be specified for each node at least once\. Jobs that are running on Fargate resources must specify the vCPU requirement for the job using `resourceRequirements`\. Other jobs can specify the vCPU requirement for the job using `resourceRequirements`\.  
+*This parameter is deprecated, use `resourceRequirements` instead\.*  
+The number of vCPUs reserved for the container\.  
+As an example of how to use `resourceRequirements`, if your job definition contains lines similar to this:  
+
+```
+"containerProperties": {
+  "vcpus": 2
+}
+```
+The equivalent lines using `resourceRequirements` would be as follows\.  
+
+```
+"containerProperties": {
+  "resourceRequirements": [
+    {
+      "type": "VCPU",
+      "value": "2"
+    }
+  ]
+}
+```
 Type: Integer  
 Required: Yes
 

@@ -42,8 +42,16 @@ Job state change events are delivered in the following format \(the `detail` sec
     "parameters": {},
     "container": {
       "image": "busybox",
-      "vcpus": 2,
-      "memory": 2000,
+      "resourceRequirements": [
+          {
+              "type": "MEMORY",
+              "value": "2000"
+          },
+          {
+              "type": "VCPU",
+              "value": "2"
+          }
+      ],
       "command": [
         "echo",
         "'hello world'"

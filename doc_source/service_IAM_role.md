@@ -1,4 +1,4 @@
-# AWS Batch Service IAM Role<a name="service_IAM_role"></a>
+# AWS Batch service IAM role<a name="service_IAM_role"></a>
 
 AWS Batch makes calls to other AWS services on your behalf to manage the resources that you use with the service\. Before you can use the service, you must have an IAM policy and role that provides the necessary permissions to AWS Batch\.
 

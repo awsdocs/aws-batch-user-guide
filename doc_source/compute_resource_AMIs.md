@@ -7,6 +7,13 @@ By default, AWS Batch managed compute environments use a recent, approved versio
 + Configure Docker to use custom options
 + Configure a GPU workload AMI that allows containers to access GPU hardware on supported Amazon EC2 instance types
 
+**Note**  
+AWS Batch doesn't upgrade the AMIs in a compute environment after it's created\. For example, it also doesn't update the AMIs in your compute environment when a newer version of the Amazon ECS optimized AMI is available\. You're responsible for the management of the guest operating system\. This includes any updates and security patches\. You're also responsible for any additional application software or utilities that you install on the compute resources\. To use a new AMI for your AWS Batch jobs:  
+Create a new compute environment with the new AMI\.
+Add the compute environment to an existing job queue\.
+Remove the earlier compute environment from your job queue\.
+Delete the earlier compute environment\.
+
 **Topics**
 + [Compute resource AMI specification](#batch-ami-spec)
 + [Creating a compute resource AMI](create-batch-ami.md)

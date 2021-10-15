@@ -2,7 +2,7 @@
 
 GPU jobs help you to run jobs that use an instance's GPUs\.
 
-The following Amazon EC2 GPU\-based instance types are supported\. For more information, see [Amazon EC2 G3 Instances](http://aws.amazon.com/ec2/instance-types/g3/), [Amazon EC2 G4 Instances](http://aws.amazon.com/ec2/instance-types/g4/), [Amazon EC2 P2 Instances](http://aws.amazon.com/ec2/instance-types/p2/), and [Amazon EC2 P3 Instances](http://aws.amazon.com/ec2/instance-types/p3/)\.
+The following Amazon EC2 GPU\-based instance types are supported\. For more information, see [Amazon EC2 G3 Instances](http://aws.amazon.com/ec2/instance-types/g3/), [Amazon EC2 G4 Instances](http://aws.amazon.com/ec2/instance-types/g4/), [Amazon EC2 P2 Instances](http://aws.amazon.com/ec2/instance-types/p2/), [Amazon EC2 P3 Instances](http://aws.amazon.com/ec2/instance-types/p3/), and [Amazon EC2 P4d Instances](http://aws.amazon.com/ec2/instance-types/p4/)\.
 
 
 | Instance type | GPUs | GPU Memory | vCPUs | Memory | Network Bandwidth | 
@@ -24,7 +24,8 @@ The following Amazon EC2 GPU\-based instance types are supported\. For more info
 | p3\.8xlarge | 4 | 64 GiB | 32 | 244 GiB | 10 Gbps | 
 | p3\.16xlarge | 8 | 128 GiB | 64 | 488 GiB | 25 Gbps | 
 | p3dn\.24xlarge | 8 | 256 GiB | 96 | 768 GiB | 100 Gbps | 
+| p4d\.24xlarge | 8 | 320 GiB | 96 | 1152 GiB | 4x100 Gbps | 
 
-The [resourceRequirements](job_definition_parameters.md#ContainerProperties-resourceRequirements) parameter for the job definition specifies the number of GPUs to be pinned to the container\. This number of GPUs isn't available to any other job running on that instance for the duration of that job\. All instance types in a compute environment that run GPU jobs should be from the `p2`, `p3`, `g3`, `g3s`, or `g4` instance families\. If this isn't done a GPU job might get stuck in the `RUNNABLE` status\.
+The [resourceRequirements](job_definition_parameters.md#ContainerProperties-resourceRequirements) parameter for the job definition specifies the number of GPUs to be pinned to the container\. This number of GPUs isn't available to any other job running on that instance for the duration of that job\. All instance types in a compute environment that run GPU jobs should be from the `p2`, `p3`, `p4`, `g3`, `g3s`, or `g4` instance families\. If this isn't done a GPU job might get stuck in the `RUNNABLE` status\.
 
 Jobs that don't use the GPUs can be run on GPU instances\. However, they might cost more to run on the GPU instances than on similar non\-GPU instances\. Depending on the specific vCPU, memory, and time needed, these non\-GPU jobs might block GPU jobs from running\.

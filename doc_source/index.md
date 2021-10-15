@@ -1,7 +1,7 @@
 # AWS Batch User Guide
 
 -----
-*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -56,18 +56,19 @@ Amazon's trademarks and trade dress may not be used in
    + [EC2 Configurations](ec2-configurations.md)
    + [Allocation strategies](allocation-strategies.md)
    + [Compute Resource Memory Management](memory-management.md)
++ [Orchestrate AWS Batch jobs with Step Functions state machines in the AWS Batch console](stepfunctions-batch-console.md)
 + [AWS Batch on AWS Fargate](fargate.md)
 + [Elastic Fabric Adapter](efa.md)
-+ [AWS Batch IAM Policies, Roles, and Permissions](IAM_policies.md)
-   + [Policy Structure](iam-policy-structure.md)
-   + [Supported Resource-Level Permissions for AWS Batch API Actions](batch-supported-iam-actions-resources.md)
-   + [Example Policies](ExamplePolicies_BATCH.md)
++ [AWS Batch IAM policies, roles, and permissions](IAM_policies.md)
+   + [Policy structure](iam-policy-structure.md)
+   + [Supported resource-level permissions for AWS Batch API actions](batch-supported-iam-actions-resources.md)
+   + [Example policies](ExamplePolicies_BATCH.md)
    + [AWS Batch managed policy](batch_managed_policies.md)
-   + [Creating AWS Batch IAM Policies](batch_IAM_user_policies.md)
-   + [AWS Batch Service IAM Role](service_IAM_role.md)
-   + [Amazon ECS Instance Role](instance_IAM_role.md)
-   + [Amazon EC2 Spot Fleet Role](spot_fleet_IAM_role.md)
-   + [CloudWatch Events IAM Role](CWE_IAM_role.md)
+   + [Creating AWS Batch IAM policies](batch_IAM_user_policies.md)
+   + [AWS Batch service IAM role](service_IAM_role.md)
+   + [Amazon ECS instance role](instance_IAM_role.md)
+   + [Amazon EC2 spot fleet role](spot_fleet_IAM_role.md)
+   + [CloudWatch Events IAM role](CWE_IAM_role.md)
 + [AWS Batch Event Stream for CloudWatch Events](cloudwatch_event_stream.md)
    + [AWS Batch Events](batch_cwe_events.md)
    + [AWS Batch Jobs as CloudWatch Events Targets](batch-cwe-target.md)

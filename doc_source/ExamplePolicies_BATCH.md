@@ -1,14 +1,14 @@
-# Example Policies<a name="ExamplePolicies_BATCH"></a>
+# Example policies<a name="ExamplePolicies_BATCH"></a>
 
 The following examples show policy statements that you could use to control the permissions that IAM users have to AWS Batch\.
 
 **Topics**
-+ [Read\-Only Access](#iam-example-read-only)
-+ [Restricting User, Image, Privilege, Role](#iam-example-job-def)
-+ [Restrict Job Submission](#iam-example-restrict-job-submission)
-+ [Restrict Job Queue](#iam-example-restrict-job-queue)
++ [Read\-only access](#iam-example-read-only)
++ [Restricting user, image, privilege, role](#iam-example-job-def)
++ [Restrict job submission](#iam-example-restrict-job-submission)
++ [Restrict job queue](#iam-example-restrict-job-queue)
 
-## Example: Read\-Only Access<a name="iam-example-read-only"></a>
+## Example: Read\-only access<a name="iam-example-read-only"></a>
 
 The following policy grants users permissions to use all AWS Batch API actions whose names begin with `Describe` and `List`\.
 
@@ -30,7 +30,7 @@ Users don't have permission to perform any actions on the resources \(unless ano
 }
 ```
 
-## Example: Restricting to POSIX User, Docker Image, Privilege Level, and Role on Job Submission<a name="iam-example-job-def"></a>
+## Example: Restricting to POSIX user, Docker image, privilege level, and role on job submission<a name="iam-example-job-def"></a>
 
 The following policy allows a user to manage their own set of restricted job definitions\.
 
@@ -39,7 +39,7 @@ The first and second statements allow a user to register and deregister any job 
 The first statement also uses conditional context keys to restrict the POSIX user, privileged status, and container image values within the `containerProperties` of a job definition\. For more information, see [RegisterJobDefinition](https://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) in the *AWS Batch API Reference*\. In this example, job definitions can only be registered when the POSIX user is set to `nobody`, the privileged flag is set to `false`, and the image is set to `myImage` in an Amazon ECR repository\.
 
 **Important**  
-Docker resolves the `user` parameter to that user's `uid` from within the container image\. In most cases, this is found in the `/etc/passwd` file within the container image\. This name resolution can be avoided by using direct `uid` values in both the job definition and any associated IAM policies\. Both the AWS Batch APIs and the `batch:User` IAM conditional keys support numeric values\.
+Docker resolves the `user` parameter to that user's `uid` from within the container image\. In most cases, this is found in the `/etc/passwd` file within the container image\. This name resolution can be avoided by using direct `uid` values in both the job definition and any associated IAM policies\. Both the AWS Batch API operations and the `batch:User` IAM conditional keys support numeric values\.
 
 The third statement restricts a user to passing only a specific role to a job definition\.
 
@@ -91,7 +91,7 @@ The third statement restricts a user to passing only a specific role to a job de
 }
 ```
 
-## Example: Restrict to Job Definition Prefix on Job Submission<a name="iam-example-restrict-job-submission"></a>
+## Example: Restrict to job definition prefix on job submission<a name="iam-example-restrict-job-submission"></a>
 
 The following policy allows a user to submit jobs to any job queue with any job definition name that begins with *JobDefA\_*\.
 
@@ -116,7 +116,7 @@ When scoping resource\-level access for job submission, you must provide both jo
 }
 ```
 
-## Example: Restrict to Job Queue<a name="iam-example-restrict-job-queue"></a>
+## Example: Restrict to job queue<a name="iam-example-restrict-job-queue"></a>
 
 The following policy allows a user to submit jobs to a specific job queue, named **queue1**, with any job definition name\.
 

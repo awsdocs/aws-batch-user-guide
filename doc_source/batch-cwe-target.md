@@ -10,7 +10,7 @@ Common use cases for AWS Batch jobs as a CloudWatch Events target include the fo
 **Note**  
 In this scenario, all of the AWS resources \(such as the Amazon S3 bucket, the CloudWatch Events rule, and all CloudTrail logs\) must be in the same Region\.
 
-Before you can submit AWS Batch jobs with CloudWatch Events rules and targets, the CloudWatch Events service needs several permissions to run AWS Batch jobs on your behalf\. When you create a rule in the CloudWatch Events console that specifies an AWS Batch job as a target, you're provided with an opportunity to create this role\. For more information about the required service principal and IAM permissions for this role, see [CloudWatch Events IAM Role](CWE_IAM_role.md)\.
+Before you can submit AWS Batch jobs with CloudWatch Events rules and targets, the CloudWatch Events service needs several permissions to run AWS Batch jobs on your behalf\. When you create a rule in the CloudWatch Events console that specifies an AWS Batch job as a target, you're provided with an opportunity to create this role\. For more information about the required service principal and IAM permissions for this role, see [CloudWatch Events IAM role](CWE_IAM_role.md)\.
 
 ## Creating a Scheduled AWS Batch Job<a name="scheduled-batch-job"></a>
 
@@ -35,7 +35,7 @@ The procedure below shows how to create a scheduled AWS Batch job and the requir
    + **Array size:** \(Optional\) Enter an array size for your job to run more than one copy\. For more information, see [Array Jobs](array_jobs.md)\.
    + **Job attempts:** \(Optional\) Enter the number of times to retry your job if it fails\. For more information, see [Automated Job Retries](job_retries.md)\.
 
-1. Choose an existing CloudWatch Events IAM role to use for your job, or **Create a new role for this specific resource** to create a new one\. For more information, see [CloudWatch Events IAM Role](CWE_IAM_role.md)\.
+1. Choose an existing CloudWatch Events IAM role to use for your job, or **Create a new role for this specific resource** to create a new one\. For more information, see [CloudWatch Events IAM role](CWE_IAM_role.md)\.
 
 1. For **Rule definition**, fill in the following fields appropriately, and then choose **Create rule**\.
    + **Name:** Enter a name for your rule\.
@@ -51,8 +51,16 @@ You can use the CloudWatch Events input transformer to pass event information to
   "jobDefinitionName": "echo-parameters",
   "containerProperties": {
     "image": "busybox",
-    "vcpus": 2,
-    "memory": 2000,
+    "resourceRequirements": [
+        {
+            "type": "MEMORY",
+            "value": "2000"
+        },
+        {
+            "type": "VCPU",
+            "value": "2"
+        }
+    ],
     "command": [
       "echo",
       "Ref::S3bucket",
@@ -97,7 +105,7 @@ In this scenario, all of the AWS resources \(such as Amazon S3 buckets, CloudWat
    {"Parameters" : {"S3bucket": <S3BucketValue>}, "ContainerOverrides" : {"Command": ["echo","Ref::S3bucket"]}}
    ```
 
-1. Choose an existing CloudWatch Events IAM role to use for your job, or **Create a new role for this specific resource** to create a new one\. For more information, see [CloudWatch Events IAM Role](CWE_IAM_role.md)\.
+1. Choose an existing CloudWatch Events IAM role to use for your job, or **Create a new role for this specific resource** to create a new one\. For more information, see [CloudWatch Events IAM role](CWE_IAM_role.md)\.
 
 1. Choose **Configure details** and then for **Rule definition**, fill in the following fields appropriately, and then choose **Create rule**\.
    + **Name:** Enter a name for your rule\.

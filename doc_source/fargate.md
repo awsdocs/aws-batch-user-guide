@@ -5,9 +5,24 @@ AWS Fargate is a technology that you can use with AWS Batch to run [containers](
 When you run your jobs with Fargate resources, you package your application in containers, specify the CPU and memory requirements, define networking and IAM policies, and launch the application\. Each Fargate job has its own isolation boundary and does not share the underlying kernel, CPU resources, memory resources, or elastic network interface with another job\.
 
 **Contents**
++ [When to use Fargate](#when-to-use-fargate)
 + [Job definitions on Fargate](#fargate-job-definitions)
 + [Job queues on Fargate](#fargate-job-queues)
 + [Compute environments on Fargate](#fargate-compute-environments)
+
+## When to use Fargate<a name="when-to-use-fargate"></a>
+
+For many customers, Fargate is the better choice\. Fargate launches and scales the compute to closely match the resource requirements you specify for the container\. With Fargate, there is no over\-provisioning and paying for additional servers\. You don't need to worry about the details of the infrastructure\-related parameters like instance type\. When the compute environment needs to be scaled up, jobs running on Fargate resources can get started more quickly\. It can take a few minutes to spin up a new Amazon EC2 instance, while jobs running on Fargate can be provisioned in about 30 seconds \(depending on the container image size, number of jobs, and a few other factors\.\)
+
+Amazon EC2 is the right choice if jobs require any of these:
++ more than 4 vCPUs
++ more than 30 gibibyte \(GiB\) of memory
++ a GPU
++ Arm\-based AWS Graviton CPU
++ custom AMI
++ any of the [linuxParameters](job_definition_parameters.md#ContainerProperties-linuxParameters) parameters
+
+If you have a large number of jobs, Amazon EC2 may be the right choice because jobs can be dispatched at a higher rate to EC2 resources than to Fargate resources, and more jobs can be running concurrently\. For more information, see [AWS Fargate service quotas](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-quotas.html#service-quotas-fargate) in the *Amazon Elastic Container Service Developer Guide*\.
 
 ## Job definitions on Fargate<a name="fargate-job-definitions"></a>
 

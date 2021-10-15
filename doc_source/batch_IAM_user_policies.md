@@ -1,4 +1,4 @@
-# Creating AWS Batch IAM Policies<a name="batch_IAM_user_policies"></a>
+# Creating AWS Batch IAM policies<a name="batch_IAM_user_policies"></a>
 
 You can create specific IAM policies to restrict the calls and resources that users in your account have access to, and then attach those policies to IAM users\.
 
