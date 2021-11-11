@@ -12,17 +12,17 @@ When you run your jobs with Fargate resources, you package your application in c
 
 ## When to use Fargate<a name="when-to-use-fargate"></a>
 
-For many customers, Fargate is the better choice\. Fargate launches and scales the compute to closely match the resource requirements you specify for the container\. With Fargate, there is no over\-provisioning and paying for additional servers\. You don't need to worry about the details of the infrastructure\-related parameters like instance type\. When the compute environment needs to be scaled up, jobs running on Fargate resources can get started more quickly\. It can take a few minutes to spin up a new Amazon EC2 instance, while jobs running on Fargate can be provisioned in about 30 seconds \(depending on the container image size, number of jobs, and a few other factors\.\)
+We recommend using Fargate in most scenarios\. Fargate launches and scales the compute to closely match the resource requirements that you specify for the container\. With Fargate, you don't need to over\-provision or pay for additional servers\. You also don't need to worry about the specifics of infrastructure\-related parameters such as instance type\. When the compute environment needs to be scaled up, jobs that run on Fargate resources can get started more quickly\. Typically, it takes a few minutes to spin up a new Amazon EC2 instance\. However, jobs that run on Fargate can be provisioned in about 30 seconds, depending on the container image size, number of jobs, and other factors\.
 
-Amazon EC2 is the right choice if jobs require any of these:
+However, we recommend that you use Amazon EC2 if your jobs require any of the following:
 + more than 4 vCPUs
-+ more than 30 gibibyte \(GiB\) of memory
++ more than 30 gibibytes \(GiB\) of memory
 + a GPU
 + Arm\-based AWS Graviton CPU
-+ custom AMI
++ a custom Amazon Machine Image \(AMI\)
 + any of the [linuxParameters](job_definition_parameters.md#ContainerProperties-linuxParameters) parameters
 
-If you have a large number of jobs, Amazon EC2 may be the right choice because jobs can be dispatched at a higher rate to EC2 resources than to Fargate resources, and more jobs can be running concurrently\. For more information, see [AWS Fargate service quotas](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-quotas.html#service-quotas-fargate) in the *Amazon Elastic Container Service Developer Guide*\.
+If you have a large number of jobs, we recommend Amazon EC2 because jobs can be dispatched at a higher rate to EC2 resources than to Fargate resources\. Moreover, more jobs can run concurrently when you use EC2\. For more information, see [AWS Fargate service quotas](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-quotas.html#service-quotas-fargate) in the *Amazon Elastic Container Service Developer Guide*\.
 
 ## Job definitions on Fargate<a name="fargate-job-definitions"></a>
 

@@ -4,7 +4,7 @@ AWS Batch makes calls to other AWS services on your behalf to manage the resourc
 
 In most cases, the AWS Batch service role is created for you automatically in the console first\-run experience\. You can use the following procedure to check if your account already has the AWS Batch service role\.
 
-The `AWSBatchServiceRole` policy is shown below\.
+The `AWSBatchServiceRole` policy is as follows\.
 
 ```
 {

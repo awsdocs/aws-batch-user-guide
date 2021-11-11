@@ -4,6 +4,7 @@ The following table describes the important changes to the documentation since t
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Fair share scheduling](https://docs.aws.amazon.com/batch/latest/userguide/scheduling-policies.html) | AWS Batch adds support for adding scheduling policies to job queues\. | November 9, 2021 | 
 | [Amazon EFS](https://docs.aws.amazon.com/batch/latest/userguide/efs-volumes.html) | AWS Batch adds support for adding Amazon EFS file systems to you job definitions\. | April 1, 2021 | 
 | [Added service\-linked role](https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html) | AWS Batch adds the **AWSServiceRoleForBatch** service\-linked role\. | March 10, 2021 | 
 | [AWS Fargate support](https://docs.aws.amazon.com/batch/latest/userguide/fargate.html) | AWS Batch adds support for running jobs on Fargate resources\. | December 3, 2020 | 

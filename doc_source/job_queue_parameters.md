@@ -11,6 +11,20 @@ The name for your job queue\. Up to 128 letters \(uppercase and lowercase\), num
 Type: String  
 Required: Yes
 
+## Priority<a name="job_queue_priority"></a>
+
+`priority`  
+The priority of the job queue\. Job queues with a higher priority \(or a higher integer value for the `priority` parameter\) are evaluated first when associated with same compute environment\. Priority is determined in descending order, for example, a job queue with a priority value of 10 is given scheduling preference over a job queue with a priority value of 1\. All of the compute environments must be either EC2 \(`EC2` or `SPOT`\) or Fargate \(`FARGATE` or `FARGATE_SPOT`\); EC2 and Fargate compute environments can't be mixed\.  
+Type: Integer  
+Required: Yes
+
+## Scheduling policy<a name="job_queue_scheduling_policy"></a>
+
+`schedulingPolicyArn`  
+The Amazon Resource Name \(ARN\) of the scheduling policy for the job queue\. Job queues that don't have a scheduling policy are scheduled in a first\-in, first\-out \(FIFO\) model\. After a job queue has a scheduling policy, it can be replaced but can't be removed\. A job queue without a scheduling policy is scheduled as a FIFO job queue and can't have a scheduling policy added\. Jobs queues with a scheduling policy can have a maximum of 500 active fair share identifiers\. When the limit has been reached, submissions of any jobs that add a new fair share identifier fail\.  
+Type: String  
+Required: No
+
 ## State<a name="job_queue_state"></a>
 
 `state`  
@@ -18,13 +32,6 @@ The state of the job queue\. If the job queue state is `ENABLED` \(the default v
 Type: String  
 Valid values: `ENABLED` \| `DISABLED`  
 Required: No
-
-## Priority<a name="job_queue_priority"></a>
-
-`priority`  
-The priority of the job queue\. Job queues with a higher priority \(or a higher integer value for the `priority` parameter\) are evaluated first when associated with same compute environment\. Priority is determined in descending order, for example, a job queue with a priority value of 10 is given scheduling preference over a job queue with a priority value of 1\. All of the compute environments must be either EC2 \(`EC2` or `SPOT`\) or Fargate \(`FARGATE` or `FARGATE_SPOT`\); EC2 and Fargate compute environments can't be mixed\.  
-Type: Integer  
-Required: Yes
 
 ## Compute environment order<a name="job_queue_compute_environment_order"></a>
 

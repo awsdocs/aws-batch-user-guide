@@ -100,7 +100,7 @@ To fix Spot Instance tagging on creation, follow the following procedure to appl
 
 ## Spot Instances not scaling down<a name="spot-fleet-not-authorized"></a>
 
-AWS Batch introduced the **AWSServiceRoleForBatch** service\-linked role on March 10,2021\. This service\-linked role is used as the service role if no role is specified in the `serviceRole` parameter of the compute environment\. If the service\-linked role is used in an EC2 Spot compute environment, but the Spot role used does not include the **AmazonEC2SpotFleetTaggingRole** managed policy, the Spot instances will not scale down\. The error seen is "You are not authorized to perform this operation\." Use the following instruction to update the spot fleet role that you use in the `spotIamFleetRole` parameter\. For more information, see [Using service\-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) and [Creating a role to delegate permissions to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\.
+AWS Batch introduced the **AWSServiceRoleForBatch** service\-linked role on March 10, 2021\. This service\-linked role is used as the service role if no role is specified in the `serviceRole` parameter of the compute environment\. If the service\-linked role is used in an EC2 Spot compute environment, but the Spot role used doesn't include the **AmazonEC2SpotFleetTaggingRole** managed policy, the Spot instances doesn't scale down\. You will receive an error with the message: "You are not authorized to perform this operation\." Use the following steps to update the spot fleet role that you use in the `spotIamFleetRole` parameter\. For more information, see [Using service\-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) and [Creating a role to delegate permissions to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\.
 
 **Topics**
 + [Attach **AmazonEC2SpotFleetTaggingRole** managed policy to your Spot Fleet role in the AWS Management Console](#spot-fleet-not-authorized-console)
@@ -128,7 +128,7 @@ The example commands assume that your Amazon EC2 Spot Fleet role is named *Amazo
 
 **To attach the **AmazonEC2SpotFleetTaggingRole** managed policy to your Spot Fleet role**
 
-1. To attach the **AmazonEC2SpotFleetTaggingRole** managed IAM policy to your *AmazonEC2SpotFleetRole* role, run the following command with the AWS CLI: 
+1. To attach the **AmazonEC2SpotFleetTaggingRole** managed IAM policy to your *AmazonEC2SpotFleetRole* role, run the following command using the AWS CLI\.
 
    ```
    aws iam attach-role-policy \
@@ -136,7 +136,7 @@ The example commands assume that your Amazon EC2 Spot Fleet role is named *Amazo
        --role-name AmazonEC2SpotFleetRole
    ```
 
-1. To detach the **AmazonEC2SpotFleetRole** managed IAM policy from your *AmazonEC2SpotFleetRole* role, run the following command with the AWS CLI: 
+1. To detach the **AmazonEC2SpotFleetRole** managed IAM policy from your *AmazonEC2SpotFleetRole* role, run the following command using the AWS CLI\.
 
    ```
    aws iam detach-role-policy \
@@ -150,13 +150,13 @@ If you are using an AMI with an Amazon ECS agent earlier than version 1\.16\.0\-
 
 ## Can't override job definition resource requirements<a name="override-resource-requirements"></a>
 
-Memory and vCPU overrides that are specified in the `memory` and `vcpus` members of the [containerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html) structure passed to [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) cannot override memory and vCPU requirements that are specified in the [resourceRequirements](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html#Batch-Type-ContainerProperties-resourceRequirements) structure in the job definition\.
+Memory and vCPU overrides that are specified in the `memory` and `vcpus` members of the [containerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html) structure passed to [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) can't override the memory and vCPU requirements that are specified in the [resourceRequirements](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html#Batch-Type-ContainerProperties-resourceRequirements) structure in the job definition\.
 
-If you try to override those resource requirements, you may receive one an error like this\.
+If you try to override these resource requirements, you might see the following error message:
 
 "This value was submitted in a deprecated key and may conflict with the value provided by the job definition's resource requirements\."
 
-To correct this, specify the memory and vCPU requirements in the [resourceRequirements](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html#Batch-Type-ContainerOverrides-resourceRequirements) member of the [containerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html)\. For example, if your memory and vCPU overrides are specified in lines like this:
+To correct this, specify the memory and vCPU requirements in the [resourceRequirements](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html#Batch-Type-ContainerOverrides-resourceRequirements) member of the [containerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html)\. For example, if your memory and vCPU overrides are specified in the following lines:
 
 ```
 "containerOverrides": {
@@ -165,7 +165,7 @@ To correct this, specify the memory and vCPU requirements in the [resourceRequir
 }
 ```
 
-Change them to lines like this:
+Change them to this:
 
 ```
 "containerOverrides": {
@@ -182,7 +182,7 @@ Change them to lines like this:
 }
 ```
 
-The same should be done for the memory and vCPU requirements specified in the [containerProperties](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html) object in the job definition\. For example, if your memory and vCPU requirements are specified in lines like this:
+Do the same change to the memory and vCPU requirements that are specified in the [containerProperties](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerProperties.html) object in the job definition\. For example, if your memory and vCPU requirements are specified in the following lines:
 
 ```
 {
@@ -192,7 +192,7 @@ The same should be done for the memory and vCPU requirements specified in the [c
 }
 ```
 
-Change them to lines like this:
+Change them to this:
 
 ```
 "containerProperties": {

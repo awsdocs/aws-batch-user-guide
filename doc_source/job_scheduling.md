@@ -1,3 +1,5 @@
 # Job Scheduling<a name="job_scheduling"></a>
 
-The AWS Batch scheduler evaluates when, where, and how to run jobs that have been submitted to a job queue\. Jobs run in approximately the order in which they are submitted as long as all dependencies on other jobs have been met\.
+The AWS Batch scheduler evaluates when, where, and how to run jobs that have been submitted to a job queue\. If you need to guarantee the order that jobs are run, use the `[dependsOn](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html#Batch-SubmitJob-request-dependsOn)` parameter to [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) to specify the dependencies for each job\.
+
+By default, jobs run in approximately the order in which they are submitted \(first in, first out\), as long as all dependencies on other jobs have been met\. If the job queue has a scheduling policy, the scheduling policy will determine the order in which jobs are run\. For more information, see [Scheduling policies](scheduling-policies.md)\.

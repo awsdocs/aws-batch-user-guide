@@ -150,11 +150,11 @@ Environment variables must not start with `AWS_BATCH`\. This naming convention i
 
       1. \(Optional\) In the **Log configuration** section, you can configure the log driver to use for your job's container\. By default, the `awslogs` log driver is used\.
 
-         1. In the **Log driver** section, select the log driver to use\. For more information on the available log drivers, see [logDriver](job_definition_parameters.md#ContainerProperties-logConfiguration-logDriver) in [Job definition parameters](job_definition_parameters.md)\.
+         1. In the **Log driver** section, select the log driver to use\. For more information about the available log drivers, see [logDriver](job_definition_parameters.md#ContainerProperties-logConfiguration-logDriver) in [Job definition parameters](job_definition_parameters.md)\.
 
          1. \(Optional\) In the **Options** section, select **Add option** to add an option\.
 
-            1. In the **Name** field, enter the name of the option\. The options available vary by log driver; see the documentation for the log driver for more information\.
+            1. In the **Name** field, enter the name of the option\. The options available vary by log driver\. For more information, see the log driver documentation\.
 
             1. In the **Value** field, enter the value of the option\.
 

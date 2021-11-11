@@ -305,14 +305,14 @@ Required: Yes
 `memory`  
 *This parameter is deprecated, use `resourceRequirements` instead\.*  
 The number of MiB of memory reserved for the job\.  
-As an example of how to use `resourceRequirements`, if your job definition contains lines similar to this:  
+As an example for how to use `resourceRequirements`, if your job definition contains lines similar to this:  
 
 ```
 "containerProperties": {
   "memory": 512
 }
 ```
-The equivalent lines using `resourceRequirements` would be as follows\.  
+The equivalent lines using `resourceRequirements` is as follows\.  
 
 ```
 "containerProperties": {
@@ -415,7 +415,7 @@ type="MEMORY"
 The hard limit \(in MiB\) of memory to present to the container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [docker run](https://docs.docker.com/engine/reference/run/)\. You must specify at least 4 MiB of memory for a job\. This is required but can be specified in several places for multi\-node parallel \(MNP\) jobs\. It must be specified for each node at least once\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
 If you're trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
 For jobs that are running on Fargate resources, then `value` must match one of the supported values\. Moreover, the `VCPU` values must be one of the values supported for that memory value\.      
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html)  
+<a name="Fargate-memory-vcpu"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html)  
 type="VCPU"  
 The number of vCPUs reserved for the job\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [docker run](https://docs.docker.com/engine/reference/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. For jobs that are running on EC2 resources, you must specify at least one vCPU\. This is required but can be specified in several places\. It must be specified for each node at least once\.  
 For jobs that are running on Fargate resources, then `value` must match one of the supported values and the `MEMORY` values must be one of the values supported for that VCPU value\. The supported values are 0\.25, 0\.5, 1, 2, and 4\.
@@ -494,14 +494,14 @@ Required: No
 `vcpus`  
 *This parameter is deprecated, use `resourceRequirements` instead\.*  
 The number of vCPUs reserved for the container\.  
-As an example of how to use `resourceRequirements`, if your job definition contains lines similar to this:  
+As an example for how to use `resourceRequirements`, if your job definition contains lines similar to this:  
 
 ```
 "containerProperties": {
   "vcpus": 2
 }
 ```
-The equivalent lines using `resourceRequirements` would be as follows\.  
+The equivalent lines using `resourceRequirements` is as follows\.  
 
 ```
 "containerProperties": {

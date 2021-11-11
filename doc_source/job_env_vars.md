@@ -8,7 +8,7 @@ The following environment variables are available in job containers:
 This variable is set to the name of the compute environment in which your job is placed\.
 
 `AWS_BATCH_JOB_ARRAY_INDEX`  
-This variable is only set in child array jobs\. The array job index begins at 0, and each child job receives a unique index number\. For example, an array job with 10 children has index values of 0\-9\. You can use this index value to control how your array job children are differentiated\. For more information, see [Tutorial: Using the Array Job Index to Control Job Differentiation](array_index_example.md)\.
+This variable is only set in child array jobs\. The array job index begins at 0, and each child job receives a unique index number\. For example, an array job with 10 children has index values of 0\-9\. You can use this index value to control how your array job children are differentiated\. For more information, see [Tutorial: Using the array job index to control job differentiation](array_index_example.md)\.
 
 `AWS_BATCH_JOB_ATTEMPT`  
 This variable is set to the job attempt number\. The first attempt is numbered 1\. For more information, see [Automated Job Retries](job_retries.md)\.
