@@ -18,7 +18,6 @@ However, we recommend that you use Amazon EC2 if your jobs require any of the fo
 + more than 4 vCPUs
 + more than 30 gibibytes \(GiB\) of memory
 + a GPU
-+ Arm\-based AWS Graviton CPU
 + a custom Amazon Machine Image \(AMI\)
 + any of the [linuxParameters](job_definition_parameters.md#ContainerProperties-linuxParameters) parameters
 
