@@ -14,19 +14,18 @@ If you create your own AMI, you must use container agent 1\.38\.0 or later, `ecs
 Amazon Linux 2  
 
   ```
-  yum install amazon-efs-utils
+  $ yum install amazon-efs-utils
   systemctl enable --now amazon-ecs-volume-plugin
   ```
 
 Amazon Linux  
 
   ```
-  yum install amazon-efs-utils
+  $ yum install amazon-efs-utils
   sudo shutdown -r now
   ```
-Amazon Linux 2
 + For jobs using Fargate resources, Amazon EFS file system support was added when using platform version 1\.4\.0 or later\. For more information, see [AWS Fargate platform versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html) in the *Amazon Elastic Container Service Developer Guide*\.
-+ When specifying Amazon EFS volumes in jobs using Fargate resources, Fargate creates a supervisor container that is responsible for managing the Amazon EFS volume\. The supervisor container uses a small amount of the job's memory\. The supervisor container is visible when querying the task metadata version 4 endpoint\. For more information, see [Task metadata endpoint version 4]() in the *Amazon Elastic Container Service Developer Guide*\.
++ When specifying Amazon EFS volumes in jobs using Fargate resources, Fargate creates a supervisor container that is responsible for managing the Amazon EFS volume\. The supervisor container uses a small amount of the job's memory\. The supervisor container is visible when querying the task metadata version 4 endpoint\. For more information, see [Task metadata endpoint version 4](https://docs.aws.amazon.com/AmazonECS/latest/userguide/task-metadata-endpoint-v4-fargate.html) in the *Amazon Elastic Container Service User Guide for AWS Fargate*\.
 
 ## Using Amazon EFS access points<a name="efs-volume-accesspoints"></a>
 

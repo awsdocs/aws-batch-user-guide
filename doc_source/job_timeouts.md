@@ -9,7 +9,7 @@ Timeout terminations are handled on a best\-effort basis\. You shouldn't expect 
 If a job is terminated for exceeding the timeout duration, it isn't retried\. If a job attempt fails on its own, then it can retry if retries are enabled, and the timeout countdown is started over for the new attempt\.
 
 **Important**  
-Jobs run on Fargate resources can't expect to run for more than 14 days\. If the timeout duration exceeds 14 days, the Fargate resources may no longer be available and the job will be terminated\.
+Jobs running on Fargate resources can't expect to run for more than 14 days\. If the timeout duration exceeds 14 days, the Fargate resources may no longer be available and the job will be terminated\.
 
 For array jobs, child jobs have the same timeout configuration as the parent job\.
 

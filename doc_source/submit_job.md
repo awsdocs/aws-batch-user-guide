@@ -32,7 +32,7 @@ After you have registered a job definition, you can submit it as a job to an AWS
 
 1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
 **Important**  
-Jobs run on Fargate resources can't expect to run for more than 14 days\. After 14 days, the Fargate resources may no longer be available and the job will be terminated\.
+Jobs running on Fargate resources can't expect to run for more than 14 days\. After 14 days, the Fargate resources may no longer be available and the job will be terminated\.
 
 1. \(Optional\) In the **Parameters** section, you can specify parameter substitution default values and placeholders to use in the command that your job's container runs when it starts\. For more information, see [Parameters](job_definition_parameters.md#parameters)\.
 

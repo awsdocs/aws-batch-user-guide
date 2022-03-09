@@ -14,7 +14,11 @@ The Amazon ECS instance role and instance profile are automatically created for 
 
    1. Choose **Create Role**\. 
 
-   1. For **Select type of trusted entity**, choose **AWS service**\. For **Choose the service that will use this role**, choose **Elastic Container Service**\. For **Select your use case**, choose **EC2 Role for Elastic Container Service**\.
+   1. For **Select type of trusted entity**, choose **AWS service**\.
+
+   1. In the **Choose a use case** section, in the **Or select a service to view its use cases** section, choose **Elastic Container Service**\.
+
+   1. For **Select your use case**, choose **EC2 Role for Elastic Container Service**\.
 
    1. Choose **Next: Permissions**, **Next: Tags**, and **Next: Review**\.
 

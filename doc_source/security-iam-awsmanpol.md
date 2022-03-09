@@ -43,6 +43,7 @@ This policy grants AWS Batch permissions that grants access to related services 
             "Action": [
                 "ec2:DescribeAccountAttributes",
                 "ec2:DescribeInstances",
+                "ec2:DescribeInstanceStatus",
                 "ec2:DescribeInstanceAttribute",
                 "ec2:DescribeSubnets",
                 "ec2:DescribeSecurityGroups",
@@ -239,7 +240,7 @@ This policy grants AWS Batch permissions that grants access to related services 
                 "arn:aws:ec2:*:*:placement-group/*",
                 "arn:aws:ec2:*:*:capacity-reservation/*",
                 "arn:aws:ec2:*:*:elastic-gpu/*",
-                "arn:aws:ec2:*:*:elastic-inference-accelerator/*"
+                "arn:aws:elastic-inference:*:*:elastic-inference-accelerator/*"
             ]
         },
         {
@@ -350,6 +351,9 @@ You can attach **BatchFullAccess** to your IAM entities\. AWS Batch also attache
 View details about updates to AWS managed policies for AWS Batch since this service began tracking these changes\. For automatic alerts about changes to this page, subscribe to the RSS feed on the AWS Batch Document history page\.
 
 
+
+**[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** and **[AWSBatchServiceRole](service_IAM_role.md)** policies updated \(December 6, 2021\)  
+Updated to add support for describing the status of AWS Batch managed instances in Amazon EC2 so unhealthy instances are replaced\.
 
 **[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy updated \(March 26, 2021\)  
 Updated to add support for placement group, capacity reservation, elastic GPU, and Elastic Inference resources in Amazon EC2\.

@@ -138,7 +138,7 @@ echo ECS_IMAGE_MINIMUM_CLEANUP_AGE=60m >> /etc/ecs/ecs.config
 ### Example: Mount an existing Amazon FSx for Lustre file system<a name="example-mount-an-existing-amazon-fsx-for-lustre-file-system"></a>
 
 **Example**  
-This example MIME multi\-part file configures the compute resource to install the `lustre2.10` package from the Extras Library and mount an existing FSx for Lustre file system at `/scratch`\. This example is for Amazon Linux 2\. For installation instructions for other Linux distributions, see [Installing the Lustre Client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) in the *FSx for Lustre User Guide*\.  
+This example MIME multi\-part file configures the compute resource to install the `lustre2.10` package from the Extras Library and mount an existing FSx for Lustre file system at `/scratch`\. This example is for Amazon Linux 2\. For installation instructions for other Linux distributions, see [Installing the Lustre Client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) in the *Amazon FSx for Lustre User Guide*\.  
 
 ```
 MIME-Version: 1.0

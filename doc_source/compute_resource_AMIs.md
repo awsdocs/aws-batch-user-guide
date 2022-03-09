@@ -26,7 +26,7 @@ The basic AWS Batch compute resource AMI specification consists of the following
 Required
 
  
-+ A modern Linux distribution that's running at least version 3\.10 of the Linux kernel on an HVM virtualization type AMI\.
++ A modern Linux distribution that's running at least version 3\.10 of the Linux kernel on an HVM virtualization type AMI\. Windows containers are not supported\.
 **Important**  
 Multi\-node parallel jobs can only run on compute resources that were launched on an Amazon Linux instance with the `ecs-init` package installed\. We recommend that you use the default Amazon ECS optimized AMI when you create your compute environment\. You can do this by not specifying a custom AMI\. For more information, see [Multi\-node Parallel Jobs](multi-node-parallel-jobs.md)\.
 + The Amazon ECS container agent\. We recommend that you use the latest version\. For more information, see [Installing the Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-install.html) in the *Amazon Elastic Container Service Developer Guide*\.

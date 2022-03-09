@@ -24,6 +24,9 @@ However, we recommend that you use Amazon EC2 if your jobs require any of the fo
 
 If you have a large number of jobs, we recommend Amazon EC2 because jobs can be dispatched at a higher rate to EC2 resources than to Fargate resources\. Moreover, more jobs can run concurrently when you use EC2\. For more information, see [AWS Fargate service quotas](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-quotas.html#service-quotas-fargate) in the *Amazon Elastic Container Service Developer Guide*\.
 
+**Note**  
+AWS Batch does not support Windows containers, on either Fargate or EC2 resources\.
+
 ## Job definitions on Fargate<a name="fargate-job-definitions"></a>
 
 AWS Batch jobs on Fargate don't support all of the job definition parameters that are available\. Some parameters are not supported at all, and others behave differently for Fargate jobs\.

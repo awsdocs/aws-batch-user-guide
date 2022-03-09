@@ -161,9 +161,6 @@ Amazon Virtual Private Cloud \(Amazon VPC\) enables you to launch AWS resources 
 
 If you have a default VPC, you also can skip this section and move to the next task, [Create a Security Group](#create-a-base-security-group)\. To determine whether you have a default VPC, see [Supported Platforms in the Amazon EC2 Console](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html#console-updates) in the *Amazon EC2 User Guide for Linux Instances*\. Otherwise, you can create a nondefault VPC in your account using the steps below\.
 
-**Important**  
-If your account supports EC2\-Classic in a Region, then you do not have a default VPC in that Region\.
-
 **To create a nondefault VPC**
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
@@ -198,8 +195,6 @@ You need the public IP address of your local computer, which you can get using a
 1. Enter a name for the new security group and a description\. Choose a name that you can remember, such as your IAM user name, followed by \_SG\_, plus the Region name\. For example, *me*\_SG\_*useast1*\.
 
 1. In the **VPC** list, ensure that your default VPC is selected; it's marked with an asterisk \(\*\)\.
-**Note**  
-If your account supports EC2\-Classic, select the VPC that you created in the previous task\.
 
 1. AWS Batch container instances do not require any inbound ports to be open\. However, you might want to add an SSH rule so you can log into the container instance and examine the containers in jobs with Docker commands\. You can also add rules for HTTP if you want your container instance to host a job that runs a web server\. Complete the following steps to add these optional security group rules\.
 

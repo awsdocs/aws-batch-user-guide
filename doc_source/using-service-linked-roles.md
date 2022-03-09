@@ -25,6 +25,7 @@ The role permissions policy allows AWS Batch to complete the following actions o
             "Action": [
                 "ec2:DescribeAccountAttributes",
                 "ec2:DescribeInstances",
+                "ec2:DescribeInstanceStatus",
                 "ec2:DescribeInstanceAttribute",
                 "ec2:DescribeSubnets",
                 "ec2:DescribeSecurityGroups",
@@ -221,7 +222,7 @@ The role permissions policy allows AWS Batch to complete the following actions o
                 "arn:aws:ec2:*:*:placement-group/*",
                 "arn:aws:ec2:*:*:capacity-reservation/*",
                 "arn:aws:ec2:*:*:elastic-gpu/*",
-                "arn:aws:ec2:*:*:elastic-inference-accelerator/*"
+                "arn:aws:elastic-inference:*:*:elastic-inference-accelerator/*"
             ]
         },
         {

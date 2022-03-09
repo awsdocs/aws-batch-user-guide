@@ -21,6 +21,7 @@ The `AWSBatchServiceRole` policy is as follows\.
                 "ec2:DescribeKeyPairs",
                 "ec2:DescribeImages",
                 "ec2:DescribeImageAttribute",
+                "ec2:DescribeInstanceStatus",
                 "ec2:DescribeSpotInstanceRequests",
                 "ec2:DescribeSpotFleetInstances",
                 "ec2:DescribeSpotFleetRequests",
@@ -124,7 +125,7 @@ The `AWSBatchServiceRole` policy is as follows\.
             ],
             "Condition": {
                 "StringEquals": {
-                    "ec2:CreateAction" : "RunInstances"
+                    "ec2:CreateAction": "RunInstances"
                 }
             }
         }

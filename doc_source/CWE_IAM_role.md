@@ -1,11 +1,11 @@
-# CloudWatch Events IAM role<a name="CWE_IAM_role"></a>
+# EventBridge IAM role<a name="CWE_IAM_role"></a>
 
-Amazon CloudWatch Events delivers a near\-real time stream of system events that describe changes in Amazon Web Services resources\. AWS Batch jobs are available as CloudWatch Events targets\. Using simple rules that you can quickly set up, you can match events and submit AWS Batch jobs in response to them\. Before you can submit AWS Batch jobs with CloudWatch Events rules and targets, CloudWatch Events must have permissions to run AWS Batch jobs on your behalf\.
+Amazon EventBridge delivers a near\-real time stream of system events that describe changes in Amazon Web Services resources\. AWS Batch jobs are available as EventBridge targets\. Using simple rules that you can quickly set up, you can match events and submit AWS Batch jobs in response to them\. Before you can submit AWS Batch jobs with EventBridge rules and targets, EventBridge must have permissions to run AWS Batch jobs on your behalf\.
 
 **Note**  
-When you create a rule in the CloudWatch Events console that specifies an AWS Batch queue as a target, you're provided with an opportunity to create this role\. For an example walkthrough, see [AWS Batch Jobs as CloudWatch Events Targets](batch-cwe-target.md)\.
+When you create a rule in the EventBridge console that specifies an AWS Batch queue as a target, you're provided with an opportunity to create this role\. For an example walkthrough, see [AWS Batch Jobs as EventBridge Targets](batch-cwe-target.md)\.
 
-The trust relationship for your CloudWatch Events IAM role must provide the `events.amazonaws.com` service principal the ability to assume the role, as follows\.
+The trust relationship for your EventBridge IAM role must provide the `events.amazonaws.com` service principal the ability to assume the role, as follows\.
 
 ```
 {
@@ -23,7 +23,7 @@ The trust relationship for your CloudWatch Events IAM role must provide the `eve
 }
 ```
 
-The policy attached to your CloudWatch Events IAM role should allow `batch:SubmitJob` permissions on your resources\. AWS Batch provides the `AWSBatchServiceEventTargetRole` managed policy to provide these permissions, as follows\.
+The policy attached to your EventBridge IAM role should allow `batch:SubmitJob` permissions on your resources\. AWS Batch provides the `AWSBatchServiceEventTargetRole` managed policy to provide these permissions, as follows\.
 
 ```
 {
