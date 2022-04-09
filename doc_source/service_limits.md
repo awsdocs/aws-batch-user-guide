@@ -5,7 +5,7 @@ The following table provides the service quotas for AWS Batch that can't be chan
 
 | Resource | Quota | 
 | --- | --- | 
-| Maximum number of job queues\. For more information, see [Job queues](job_queues.md)\. | 20 | 
+| Maximum number of job queues\. For more information, see [Job queues](job_queues.md)\. | 50 | 
 | Maximum number of compute environments\. For more information, see [Compute environment](compute_environments.md)\. | 50 | 
 | Maximum number of compute environments for each job queue | 3 | 
 | Maximum number of job dependencies for a job | 20 | 
