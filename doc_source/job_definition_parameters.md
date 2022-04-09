@@ -521,13 +521,12 @@ Required: Yes
 When you register a job definition, you can specify a list of volumes that are passed to the Docker daemon on a container instance\. The following parameters are allowed in the container properties:  
 
 ```
-[
+"volumes": [
   {
     "name": "string",
     "host": {
       "sourcePath": "string"
-    }
-  },
+    },
     "efsVolumeConfiguration": {
       "authorizationConfig": {
         "accessPointId": "string",

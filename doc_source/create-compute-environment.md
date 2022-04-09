@@ -53,8 +53,6 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 
 ## To create a managed compute environment using EC2 resources<a name="create-compute-environment-managed-ec2"></a>
 
-****
-
 1. Open the AWS Batch console at [https://console\.aws\.amazon\.com/batch/](https://console.aws.amazon.com/batch/)\.
 
 1. From the navigation bar, select the Region to use\.
