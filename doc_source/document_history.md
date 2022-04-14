@@ -4,6 +4,7 @@ The following table describes the important changes to the documentation since t
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Enhanced compute environment updates](https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html) | AWS Batch enhanced support updates to compute environments\. | April 14, 2022 | 
 | [AWS managed policy updates \- Update to existing policies](https://docs.aws.amazon.com/batch/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-updates) | AWS Batch updated existing managed policies\. | December 6, 2021 | 
 | [Fair share scheduling](https://docs.aws.amazon.com/batch/latest/userguide/scheduling-policies.html) | AWS Batch adds support for adding scheduling policies to job queues\. | November 9, 2021 | 
 | [Amazon EFS](https://docs.aws.amazon.com/batch/latest/userguide/efs-volumes.html) | AWS Batch adds support for adding Amazon EFS file systems to you job definitions\. | April 1, 2021 | 

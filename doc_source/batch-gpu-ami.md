@@ -2,7 +2,7 @@
 
 To run GPU workloads on your AWS Batch compute resources, you must use an AMI with GPU support\. For more information, see [Working with GPUs on Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html) and [Amazon ECS\-optimized AMIs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) in *Amazon Elastic Container Service Developer Guide*\.
 
-In managed compute environments, if the compute environment specifies any `p2`, `p3`, `p4`, `g3`, `g3s`, or `g4` instance types or instance families, then AWS Batch uses an Amazon ECS GPU optimized AMI\.
+In managed compute environments, if the compute environment specifies any `p2`, `p3`, `p4`, `g3`, `g3s`, `g4`, or `g5` instance types or instance families, then AWS Batch uses an Amazon ECS GPU optimized AMI\.
 
 In unmanaged compute environments, an Amazon ECS GPU\-optimized AMI is recommended\. You can use the AWS Command Line Interface or AWS Systems Manager Parameter Store [GetParameter](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html), [GetParameters](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html), and [GetParametersByPath](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html) operations to retrieve the metadata for the recommended Amazon ECS GPU\-optimized AMIs\.
 

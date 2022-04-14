@@ -93,7 +93,7 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 **Note**  
 When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
 **Note**  
-AWS Batch will scale GPUs based on the required amount in your job queues\. To use GPU scheduling, the compute environment must include instance types from the `p2`, `p3`, `p4`, `g3`, `g3s`, or `g4` families\.
+AWS Batch will scale GPUs based on the required amount in your job queues\. To use GPU scheduling, the compute environment must include instance types from the `p2`, `p3`, `p4`, `g3`, `g3s`, `g4`, or `g5` families\.
 **Note**  
 Currently, `optimal` uses instance types from the C4, M4, and R4 instance families\. In Regions that don't have instance types from those instance families, instance types from the C5, M5\. and R5 instance families are used\.
 

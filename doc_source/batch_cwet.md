@@ -37,7 +37,7 @@ This tutorial assumes that you have a working compute environment and job queue 
        print(json.dumps(event))
    ```
 
-   This is a simple Python 3\.8 function that prints the events sent by AWS Batch\. If everything is configured correctly, at the end of this tutorial, you will see that the event details appear in the CloudWatch Logs log stream that's associated with this Lambda function\.
+   This is a simple Python 3\.8 function that prints the events sent by AWS Batch\. If everything is configured correctly, at the end of this tutorial, the event details appear in the CloudWatch Logs log stream that's associated with this Lambda function\.
 
 1. Choose **Deploy**\.
 

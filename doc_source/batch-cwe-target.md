@@ -5,10 +5,10 @@ Amazon EventBridge delivers a near real\-time stream of system events that descr
 You can also use EventBridge to schedule automated actions that are invoked at certain times using cron or rate expressions\. For more information, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*\.
 
 Common use cases for AWS Batch jobs as a EventBridge target include the following use cases:
-+ A scheduled job is created to occurs at regular time intervals\. For example, a cron job occurs only during low\-usage hours when Amazon EC2 Spot Instances are less expensive\.
-+ An AWS Batch job runs in response to an API operation that's logged in CloudTrail\. For example, a job is submitted whenever an object is uploaded to a specified Amazon S3 bucket, with the EventBridge input transformer passing the bucket and key name of the object to AWS Batch parameters each time\.
++ A scheduled job is created to occur at regular time intervals\. For example, a cron job occurs only during low\-usage hours when Amazon EC2 Spot Instances are less expensive\.
++ An AWS Batch job runs in response to an API operation that's logged in CloudTrail\. For example, a job is submitted whenever an object is uploaded to a specified Amazon S3 bucket\. Each time this happens, the EventBridge input transformer passes the bucket and key name of the object to AWS Batch parameters\.
 **Note**  
-In this scenario, all of the AWS resources \(such as the Amazon S3 bucket, the EventBridge rule, and all CloudTrail logs\) must be in the same Region\.
+In this scenario, all of related AWS resources must be in the same Region\. This includes resources such as the Amazon S3 bucket, EventBridge rule, and CloudTrail logs\.
 
 Before you can submit AWS Batch jobs with EventBridge rules and targets, the EventBridge service needs several permissions to run AWS Batch jobs on your behalf\. When you create a rule in the EventBridge console that specifies an AWS Batch job as a target, you're provided with an opportunity to create this role\. For more information about the required service principal and IAM permissions for this role, see [EventBridge IAM role](CWE_IAM_role.md)\.
 
@@ -30,7 +30,7 @@ The procedure below shows how to create a scheduled AWS Batch job and the requir
 
 1. For **Define pattern**, choose **Schedule**\.
 
-1. Either choose **Fixed rate of** and specify how often the task is to run, or choose **Cron expression** and specify a cron expression that defines when the task is to be triggered\. For more information, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*
+1. Either choose **Fixed rate of** and specify how often the task is to run, or choose **Cron expression** and specify a cron expression that defines when the task is to be started\. For more information, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*
    + For **Fixed rate of**, enter the interval and unit for your schedule\.
    + For **Cron expression**, enter the `cron` expression for your task schedule\. These expressions have six required fields\. Each field is separated by white space\. For more information and examples of `cron` expressions, see [Cron Expressions](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions) in the *Amazon EventBridge User Guide*\.
 
@@ -66,7 +66,7 @@ The procedure below shows how to create a scheduled AWS Batch job and the requir
 
 ## Passing Event Information to an AWS Batch Target using the EventBridge Input Transformer<a name="cwe-input-transformer"></a>
 
-You can use the EventBridge input transformer to pass event information to AWS Batch in a job submission\. This can be especially valuable if you invoke jobs as a result of other AWS event information, such as an object upload to an Amazon S3 bucket\. You can also use a job definition with parameter substitution values in the container's command, and the EventBridge input transformer can provide the parameter values based on the event data\. For example, the following job definition expects to see parameter values called *S3bucket* and *S3key*\.
+You can use the EventBridge input transformer to pass event information to AWS Batch in a job submission\. This can be especially valuable if you invoke jobs as a result of other AWS event information\. One example is an object upload to an Amazon S3 bucket\. You can also use a job definition with parameter substitution values in the container's command\. The EventBridge input transformer can provide the parameter values based on the event data\. For example, the following job definition expects to see parameter values called *S3bucket* and *S3key*\.
 
 ```
 {
@@ -103,7 +103,7 @@ In this scenario, all of the AWS resources \(such as Amazon S3 buckets, EventBri
 
 1. In the left navigation, choose **Events**, **Rule**, **Create rule**\.
 
-1. For **Name and description**, provide a name containing up to 64 alphabetic characters, period \(\.\), hyphen \(\-\), or underscore \(\_\), and an optional description\.
+1. For **Name and description**, provide a name\. The name can be up to 64 alphabetic characters long\. It can contain periods \(\.\), hyphens \(\-\), and underscores \(\_\)\. The description is optional\.
 
 1. For **Define pattern**, choose **Event Pattern**, and then construct the rule as desired to match your application needs\.
 
@@ -151,7 +151,7 @@ In this scenario, all of the AWS resources \(such as Amazon S3 buckets, EventBri
    }
    ```
 **Note**  
-The names of the members of the [ContainerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html) structure must be capitalized\. For example, `Command` and `ResourceRequirements` instead of `command` and `resourceRequirements`\.
+The names of the members of the [ContainerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html) structure must be capitalized\. For example, use `Command` and `ResourceRequirements`, not `command` or `resourceRequirements`\.
 
 1. Choose an existing EventBridge IAM role to use for your job, or **Create a new role for this specific resource** to create a new one\. For more information, see [EventBridge IAM role](CWE_IAM_role.md)\.
 

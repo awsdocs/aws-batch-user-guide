@@ -23,7 +23,7 @@ To create a single\-node job definition, see [Creating a job definition](create-
 
    1. For **Job attempts**, specify the number of times to attempt your job \(in case it fails\)\. This number must be between one \(1\) and ten \(10\), inclusive\.
 
-   1. \(Optional\) Select **Add evaluate on exit** to add up to five \(5\) conditions to match string patterns with the exit code, status reason, and reason that is returned in the job attempt\. For each set of conditions, **Action** must be set to either **Retry** \(to retry until the number of job attempts has been reached\), or **Exit** to stop retrying the job\.
+   1. \(Optional\) Select **Add evaluate on exit** to add up to five \(5\) conditions to match string patterns with the exit code, status reason, and reason that's returned in the job attempt\. For each set of conditions, **Action** must be set to either **Retry** \(to retry until the number of job attempts has been reached\), or **Exit** to stop retrying the job\.
 
 1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds you would like to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
 
@@ -37,14 +37,14 @@ To create a single\-node job definition, see [Creating a job definition](create-
 
       1. <a name="target-node-step"></a>For **Target nodes**, specify the range for your node group, using `range_start:range_end` notation\.
 
-         You can create up to five node ranges for the number of nodes you specified for your job\. Node ranges use the index value for a node, and the node index begins at 0\. The range end index value of your final node group should be the number of nodes you specified in [Step 1](#num-node-step), minus one\. For example, If you specified 10 nodes, and you want to use a single node group, then your end range should be 9\.
+         You can create up to five node ranges for the number of nodes you specified for your job\. Node ranges use the index value for a node, and the node index begins at 0\. The range end index value of your final node group should be the number of nodes you specified in [Step 1](#num-node-step), minus one\. For example, if you specified 10 nodes, and you want to use a single node group, then your end range should be 9\.
 
       1. In **Container properties**, you can specify properties that are passed to the Docker daemon for the nodes in the node range\.
 
          1. For **Image**, choose the Docker image to use for your job\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 **Note**  
 Docker image architecture must match the processor architecture of the compute resources that they're scheduled on\. For example, ARM\-based Docker images can only run on ARM\-based compute resources\.
-            + Images in Amazon ECR Public repositories use the full `registry/repository[:tag]` or `registry/repository[@digest]` naming conventions\. For example, `public.ecr.aws/registry_alias/my-web-app:latest`\.
+            + Images in Amazon ECR Public repositories use the full `registry/repository[:tag]` or `registry/repository[@digest]` naming conventions \(for example, `public.ecr.aws/registry_alias/my-web-app:latest`\)\.
             + Images in Amazon ECR repositories use the full `registry/repository[:tag]` naming convention\. For example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`
             + Images in official repositories on Docker Hub use a single name \(for example, `ubuntu` or `mongo`\)\.
             + Images in other repositories on Docker Hub are qualified with an organization name \(for example, `amazon/amazon-ecs-agent`\)\.
@@ -122,7 +122,7 @@ Environment variables must not start with `AWS_BATCH`; this naming convention is
 
                1. For **Host path**, specify the path of a device in the host instance\.
 
-               1. For **Container path**, specify the path of in the container instance to expose the device mapped to the host instance\. If this is left blank then the host path is used in the container\.
+               1. For **Container path**, specify the path of in the container instance to expose the device mapped to the host instance\. If this is left blank, the host path is used in the container\.
 
                1. For **Permissions**, choose one or more permissions to apply to the device in the container\. The available permissions are `READ`, `WRITE`, and `MKNOD`\.
 

@@ -55,6 +55,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Compute environment parameters](compute_environment_parameters.md)
    + [EC2 Configurations](ec2-configurations.md)
    + [Allocation strategies](allocation-strategies.md)
+   + [Updating compute environments](updating-compute-environments.md)
    + [Compute Resource Memory Management](memory-management.md)
 + [Scheduling policies](scheduling-policies.md)
    + [Creating a scheduling policy](create-scheduling-policy.md)
