@@ -53,7 +53,7 @@ Within your job definition, you can specify the following items:
 The following example shows the full syntax that must be specified for the Secrets Manager secret\.
 
 ```
-arn:aws:secretsmanager:region:aws_account_id:secret:secret-name
+arn:aws:secretsmanager:region:aws_account_id:secret:secret-name:json-key:version-stage:version-id
 ```
 
 The following section describes the additional parameters\. These parameters are optional\. However, if you don't use them, you must include the colons `:` to use the default values\. Examples are provided below for more context\.

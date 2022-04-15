@@ -90,6 +90,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Troubleshooting AWS Batch identity and access](security_iam_troubleshoot.md)
       + [Using service-linked roles for AWS Batch](using-service-linked-roles.md)
       + [AWS managed policies for AWS Batch](security-iam-awsmanpol.md)
+   + [Access AWS Batch using an interface endpoint](vpc-interface-endpoints.md)
    + [Compliance Validation for AWS Batch](compliance.md)
    + [Infrastructure Security in AWS Batch](infrastructure-security.md)
 + [Tagging your AWS Batch resources](using-tags.md)
