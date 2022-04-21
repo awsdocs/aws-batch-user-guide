@@ -5,11 +5,12 @@ The following example shows an empty compute environment template\. You can use 
 ```
 {
     "computeEnvironmentName": "",
-    "type": "UNMANAGED",
+    "type": "MANAGED",
     "state": "ENABLED",
+    "unmanagedvCpus": 0,
     "computeResources": {
-        "type": "SPOT",
-        "allocationStrategy": "SPOT_CAPACITY_OPTIMIZED",
+        "type": "FARGATE_SPOT",
+        "allocationStrategy": "BEST_FIT_PROGRESSIVE",
         "minvCpus": 0,
         "maxvCpus": 0,
         "desiredvCpus": 0,

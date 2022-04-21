@@ -27,7 +27,7 @@ Managed compute environments launch Amazon ECS container instances into the VPC 
 By default, AWS Batch managed compute environments use a recent, approved version of the Amazon ECS optimized AMI for compute resources\. However, you might want to create your own AMI to use for your managed compute environments for various reasons\. For more information, see [Compute resource AMIs](compute_resource_AMIs.md)\.
 
 **Note**  
-AWS Batch doesn't upgrade the AMIs in a compute environment after it's created\. For example, it also doesn't update the AMIs in your compute environment when a newer version of the Amazon ECS optimized AMI is available\. You're responsible for the management of the guest operating system\. This includes any updates and security patches\. You're also responsible for any additional application software or utilities that you install on the compute resources\. There are two ways to use a new AMI for your AWS Batch jobs\. The original method is to complete these steps:  
+AWS Batch doesn't automatically upgrade the AMIs in a compute environment after it's created\. For example, it also doesn't update the AMIs in your compute environment when a newer version of the Amazon ECS optimized AMI is available\. You're responsible for the management of the guest operating system\. This includes any updates and security patches\. You're also responsible for any additional application software or utilities that you install on the compute resources\. There are two ways to use a new AMI for your AWS Batch jobs\. The original method is to complete these steps:  
 Create a new compute environment with the new AMI\.
 Add the compute environment to an existing job queue\.
 Remove the earlier compute environment from your job queue\.

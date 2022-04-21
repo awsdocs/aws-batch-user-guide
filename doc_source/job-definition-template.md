@@ -5,10 +5,11 @@ The following is an empty job definition template\. You can use this template to
 ```
 {
     "jobDefinitionName": "",
-    "type": "container",
+    "type": "multinode",
     "parameters": {
         "KeyName": ""
     },
+    "schedulingPriority": 0,
     "containerProperties": {
         "image": "",
         "vcpus": 0,
@@ -63,7 +64,7 @@ The following is an empty job definition template\. You can use this template to
         "resourceRequirements": [
             {
                 "value": "",
-                "type": "VCPU"
+                "type": "GPU"
             }
         ],
         "linuxParameters": {
@@ -72,7 +73,7 @@ The following is an empty job definition template\. You can use this template to
                     "hostPath": "",
                     "containerPath": "",
                     "permissions": [
-                        "MKNOD"
+                        "READ"
                     ]
                 }
             ],
@@ -175,7 +176,7 @@ The following is an empty job definition template\. You can use this template to
                     "resourceRequirements": [
                         {
                             "value": "",
-                            "type": "GPU"
+                            "type": "MEMORY"
                         }
                     ],
                     "linuxParameters": {
@@ -184,7 +185,7 @@ The following is an empty job definition template\. You can use this template to
                                 "hostPath": "",
                                 "containerPath": "",
                                 "permissions": [
-                                    "MKNOD"
+                                    "READ"
                                 ]
                             }
                         ],
@@ -203,7 +204,7 @@ The following is an empty job definition template\. You can use this template to
                         "swappiness": 0
                     },
                     "logConfiguration": {
-                        "logDriver": "awslogs",
+                        "logDriver": "journald",
                         "options": {
                             "KeyName": ""
                         },
@@ -237,7 +238,7 @@ The following is an empty job definition template\. You can use this template to
                 "onStatusReason": "",
                 "onReason": "",
                 "onExitCode": "",
-                "action": "EXIT"
+                "action": "RETRY"
             }
         ]
     },

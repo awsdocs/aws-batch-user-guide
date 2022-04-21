@@ -6,6 +6,7 @@ An empty job queue template is shown below\. You can use this template to create
 {
     "jobQueueName": "",
     "state": "DISABLED",
+    "schedulingPolicyArn": "",
     "priority": 0,
     "computeEnvironmentOrder": [
         {

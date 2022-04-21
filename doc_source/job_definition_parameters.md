@@ -11,6 +11,7 @@ Job definitions are split into four basic parts: the job definition name, the ty
 + [Container properties](#containerProperties)
 + [Node properties](#nodeProperties)
 + [Retry strategy](#retryStrategy)
++ [Scheduling priority](#job-definition-parameters-schedulingPriority)
 + [Tags](#job-definition-parameters-tags)
 + [Timeout](#timeout)
 
@@ -38,7 +39,15 @@ Required: No
 When you register a job definition, you can use parameter substitution placeholders in the `command` field of a job's container properties\. For example:  
 
 ```
-"command": [ "ffmpeg", "-i", "Ref::inputfile", "-c", "Ref::codec", "-o", "Ref::outputfile" ]
+"command": [
+    "ffmpeg",
+    "-i",
+    "Ref::inputfile",
+    "-c",
+    "Ref::codec",
+    "-o",
+    "Ref::outputfile"
+]
 ```
 In the above example, there are `Ref::inputfile`, `Ref::codec`, and `Ref::outputfile` parameter substitution placeholders in the command\. You can use the `parameters` object in the job definition to set default values for these placeholders\. For example, to set a default for the `Ref::codec` placeholder, you specify the following in the job definition:  
 
@@ -662,6 +671,14 @@ Required: No
 `onStatusReason`  
 Contains a glob pattern to match against the `StatusReason` that's returned for a job\. The pattern can be up to 512 characters in length\. It can contain letters, numbers, periods \(\.\), colons \(:\), and white space \(spaces, tabs\)\. It can optionally end with an asterisk \(\*\) so that only the start of the string needs to be an exact match\.  
 Type: String  
+Required: No
+
+## Scheduling priority<a name="job-definition-parameters-schedulingPriority"></a>
+
+`schedulingPriority`  
+The scheduling priority for jobs that are submitted with this job definition\. This will only affect jobs in job queues with a fair share policy\. Jobs with a higher scheduling priority will be scheduled before jobs with a lower scheduling priority\.  
+The minimum supported value is 0 and the maximum supported value is 9999\.  
+Type: Integer  
 Required: No
 
 ## Tags<a name="job-definition-parameters-tags"></a>
