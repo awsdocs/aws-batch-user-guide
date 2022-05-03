@@ -115,7 +115,7 @@ To view examples of AWS Batch identity\-based policies, see [Identity\-based pol
 
 |  |  | 
 | --- |--- |
-|  Supports policy condition keys  |    Yes  | 
+|  Supports service\-specific policy condition keys  |    Yes  | 
 
 The `Condition` element \(or `Condition` *block*\) lets you specify conditions in which a statement is in effect\. The `Condition` element is optional\. You can build conditional expressions that use [condition operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html), such as equals or less than, to match the condition in the policy with values in the request\.
 

@@ -22,7 +22,7 @@ However, we recommend that you use Amazon EC2 if your jobs require any of the fo
 + A custom Amazon Machine Image \(AMI\)
 + Any of the [linuxParameters](job_definition_parameters.md#ContainerProperties-linuxParameters) parameters
 
-If you have a large number of jobs, we recommend that you use Amazon EC2 infrastructure\. This because, with EC2, jobs can be dispatched at a higher rate to EC2 resources than to Fargate resources\. Moreover, more jobs can run concurrently when you use EC2\. For more information, see [AWS Fargate service quotas](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-quotas.html#service-quotas-fargate) in the *Amazon Elastic Container Service Developer Guide*\.
+If you have a large number of jobs, we recommend that you use Amazon EC2 infrastructure\. This is because, with EC2, jobs can be dispatched at a higher rate to EC2 resources than to Fargate resources\. Moreover, more jobs can run concurrently when you use EC2\. For more information, see [AWS Fargate service quotas](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-quotas.html#service-quotas-fargate) in the *Amazon Elastic Container Service Developer Guide*\.
 
 **Note**  
 AWS Batch doesn't support Windows containers on either Fargate or EC2 resources\.

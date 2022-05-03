@@ -6,9 +6,6 @@ Compute environments that use Fargate resources only support updating security g
 
 AWS Batch has two update mechanisms\. The first is a scaling update, where instances are added or removed from the compute environment\. The second is an infrastructure update, where the instances in the compute environment are replaced\. This takes much longer than a scaling update\.
 
-**Note**  
-Infrastructure updates are not supported by AWS CloudFormation at this time\.
-
 If you update compute environments with AWS Batch, you changing only these settings causes a scaling update: desired vCPUs \(`desiredvCpus`\), maximum vCPUs \(`maxvCpus`\), minimum vCPUs \(`minvCpus`\), service role \(`serviceRole`\), and state \(`state`\)\.
 
 If any of the following settings are changed in an [https://docs.aws.amazon.com/batch/latest/APIReference/API_UpdateComputeEnvironment.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_UpdateComputeEnvironment.html) API action, AWS Batch initiates an infrastructure update\. An infrastructure update requires that the service role be set to **AWSServiceRoleForBatch** \(the default\), and that the allocation strategy is `BEST_FIT_PROGRESSIVE` or `SPOT_CAPACITY_OPTIMIZED` \(`BEST_FIT` is not supported\)\. Any of the settings that can be changed for a scaling update can also be changed for an infrastructure update \(except service role\)\.

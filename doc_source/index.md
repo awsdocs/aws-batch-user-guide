@@ -81,7 +81,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Tutorial: Sending Amazon Simple Notification Service Alerts for Failed Job Events](batch_sns_tutorial.md)
 + [Using CloudWatch Logs with AWS Batch](using_cloudwatch_logs.md)
 + [Logging AWS Batch API Calls with AWS CloudTrail](logging-using-cloudtrail.md)
-+ [Tutorial: Creating a VPC with Public and Private Subnets for Your Compute Environments](create-public-private-vpc.md)
++ [Tutorial: Creating a VPC with public and private subnets for Your compute environments](create-public-private-vpc.md)
 + [Security in AWS Batch](security.md)
    + [Identity and Access Management for AWS Batch](security-iam.md)
       + [How AWS Batch works with IAM](security_iam_service-with-iam.md)
