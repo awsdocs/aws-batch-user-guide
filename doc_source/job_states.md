@@ -10,7 +10,7 @@ A job that resides in the queue and isn't yet able to run due to a dependency on
 
 `RUNNABLE`  
 A job that resides in the queue, has no outstanding dependencies, and is therefore ready to be scheduled to a host\. Jobs in this state are started as soon as sufficient resources are available in one of the compute environments that are mapped to the job's queue\. However, jobs can remain in this state indefinitely when sufficient resources are unavailable\.  
-If your jobs do not progress to `STARTING`, see [Jobs Stuck in `RUNNABLE` Status](troubleshooting.md#job_stuck_in_runnable) in the troubleshooting section\.
+If your jobs do not progress to `STARTING`, see [Jobs stuck in a `RUNNABLE` status](troubleshooting.md#job_stuck_in_runnable) in the troubleshooting section\.
 
 `STARTING`  
 These jobs have been scheduled to a host and the relevant container initiation operations are underway\. After the container image is pulled and the container is up and running, the job transitions to `RUNNING`\.

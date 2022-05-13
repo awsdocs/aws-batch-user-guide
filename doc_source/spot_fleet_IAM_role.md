@@ -24,7 +24,7 @@ If you create a managed compute environment that uses Amazon EC2 Spot Fleet Inst
 
 **Note**  
 In the past, there have been two managed policies for the Amazon EC2 Spot Fleet role\.  
-**AmazonEC2SpotFleetRole**: This is the original managed policy for the Spot Fleet role\. However, we no longer recommend you use it with AWS Batch\. This policy doesn't support Spot Instance tagging in compute environments, which is required to use the `AWSServiceRoleForBatch` service\-linked role\. If you previously created a Spot Fleet role with this policy, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag) to apply the new recommended policy to that role\.
+**AmazonEC2SpotFleetRole**: This is the original managed policy for the Spot Fleet role\. However, we no longer recommend you use it with AWS Batch\. This policy doesn't support Spot Instance tagging in compute environments, which is required to use the `AWSServiceRoleForBatch` service\-linked role\. If you previously created a Spot Fleet role with this policy, see [Spot Instances not tagged on creation](troubleshooting.md#spot-instance-no-tag) to apply the new recommended policy to that role\.
 **AmazonEC2SpotFleetTaggingRole**: This role provides all of the necessary permissions to tag Amazon EC2 Spot Instances\. Use this role to allow Spot Instance tagging on your AWS Batch compute environments\.
 
 ## Create Amazon EC2 Spot Fleet Roles with the AWS CLI<a name="spot-fleet-roles-cli"></a>

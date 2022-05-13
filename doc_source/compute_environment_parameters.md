@@ -38,7 +38,7 @@ Required: No
 ## Compute resources<a name="compute_environment_compute_resources"></a>
 
 `computeResources`  
-Details of the compute resources managed by the compute environment\. For more information, see [Compute Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)\.  
+Details of the compute resources managed by the compute environment\. For more information, see [Compute environment](compute_environments.md)\.  
 Type: [https://docs.aws.amazon.com/batch/latest/APIReference/API_ComputeResource.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_ComputeResource.html) object  
 Required: This parameter is required for managed compute environments    
 `type`  <a name="compute-environment-compute-resources-type"></a>
@@ -124,7 +124,7 @@ Required: No
 `spotIamFleetRole`  <a name="compute-environment-compute-resources-spotIamFleetRole"></a>
 The Amazon Resource Name \(ARN\) of the Amazon EC2 Spot Fleet IAM role applied to a `SPOT` compute environment\. This role is required if the allocation strategy set to `BEST_FIT` or if the allocation strategy isn't specified\. For more information, see [Amazon EC2 spot fleet role](spot_fleet_IAM_role.md)\.  
 This parameter isn't applicable to jobs that run on Fargate resources, and shouldn't be specified\.
-To tag your Spot Instances on creation, the Spot Fleet IAM role specified here must use the newer **AmazonEC2SpotFleetTaggingRole** managed policy\. The previously recommended **AmazonEC2SpotFleetRole** managed policy doesn't have the required permissions to tag Spot Instances\. For more information, see [Spot Instances Not Tagged on Creation](troubleshooting.md#spot-instance-no-tag)\.
+To tag your Spot Instances on creation, the Spot Fleet IAM role specified here must use the newer **AmazonEC2SpotFleetTaggingRole** managed policy\. The previously recommended **AmazonEC2SpotFleetRole** managed policy doesn't have the required permissions to tag Spot Instances\. For more information, see [Spot Instances not tagged on creation](troubleshooting.md#spot-instance-no-tag)\.
 Type: String  
 Required: This parameter is required for `SPOT` compute environments\.  
 `launchTemplate`  <a name="compute-environment-compute-resources-launchTemplate"></a>

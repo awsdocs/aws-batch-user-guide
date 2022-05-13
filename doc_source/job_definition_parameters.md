@@ -564,7 +564,7 @@ If the `host` parameter contains a `sourcePath` file location, then the data vol
 Type: String  
 Required: No  
 `efsVolumeConfiguration`  
-This parameter is specified when you're using an Amazon Elastic File System file system for task storage\. For more information, see [Amazon EFS Volumes](https://docs.aws.amazon.com/batch/latest/userguide/efs-volumes.html) in the *AWS Batch User Guide*\.  
+This parameter is specified when you're using an Amazon Elastic File System file system for task storage\. For more information, see [Amazon EFS volumes](efs-volumes.md)\.  
 Type: Object  
 Required: No    
 `authorizationConfig`  
@@ -576,7 +576,7 @@ The Amazon EFS access point ID to use\. If an access point is specified, the roo
 Type: String  
 Required: No  
 `iam`  
-Determines whether to use the AWS Batch job IAM role defined in a job definition when mounting the Amazon EFS file system\. If enabled, transit encryption must be enabled in the `EFSVolumeConfiguration`\. If this parameter is omitted, the default value of `DISABLED` is used\. For more information, see [Using Amazon EFS Access Points](https://docs.aws.amazon.com/batch/latest/userguide/efs-volumes.html#efs-volume-accesspoints) in the *AWS Batch User Guide*\.  
+Determines whether to use the AWS Batch job IAM role defined in a job definition when mounting the Amazon EFS file system\. If enabled, transit encryption must be enabled in the `EFSVolumeConfiguration`\. If this parameter is omitted, the default value of `DISABLED` is used\. For more information, see [Using Amazon EFS access points](efs-volumes.md#efs-volume-accesspoints)\.  
 Type: String  
 Valid values: `ENABLED` \| `DISABLED`  
 Required: No  
@@ -629,7 +629,7 @@ Required: No
 ## Retry strategy<a name="retryStrategy"></a>
 
 `retryStrategy`  
-When you register a job definition, you can optionally specify a retry strategy to use for failed jobs that are submitted with this job definition\. Any retry strategy that's specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the retry strategy defined here\. By default, each job is attempted one time\. If you specify more than one attempt, the job is retried if it fails\. Examples of a fail attempt include the job returns a non\-zero exit code or the container instance is terminated\. For more information, see [Automated job retries](https://docs.aws.amazon.com/batch/latest/userguide/job_retries.html)\.  
+When you register a job definition, you can optionally specify a retry strategy to use for failed jobs that are submitted with this job definition\. Any retry strategy that's specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the retry strategy defined here\. By default, each job is attempted one time\. If you specify more than one attempt, the job is retried if it fails\. Examples of a fail attempt include the job returns a non\-zero exit code or the container instance is terminated\. For more information, see [Automated Job Retries](job_retries.md)\.  
 Type: [RetryStrategy](https://docs.aws.amazon.com/batch/latest/APIReference/API_RetryStrategy.html) object  
 Required: No    
 `attempts`  
