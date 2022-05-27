@@ -113,7 +113,7 @@ Now that you built and tested your Docker container, push it to an image reposit
 
 ## Step 3: Create and register a Job definition<a name="create-array-job-def"></a>
 
-Now that your Docker image is in an image registry, you can specify it in an AWS Batch job definition\. Then, you can use it later to run an array job\. This example only uses the AWS CLI\. However, you can also use the AWS Management Console\. For more information, see [Creating a job definition](create-job-definition.md)\.
+Now that your Docker image is in an image registry, you can specify it in an AWS Batch job definition\. Then, you can use it later to run an array job\. This example only uses the AWS CLI\. However, you can also use the AWS Management Console\. For more information, see [Creating a single\-node job definition ](create-job-definition.md)\.
 
 **To create a job definition**
 

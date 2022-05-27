@@ -14,4 +14,4 @@ If a job attempt fails for any reason, and the number of attempts specified in t
 **Note**  
 Jobs that have been cancelled or terminated are not retried\. Also, jobs that fail due to an invalid job definition are not retried\.
 
-For more information, see [Creating a job definition](create-job-definition.md) and [Submitting a Job](submit_job.md)\.
+For more information, see [Creating a single\-node job definition ](create-job-definition.md) and [Submitting a Job](submit_job.md)\.

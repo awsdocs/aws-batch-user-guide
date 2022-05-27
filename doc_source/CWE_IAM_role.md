@@ -5,7 +5,7 @@ Amazon EventBridge delivers a near\-real time stream of system events that descr
 **Note**  
 When you create a rule in the EventBridge console that specifies an AWS Batch queue as a target, you're provided with an opportunity to create this role\. For an example walkthrough, see [AWS Batch Jobs as EventBridge Targets](batch-cwe-target.md)\.
 
-The trust relationship for your EventBridge IAM role must provide the `events.amazonaws.com` service principal the ability to assume the role, as follows\.
+The trust relationship for your EventBridge IAM role must provide the `events.amazonaws.com` service principal the ability to assume the role\.
 
 ```
 {
@@ -23,7 +23,7 @@ The trust relationship for your EventBridge IAM role must provide the `events.am
 }
 ```
 
-The policy attached to your EventBridge IAM role should allow `batch:SubmitJob` permissions on your resources\. AWS Batch provides the `AWSBatchServiceEventTargetRole` managed policy to provide these permissions, as follows\.
+Make sure that the policy that's attached to your EventBridge IAM role allows `batch:SubmitJob` permissions on your resources\. In the following example, AWS Batch provides the `AWSBatchServiceEventTargetRole` managed policy to provide these permissions\.
 
 ```
 {

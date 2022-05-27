@@ -1,6 +1,6 @@
 # AWS Batch service IAM role<a name="service_IAM_role"></a>
 
-AWS Batch makes calls to other AWS services on your behalf to manage the resources that you use with the service\. Before you can use the service, you must have an IAM policy and role that provides the necessary permissions to AWS Batch\.
+AWS Batch makes calls to other AWS services on your behalf to manage the resources that you use with AWS Batch\. Before you can use the service, you must have an IAM policy and role that provides the necessary permissions to AWS Batch\.
 
 In most cases, the AWS Batch service role is created for you automatically in the console first\-run experience\. You can use the following procedure to check if your account already has the AWS Batch service role\.
 
@@ -131,51 +131,65 @@ The `AWSBatchServiceRole` policy is as follows\.
         }
     ]
 }
-```
+```<a name="procedure_check_service_role"></a>
 
-You can use the following procedure to see if your account already has the AWS Batch service role and attach the managed IAM policy if needed\.<a name="procedure_check_service_role"></a>
-
-**To check for the `AWSBatchServiceRole` in the IAM console**
+**To check for the `AWSServiceRoleForBatch` role in the IAM console**
 
 1. Open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
 1. In the navigation pane, choose **Roles**\. 
 
-1. Search the list of roles for `AWSBatchServiceRole`\. If the role doesn't exist, use the procedure below to create the role\. If the role does exist, select the role to view the attached policies\.
+1. Search the list of roles for `AWSServiceRoleForBatch`\. 
+**Note**  
+If the `AWSServiceRoleForBatch` role doesn't exist, follow the procedure below to create the role\.
 
-1. Choose **Permissions**\.
+1. Choose `AWSServiceRoleForBatch` to view the attached policies\.
 
-1. Ensure that the **AWSBatchServiceRole** managed policy is attached to the role\. If the policy is attached, your AWS Batch service role is properly configured\. If not, follow the substeps below to attach the policy\.
+1. For **Permission policies**, verify that the **BatchServiceRolePolicy** policy is attached to the role\. If the policy is attached, your AWS Batch service role is properly configured\. 
+**Note**  
+The Amazon Resource Name \(ARN\) for the **AWSServiceRoleForBatch** role is in the following format:  
+`arn:aws::iam::aws_account_id:role/aws-service-role/batch.amazonaws.com/AWSServiceRoleForBatch`
 
-   1. Choose **Attach Policy**\.
+1. Choose **Trust relationships**\.
 
-   1. To narrow the list of available policies to attach, for **Filter**, type **AWSBatchServiceRole**\.
+1. Verify that the trust relationship contains the following\.
 
-   1. Select the **AWSBatchServiceRole** policy and choose **Attach Policy**\.
-
-1. Choose **Trust Relationships**, **Edit Trust Relationship**\.
-
-1. Verify that the trust relationship contains the following policy\. If the trust relationship matches the following policy, choose **Cancel**\. If the trust relationship doesn't match, copy the policy into the **Policy Document** window and choose **Update Trust Policy**\.
+   
 
    ```
    {
        "Version": "2012-10-17",
-       "Statement": [{
-           "Effect": "Allow",
-           "Principal": {"Service": "batch.amazonaws.com"},
-           "Action": "sts:AssumeRole"
-       }]
+       "Statement": [
+           {
+               "Effect": "Allow",
+               "Principal": {
+                   "Service": "batch.amazonaws.com"
+               },
+               "Action": "sts:AssumeRole"
+           }
+       ]
    }
    ```
 
-**To create the `AWSBatchServiceRole` IAM role**
+**To create the `AWSServiceRoleForBatch` IAM role:**
 
 1. Open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
-1. In the navigation pane, choose **Roles**, **Create New Role**\. 
+1. In the navigation pane, choose **Roles**, then choose **Create Role**\. 
 
-1. For **Select type of trusted entity**, choose **AWS service**\. For **Choose the service that will use this role**, choose **Batch**\.
+1. For **Trusted entity type**, choose **AWS service**\. 
 
-1. Choose **Next: Permissions**, **Next: Tags**, and **Next: Review**\.
+1. For **Use cases for other AWS services**, choose **Batch**, then choose **Batch** again\.
 
-1. For **Role Name**, type `AWSBatchServiceRole` and choose **Create Role**\. 
+1. Choose **Next**\.
+
+1. For **Permissions policies**, verify that the **AWS BatchServiceRole **policy is attached, then choose **Next**\.
+**Note**  
+The ARN for the **AWSBatchServiceRole** policy is in the following format:  
+`arn:aws::iam::aws:policy/service-role/AWSBatchServiceRole`
+
+1. For **Role Name**, enter `AWSServiceRoleForBatch` and then enter a **Description**\.
+
+1. Review the remaining steps\. Choose **Edit** to change the trusted relationships or permissions\.
+
+1. Choose **Create role**\.

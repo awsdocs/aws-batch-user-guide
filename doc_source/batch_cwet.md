@@ -14,7 +14,7 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 1. Open the AWS Lambda console at [https://console\.aws\.amazon\.com/lambda/](https://console.aws.amazon.com/lambda/)\.
 
-1. Choose **Create a Lambda function**, **Author from scratch**\. 
+1. Choose **Create function**, **Author from scratch**\. 
 
 1. For **Function name**, enter **batch\-event\-stream\-handler**\.
 
@@ -22,7 +22,7 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 1. Choose **Create function**\.
 
-1. In the **Function code** section, edit the sample code to match the following example:
+1. In the **Code source** section, edit the sample code to match the following example:
 
    ```
    import json
@@ -43,7 +43,7 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 ## Step 2: Register Event Rule<a name="cwet_register_event_rule"></a>
 
-In this section, you create a EventBridge event rule that captures job events that are coming from your AWS Batch resources\. This rule captures all events coming from AWS Batch within the account where it's defined\. The job messages themselves contain information about the event source, including the job queue where it was submitted\. You can use this information to filter and sort events programmatically\.
+In this section, you create an EventBridge event rule that captures job events that are coming from your AWS Batch resources\. This rule captures all events coming from AWS Batch within the account where it's defined\. The job messages themselves contain information about the event source, including the job queue where it was submitted\. You can use this information to filter and sort events programmatically\.
 
 **Note**  
 If you use the AWS Management Console to create an event rule, the console automatically adds the IAM permissions for EventBridge to call your Lambda function\. However, if you're creating an event rule using the AWS CLI, you must grant permissions explicitly\. For more information, see [Events and Event Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-events.html) in the *Amazon EventBridge User Guide*\.
@@ -60,7 +60,15 @@ If you use the AWS Management Console to create an event rule, the console autom
 
    A rule can't have the same name as another rule in the same Region and on the same event bus\.
 
-1. For **Define pattern**, select **Event Pattern** as the event source, and then select **Custom pattern**\. 
+1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select ** AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account’s default event bus\.
+
+1. For **Rule type**, choose **Rule with an event pattern**\.
+
+1. Choose **Next**\.
+
+1. For **Event source**, choose **Other**\.
+
+1. For **Event pattern**, select **Custom patterns \(JSON editor\)**\.
 
 1. Paste the following event pattern into the text area\.
 
@@ -74,37 +82,30 @@ If you use the AWS Management Console to create an event rule, the console autom
 
    This rule applies across all of your AWS Batch groups and to every AWS Batch event\. Alternatively, you can create a more specific rule to filter out some results\.
 
-1. For **Select targets**, in **Target**, choose **Lambda function**, and select your Lambda function\.
+1. Choose **Next**\.
 
-1. For **Select event bus**, choose **AWS default event bus**\. You can only create scheduled rules on the default event bus\.
+1. For **Target types**, choose **AWS service**\.
 
-1. For **Select targets**, choose **Batch job queue** and fill in the following fields appropriately:
-   + **Job queue:** Enter the Amazon Resource Name \(ARN\) of the job queue to schedule your job in\.
-   + **Job definition:** Enter the name and revision or full ARN of the job definition to use for your job\.
-   + **Job name:** Enter a name for your job\.
-   + **Array size:** \(Optional\) Enter an array size for your job to run more than one copy\. For more information, see [Array Jobs](array_jobs.md)\.
-   + **Job attempts:** \(Optional\) Enter the number of times to retry your job if it fails\. For more information, see [Automated Job Retries](job_retries.md)\.
+1. For **Select a target**, choose **Lambda function**, and select your Lambda function\.
 
-1. For **Batch job queue** target types, EventBridge needs permission to send events to the target\. EventBridge can create the IAM role needed for your rule to run\. Do one of these things:
-   + To create an IAM role automatically, choose **Create a new role for this specific resource**
-   + To use an IAM role that you created before, choose **Use existing role**
+1. \(Optional\) For **Additional settings**, do the following:
 
-   For more information, see [EventBridge IAM role](CWE_IAM_role.md)\.
-
-1. For **Retry policy and dead\-letter queue:**, under **Retry policy**:
-
-   1. For **Maximum age of event**, enter a value between 1 minute \(00:01\) and 24 hours \(24:00\)\.
+   1. For **Maximum age of event**, enter a value between one minute \(00:01\) and 24 hours \(24:00\)\.
 
    1. For **Retry attempts**, enter a number between 0 and 185\.
 
-1. For **Dead\-letter queue**, choose whether to use a standard Amazon SQS queue as a dead\-letter queue\. EventBridge sends events that match this rule to the dead\-letter queue if it can't deliver them to the target\. Do one of the following:
-   + Choose **None** to not use a dead\-letter queue\.
-   + Choose **Select an Amazon SQS queue in the current AWS account to use as the dead\-letter queue** and then select the queue to use from the drop\-down list\.
-   + Choose **Select an Amazon SQS queue in an other AWS account as a dead\-letter queue** and then enter the ARN of the queue to use\. You must attach a resource\-based policy to the queue that grants EventBridge permission to send messages to it\.
+   1. For **Dead\-letter queue**, choose whether to use a standard Amazon SQS queue as a dead\-letter queue\. EventBridge sends events that match this rule to the dead\-letter queue if they are not successfully delivered to the target\. Do one of the following:
+      + Choose **None** to not use a dead\-letter queue\.
+      + Choose **Select an Amazon SQS queue in the current AWS account to use as the dead\-letter queue** and then select the queue to use from the dropdown\.
+      + Choose **Select an Amazon SQS queue in an other AWS account as a dead\-letter queue** and then enter the ARN of the queue to use\. You must attach a resource\-based policy to the queue that grants EventBridge permission to send messages to it\. For more information, see [Granting permissions to the dead\-letter queue](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rule-dlq.html#eb-dlq-perms) in the *Amazon EventBridge User Guide*\.
 
-1. \(Optional\) Enter one or more tags for the rule\.
+1. Choose **Next**\.
 
-1. Choose **Create**\.
+1. \(Optional\) Enter one or more tags for the rule\. For more information, see [Amazon EventBridge tags](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-tagging.html) in the *Amazon EventBridge User Guide*\.
+
+1. Choose **Next**\.
+
+1. Review the details of the rule and choose **Create rule**\.
 
 ## Step 3: Test Your Configuration<a name="cwet_test"></a>
 

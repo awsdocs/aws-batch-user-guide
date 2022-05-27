@@ -1,11 +1,11 @@
 # Supported resource\-level permissions for AWS Batch API actions<a name="batch-supported-iam-actions-resources"></a>
 
-The term *resource\-level permissions* refers to the ability to specify the resources that users are allowed to perform actions on\. AWS Batch has partial support for resource\-level permissions\. For certain AWS Batch actions, you can control when users are allowed to use those actions based on conditions that have to be fulfilled, or specific resources that users are allowed to use\. For example, you can grant users permissions to submit jobs, but only to a specific job queue and only with a specific job definition\. 
+The term *resource\-level permissions* refers to the ability to specify the resources that users are allowed to perform actions on\. AWS Batch has partial support for resource\-level permissions\. For certain AWS Batch actions, you can control when users are allowed to use those actions based on conditions that have to be fulfilled\. You can control based on the specific resources that users are allowed to use\. For example, you can grant users permissions to submit jobs, but only to a specific job queue and only with a specific job definition\. 
 
-The following list describes the AWS Batch API actions that currently support resource\-level permissions, as well as the supported resources, resource ARNs, and condition keys for each action\.
+The following list describes the AWS Batch API actions that currently support resource\-level permissions\. The list also describes the supported resources, resource ARNs, and condition keys for each action\.
 
 **Important**  
-If an AWS Batch API action isn't listed in this list, then it doesn't support resource\-level permissions\. If an AWS Batch API action doesn't support resource\-level permissions, you can grant users permission to use the action, but you have to specify a wildcard \(\*\) for the resource element of your policy statement\.
+If an AWS Batch API action isn't listed in this list, then it doesn't support resource\-level permissions\. If an AWS Batch API action doesn't support resource\-level permissions, you can grant users permission to use the action\. However, you must use a wildcard \(\*\) for the resource element of your policy statement\.
 
 Actions  
 [CancelJob](#batch-supported-actions-canceljob), [CreateComputeEnvironment](#batch-supported-actions-createcomputeenvironment), [CreateJobQueue](#batch-supported-actions-createjobqueue), [CreateSchedulingPolicy](#batch-supported-actions-createschedulingpolicy), [DeleteComputeEnvironment](#batch-supported-actions-deletecomputeenvironment), [DeleteJobQueue](#batch-supported-actions-deletejobqueue), [DeleteSchedulingPolicy](#batch-supported-actions-deleteschedulingpolicy), [DeregisterJobDefinition](#batch-supported-actions-deregisterjobdefinition), [ListTagsForResource](#batch-supported-actions-listtagsforresource), [RegisterJobDefinition](#batch-supported-actions-registerjobdefinition), [SubmitJob](#batch-supported-actions-submitjob), [TagResource](#batch-supported-actions-tagresource), [TerminateJob](#batch-supported-actions-terminatejob), [UntagResource](#batch-supported-actions-untagresource), [UpdateComputeEnvironment](#batch-supported-actions-updatecomputeenvironment), [UpdateScedulingPolicy](#batch-supported-actions-updateschedulingpolicy), [UpdateJobQueue](#batch-supported-actions-updatejobqueue)
@@ -17,7 +17,7 @@ Cancels a job in an AWS Batch queue\.
 arn:aws:batch:*region*:*account*:job/*jobId*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.
+Filters actions based on the tags that are associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html)  <a name="batch-supported-actions-createcomputeenvironment"></a>
 Creates an AWS Batch compute environment\.    
@@ -26,7 +26,7 @@ Creates an AWS Batch compute environment\.
 arn:aws::batch:*region*:*account*:compute\-environment/*compute\-environment\-name*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Condition keys**    
 `aws:RequestTag/${TagKey}` \(String\)  
 Filters actions based on the tags that are passed in the request\.  
@@ -158,7 +158,7 @@ The Docker image used to start a job\.
 `batch:LogDriver` \(String\)  
 The log driver used for the job\.  
 `batch:Privileged` \(Boolean\)  
-When this parameter is true, the container for the job is given elevated permissions on the host container instance \(similar to the root user\)\.  
+When this parameter is true, the container for the job is given elevated permissions on the host container instance\.  
 `batch:User` \(String\)  
 The user name or numeric uid to use inside the container for the job\.  
 `aws:RequestTag/${TagKey}` \(String\)  
@@ -173,12 +173,12 @@ Submits an AWS Batch job from a job definition\.
 arn:aws:batch:*region*:*account*:job/*jobId*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job Definition**  
 arn:aws:batch:*region*:*account*:job\-definition/*definition\-name*:*revision*    
 **Condition keys**    
 `aws:ResourceTag/${TagKey}` \(String\)  
-Filters actions based on the tags associated with the resource\.  
+Filters actions based on the tags that are associated with the resource\.  
 **Job Queue**  
 arn:aws:batch:*region*:*account*:job\-queue/*queue\-name*    
 **Condition keys**    
@@ -229,7 +229,7 @@ arn:aws:batch:*region*:*account*:job/*jobId*
 Filters actions based on the tags that are associated with the resource\.
 
 [https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html)  <a name="batch-supported-actions-untagresource"></a>
-Untags the specified resource\.    
+Untags the resource that's specified\.    
 **Resource**    
 **Compute Environment**  
 arn:aws::batch:*region*:*account*:compute\-environment/*compute\-environment\-name*    
@@ -294,7 +294,7 @@ Filters actions based on the tags that are associated with the resource\.
 
 ## Condition keys for AWS Batch API actions<a name="batch-supported-condition-keys"></a>
 
-AWS Batch defines the following condition keys that can be used in the `Condition` element of an IAM policy\. You can use these keys to further refine the conditions that the policy statement applies to\. To view the global condition keys that are available to all services, see [available global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) in the *IAM User Guide*\.
+AWS Batch defines the following condition keys that are used in the `Condition` element of an IAM policy\. You can use these keys to refine the conditions that the policy statement applies to\. To view the global condition keys that are available to all services, see [available global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) in the *IAM User Guide*\.
 
 `batch:AWSLogsCreateGroup` \(Boolean\)  <a name="batch-supported-condition-keys-awslogscreategroup"></a>
 When this parameter is true, the `awslogs-group` is created for the logs\.
@@ -324,10 +324,10 @@ Filters actions based on the tags that are associated with the resource\.
 Filters actions based on the tags that are passed in the request\.
 
 `batch:ShareIdentifier` \(String\)  <a name="batch-supported-condition-keys-shareidentifier"></a>
-Filters actions based on the by the `shareIdentifier` parameter sent to [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html)\.
+Filters actions based on the `shareIdentifier` parameter sent to [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html)\.
 
 `aws:TagKeys` \(String\)  <a name="batch-supported-condition-keys-tagkeys"></a>
 Filters actions based on the tag keys that are passed in the request\.
 
 `batch:User` \(String\)  <a name="batch-supported-condition-keys-user"></a>
-The user name or numeric uid to use inside the container for the job\.
+The user name or numeric user ID \(uid\) to use inside the container for the job\.

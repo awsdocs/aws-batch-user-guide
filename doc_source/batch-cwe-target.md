@@ -4,7 +4,7 @@ Amazon EventBridge delivers a near real\-time stream of system events that descr
 
 You can also use EventBridge to schedule automated actions that are invoked at certain times using cron or rate expressions\. For more information, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*\.
 
-Common use cases for AWS Batch jobs as a EventBridge target include the following use cases:
+Common use cases for AWS Batch jobs as an EventBridge target include the following use cases:
 + A scheduled job is created to occur at regular time intervals\. For example, a cron job occurs only during low\-usage hours when Amazon EC2 Spot Instances are less expensive\.
 + An AWS Batch job runs in response to an API operation that's logged in CloudTrail\. For example, a job is submitted whenever an object is uploaded to a specified Amazon S3 bucket\. Each time this happens, the EventBridge input transformer passes the bucket and key name of the object to AWS Batch parameters\.
 **Note**  
@@ -20,49 +20,25 @@ The procedure below shows how to create a scheduled AWS Batch job and the requir
 
 1. Open the Amazon EventBridge console at [https://console\.aws\.amazon\.com/events/](https://console.aws.amazon.com/events/)\.
 
-1. In the navigation pane, choose **Rules**\.
+1. Using the following values, create an EventBridge rule that schedules an AWS Batch job:
+   + For **Rule type**, choose **Schedule**\.
+   + For **Schedule pattern**, do one of the following:
+     + To use a cron expression to define the schedule, choose **A fine\-grained schedule that runs at a specific time, such as 8:00 a\.m\. PST on the first Monday of every month** and enter the cron expression\.
+     + To use a rate expression to define the schedule, choose **A schedule that runs at a regular rate, such as every 10 minutes** and enter the rate expression\.
+   + For **Target types**, choose **AWS service**\.
+   + For **Select a target**, choose **Batch job queue** and fill in the following fields appropriately:
+     + **Job queue:** Enter the Amazon Resource Name \(ARN\) of the job queue to schedule your job in\.
+     + **Job definition:** Enter the name and revision or full ARN of the job definition to use for your job\.
+     + **Job name:** Enter a name for your job\.
+     + **Array size:** \(Optional\) Enter an array size for your job to run more than one copy\. For more information, see [Array Jobs](array_jobs.md)\.
+     + **Job attempts:** \(Optional\) Enter the number of times to retry your job if it fails\. For more information, see [Automated Job Retries](job_retries.md)\.
+   + For **Batch job queue** target types, EventBridge needs permission to send events to the target\. EventBridge can create the IAM role needed for your rule to run\. Do one of these things:
+     + To create an IAM role automatically, choose **Create a new role for this specific resource**\.
+     + To use an IAM role that you created before, choose **Use existing role**\.
 
-1. Choose **Create rule**\.
+     For more information, see [EventBridge IAM role](CWE_IAM_role.md)\.
 
-1. Enter a name and description for the rule\.
-
-   A rule can't have the same name as another rule in the same Region and on the same event bus\.
-
-1. For **Define pattern**, choose **Schedule**\.
-
-1. Either choose **Fixed rate of** and specify how often the task is to run, or choose **Cron expression** and specify a cron expression that defines when the task is to be started\. For more information, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*
-   + For **Fixed rate of**, enter the interval and unit for your schedule\.
-   + For **Cron expression**, enter the `cron` expression for your task schedule\. These expressions have six required fields\. Each field is separated by white space\. For more information and examples of `cron` expressions, see [Cron Expressions](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions) in the *Amazon EventBridge User Guide*\.
-
-1. For **Select event bus**, choose **AWS default event bus**\. You can only create scheduled rules on the default event bus\.
-
-1. For **Select targets**, choose **Batch job queue** and fill in the following fields appropriately:
-   + **Job queue:** Enter the Amazon Resource Name \(ARN\) of the job queue to schedule your job in\.
-   + **Job definition:** Enter the name and revision or full ARN of the job definition to use for your job\.
-   + **Job name:** Enter a name for your job\.
-   + **Array size:** \(Optional\) Enter an array size for your job to run more than one copy\. For more information, see [Array Jobs](array_jobs.md)\.
-   + **Job attempts:** \(Optional\) Enter the number of times to retry your job if it fails\. For more information, see [Automated Job Retries](job_retries.md)\.
-
-1. For **Batch job queue** target types, EventBridge needs permission to send events to the target\. EventBridge can create the IAM role needed for your rule to run\. Do one of these things:
-   + To create an IAM role automatically, choose **Create a new role for this specific resource**
-   + To use an IAM role that you created before, choose **Use existing role**
-
-   For more information, see [EventBridge IAM role](CWE_IAM_role.md)\.
-
-1. For **Retry policy and dead\-letter queue:**, under **Retry policy**:
-
-   1. For **Maximum age of event**, enter a value between 1 minute \(00:01\) and 24 hours \(24:00\)\.
-
-   1. For **Retry attempts**, enter a number between 0 and 185\.
-
-1. For **Dead\-letter queue**, choose whether to use a standard Amazon SQS queue as a dead\-letter queue\. EventBridge sends events that match this rule to the dead\-letter queue if it can't deliver them to the target\. Do one of the following:
-   + Choose **None** to not use a dead\-letter queue\.
-   + Choose **Select an Amazon SQS queue in the current AWS account to use as the dead\-letter queue** and then select the queue to use from the drop\-down list\.
-   + Choose **Select an Amazon SQS queue in an other AWS account as a dead\-letter queue** and then enter the ARN of the queue to use\. You must attach a resource\-based policy to the queue that grants EventBridge permission to send messages to it\.
-
-1. \(Optional\) Enter one or more tags for the rule\.
-
-1. Choose **Create**\.
+   For details about creating rules, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*\.
 
 ## Passing Event Information to an AWS Batch Target using the EventBridge Input Transformer<a name="cwe-input-transformer"></a>
 
@@ -101,17 +77,37 @@ In this scenario, all of the AWS resources \(such as Amazon S3 buckets, EventBri
 
 1. Open the Amazon EventBridge console at [https://console\.aws\.amazon\.com/events/](https://console.aws.amazon.com/events/)\.
 
-1. In the left navigation, choose **Events**, **Rule**, **Create rule**\.
+1. In the navigation pane, choose **Rules**\.
 
-1. For **Name and description**, provide a name\. The name can be up to 64 alphabetic characters long\. It can contain periods \(\.\), hyphens \(\-\), and underscores \(\_\)\. The description is optional\.
+1. Choose **Create rule**\.
 
-1. For **Define pattern**, choose **Event Pattern**, and then construct the rule as desired to match your application needs\.
+1. Enter a name and description for the rule\.
 
-1. For **Targets**, choose **Batch job queue** and then specify the job queue, job definition, and job name to use for the jobs that are invoked by this rule\.
+   A rule can't have the same name as another rule in the same Region and on the same event bus\.
 
-1. Choose **Configure target input**, and then choose **Input Transformer**\.
+1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select ** AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account’s default event bus\.
 
-1. For the upper input transformer text box, specify the values to parse from the triggering event\. For example, to parse the bucket and key name from an Amazon S3 event, use the following JSON\.
+1. For **Rule type**, choose **Rule with an event pattern**\.
+
+1. Choose **Next**\.
+
+1. For **Event source**, choose **AWS events**\.
+
+1. For **Event pattern**, construct the rule as desired to match your application needs\.
+
+1. Choose **Next**\.
+
+1. For **Target types**, choose **AWS service**\.
+
+1. For **Select a target**, choose **Batch job queue** and then specify the job queue, job definition, and job name to use for the jobs that are invoked by this rule\.
+
+1. Choose an existing EventBridge IAM role to use for your job, or **Create a new role for this specific resource** to create a new one\. For more information, see [EventBridge IAM role](CWE_IAM_role.md)\.
+
+1. In the **Additional settings** section, for **Configure target input**, choose **Input Transformer**\.
+
+1. Choose **Configure input transformer**\.
+
+1. In the **Target input transformer** section, for **Input path**, specify the values to parse from the triggering event\. For example, to parse the bucket and key name from an Amazon S3 event, use the following JSON\.
 
    ```
    {
@@ -120,7 +116,7 @@ In this scenario, all of the AWS resources \(such as Amazon S3 buckets, EventBri
    }
    ```
 
-1. For the lower input transformer text box, create the `Parameters` structure to pass to the AWS Batch job\. These parameters are substituted for the *Ref::S3bucket* and *Ref::S3key* placeholders in the command of the job container when the job runs\.
+1. For **Template**, create the `Parameters` structure to pass to the AWS Batch job\. These parameters are substituted for the *Ref::S3bucket* and *Ref::S3key* placeholders in the command of the job container when the job runs\.
 
    ```
    {
@@ -153,9 +149,12 @@ In this scenario, all of the AWS resources \(such as Amazon S3 buckets, EventBri
 **Note**  
 The names of the members of the [ContainerOverrides](https://docs.aws.amazon.com/batch/latest/APIReference/API_ContainerOverrides.html) structure must be capitalized\. For example, use `Command` and `ResourceRequirements`, not `command` or `resourceRequirements`\.
 
-1. Choose an existing EventBridge IAM role to use for your job, or **Create a new role for this specific resource** to create a new one\. For more information, see [EventBridge IAM role](CWE_IAM_role.md)\.
+1. Choose **Confirm**\.
 
-1. Choose **Configure details** and then for **Rule definition**, fill in the following fields appropriately, and then choose **Create rule**\.
-   + **Name:** Enter a name for your rule\.
-   + **Description:** \(Optional\) Enter a description for your rule\.
-   + **State:** Choose whether to enable your rule now or to enable it until later\.
+1. Choose **Next**\.
+
+1. \(Optional\) Enter one or more tags for the rule\. For more information, see [Amazon EventBridge tags](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-tagging.html) in the *Amazon EventBridge User Guide*\.
+
+1. Choose **Next**\.
+
+1. Review the details of the rule and choose **Create rule**\.

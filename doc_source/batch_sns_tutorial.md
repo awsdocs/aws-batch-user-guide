@@ -1,6 +1,6 @@
 # Tutorial: Sending Amazon Simple Notification Service Alerts for Failed Job Events<a name="batch_sns_tutorial"></a>
 
-In this tutorial, you configure a EventBridge event rule that only captures job events where the job has moved to a `FAILED` status\. At the end of this tutorial, you can optionally also submit a job to this job queue\. This is to test that you have configured your Amazon SNS alerts correctly\.
+In this tutorial, you configure an EventBridge event rule that only captures job events where the job has moved to a `FAILED` status\. At the end of this tutorial, you can optionally also submit a job to this job queue\. This is to test that you have configured your Amazon SNS alerts correctly\.
 
 ## Prerequisites<a name="batch_sns_prereq"></a>
 
@@ -16,13 +16,17 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 1. Choose **Topics**, **Create topic**\.
 
-1. For **Topic name**, enter **JobFailedAlert** and choose **Create topic**\.
+1. For **Type**, choose **Standard**\.
 
-1. Select the topic that you just created\. On the **Topic details: JobFailedAlert** screen, choose **Create subscription**\. 
+1. For **Name**, enter **JobFailedAlert** and choose **Create topic**\.
 
-1. For **Protocol**, choose **Email**\. For **Endpoint**, enter an email address that you currently have access to and choose **Create subscription**\. 
+1. On the **JobFailedAlert** screen, choose **Create subscription**\. 
 
-1.  Check your email account, and wait to receive a subscription confirmation email message\. When you receive it, choose **Confirm subscription**\. 
+1. For **Protocol**, choose **Email**\.
+
+1. For **Endpoint**, enter an email address that you currently have access to and choose **Create subscription**\.
+
+1. Check your email account, and wait to receive a subscription confirmation email message\. When you receive it, choose **Confirm subscription**\. 
 
 ## Step 2: Register Event Rule<a name="batch_sns_reg_rule"></a>
 
@@ -40,7 +44,15 @@ This tutorial assumes that you have a working compute environment and job queue 
 
    A rule can't have the same name as another rule in the same Region and on the same event bus\.
 
-1. For **Define pattern**, select **Event Pattern** as the event source, and then select **Custom pattern**\. 
+1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select ** AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account’s default event bus\.
+
+1. For **Rule type**, choose **Rule with an event pattern**\.
+
+1. Choose **Next**\.
+
+1. For **Event source**, choose **Other**\.
+
+1. For **Event pattern**, select **Custom patterns \(JSON editor\)**\.
 
 1. Paste the following event pattern into the text area\.
 
@@ -60,28 +72,32 @@ This tutorial assumes that you have a working compute environment and job queue 
    }
    ```
 
-   This code defines a EventBridge rule that matches any event where the job status is `FAILED`\. For more information about event patterns, see [Events and Event Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-events.html) in the *Amazon EventBridge User Guide*\.
+   This code defines an EventBridge rule that matches any event where the job status is `FAILED`\. For more information about event patterns, see [Events and Event Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-events.html) in the *Amazon EventBridge User Guide*\.
 
-1. This rule applies across all of your AWS Batch groups and to every AWS Batch event\. Alternatively, you can create a more specific rule to filter out some results\.
+1. Choose **Next**\.
 
-1. For **Select event bus**, choose **AWS default event bus**\. You can only create scheduled rules on the default event bus\.
+1. For **Target types**, choose **AWS service**\.
 
-1. For **Select targets**, in **Target**, choose **SNS topic**, and select **JobFailedAlert**\.
+1. For **Select a target**, choose **SNS topic**, and for **Topic**, choose **JobFailedAlert**\.
 
-1. For **Retry policy and dead\-letter queue:**, under **Retry policy**:
+1. \(Optional\) For **Additional settings**, do the following:
 
-   1. For **Maximum age of event**, enter a value between 1 minute \(00:01\) and 24 hours \(24:00\)\.
+   1. For **Maximum age of event**, enter a value between one minute \(00:01\) and 24 hours \(24:00\)\.
 
    1. For **Retry attempts**, enter a number between 0 and 185\.
 
-   1. For **Dead\-letter queue**, choose whether to use a standard Amazon SQS queue as a dead\-letter queue\. EventBridge sends events that match this rule to the dead\-letter queue if it can't deliver them to the target\. Do one of the following:
+   1. For **Dead\-letter queue**, choose whether to use a standard Amazon SQS queue as a dead\-letter queue\. EventBridge sends events that match this rule to the dead\-letter queue if they are not successfully delivered to the target\. Do one of the following:
       + Choose **None** to not use a dead\-letter queue\.
-      + Choose **Select an Amazon SQS queue in the current AWS account to use as the dead\-letter queue** and then select the queue to use from the drop\-down list\.
-      + Choose **Select an Amazon SQS queue in an other AWS account as a dead\-letter queue** and then enter the ARN of the queue to use\.
+      + Choose **Select an Amazon SQS queue in the current AWS account to use as the dead\-letter queue** and then select the queue to use from the dropdown\.
+      + Choose **Select an Amazon SQS queue in an other AWS account as a dead\-letter queue** and then enter the ARN of the queue to use\. You must attach a resource\-based policy to the queue that grants EventBridge permission to send messages to it\. For more information, see [Granting permissions to the dead\-letter queue](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rule-dlq.html#eb-dlq-perms) in the *Amazon EventBridge User Guide*\.
 
-1. \(Optional\) Enter one or more tags for the rule\.
+1. Choose **Next**\.
 
-1. Choose **Create**\.
+1. \(Optional\) Enter one or more tags for the rule\. For more information, see [Amazon EventBridge tags](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-tagging.html) in the *Amazon EventBridge User Guide*\.
+
+1. Choose **Next**\.
+
+1. Review the details of the rule and choose **Create rule**\.
 
 ## Step 3: Test Your Rule<a name="batch_sns_test_rule"></a>
 

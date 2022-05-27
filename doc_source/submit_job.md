@@ -12,7 +12,7 @@ After you have registered a job definition, you can submit it as a job to an AWS
 
 1. For **Job name**, choose a unique name for your job\.
 
-1. For **Job definition**, choose a previously created job definition for your job\. For more information, see [Creating a job definition](create-job-definition.md)\.
+1. For **Job definition**, choose a previously created job definition for your job\. For more information, see [Creating a single\-node job definition ](create-job-definition.md)\.
 
 1. For **Job queue**, choose a previously created job queue\. For more information, see [Creating a job queue](create-job-queue.md)\.
 

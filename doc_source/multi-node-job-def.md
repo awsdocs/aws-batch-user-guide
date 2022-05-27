@@ -5,7 +5,7 @@ Before you can run jobs in AWS Batch, you must create a job definition\. This pr
 **Note**  
 AWS Fargate doesn't support multi\-node parallel jobs\.
 
-To create a single\-node job definition, see [Creating a job definition](create-job-definition.md)\.
+To create a single\-node job definition, see [Creating a single\-node job definition ](create-job-definition.md)\.
 
 **To create a multi\-node parallel job definition**
 
@@ -27,7 +27,7 @@ To create a single\-node job definition, see [Creating a job definition](create-
 
 1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds you would like to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
 
-1. For **Multi\-node parallel**, select **Enable multi\-node parallel** and then complete the following substeps\. To create a single node parallel job definition instead, see [Creating a job definition](create-job-definition.md)\.
+1. For **Multi\-node parallel**, select **Enable multi\-node parallel** and then complete the following substeps\. To create a single node parallel job definition instead, see [Creating a single\-node job definition ](create-job-definition.md)\.
 
    1. <a name="num-node-step"></a>For **Number of nodes**, enter the total number of nodes to use for your job\.
 

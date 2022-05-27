@@ -10,7 +10,7 @@ The following topics explain the structure of an IAM policy\.
 
 ## Policy syntax<a name="policy-syntax"></a>
 
-An IAM policy is a JSON document that consists of one or more statements\. Each statement is structured as follows:
+An IAM policy is a JSON document that consists of one or more statements\. Each statement is structured as follows\.
 
 ```
 {
@@ -29,9 +29,9 @@ An IAM policy is a JSON document that consists of one or more statements\. Each 
 ```
 
 There are various elements that make up a statement:
-+ **Effect:** The *effect* can be `Allow` or `Deny`\. By default, IAM users don't have permission to use resources and API actions, so all requests are denied\. An explicit allow overrides the default\. An explicit deny overrides any allows\.
-+ **Action**: The *action* is the specific API action that you're granting or denying permission for\. To learn about specifying *action*, see [Actions for AWS Batch](#UsingWithbatch_Actions)\. 
-+ **Resource**: The resource that's affected by the action\. With some AWS Batch API actions, you can include specific resources in your policy that can be created or modified by the action\. To specify a resource in the statement, use its Amazon Resource Name \(ARN\)\. For more information, see [Supported resource\-level permissions for AWS Batch API actions](batch-supported-iam-actions-resources.md) and [Amazon Resource Names for AWS Batch](#batch_ARN_Format)\. If the AWS Batch API operation currently doesn't support resource\-level permissions, you must use the \* wildcard to specify that all resources can be affected by the action\. 
++ **Effect:** The *effect* can be `Allow` or `Deny`\. By default, IAM users don't have permission to use resources and API actions\. So, all requests are denied\. An explicit allow overrides the default\. An explicit deny overrides any allows\.
++ **Action**: The *action* is the specific API action that you're granting or denying permission for\. For instructions on how to specify the *action*, see [Actions for AWS Batch](#UsingWithbatch_Actions)\. 
++ **Resource**: The resource that's affected by the action\. With some AWS Batch API actions, you can include specific resources in your policy that can be created or modified by the action\. To specify a resource in the statement, use its Amazon Resource Name \(ARN\)\. For more information, see [Supported resource\-level permissions for AWS Batch API actions](batch-supported-iam-actions-resources.md) and [Amazon Resource Names for AWS Batch](#batch_ARN_Format)\. If the AWS Batch API operation currently doesn't support resource\-level permissions, you must use the wildcard \(\*\) to specify that all resources can be affected by the action\. 
 + **Condition**: Conditions are optional\. They can be used to control when your policy is in effect\.
 
 For more information about example IAM policy statements for AWS Batch, see [Creating AWS Batch IAM policies](batch_IAM_user_policies.md)\. 
@@ -40,19 +40,19 @@ For more information about example IAM policy statements for AWS Batch, see [Cre
 
 In an IAM policy statement, you can specify any API action from any service that supports IAM\. For AWS Batch, use the following prefix with the name of the API action: `batch:`\. For example: `batch:SubmitJob` and `batch:CreateComputeEnvironment`\.
 
-To specify multiple actions in a single statement, separate them with commas as follows:
+To specify multiple actions in a single statement, separate them with commas\.
 
 ```
 "Action": ["batch:action1", "batch:action2"]
 ```
 
-You can also specify multiple actions using wildcards \(\*\)\. For example, you can specify all actions whose name begins with the word "Describe" as follows:
+You can also specify multiple actions using wildcards \(\*\)\. For example, you can specify all actions whose name begins with the word "Describe"\.
 
 ```
 "Action": "batch:Describe*"
 ```
 
-To specify all AWS Batch API actions, use the wildcard \(\*\) as follows:
+To specify all AWS Batch API actions, use the wildcard \(\*\)\.
 
 ```
 "Action": "batch:*"
@@ -62,9 +62,9 @@ For a list of AWS Batch actions, see [Actions](https://docs.aws.amazon.com/batch
 
 ## Amazon Resource Names for AWS Batch<a name="batch_ARN_Format"></a>
 
-Each IAM policy statement applies to the resources that you specify using their ARNs\. 
+Each IAM policy statement applies to the resources that you specify using their Amazon Resource Names \(ARNs\)\. 
 
-An ARN has the following general syntax:
+An Amazon Resource Name \(ARN\) has the following general syntax:
 
 ```
 arn:aws:[service]:[region]:[account]:resourceType/resourcePath
@@ -74,7 +74,7 @@ arn:aws:[service]:[region]:[account]:resourceType/resourcePath
 The service \(for example, `batch`\)\.
 
 *region*  
-The Region for the resource \(for example, `us-east-2`\)\.
+The AWS Region for the resource \(for example, `us-east-2`\)\.
 
 *account*  
 The AWS account ID, with no hyphens \(for example, `123456789012`\)\.
@@ -85,7 +85,7 @@ The type of resource \(for example, `compute-environment`\)\.
 *resourcePath*  
 A path that identifies the resource\. You can use the wildcard \(\*\) in your paths\.
 
-AWS Batch API operations currently supports resource\-level permissions on several API operations\. For more information, see [Supported resource\-level permissions for AWS Batch API actions](batch-supported-iam-actions-resources.md)\. To specify all resources, or if a specific API action doesn't support ARNs, use the wildcard \(\*\) in the `Resource` element as follows:
+AWS Batch API operations currently support resource\-level permissions on several API operations\. For more information, see [Supported resource\-level permissions for AWS Batch API actions](batch-supported-iam-actions-resources.md)\. To specify all resources, or if a specific API action doesn't support ARNs, use the wildcard \(\*\) in the `Resource` element\.
 
 ```
 "Resource": "*"
@@ -93,7 +93,7 @@ AWS Batch API operations currently supports resource\-level permissions on sever
 
 ## Checking that users have the required permissions<a name="check-required-permissions"></a>
 
-Before you put an IAM policy into production, we recommend that you check whether it grants users the permissions to use the particular API actions and resources they need\.
+Before you put an IAM policy into production, we recommend that you check whether it grants users the permissions to use the particular API actions and resources that they need\.
 
 First, create an IAM user for testing purposes and attach the IAM policy to the test user\. Then, make a request as the test user\. You can make test requests in the console or with the AWS CLI\. 
 
