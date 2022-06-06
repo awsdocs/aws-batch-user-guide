@@ -78,4 +78,4 @@ In the AWS Batch console, the log configuration for the `wordpress` job definiti
 
 ![\[Console log configuration\]](http://docs.aws.amazon.com/batch/latest/userguide/images/awslogs-console-config.png)
 
-After you have registered a task definition with the `awslogs` log driver in a job definition log configuration, you can submit a job with that job definition to start sending logs to CloudWatch Logs\. For more information, see [Submitting a Job](submit_job.md)\.
+After you have registered a task definition with the `awslogs` log driver in a job definition log configuration, you can submit a job with that job definition to start sending logs to CloudWatch Logs\. For more information, see [Submitting a job](submit_job.md)\.

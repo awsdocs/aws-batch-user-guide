@@ -602,7 +602,7 @@ Required: No
 ## Node properties<a name="nodeProperties"></a>
 
 `nodeProperties`  
-When you register a multi\-node parallel job definition, you must specify a list of node properties\. These node properties should define the number of nodes to use in your job, the main node index, and the different node ranges to use\. If the job runs on Fargate resources, then you can't specify `nodeProperties`\. Rather, you should use `containerProperties` instead\. The following node properties are allowed in a job definition\. For more information, see [Multi\-node Parallel Jobs](multi-node-parallel-jobs.md)\.  
+When you register a multi\-node parallel job definition, you must specify a list of node properties\. These node properties should define the number of nodes to use in your job, the main node index, and the different node ranges to use\. If the job runs on Fargate resources, then you can't specify `nodeProperties`\. Rather, you should use `containerProperties` instead\. The following node properties are allowed in a job definition\. For more information, see [Multi\-node parallel jobs](multi-node-parallel-jobs.md)\.  
 Type: [NodeProperties](https://docs.aws.amazon.com/batch/latest/APIReference/API_NodeProperties.html) object  
 Required: No    
 `mainNode`  
@@ -629,7 +629,7 @@ Required: No
 ## Retry strategy<a name="retryStrategy"></a>
 
 `retryStrategy`  
-When you register a job definition, you can optionally specify a retry strategy to use for failed jobs that are submitted with this job definition\. Any retry strategy that's specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the retry strategy defined here\. By default, each job is attempted one time\. If you specify more than one attempt, the job is retried if it fails\. Examples of a fail attempt include the job returns a non\-zero exit code or the container instance is terminated\. For more information, see [Automated Job Retries](job_retries.md)\.  
+When you register a job definition, you can optionally specify a retry strategy to use for failed jobs that are submitted with this job definition\. Any retry strategy that's specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the retry strategy defined here\. By default, each job is attempted one time\. If you specify more than one attempt, the job is retried if it fails\. Examples of a fail attempt include the job returns a non\-zero exit code or the container instance is terminated\. For more information, see [Automated job retries](job_retries.md)\.  
 Type: [RetryStrategy](https://docs.aws.amazon.com/batch/latest/APIReference/API_RetryStrategy.html) object  
 Required: No    
 `attempts`  
@@ -691,7 +691,7 @@ Required: No
 ## Timeout<a name="timeout"></a>
 
 `timeout`  
-You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job Timeouts](job_timeouts.md)\. If a job is terminated due to a timeout, it isn't retried\. Any timeout configuration that's specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the timeout configuration defined here\. For more information, see [Job Timeouts](job_timeouts.md)\.  
+You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job timeouts](job_timeouts.md)\. If a job is terminated due to a timeout, it isn't retried\. Any timeout configuration that's specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the timeout configuration defined here\. For more information, see [Job timeouts](job_timeouts.md)\.  
 Type: [JobTimeout](https://docs.aws.amazon.com/batch/latest/APIReference/API_JobTimeout.html) object  
 Required: No    
 `attemptDurationSeconds`  

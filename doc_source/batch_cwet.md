@@ -60,7 +60,7 @@ If you use the AWS Management Console to create an event rule, the console autom
 
    A rule can't have the same name as another rule in the same Region and on the same event bus\.
 
-1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select ** AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account’s default event bus\.
+1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select **AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account's default event bus\.
 
 1. For **Rule type**, choose **Rule with an event pattern**\.
 
@@ -115,7 +115,7 @@ You can now test your EventBridge configuration by submitting a job to your job 
 
 1. Open the AWS Batch console at [https://console\.aws\.amazon\.com/batch/](https://console.aws.amazon.com/batch/)\.
 
-1. Submit a new AWS Batch job\. For more information, see [Submitting a Job](submit_job.md)\.
+1. Submit a new AWS Batch job\. For more information, see [Submitting a job](submit_job.md)\.
 
 1. Open the CloudWatch console at [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)\.
 

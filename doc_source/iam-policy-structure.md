@@ -20,8 +20,8 @@ An IAM policy is a JSON document that consists of one or more statements\. Each 
     "Resource":"arn",
     "Condition":{
       "condition":{
-        "key":"value"
-        }
+    "key":"value"
+    }
       }
     }
   ]

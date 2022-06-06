@@ -44,7 +44,7 @@ This tutorial assumes that you have a working compute environment and job queue 
 
    A rule can't have the same name as another rule in the same Region and on the same event bus\.
 
-1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select ** AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account’s default event bus\.
+1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select **AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account's default event bus\.
 
 1. For **Rule type**, choose **Rule with an event pattern**\.
 
@@ -107,7 +107,7 @@ This tutorial assumes that you have a working compute environment and job queue 
 
 1. Open the AWS Batch console at [https://console\.aws\.amazon\.com/batch/](https://console.aws.amazon.com/batch/)\.
 
-1. Submit a new AWS Batch job\. For more information, see [Submitting a Job](submit_job.md)\. For the job's command, substitute this command to exit the container with an exit code of 1\.
+1. Submit a new AWS Batch job\. For more information, see [Submitting a job](submit_job.md)\. For the job's command, substitute this command to exit the container with an exit code of 1\.
 
    ```
    /bin/sh, -c, 'exit 1'

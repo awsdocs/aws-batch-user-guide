@@ -1,6 +1,6 @@
 # Tutorial: Using the array job index to control job differentiation<a name="array_index_example"></a>
 
-This tutorial shows how to use the `AWS_BATCH_JOB_ARRAY_INDEX` environment variable \(that each child job is assigned\) to differentiate the child jobs\. The example uses the child job's index number to read a specific line in a file\. Then, it substitutes the parameter associated with that line number with a command inside the job's container\. The result is that you can have multiple AWS Batch jobs running the same Docker image and command arguments\. However, the results are different because the array job index is used as a modifier\.
+This tutorial describes how to use the `AWS_BATCH_JOB_ARRAY_INDEX` environment variable to differentiate the child jobs\. Each child job is assigned to this variable\. The example uses the child job's index number to read a specific line in a file\. Then, it substitutes the parameter associated with that line number with a command inside the job's container\. The result is that you can have multiple AWS Batch jobs that run the same Docker image and command arguments\. However, the results are different because the array job index is used as a modifier\.
 
 In this tutorial, you create a text file that has all of the colors of the rainbow, each on its own line\. Then, you create an entrypoint script for a Docker container that converts the index into a value that can be used for a line number in the color file\. The index starts at zero, but line numbers start at one\. Create a Dockerfile that copies the color and index files to the container image and sets `ENTRYPOINT` for the image to the entrypoint script\. The Dockerfile and resources are built to a Docker image that's pushed to Amazon ECR\. You then register a job definition that uses your new container image, submit an AWS Batch array job with that job definition, and view the results\.
 
@@ -12,7 +12,7 @@ This tutorial has the following prerequisites:
 + The AWS CLI installed on your local system\. For more information, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
 + Docker installed on your local system\. For more information, see [About Docker CE](https://docs.docker.com/install/) in the Docker documentation\.
 
-## Step 1: Build a Container Image<a name="build-index-container"></a>
+## Step 1: Build a container image<a name="build-index-container"></a>
 
 You can use the `AWS_BATCH_JOB_ARRAY_INDEX` in a job definition in the command parameter\. However, we recommend that you create a container image that uses the variable in an entrypoint script instead\. This section describes how to create such a container image\.
 
@@ -43,7 +43,7 @@ The `LINE` variable is set to the `AWS_BATCH_JOB_ARRAY_INDEX` \+ 1 because the a
    echo My favorite color of the rainbow is $COLOR.
    ```
 
-1. Create a file named `Dockerfile` in your workspace directory and paste the contents below into it\. This Dockerfile copies the previous files to your container and sets the entrypoint script to run when the container starts\.
+1. Create a file named `Dockerfile` in your workspace directory and paste the following content into it\. This Dockerfile copies the previous files to your container and sets the entrypoint script to run when the container starts\.
 
    ```
    FROM busybox
@@ -53,7 +53,7 @@ The `LINE` variable is set to the `AWS_BATCH_JOB_ARRAY_INDEX` \+ 1 because the a
    ENTRYPOINT /tmp/print-color.sh
    ```
 
-1. Build your Docker image:
+1. Build your Docker image\.
 
    ```
    docker build -t print-color .
@@ -105,13 +105,13 @@ Now that you built and tested your Docker container, push it to an image reposit
        --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
    ```
 
-1. Push your image to Amazon ECR:
+1. Push your image to Amazon ECR\.
 
    ```
    docker push aws_account_id.dkr.ecr.region.amazonaws.com/print-color
    ```
 
-## Step 3: Create and register a Job definition<a name="create-array-job-def"></a>
+## Step 3: Create and register a job definition<a name="create-array-job-def"></a>
 
 Now that your Docker image is in an image registry, you can specify it in an AWS Batch job definition\. Then, you can use it later to run an array job\. This example only uses the AWS CLI\. However, you can also use the AWS Management Console\. For more information, see [Creating a single\-node job definition ](create-job-definition.md)\.
 
@@ -139,7 +139,7 @@ Now that your Docker image is in an image registry, you can specify it in an AWS
    }
    ```
 
-1. Register the job definition with AWS Batch:
+1. Register the job definition with AWS Batch\.
 
    ```
    aws batch register-job-definition --cli-input-json file://print-color-job-def.json

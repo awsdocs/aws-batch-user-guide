@@ -4,6 +4,7 @@ The following table describes the important changes to the documentation since t
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Cross\-service confused deputy prevention for AWS Batch](https://docs.aws.amazon.com/batch/latest/userguide/cross-service-confused-deputy-prevention.html) | AWS Batch now provides a workaround for the confused deputy security issue, which arises when an entity \(a service or an account\) is coerced by a different entity to perform an action\. | June 6, 2022 | 
 | [Interface VPC Endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/batch/latest/userguide/vpc-interface-endpoints.html) | Added support for configuring interface VPC endpoints powered by AWS PrivateLink\. This allows you to create a private connection between your VPC and AWS Batch without requiring access through a NAT instance, a VPN connection, or AWS Direct Connect\. | April 15, 2022 | 
 | [Enhanced compute environment updates](https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html) | AWS Batch enhanced support updates to compute environments\. | April 14, 2022 | 
 | [AWS managed policy updates \- Update to existing policies](https://docs.aws.amazon.com/batch/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-updates) | AWS Batch updated existing managed policies\. | December 6, 2021 | 

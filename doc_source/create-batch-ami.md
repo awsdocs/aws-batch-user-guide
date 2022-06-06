@@ -64,4 +64,4 @@ The AMI that you choose for a compute environment must match the architecture of
 **Note**  
 All compute environments that are associated with a job queue must share the same architecture\. AWS Batch doesn't support mixing compute environment architecture types in a single job queue\.
 
-1. \(Optional\) Submit a sample job to your new job queue\. For more information, see [Example job definitions](example-job-definitions.md), [Creating a single\-node job definition ](create-job-definition.md), and [Submitting a Job](submit_job.md)\.
+1. \(Optional\) Submit a sample job to your new job queue\. For more information, see [Example job definitions](example-job-definitions.md), [Creating a single\-node job definition ](create-job-definition.md), and [Submitting a job](submit_job.md)\.

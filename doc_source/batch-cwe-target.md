@@ -30,8 +30,8 @@ The procedure below shows how to create a scheduled AWS Batch job and the requir
      + **Job queue:** Enter the Amazon Resource Name \(ARN\) of the job queue to schedule your job in\.
      + **Job definition:** Enter the name and revision or full ARN of the job definition to use for your job\.
      + **Job name:** Enter a name for your job\.
-     + **Array size:** \(Optional\) Enter an array size for your job to run more than one copy\. For more information, see [Array Jobs](array_jobs.md)\.
-     + **Job attempts:** \(Optional\) Enter the number of times to retry your job if it fails\. For more information, see [Automated Job Retries](job_retries.md)\.
+     + **Array size:** \(Optional\) Enter an array size for your job to run more than one copy\. For more information, see [Array jobs](array_jobs.md)\.
+     + **Job attempts:** \(Optional\) Enter the number of times to retry your job if it fails\. For more information, see [Automated job retries](job_retries.md)\.
    + For **Batch job queue** target types, EventBridge needs permission to send events to the target\. EventBridge can create the IAM role needed for your rule to run\. Do one of these things:
      + To create an IAM role automatically, choose **Create a new role for this specific resource**\.
      + To use an IAM role that you created before, choose **Use existing role**\.
@@ -85,7 +85,7 @@ In this scenario, all of the AWS resources \(such as Amazon S3 buckets, EventBri
 
    A rule can't have the same name as another rule in the same Region and on the same event bus\.
 
-1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select ** AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account’s default event bus\.
+1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select **AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account's default event bus\.
 
 1. For **Rule type**, choose **Rule with an event pattern**\.
 

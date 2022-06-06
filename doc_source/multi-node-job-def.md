@@ -1,6 +1,6 @@
 # Creating a multi\-node parallel job definition<a name="multi-node-job-def"></a>
 
-Before you can run jobs in AWS Batch, you must create a job definition\. This process varies slightly for single\-node and multi\-node parallel jobs\. This topic covers creating a job definition for an AWS Batch multi\-node parallel job\. For more information, see [Multi\-node Parallel Jobs](multi-node-parallel-jobs.md)\.
+Before you can run jobs in AWS Batch, you must create a job definition\. This process varies slightly for single\-node and multi\-node parallel jobs\. This topic covers creating a job definition for an AWS Batch multi\-node parallel job\. For more information, see [Multi\-node parallel jobs](multi-node-parallel-jobs.md)\.
 
 **Note**  
 AWS Fargate doesn't support multi\-node parallel jobs\.
@@ -19,13 +19,13 @@ To create a single\-node job definition, see [Creating a single\-node job defini
 
 1. For **Platform**, choose **EC2**\.
 
-1. In the **Retry Strategies** section, you can specify the number of times to retry a job\. You can also create conditions to decide whether a failed job should be retried\. This is based on string matching of the error code and reasons listed for the job attempt\. For more information, see [Automated Job Retries](job_retries.md)\.
+1. In the **Retry Strategies** section, you can specify the number of times to retry a job\. You can also create conditions to decide whether a failed job should be retried\. This is based on string matching of the error code and reasons listed for the job attempt\. For more information, see [Automated job retries](job_retries.md)\.
 
    1. For **Job attempts**, specify the number of times to attempt your job \(in case it fails\)\. This number must be between one \(1\) and ten \(10\), inclusive\.
 
    1. \(Optional\) Select **Add evaluate on exit** to add up to five \(5\) conditions to match string patterns with the exit code, status reason, and reason that's returned in the job attempt\. For each set of conditions, **Action** must be set to either **Retry** \(to retry until the number of job attempts has been reached\), or **Exit** to stop retrying the job\.
 
-1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds you would like to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job Timeouts](job_timeouts.md)\.
+1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds you would like to allow your job attempts to run\. If an attempt exceeds the timeout duration, it is stopped and the status moves to `FAILED`\. For more information, see [Job timeouts](job_timeouts.md)\.
 
 1. For **Multi\-node parallel**, select **Enable multi\-node parallel** and then complete the following substeps\. To create a single node parallel job definition instead, see [Creating a single\-node job definition ](create-job-definition.md)\.
 

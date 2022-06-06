@@ -13,6 +13,7 @@ AWS Identity and Access Management \(IAM\) is an AWS service that helps an admin
 + [How AWS Batch works with IAM](security_iam_service-with-iam.md)
 + [AWS Batch execution IAM role](execution-IAM-role.md)
 + [Identity\-based policy examples for AWS Batch](security_iam_id-based-policy-examples.md)
++ [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)
 + [Troubleshooting AWS Batch identity and access](security_iam_troubleshoot.md)
 + [Using service\-linked roles for AWS Batch](using-service-linked-roles.md)
 + [AWS managed policies for AWS Batch](security-iam-awsmanpol.md)

@@ -7,7 +7,7 @@ AWS Batch might add other event types, sources, and details in the future\. If y
 
 ## Job State Change Events<a name="batch_job_events"></a>
 
-Anytime that an existing \(previously submitted\) job changes states, an event is created\. For more information about AWS Batch job states, see [Job States](job_states.md)\.
+Anytime that an existing \(previously submitted\) job changes states, an event is created\. For more information about AWS Batch job states, see [Job states](job_states.md)\.
 
 **Note**  
 Events aren't created for the initial job submission\.

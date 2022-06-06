@@ -8,6 +8,6 @@ This documentation helps you understand how to apply the shared responsibility m
 
 **Topics**
 + [Identity and Access Management for AWS Batch](security-iam.md)
-+ [Access AWS Batch using an interface endpoint](vpc-interface-endpoints.md)
++ [Access using an interface endpoint](vpc-interface-endpoints.md)
 + [Compliance Validation for AWS Batch](compliance.md)
 + [Infrastructure Security in AWS Batch](infrastructure-security.md)
