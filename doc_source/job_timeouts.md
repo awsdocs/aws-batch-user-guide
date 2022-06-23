@@ -7,7 +7,7 @@ By default, AWS Batch doesn't have a job timeout\. If you don't define a job tim
 
 You specify an `attemptDurationSeconds` parameter, which must be at least 60 seconds, either in your job definition, or when you submit the job\. When this number of seconds has passed following the job attempt's `startedAt` timestamp, AWS Batch terminates the job\. On the compute resource, your job's container receives a `SIGTERM` signal to give your application a chance to shut down gracefully\. If the container is still running after 30 seconds, a `SIGKILL` signal is sent to forcefully shut down the container\.
 
-Timeout terminations are handled on a best\-effort basis\. You shouldn't expect your timeout termination to happen exactly when the job attempt times out \(it may take a few seconds longer\)\. If your application requires precise timeout execution, you should implement this logic within the application\. If you have a large number of jobs timing out concurrently, the timeout terminations behave as a first in, first out queue, where jobs are terminated in batches
+Timeout terminations are handled on a best\-effort basis\. You shouldn't expect your timeout termination to happen exactly when the job attempt times out \(it may take a few seconds longer\)\. If your application requires precise timeout execution, you should implement this logic within the application\. If you have a large number of jobs timing out concurrently, the timeout terminations behave as a first in, first out queue, where jobs are terminated in batches\.
 
 **Note**  
 There's no maximum timeout value for an AWS Batch job\.

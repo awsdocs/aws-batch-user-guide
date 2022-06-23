@@ -90,7 +90,7 @@ Not applicable for jobs that run on Fargate resources\.
 
 Parameters in `logConfiguration`    
 `logDriver`  
-Only `awslogs` and `fluentd` are supported\. For more information, see [Using the awslogs log driver](using_awslogs.md)\.
+Only `awslogs` and `splunk` are supported\. For more information, see [Using the awslogs log driver](using_awslogs.md)\.
 
 Members in `networkConfiguration`    
 `assignPublicIp`  

@@ -1,11 +1,16 @@
 # AWS Batch execution IAM role<a name="execution-IAM-role"></a>
 
-The execution role grants the Amazon ECS container and AWS Fargate agents permission to make AWS API calls on your behalf\. The execution IAM role is required depending on the requirements of your task\. You can have multiple execution roles for different purposes and services associated with your account\.
+The execution role grants the Amazon ECS container and AWS Fargate agents permission to make AWS API calls on your behalf\.
 
 **Note**  
 The execution role is supported by Amazon ECS container agent version 1\.16\.0 and later\.
 
-Amazon ECS provides the managed policy named `AmazonECSTaskExecutionRolePolicy` which contains the permissions the common use cases described above require\. It may be necessary to add inline policies to your execution role for special use cases which are outlined below\.
+The execution IAM role is required depending on the requirements of your task\. You can have multiple execution roles for different purposes and services associated with your account\.
+
+**Note**  
+For information about the Amazon ECS instance role, see [Amazon ECS instance role](https://docs.aws.amazon.com/batch/latest/userguide/instance_IAM_role.html)\. For information about service roles, see [How AWS Batch works with IAM](https://docs.aws.amazon.com/batch/latest/userguide/security_iam_service-with-iam.html)\. 
+
+Amazon ECS provides the `AmazonECSTaskExecutionRolePolicy` managed policy\. This policy contains the required permissions for the common use cases described above\. It might be necessary to add inline policies to your execution role for the special use cases outlined below\.
 
 ```
 {
@@ -27,7 +32,7 @@ Amazon ECS provides the managed policy named `AmazonECSTaskExecutionRolePolicy` 
 }
 ```
 
-An execution role is automatically created for you in the AWS Batch console first\-run experience; however, you should manually attach the managed IAM policy for tasks to allow Amazon ECS to add permissions for future features and enhancements as they are introduced\. You can use the following procedure to check and see if your account already has the execution role and to attach the managed IAM policy if needed\.<a name="procedure_check_execution_role"></a>
+An execution role is automatically created for you in the AWS Batch console first\-run experience\. However, you must manually attach the managed IAM policy to let Amazon ECS add permissions for future features and enhancements as they're introduced\. You can use the following procedure to check that your account already has the execution role and to attach the managed IAM policy, if needed\.<a name="procedure_check_execution_role"></a>
 
 **To check for the `ecsTaskExecutionRole` in the IAM console**
 
@@ -35,19 +40,19 @@ An execution role is automatically created for you in the AWS Batch console firs
 
 1. In the navigation pane, choose **Roles**\. 
 
-1. Search the list of roles for `ecsTaskExecutionRole`\. If the role does not exist, see [Creating the execution IAM role](#create-execution-role)\. If the role does exist, select the role to view the attached policies\.
+1. Search the list of roles for `ecsTaskExecutionRole`\. If you can't find the role, see [Creating the execution IAM role](#create-execution-role)\. If you found the role, choose the role to view the attached policies\.
 
 1. On the **Permissions** tab, verify that the **AmazonECSTaskExecutionRolePolicy** managed policy is attached to the role\. If the policy is attached, your execution role is properly configured\. If not, follow the substeps below to attach the policy\.
 
-   1. Choose **Attach policies**\.
+   1. Choose **Add permissions**, then choose **Attach policies**\.
 
-   1. To narrow the available policies to attach, for **Filter**, type **AmazonECSTaskExecutionRolePolicy**\.
+   1. Search for **AmazonECSTaskExecutionRolePolicy**\.
 
-   1. Check the box to the left of the **AmazonECSTaskExecutionRolePolicy** policy and choose **Attach policy**\.
+   1. Check the box to the left of the **AmazonECSTaskExecutionRolePolicy** policy and choose **Attach policies**\.
 
-1. Choose **Trust relationships**, **Edit trust relationship**\.
+1. Choose **Trust relationships**\.
 
-1. Verify that the trust relationship contains the following policy\. If the trust relationship matches the policy below, choose **Cancel**\. If the trust relationship does not match, copy the policy into the **Policy Document** window and choose **Update Trust Policy**\.
+1. Verify that the trust relationship contains the following policy\. If the trust relationship matches the policy below, the role is configured correctly\. If the trust relationship does not match, choose **Edit trust policy**, enter the following, and choose **Update policy**\.
 
    ```
    {
@@ -67,20 +72,24 @@ An execution role is automatically created for you in the AWS Batch console firs
 
 ## Creating the execution IAM role<a name="create-execution-role"></a>
 
-If your account does not already have an execution role, use the following steps to create the role\.
+If your account doesn't already have an execution role, use the following steps to create the role\.
 
 **To create the `ecsTaskExecutionRole` IAM role**
 
 1. Open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
-1. In the navigation pane, choose **Roles**, **Create role**\. 
+1. In the navigation pane, choose **Roles**\. 
 
-1. In the **Select type of trusted entity** section, choose **AWS service**\.
+1. Choose **Create role**\. 
 
-1. In the **Choose a use case** section, in the **Or select a service to view its use cases** section, choose **Elastic Container Service**\.
+1. For **Trusted entity type**, choose AWS service\.
 
-1. For **Select your use case**, choose **Elastic Container Service Task**, then choose **Next: Permissions**\.
+1. For **Common use case**, choose **EC2**\.
 
-1. In the **Attach permissions policy** section, search for **AmazonECSTaskExecutionRolePolicy**, select the policy, and then choose **Next: Tags**, and then **Next: Review**\.
+1. Choose **Next**\.
 
-1. For **Role Name**, type `ecsTaskExecutionRole` and choose **Create role**\.
+1. For **Permissions policies**, search for **AmazonECSTaskExecutionRolePolicy**\.
+
+1. Choose the check box to the left of the **AmazonECSTaskExecutionRolePolicy** policy, and then choose **Next**\.
+
+1. For **Role Name**, enter `ecsTaskExecutionRole` and then choose **Create role**\.

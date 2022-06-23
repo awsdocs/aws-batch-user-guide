@@ -49,7 +49,7 @@ The following launch template parameters are **ignored** by AWS Batch:
 + Instance market options \(AWS Batch must control Spot Instance configuration\)
 + Disable API termination \(AWS Batch must control instance lifecycle\)
 
-AWS Batch doesn't support updating a compute environment with a new launch template version\. If you update your launch template, you must create a new compute environment with the new template for the changes to take effect\. 
+AWS Batch only updates the launch template with a new launch template version during infrastructure updates\. For more information, see [Updating compute environments](updating-compute-environments.md)\.
 
 ## Amazon EC2 user data in launch templates<a name="lt-user-data"></a>
 
@@ -66,10 +66,10 @@ A MIME multi\-part file consists of the following components:
 + The content type and part boundary declaration: `Content-Type: multipart/mixed; boundary="==BOUNDARY=="`
 + The MIME version declaration: `MIME-Version: 1.0`
 + One or more user data blocks that contain the following components:
-  + The opening boundary that signals the beginning of a user data block: `--==BOUNDARY==`
-  + The content type declaration for the block: `Content-Type: text/cloud-config; charset="us-ascii"`\. For more information about content types, see the [Cloud\-Init documentation](https://cloudinit.readthedocs.io/en/latest/topics/format.html)\. 
-  + The content of the user data, for example, a list of shell commands or `cloud-init` directives
-+ The closing boundary that signals the end of the MIME multi\-part file: `--==BOUNDARY==--`
+  + The opening boundary that signals the beginning of a user data block: `--==BOUNDARY==`\. You must keep the line before this boundary blank\.
+  + The content type declaration for the block: `Content-Type: text/cloud-config; charset="us-ascii"`\. For more information about content types, see the [Cloud\-Init documentation](https://cloudinit.readthedocs.io/en/latest/topics/format.html)\. You must keep the line after the content type declaration blank\.
+  + The content of the user data, such as a list of shell commands or `cloud-init` directives\.
++ The closing boundary that signals the end of the MIME multi\-part file: `--==BOUNDARY==--`\.You must keep the line before the closing boundary blank\.
 
 The follwing are example MIME multi\-part files that you can use to create your own\.
 

@@ -641,7 +641,7 @@ The number of times to move a job to the `RUNNABLE` status\. You can specify bet
 Type: Integer  
 Required: No  
 `evaluateOnExit`  
-Array of up to 5 objects that specify conditions under which the job should be retried or failed\. If this parameter is specified, then the `attempts` parameter must also be specified\.  
+Array of up to 5 objects that specify conditions under which the job should be retried or failed\. If this parameter is specified, then the `attempts` parameter must also be specified\. If `evaluateOnExit` is specified but none of the entries match, then the job is retried\.  
 
 ```
 "evaluateOnExit": [

@@ -1,16 +1,16 @@
-# Access using an interface endpoint<a name="vpc-interface-endpoints"></a>
+# Access AWS Batch using an interface endpoint<a name="vpc-interface-endpoints"></a>
 
-You can use AWS PrivateLink to create a private connection between your VPC and \. You can access as if it were in your VPC, without the use of an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. Instances in your VPC don't need public IP addresses to access \.
+You can use AWS PrivateLink to create a private connection between your VPC and AWS Batch\. You can access AWS Batch as if it were in your VPC, without the use of an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. Instances in your VPC don't need public IP addresses to access AWS Batch\.
 
-You establish this private connection by creating an *interface endpoint*, powered by AWS PrivateLink\. We create an endpoint network interface in each subnet that you enable for the interface endpoint\. These are requester\-managed network interfaces that serve as the entry point for traffic destined for \.
+You establish this private connection by creating an *interface endpoint*, powered by AWS PrivateLink\. We create an endpoint network interface in each subnet that you enable for the interface endpoint\. These are requester\-managed network interfaces that serve as the entry point for traffic destined for AWS Batch\.
 
 For more information, see [Interface VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html) in the *AWS PrivateLink Guide*\.
 
-## Considerations for<a name="vpc-endpoint-considerations"></a>
+## Considerations for AWS Batch<a name="vpc-endpoint-considerations"></a>
 
-Before you set up an interface endpoint for , review [Interface endpoint properties and limitations](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-limitations) in the *AWS PrivateLink Guide*\.
+Before you set up an interface endpoint for AWS Batch, review [Interface endpoint properties and limitations](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-limitations) in the *AWS PrivateLink Guide*\.
 
- supports making calls to all of its API actions through the interface endpoint\. 
+AWS Batch supports making calls to all of its API actions through the interface endpoint\. 
 
 Before you set up interface VPC endpoints for AWS Batch, be aware of the following considerations:
 + Jobs using Fargate resources launch type don't require the interface VPC endpoints for Amazon ECS, but you might need interface VPC endpoints for Amazon ECS, Amazon ECR, Secrets Manager, or Amazon CloudWatch Logs described in the following points\.
@@ -26,11 +26,11 @@ Before you set up interface VPC endpoints for AWS Batch, be aware of the followi
   + Asia Pacific \(Osaka\) \(`ap-northeast-3`\)
   + Asia Pacific \(Jakarta\) \(`ap-southeast-3`\)
 
-## Create an interface endpoint for<a name="vpc-endpoint-create"></a>
+## Create an interface endpoint for AWS Batch<a name="vpc-endpoint-create"></a>
 
-You can create an interface endpoint for using either the Amazon VPC console or the AWS Command Line Interface \(AWS CLI\)\. For more information, see [Create an interface endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#create-interface-endpoint) in the *AWS PrivateLink Guide*\.
+You can create an interface endpoint for AWS Batch using either the Amazon VPC console or the AWS Command Line Interface \(AWS CLI\)\. For more information, see [Create an interface endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#create-interface-endpoint) in the *AWS PrivateLink Guide*\.
 
-Create an interface endpoint for using the following service name:
+Create an interface endpoint for AWS Batch using the following service name:
 
 ```
 com.amazonaws.region.batch
@@ -54,13 +54,13 @@ For example:
 cn.com.amazonaws.cn-northwest-1.batch
 ```
 
-If you enable private DNS for the interface endpoint, you can make API requests to using its default Regional DNS name\. For example, `batch.us-east-1.amazonaws.com`\.
+If you enable private DNS for the interface endpoint, you can make API requests to AWS Batch using its default Regional DNS name\. For example, `batch.us-east-1.amazonaws.com`\.
 
 For more information, see [Access a service through an interface endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#access-service-though-endpoint) in the *AWS PrivateLink Guide*\.
 
 ## Create an endpoint policy for your interface endpoint<a name="vpc-endpoint-policy"></a>
 
-An endpoint policy is an IAM resource that you can attach to an interface endpoint\. The default endpoint policy allows full access to through the interface endpoint\. To control the access allowed to from your VPC, attach a custom endpoint policy to the interface endpoint\.
+An endpoint policy is an IAM resource that you can attach to an interface endpoint\. The default endpoint policy allows full access to AWS Batch through the interface endpoint\. To control the access allowed to AWS Batch from your VPC, attach a custom endpoint policy to the interface endpoint\.
 
 An endpoint policy specifies the following information:
 + The principals that can perform actions \(AWS accounts, IAM users, and IAM roles\)\.
@@ -69,8 +69,8 @@ An endpoint policy specifies the following information:
 
 For more information, see [Control access to services using endpoint policies](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-access.html) in the *AWS PrivateLink Guide*\.
 
-**Example: VPC endpoint policy for actions**  
-The following is an example of a custom endpoint policy\. When you attach this policy to your interface endpoint, it grants access to the listed actions for all principals on all resources\.
+**Example: VPC endpoint policy for AWS Batch actions**  
+The following is an example of a custom endpoint policy\. When you attach this policy to your interface endpoint, it grants access to the listed AWS Batch actions for all principals on all resources\.
 
 ```
 {
