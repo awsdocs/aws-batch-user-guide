@@ -38,15 +38,15 @@ For more information about example IAM policy statements for AWS Batch, see [Cre
 
 ## Actions for AWS Batch<a name="UsingWithbatch_Actions"></a>
 
-In an IAM policy statement, you can specify any API action from any service that supports IAM\. For AWS Batch, use the following prefix with the name of the API action: `batch:` \(for example: `batch:SubmitJob` and `batch:CreateComputeEnvironment`\)\.
+In an IAM policy statement, you can specify any API action from any service that supports IAM\. For AWS Batch, use the following prefix with the name of the API action: `batch:` \(for example, `batch:SubmitJob` and `batch:CreateComputeEnvironment`\)\.
 
-To specify multiple actions in a single statement, separate them with commas\.
+To specify multiple actions in a single statement, separate each action with a comma\.
 
 ```
 "Action": ["batch:action1", "batch:action2"]
 ```
 
-You can also specify multiple actions by including a wildcard \(\*\)\. For example, you can specify all actions whose name begins with the word "Describe\."
+You can also specify multiple actions by including a wildcard \(\*\)\. For example, you can specify all actions with a name that begins with the word "Describe\."
 
 ```
 "Action": "batch:Describe*"
@@ -93,16 +93,16 @@ AWS Batch API operations currently support resource\-level permissions on severa
 
 ## Checking that users have the required permissions<a name="check-required-permissions"></a>
 
-Before you put an IAM policy into production, we recommend that you check whether it grants users the permissions to use the particular API actions and resources that they need\.
+Before you put an IAM policy into production, make sure that it grants users the permissions to use the specific API actions and resources that they need\.
 
-First, create an IAM user for testing purposes and attach the IAM policy to the test user\. Then, make a request as the test user\. You can make test requests in the console or with the AWS CLI\. 
+To do this, first create an IAM user for testing purposes and attach the IAM policy to the test user\. Then, make a request as the test user\. You can make test requests in the console or with the AWS CLI\. 
 
 **Note**  
-You can also test your policies with the [IAM Policy Simulator](https://policysim.aws.amazon.com/home/index.jsp?#)\. For more information about the policy simulator, see [Working with the IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_testing-policies.html) in the *IAM User Guide*\.
+You can also test your policies by using the [IAM Policy Simulator](https://policysim.aws.amazon.com/home/index.jsp?#)\. For more information about the policy simulator, see [Working with the IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_testing-policies.html) in the *IAM User Guide*\.
 
 If the policy doesn't grant the user the permissions that you expected, or is overly permissive, you can adjust the policy as needed\. Retest until you get the desired results\. 
 
 **Important**  
-It can take several minutes for policy changes to propagate before they take effect\. Therefore, we recommend that you allow five minutes to pass before you test your policy updates\.
+It can take several minutes for policy changes to propagate before they take effect\. Therefore, we recommend that you allow at least five minutes to pass before you test your policy updates\.
 
 If an authorization check fails, the request returns an encoded message with diagnostic information\. You can decode the message using the `DecodeAuthorizationMessage` action\. For more information, see [DecodeAuthorizationMessage](https://docs.aws.amazon.com/STS/latest/APIReference/API_DecodeAuthorizationMessage.html) in the *AWS Security Token Service API Reference*, and [decode\-authorization\-message](https://docs.aws.amazon.com/cli/latest/reference/sts/decode-authorization-message.html) in the *AWS CLI Command Reference*\.

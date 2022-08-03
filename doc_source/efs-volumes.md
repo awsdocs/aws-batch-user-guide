@@ -46,9 +46,7 @@ To use Amazon EFS file system volumes for your containers, you must specify the 
 {
     "containerProperties": [
         {
-            "name": "container-using-efs",
-            "image": "amazonlinux:2"
-            ],
+            "image": "amazonlinux:2",
             "command": [
                 "ls",
                 "-la",

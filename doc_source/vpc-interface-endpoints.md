@@ -13,7 +13,7 @@ Before you set up an interface endpoint for AWS Batch, review [Interface endpoin
 AWS Batch supports making calls to all of its API actions through the interface endpoint\. 
 
 Before you set up interface VPC endpoints for AWS Batch, be aware of the following considerations:
-+ Jobs using Fargate resources launch type don't require the interface VPC endpoints for Amazon ECS, but you might need interface VPC endpoints for Amazon ECS, Amazon ECR, Secrets Manager, or Amazon CloudWatch Logs described in the following points\.
++ Jobs using Fargate resources launch type don't require the interface VPC endpoints for Amazon ECS, but you might need interface VPC endpoints for AWS Batch, Amazon ECR, Secrets Manager, or Amazon CloudWatch Logs described in the following points\.
   + To run jobs, you must create the interface VPC endpoints for Amazon ECS\. For more information, see [Interface VPC Endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/vpc-endpoints.html) in the *Amazon Elastic Container Service Developer Guide*\.
   + To allow your jobs to pull private images from Amazon ECR, you must create the interface VPC endpoints for Amazon ECR\. For more information, see [Interface VPC Endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/vpc-endpoints.html) in the *Amazon Elastic Container Registry User Guide*\.
   + To allow your jobs to pull sensitive data from Secrets Manager, you must create the interface VPC endpoints for Secrets Manager\. For more information, see [Using Secrets Manager with VPC Endpoints](https://docs.aws.amazon.com/secretsmanager/latest/userguide/vpc-endpoint-overview.html) in the *AWS Secrets Manager User Guide*\.

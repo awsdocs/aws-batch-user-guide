@@ -22,7 +22,7 @@
 
 1. \(Optional\) Turn on **Propagate tags** to propagate tags from the job and job definition to the Amazon ECS task\.
 
-1. Foror **Platform type**, choose **EC2**\.
+1. For **Platform type**, choose **EC2**\.
 
 1. For **Execution role**, specify an IAM role that grants the Amazon ECS container agents permission to make AWS API calls on your behalf\. This feature uses Amazon ECS IAM roles for task functionality\. For more information, see [Amazon ECS task execution IAM roles](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html) in the *Amazon Elastic Container Service Developer Guide*\. 
 

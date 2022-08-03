@@ -46,7 +46,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Creating a job queue](create-job-queue.md)
       + [Job queue template](job-queue-template.md)
    + [Job queue parameters](job_queue_parameters.md)
-+ [Job Scheduling](job_scheduling.md)
++ [Job scheduling](job_scheduling.md)
 + [Compute environment](compute_environments.md)
    + [Compute resource AMIs](compute_resource_AMIs.md)
       + [Creating a compute resource AMI](create-batch-ami.md)

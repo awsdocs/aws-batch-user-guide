@@ -1,6 +1,6 @@
 # Supported resource\-level permissions for AWS Batch API actions<a name="batch-supported-iam-actions-resources"></a>
 
-The term *resource\-level permissions* refers to the ability to specify the resources that users are allowed to perform actions on\. AWS Batch has partial support for resource\-level permissions\. For certain AWS Batch actions, you can control when users are allowed to use those actions based on conditions that have to be fulfilled\. You can control based on the specific resources that users are allowed to use\. For example, you can grant users permissions to submit jobs, but only to a specific job queue and only with a specific job definition\. 
+The term *resource\-level permissions* refers to the ability to specify the resources that users are allowed to perform actions on\. AWS Batch has partial support for resource\-level permissions\. For some AWS Batch actions, you can control when users are allowed to use those actions based on conditions that must be met\. You can also control based on the specific resources that users are allowed to use\. For example, you can grant users permissions to submit jobs, but only to a specific job queue and only with a specific job definition\. 
 
 The following list describes the AWS Batch API actions that currently support resource\-level permissions\. The list also describes the supported resources, resource ARNs, and condition keys for each action\.
 
@@ -303,7 +303,7 @@ When this parameter is true, the `awslogs-group` is created for the logs\.
 The `awslogs` group where the logs are located\.
 
 `batch:AWSLogsRegion` \(String\)  <a name="batch-supported-condition-keys-awslogsregion"></a>
-The Region where the logs are sent to\.
+The AWS Region where the logs are sent to\.
 
 `batch:AWSLogsStreamPrefix` \(String\)  <a name="batch-supported-condition-keys-awslogsstreamprefix"></a>
 The `awslogs` log stream prefix\.

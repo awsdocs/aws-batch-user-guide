@@ -22,7 +22,7 @@ The following Amazon EC2 GPU\-based instance types are supported\. For more info
 | g5\.4xlarge | 1 | 24 GiB | 16 | 64 GiB | Up to 25 Gbps | 
 | g5\.8xlarge | 1 | 24 GiB | 32 | 128 GiB | 25 Gbps | 
 | g5\.16xlarge | 1 | 24 GiB | 64 | 256 GiB | 25 Gbps | 
-|  g5\.12xlarge | 4 | 96 GiB | 48 | 192 GiB | 40 Gbps | 
+| g5\.12xlarge | 4 | 96 GiB | 48 | 192 GiB | 40 Gbps | 
 | g5\.24xlarge | 4 | 96 GiB | 96 | 384 GiB | 50 Gbps | 
 | g5\.48xlarge | 8 | 192 GiB | 192 | 768 GiB | 100 Gbps | 
 | p2\.xlarge | 1 | 12 GiB | 4 | 61 GiB | High | 
@@ -33,6 +33,9 @@ The following Amazon EC2 GPU\-based instance types are supported\. For more info
 | p3\.16xlarge | 8 | 128 GiB | 64 | 488 GiB | 25 Gbps | 
 | p3dn\.24xlarge | 8 | 256 GiB | 96 | 768 GiB | 100 Gbps | 
 | p4d\.24xlarge | 8 | 320 GiB | 96 | 1152 GiB | 4x100 Gbps | 
+
+**Note**  
+Only instance types that support a NVIDIA GPU and use an x86\_64 architecture are supported for GPU jobs in AWS Batch\. For example, the [http://aws.amazon.com/ec2/instance-types/g4/#Amazon_EC2_G4ad_instances](http://aws.amazon.com/ec2/instance-types/g4/#Amazon_EC2_G4ad_instances) and [http://aws.amazon.com/ec2/instance-types/g5g/](http://aws.amazon.com/ec2/instance-types/g5g/) instance families are not supported\.
 
 The [resourceRequirements](job_definition_parameters.md#ContainerProperties-resourceRequirements) parameter for the job definition specifies the number of GPUs to be pinned to the container\. This number of GPUs isn't available to any other job that runs on that instance for the duration of that job\. All instance types in a compute environment that run GPU jobs must be from the `p2`, `p3`, `p4`, `g3`, `g3s`, `g4`, or `g5` instance families\. If this isn't done a GPU job might get stuck in the `RUNNABLE` status\.
 
