@@ -39,4 +39,4 @@ Only instance types that support a NVIDIA GPU and use an x86\_64 architecture ar
 
 The [resourceRequirements](job_definition_parameters.md#ContainerProperties-resourceRequirements) parameter for the job definition specifies the number of GPUs to be pinned to the container\. This number of GPUs isn't available to any other job that runs on that instance for the duration of that job\. All instance types in a compute environment that run GPU jobs must be from the `p2`, `p3`, `p4`, `g3`, `g3s`, `g4`, or `g5` instance families\. If this isn't done a GPU job might get stuck in the `RUNNABLE` status\.
 
-Jobs that don't use the GPUs can be run on GPU instances\. However, they might cost more to run on the GPU instances than on similar non\-GPU instances\. Depending on the specific vCPU, memory, and time needed, these non\-GPU jobs might block GPU jobs from running\.
+Jobs that don't use the GPUs can be run on CPU instances\. However, they might cost more to run on the GPU instances than on similar non\-GPU instances\. Depending on the specific vCPU, memory, and time needed, these non\-GPU jobs might block GPU jobs from running\.
