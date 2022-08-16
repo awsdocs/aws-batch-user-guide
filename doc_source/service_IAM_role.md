@@ -148,7 +148,7 @@ If the `AWSServiceRoleForBatch` role doesn't exist, follow the procedure below t
 1. For **Permission policies**, verify that the **BatchServiceRolePolicy** policy is attached to the role\. If the policy is attached, your AWS Batch service role is properly configured\. 
 **Note**  
 The Amazon Resource Name \(ARN\) for the **AWSServiceRoleForBatch** role is in the following format:  
-`arn:aws::iam::aws_account_id:role/aws-service-role/batch.amazonaws.com/AWSServiceRoleForBatch`
+`arn:aws:iam::aws_account_id:role/aws-service-role/batch.amazonaws.com/AWSServiceRoleForBatch`
 
 1. Choose **Trust relationships**\.
 
@@ -186,7 +186,7 @@ The Amazon Resource Name \(ARN\) for the **AWSServiceRoleForBatch** role is in t
 1. For **Permissions policies**, verify that the **AWSBatchServiceRole** policy is attached, then choose **Next**\.
 **Note**  
 The ARN for the **AWSBatchServiceRole** policy is in the following format:  
-`arn:aws::iam::aws:policy/service-role/AWSBatchServiceRole`
+`arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole`
 
 1. For **Role Name**, enter `AWSServiceRoleForBatch` and then enter a **Description**\.
 

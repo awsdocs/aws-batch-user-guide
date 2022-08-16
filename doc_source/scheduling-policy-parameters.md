@@ -2,7 +2,10 @@
 
 Scheduling policies are split into three basic components: the name, fair share policy, and tags of the scheduling policy\.
 
-
+**Topics**
++ [Scheduling policy name](#scheduling-policy-name)
++ [Fair share policy](#scheduling-policy-fair_share_policy)
++ [Tags](#scheduling-policy-tags)
 
 ## Scheduling policy name<a name="scheduling-policy-name"></a>
 

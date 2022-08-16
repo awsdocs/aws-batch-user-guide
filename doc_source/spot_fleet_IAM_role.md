@@ -73,7 +73,7 @@ In the past, there were two managed policies for the Amazon EC2 Spot Fleet role\
    ```
    $ aws iam attach-role-policy \
      --policy-arn \
-       arn:aws::iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole \
+       arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole \
      --role-name \
        AmazonEC2SpotFleetTaggingRole
    ```
