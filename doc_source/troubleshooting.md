@@ -1,6 +1,11 @@
 # Troubleshooting AWS Batch<a name="troubleshooting"></a>
 
-You might need to troubleshoot issues that are related to your compute environments, job queues, job definitions, or jobs\. This chapter describes how to troubleshoot and repair these issues in your AWS Batch environment\. 
+You might need to troubleshoot issues that are related to your compute environments, job queues, job definitions, or jobs\. This chapter describes how to troubleshoot and repair these issues in your AWS Batch environment\.
+
+AWS Batch uses IAM policies, roles, and permissions, and runs on Amazon EC2 and Amazon ECS infrastructure\. To troubleshoot issues that are related to these services, see the following:
++ [Troubleshooting IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot.html) in the *IAM User Guide*
++ [Amazon ECS troubleshooting](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/troubleshooting.html) in the *Amazon Elastic Container Service Developer Guide*
++ [Troubleshoot EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-troubleshoot.html) in the *Amazon EC2 User Guide for Linux Instances*
 
 ## `INVALID` compute environment<a name="invalid_compute_environment"></a>
 
@@ -130,7 +135,7 @@ The example commands assume that your Amazon EC2 Spot Fleet role is named *Amazo
 1. To attach the **AmazonEC2SpotFleetTaggingRole** managed IAM policy to your *AmazonEC2SpotFleetRole* role, run the following command using the AWS CLI\.
 
    ```
-   aws iam attach-role-policy \
+   $ aws iam attach-role-policy \
        --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole \
        --role-name AmazonEC2SpotFleetRole
    ```
@@ -138,7 +143,7 @@ The example commands assume that your Amazon EC2 Spot Fleet role is named *Amazo
 1. To detach the **AmazonEC2SpotFleetRole** managed IAM policy from your *AmazonEC2SpotFleetRole* role, run the following command using the AWS CLI\.
 
    ```
-   aws iam detach-role-policy \
+   $ aws iam detach-role-policy \
        --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetRole \
        --role-name AmazonEC2SpotFleetRole
    ```

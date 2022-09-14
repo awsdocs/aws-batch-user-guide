@@ -16,3 +16,4 @@ You can submit a large number of independent, simple jobs\.
 + [Array jobs](array_jobs.md)
 + [Multi\-node parallel jobs](multi-node-parallel-jobs.md)
 + [GPU jobs](gpu-jobs.md)
++ [Search and filter AWS Batch jobs](search-filter-jobs.md)
