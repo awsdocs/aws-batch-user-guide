@@ -5,11 +5,11 @@ The following example shows an empty compute environment template\. You can use 
 ```
 {
     "computeEnvironmentName": "",
-    "type": "MANAGED",
-    "state": "ENABLED",
+    "type": "UNMANAGED",
+    "state": "DISABLED",
     "unmanagedvCpus": 0,
     "computeResources": {
-        "type": "FARGATE_SPOT",
+        "type": "EC2",
         "allocationStrategy": "BEST_FIT_PROGRESSIVE",
         "minvCpus": 0,
         "maxvCpus": 0,
@@ -40,13 +40,18 @@ The following example shows an empty compute environment template\. You can use 
         "ec2Configuration": [
             {
                 "imageType": "",
-                "imageIdOverride": ""
+                "imageIdOverride": "",
+                "imageKubernetesVersion": ""
             }
         ]
     },
     "serviceRole": "",
     "tags": {
         "KeyName": ""
+    },
+    "eksConfiguration": {
+        "eksClusterArn": "",
+        "kubernetesNamespace": ""
     }
 }
 ```

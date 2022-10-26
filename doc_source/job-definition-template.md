@@ -5,7 +5,7 @@ The following is an empty job definition template\. You can use this template to
 ```
 {
     "jobDefinitionName": "",
-    "type": "multinode",
+    "type": "container",
     "parameters": {
         "KeyName": ""
     },
@@ -32,7 +32,7 @@ The following is an empty job definition template\. You can use this template to
                     "transitEncryptionPort": 0,
                     "authorizationConfig": {
                         "accessPointId": "",
-                        "iam": "ENABLED"
+                        "iam": "DISABLED"
                     }
                 }
             }
@@ -64,7 +64,7 @@ The following is an empty job definition template\. You can use this template to
         "resourceRequirements": [
             {
                 "value": "",
-                "type": "GPU"
+                "type": "MEMORY"
             }
         ],
         "linuxParameters": {
@@ -73,7 +73,7 @@ The following is an empty job definition template\. You can use this template to
                     "hostPath": "",
                     "containerPath": "",
                     "permissions": [
-                        "READ"
+                        "WRITE"
                     ]
                 }
             ],
@@ -92,7 +92,7 @@ The following is an empty job definition template\. You can use this template to
             "swappiness": 0
         },
         "logConfiguration": {
-            "logDriver": "json-file",
+            "logDriver": "syslog",
             "options": {
                 "KeyName": ""
             },
@@ -110,7 +110,7 @@ The following is an empty job definition template\. You can use this template to
             }
         ],
         "networkConfiguration": {
-            "assignPublicIp": "ENABLED"
+            "assignPublicIp": "DISABLED"
         },
         "fargatePlatformConfiguration": {
             "platformVersion": ""
@@ -144,7 +144,7 @@ The following is an empty job definition template\. You can use this template to
                                 "transitEncryptionPort": 0,
                                 "authorizationConfig": {
                                     "accessPointId": "",
-                                    "iam": "DISABLED"
+                                    "iam": "ENABLED"
                                 }
                             }
                         }
@@ -185,7 +185,7 @@ The following is an empty job definition template\. You can use this template to
                                 "hostPath": "",
                                 "containerPath": "",
                                 "permissions": [
-                                    "READ"
+                                    "WRITE"
                                 ]
                             }
                         ],
@@ -204,7 +204,7 @@ The following is an empty job definition template\. You can use this template to
                         "swappiness": 0
                     },
                     "logConfiguration": {
-                        "logDriver": "journald",
+                        "logDriver": "awslogs",
                         "options": {
                             "KeyName": ""
                         },
@@ -250,8 +250,72 @@ The following is an empty job definition template\. You can use this template to
         "KeyName": ""
     },
     "platformCapabilities": [
-        "FARGATE"
-    ]
+        "EC2"
+    ],
+    "eksProperties": {
+        "podProperties": {
+            "serviceAccountName": "",
+            "hostNetwork": true,
+            "dnsPolicy": "",
+            "containers": [
+                {
+                    "name": "",
+                    "image": "",
+                    "imagePullPolicy": "",
+                    "command": [
+                        ""
+                    ],
+                    "args": [
+                        ""
+                    ],
+                    "env": [
+                        {
+                            "name": "",
+                            "value": ""
+                        }
+                    ],
+                    "resources": {
+                        "limits": {
+                            "KeyName": ""
+                        },
+                        "requests": {
+                            "KeyName": ""
+                        }
+                    },
+                    "volumeMounts": [
+                        {
+                            "name": "",
+                            "mountPath": "",
+                            "readOnly": true
+                        }
+                    ],
+                    "securityContext": {
+                        "runAsUser": 0,
+                        "runAsGroup": 0,
+                        "privileged": true,
+                        "readOnlyRootFilesystem": true,
+                        "runAsNonRoot": true
+                    }
+                }
+            ],
+            "volumes": [
+                {
+                    "name": "",
+                    "hostPath": {
+                        "path": ""
+                    },
+                    "emptyDir": {
+                        "medium": "",
+                        "sizeLimit": ""
+                    },
+                    "secret": {
+                        "secretName": "",
+                        "optional": true
+                    }
+                }
+            ]
+        }
+    }
 }
 ```
 

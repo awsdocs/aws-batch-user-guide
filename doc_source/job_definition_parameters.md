@@ -1,14 +1,15 @@
 # Job definition parameters<a name="job_definition_parameters"></a>
 
-Job definitions are split into four basic parts: the job definition name, the type of the job definition, parameter substitution placeholder defaults, and the container properties for the job\.
+Job definitions are split into several basic parts: the job definition name, the type of the job definition, parameter substitution placeholder defaults, the container properties for the job, the Amazon EKS properties for the job definition \(for jobs run on Amazon EKS resources\), the node properties \(for a multi\-node parallel job\), the platform capabilities \(for jobs run on Fargate resources\), the default tag propagation details of the job definition, the default retry strategy for the job definition, the default scheduling priority for the job definition, the default tags for the job definition, and the default timeout for the job definition\.
 
 **Contents**
 + [Job definition name](#jobDefinitionName)
 + [Type](#type)
 + [Parameters](#parameters)
++ [Container properties](#containerProperties)
++ [Amazon EKS properties](#job-definition-parameters-eks-properties)
 + [Platform capabilities](#job-definition-parameters-platform-capabilities)
 + [Propagate tags](#job-definition-parameters-propagate-tags)
-+ [Container properties](#containerProperties)
 + [Node properties](#nodeProperties)
 + [Retry strategy](#retryStrategy)
 + [Scheduling priority](#job-definition-parameters-schedulingPriority)
@@ -55,21 +56,6 @@ In the above example, there are `Ref::inputfile`, `Ref::codec`, and `Ref::output
 "parameters" : {"codec" : "mp4"}
 ```
 When this job definition is submitted to run, the `Ref::codec` argument in the command for the container is replaced with the default value, `mp4`\.
-
-## Platform capabilities<a name="job-definition-parameters-platform-capabilities"></a>
-
-`platformCapabilities`  
-The platform capabilities that's required by the job definition\. If no value is specified, it defaults to `EC2`\. For jobs that run on Fargate resources, `FARGATE` is specified\.  
-Type: String  
-Valid values: `EC2` \| `FARGATE`  
-Required: No
-
-## Propagate tags<a name="job-definition-parameters-propagate-tags"></a>
-
-`propagateTags`  
-Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task\. If no value is specified, the tags aren't propagated\. Tags can only be propagated to the tasks when the task is created\. For tags with the same name, job tags are given priority over job definitions tags\. If the total number of combined tags from the job and job definition is over 50, the job's moved to the `FAILED` state\.  
-Type: Boolean  
-Required: No
 
 ## Container properties<a name="containerProperties"></a>
 
@@ -428,7 +414,8 @@ For jobs that are running on Fargate resources, then `value` must match one of t
 <a name="Fargate-memory-vcpu"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html)  
 type="VCPU"  
 The number of vCPUs reserved for the job\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [docker run](https://docs.docker.com/engine/reference/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. For jobs that are running on EC2 resources, you must specify at least one vCPU\. This is required but can be specified in several places\. It must be specified for each node at least once\.  
-For jobs that are running on Fargate resources, then `value` must match one of the supported values and the `MEMORY` values must be one of the values supported for that VCPU value\. The supported values are 0\.25, 0\.5, 1, 2, and 4\.
+For jobs that are running on Fargate resources, then `value` must match one of the supported values and the `MEMORY` values must be one of the values supported for that VCPU value\. The supported values are 0\.25, 0\.5, 1, 2, 4, 8, and 16\.  
+The default for the Fargate On\-Demand vCPU resource count quota is 6 vCPUs\. For more information about Fargate quotas, see [AWS Fargate quotas ](https://docs.aws.amazon.com/general/latest/gr/ecs-service.html#service-quotas-fargate)in the *Amazon Web Services General Reference*\.
 Type: String  
 Required: Yes, when `resourceRequirements` is used\.
 
@@ -599,10 +586,202 @@ The port to use when sending encrypted data between the Amazon ECS host and the 
 Type: Integer  
 Required: No
 
+## Amazon EKS properties<a name="job-definition-parameters-eks-properties"></a>
+
+An object with various properties that are specific to Amazon EKS based jobs\. This must not be specified for Amazon ECS based job definitions\.
+
+`podProperties`  
+The properties for the Kubernetes pod resources of a job\.  
+Type: [EksPodProperties](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksPodProperties.html) object  
+Required: No    
+`containers`  
+The properties of the container that's used on the Amazon EKS pod\.  
+Type: [EksContainer](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksContainer.html) object  
+Required: No    
+`args`  
+An array of arguments to the entrypoint\. If this isn't specified, the `CMD` of the container image is used\. This corresponds to the `args` member in the [Entrypoint](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#entrypoint) portion of the [Pod](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/) in Kubernetes\. Environment variable references are expanded using the container's environment\.  
+If the referenced environment variable doesn't exist, the reference in the command isn't changed\. For example, if the reference is to "`$(NAME1)`" and the `NAME1` environment variable doesn't exist, the command string will remain "`$(NAME1)`\." `$$` is replaced with `$`, and the resulting string isn't expanded\. For example, `$$(VAR_NAME)` is passed as `$(VAR_NAME)` whether or not the `VAR_NAME` environment variable exists\. For more information, see [CMD](https://docs.docker.com/engine/reference/builder/#cmd) in the *Dockerfile reference* and [Define a command and arguments for a pod](https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/) in the *Kubernetes documentation*\.  
+Type: Array of strings  
+Required: No  
+`command`  
+The entrypoint for the container\. This isn't run within a shell\. If this isn't specified, the `ENTRYPOINT` of the container image is used\. Environment variable references are expanded using the container's environment\.  
+If the referenced environment variable doesn't exist, the reference in the command isn't changed\. For example, if the reference is to "`$(NAME1)`" and the `NAME1` environment variable doesn't exist, the command string will remain "`$(NAME1)`\." `$$` is replaced with `$` and the resulting string isn't expanded\. For example, `$$(VAR_NAME)` will be passed as `$(VAR_NAME)` whether or not the `VAR_NAME` environment variable exists\. The entrypoint can't be updated\. For more information, see [ENTRYPOINT](https://docs.docker.com/engine/reference/builder/#entrypoint) in the *Dockerfile reference* and [Define a command and arguments for a container](https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/) and [Entrypoint](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#entrypoint) in the *Kubernetes documentation*\.  
+Type: Array of strings  
+Required: No  
+`env`  
+The environment variables to pass to a container\.  
+Environment variables cannot start with "`AWS_BATCH`"\. This naming convention is reserved for variables that AWS Batch sets\.
+Type: Array of [EksContainerEnvironmentVariable](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksContainerEnvironmentVariable.html) objects  
+Required: No    
+`name`  
+The name of the environment variable\.  
+Type: String  
+Required: Yes  
+`value`  
+The value of the environment variable\.  
+Type: String  
+Required: No  
+`image`  
+The Docker image used to start the container\.  
+Type: String  
+Required: Yes  
+`imagePullPolicy`  
+The image pull policy for the container\. Supported values are `Always`, `IfNotPresent`, and `Never`\. This parameter defaults to `IfNotPresent`\. However, if the `:latest` tag is specified, it defaults to `Always`\. For more information, see [Updating images](https://kubernetes.io/docs/concepts/containers/images/#updating-images) in the *Kubernetes documentation*\.  
+Type: String  
+Required: No  
+`name`  
+The name of the container\. If the name isn't specified, the default name "`Default`" is used\. Each container in a pod must have a unique name\.  
+Type: String  
+Required: No  
+`resources`  
+The type and amount of resources to assign to a container\. The supported resources include `memory`, `cpu`, and `nvidia.com/gpu`\. For more information, see [Resource management for pods and containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) in the *Kubernetes documentation*\.  
+Type: [EksContainerResourceRequirements](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksContainerResourceRequirements.html) object  
+Required: No    
+`limits`  
+The type and quantity of the resources to reserve for the container\. The values vary based on the `name` that's specified\. Resources can be requested using either the `limits` or the `requests` objects\.    
+memory  
+The memory hard limit \(in MiB\) for the container, using whole integers, with a "Mi" suffix\. If your container attempts to exceed the memory specified, the container is terminated\. You must specify at least 4 MiB of memory for a job\. `memory` can be specified in `limits`, `requests`, or both\. If `memory` is specified in both places, then the value that's specified in `limits` must be equal to the value that's specified in `requests`\.  
+To maximize your resource utilization, provide your jobs with as much memory as possible for the specific instance type that you are using\. To learn how, see [Compute Resource Memory Management](memory-management.md)\.  
+cpu  
+The number of CPUs that's reserved for the container\. Values must be an even multiple of `0.25`\. `cpu` can be specified in `limits`, `requests`, or both\. If `cpu` is specified in both places, then the value that's specified in `limits` must be at least as large as the value that's specified in `requests`\.  
+nvidia\.com/gpu  
+The number of GPUs that's reserved for the container\. Values must be a whole integer\. `memory` can be specified in `limits`, `requests`, or both\. If `memory` is specified in both places, then the value that's specified in `limits` must be equal to the value that's specified in `requests`\.
+Type: String to string map  
+Value Length Constraints: Minimum length of 1\. Maximum length of 256\.  
+Required: No  
+`requests`  
+The type and quantity of the resources to request for the container\. The values vary based on the `name` that's specified\. Resources can be requested by using either the `limits` or the `requests` objects\.    
+memory  
+The memory hard limit \(in MiB\) for the container, using whole integers, with a "Mi" suffix\. If your container attempts to exceed the memory specified, the container is terminated\. You must specify at least 4 MiB of memory for a job\. `memory` can be specified in `limits`, `requests`, or both\. If `memory` is specified in both, then the value that's specified in `limits` must be equal to the value that's specified in `requests`\.  
+If you're trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.  
+cpu  
+The number of CPUs that are reserved for the container\. Values must be an even multiple of `0.25`\. `cpu` can be specified in `limits`, `requests`, or both\. If `cpu` is specified in both, then the value that's specified in `limits` must be at least as large as the value that's specified in `requests`\.  
+nvidia\.com/gpu  
+The number of GPUs that are reserved for the container\. Values must be a whole integer\. `nvidia.com/gpu` can be specified in `limits`, `requests`, or both\. If `nvidia.com/gpu` is specified in both, then the value that's specified in `limits` must be equal to the value that's specified in `requests`\.
+Type: String to string map  
+Value Length Constraints: Minimum length of 1\. Maximum length of 256\.  
+Required: No  
+`securityContext`  
+The security context for a job\. For more information, see [Configure a security context for a pod or container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) in the *Kubernetes documentation*\.  
+Type: [EksContainerSecurityContext](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksContainerSecurityContext.html) object  
+Required: No    
+`privileged`  
+When this parameter is `true`, the container is given elevated permissions on the host container instance\. The level of permissions are similar to the `root` user permissions\. The default value is `false`\. This parameter maps to `privileged` policy in the [Privileged pod security policies](https://kubernetes.io/docs/concepts/security/pod-security-policy/#privileged) in the *Kubernetes documentation*\.  
+Type: Boolean  
+Required: No  
+`readOnlyRootFilesystem`  
+When this parameter is `true`, the container is given read\-only access to its root file system\. The default value is `false`\. This parameter maps to `ReadOnlyRootFilesystem` policy in the [Volumes and file systems pod security policies](https://kubernetes.io/docs/concepts/security/pod-security-policy/#volumes-and-file-systems) in the *Kubernetes documentation*\.  
+Type: Boolean  
+Required: No  
+`runAsGroup`  
+When this parameter is specified, the container is run as the specified group ID \(`gid`\)\. If this parameter isn't specified, the default is the group that's specified in the image metadata\. This parameter maps to `RunAsGroup` and `MustRunAs` policy in the [Users and groups pod security policies](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups) in the *Kubernetes documentation*\.  
+Type: Long  
+Required: No  
+`runAsNonRoot`  
+When this parameter is specified, the container is run as a user with a `uid` other than 0\. If this parameter isn't specified, so such rule is enforced\. This parameter maps to `RunAsUser` and `MustRunAsNonRoot` policy in the [Users and groups pod security policies](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups) in the *Kubernetes documentation*\.  
+Type: Long  
+Required: No  
+`runAsUser`  
+When this parameter is specified, the container is run as the specified user ID \(`uid`\)\. If this parameter isn't specified, the default is the user that's specified in the image metadata\. This parameter maps to `RunAsUser` and `MustRanAs` policy in the [Users and groups pod security policies](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups) in the *Kubernetes documentation*\.  
+Type: Long  
+Required: No  
+`volumeMounts`  
+The volume mounts for a container for an Amazon EKS job\. For more information about volumes and volume mounts in Kubernetes, see [Volumes](https://kubernetes.io/docs/concepts/storage/volumes/) in the *Kubernetes documentation*\.  
+Type: Array of [EksContainerVolumeMount](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksContainerVolumeMount.html) objects  
+Required: No    
+`mountPath`  
+The path on the container where the volume is mounted\.  
+Type: String  
+Required: No  
+`name`  
+The name the volume mount\. This must match the name of one of the volumes in the pod\.  
+Type: String  
+Required: No  
+`readOnly`  
+If this value is `true`, the container has read\-only access to the volume\. Otherwise, the container can write to the volume\. The default value is `false`\.  
+Type: Boolean  
+Required: No  
+`dnsPolicy`  
+The DNS policy for the pod\. The default value is `ClusterFirst`\. If the `hostNetwork` parameter is not specified, the default is `ClusterFirstWithHostNet`\. `ClusterFirst` indicates that any DNS query that does not match the configured cluster domain suffix is forwarded to the upstream nameserver inherited from the node\. If no value was specified for `dnsPolicy` in the [RegisterJobDefinition](https://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) API operation, then no value will be returned for `dnsPolicy` by either of [DescribeJobDefinitions](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobDefinitions.html) or [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operations\. The pod spec setting will contain either `ClusterFirst` or `ClusterFirstWithHostNet`, depending on the value of the `hostNetwork` parameter\. For more information, see [Pod's DNS policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy) in the *Kubernetes documentation*\.  
+Valid values: `Default` \| `ClusterFirst` \| `ClusterFirstWithHostNet` \| `None`  
+Type: String  
+Required: No  
+`hostNetwork`  
+Indicates if the pod uses the hosts' network IP address\. The default value is `true`\. Setting this to `false` enables the Kubernetes pod networking model\. Most AWS Batch workloads are egress\-only and don't require the overhead of IP allocation for each pod for incoming connections\. For more information, see [Host namespaces](https://kubernetes.io/docs/concepts/security/pod-security-policy/#host-namespaces) and [Pod networking](https://kubernetes.io/docs/concepts/workloads/pods/#pod-networking) in the *Kubernetes documentation*\.  
+Type: Boolean  
+Required: No  
+`serviceAccountName`  
+The name of the service account that's used to run the pod\. For more information, see [Kubernetes service accounts](https://docs.aws.amazon.com/eks/latest/userguide/service-accounts.html) and [Configure a Kubernetes service account to assume an IAM role](https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html) in the *Amazon EKS User Guide* and [Configure service accounts for pods](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/) in the *Kubernetes documentation*\.  
+Type: String  
+Required: No  
+`volumes`  
+Specifies the volumes for a job definition that uses Amazon EKS resources\.  
+Type: Array of [EksVolume](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksVolume.html) objects  
+Required: No    
+emptyDir  
+Specifies the configuration of a Kubernetes `emptyDir` volume\. An `emptyDir` volume is first created when a pod is assigned to a node\. It exists as long as that pod is running on that node\. The `emptyDir` volume is initially empty\. All containers in the pod can read and write the files in the `emptyDir` volume\. However, the `emptyDir` volume can be mounted at the same or different paths in each container\. When a pod is removed from a node for any reason, the data in the `emptyDir` is deleted permanently\. For more information, see [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) in the *Kubernetes documentation*\.  
+Type: [EksEmptyDir](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksEmptyDir.html) object  
+Required: No    
+medium  
+The medium to store the volume\. The default value is an empty string, which uses the storage of the node\.    
+""  
+**\(Default\)** Use the disk storage of the node\.  
+"Memory"  
+Use the `tmpfs` volume that's backed by the RAM of the node\. Contents of the volume are lost when the node reboots, and any storage on the volume counts against the container's memory limit\.
+Type: String  
+Required: No  
+sizeLimit  
+The maximum size of the volume\. By default, there's no maximum size defined\.  
+Type: String  
+Length Constraints: Minimum length of 1\. Maximum length of 256\.  
+Required: No  
+hostPath  
+Specifies the configuration of a Kubernetes `hostPath` volume\. A `hostPath` volume mounts an existing file or directory from the host node's filesystem into your pod\. For more information, see [hostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) in the *Kubernetes documentation*\.  
+Type: [EksHostPath](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksHostPath.html) object  
+Required: No    
+path  
+The path of the file or directory on the host to mount into containers on the pod\.  
+Type: String  
+Required: No  
+name  
+The name of the volume\. The name must be allowed as a DNS subdomain name\. For more information, see [DNS subdomain names](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names) in the *Kubernetes documentation*\.  
+Type: String  
+Required:Yes  
+secret  
+Specifies the configuration of a Kubernetes `secret` volume\. For more information, see [secret](https://kubernetes.io/docs/concepts/storage/volumes/#secret) in the *Kubernetes documentation*\.  
+Type: [EksSecret](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksSecret.html) object  
+Required: No    
+optional  
+Specifies whether the secret or the secret's keys must be defined\.  
+Type: Boolean  
+Required: No  
+secretName  
+The name of the secret\. The name must be allowed as a DNS subdomain name\. For more information, see [DNS subdomain names](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names) in the *Kubernetes documentation*\.  
+Type: String  
+Required: Yes
+
+## Platform capabilities<a name="job-definition-parameters-platform-capabilities"></a>
+
+`platformCapabilities`  
+The platform capabilities that's required by the job definition\. If no value is specified, it defaults to `EC2`\. For jobs that run on Fargate resources, `FARGATE` is specified\.  
+If the job runs on Amazon EKS resources, then you must not specify `platformCapabilities`\.
+Type: String  
+Valid values: `EC2` \| `FARGATE`  
+Required: No
+
+## Propagate tags<a name="job-definition-parameters-propagate-tags"></a>
+
+`propagateTags`  
+Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task\. If no value is specified, the tags aren't propagated\. Tags can only be propagated to the tasks when the task is created\. For tags with the same name, job tags are given priority over job definitions tags\. If the total number of combined tags from the job and job definition is over 50, the job's moved to the `FAILED` state\.  
+If the job runs on Amazon EKS resources, then you must not specify `propagateTags`\.
+Type: Boolean  
+Required: No
+
 ## Node properties<a name="nodeProperties"></a>
 
 `nodeProperties`  
 When you register a multi\-node parallel job definition, you must specify a list of node properties\. These node properties should define the number of nodes to use in your job, the main node index, and the different node ranges to use\. If the job runs on Fargate resources, then you can't specify `nodeProperties`\. Rather, you should use `containerProperties` instead\. The following node properties are allowed in a job definition\. For more information, see [Multi\-node parallel jobs](multi-node-parallel-jobs.md)\.  
+If the job runs on Amazon EKS resources, then you must not specify `nodeProperties`\.
 Type: [NodeProperties](https://docs.aws.amazon.com/batch/latest/APIReference/API_NodeProperties.html) object  
 Required: No    
 `mainNode`  

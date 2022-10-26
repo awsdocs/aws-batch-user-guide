@@ -25,6 +25,8 @@ This policy allows full administrator access to AWS Batch\.
         "ecs:DescribeClusters",
         "ecs:Describe*",
         "ecs:List*",
+        "eks:DescribeCluster",
+        "eks:ListClusters",
         "logs:Describe*",
         "logs:Get*",
         "logs:TestMetricFilter",

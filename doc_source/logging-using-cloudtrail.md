@@ -80,7 +80,6 @@ The following example shows a CloudTrail log entry that demonstrates the `[Creat
     },
     "state": "ENABLED",
     "type": "MANAGED",
-    "serviceRole": "service-role/AWSBatchServiceRole",
     "computeEnvironmentName": "Test"
   },
   "responseElements": {

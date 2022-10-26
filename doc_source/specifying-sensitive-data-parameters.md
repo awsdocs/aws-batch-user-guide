@@ -83,7 +83,7 @@ The following is a snippet of a task definition showing the format when referenc
       },
       "secretOptions": [{
         "name": "fluentd-address",
-        "valueFrom": "arn:aws:ssm:region:aws_account_id:parameter:parameter_name"
+        "valueFrom": "arn:aws:ssm:region:aws_account_id:parameter/parameter_name"
       }]
     }]
   }]

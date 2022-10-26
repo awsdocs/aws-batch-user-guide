@@ -1,12 +1,13 @@
 # Compute environment parameters<a name="compute_environment_parameters"></a>
 
-Compute environments are split into five basic components: the name, type, and state of the compute environment, the compute resource definition \(if it's a managed compute environment\), and the service role to use to provide IAM permissions to AWS Batch\.
+Compute environments are split into several basic components: the name, type, and state of the compute environment, the compute resource definition \(if it's a managed compute environment\), the Amazon EKS configuration \(if it uses Amazon EKS resources\), the service role to use to provide IAM permissions to AWS Batch, and the tags for the compute environment\.
 
 **Topics**
 + [Compute environment name](#compute_environment_name)
 + [Type](#compute_environment_type)
 + [State](#compute_environment_state)
 + [Compute resources](#compute_environment_compute_resources)
++ [Amazon EKS configuration](#compute_environment_eks_configuration)
 + [Service role](#compute_environment_service_role)
 + [Tags](#compute_environment_tags)
 
@@ -50,11 +51,12 @@ The allocation strategy to use for the compute resource if not enough instances 
 This parameter isn't applicable to jobs that run on Fargate resources, and shouldn't be specified\.  
 `BEST_FIT` \(default\)  
 AWS Batch selects an instance type that best fits the needs of the jobs with a preference for the lowest cost instance type\. If additional instances of the selected instance type aren't available, AWS Batch waits for the additional instances to be available\. If there aren't enough instances available, or if you're hitting [Amazon EC2 service limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html), additional jobs don't run until after currently running jobs are complete\. This allocation strategy keeps costs lower but can limit scaling\. If you're using Spot Fleets with `BEST_FIT`, the Spot Fleet IAM Role must be specified\. Compute resources that use a `BEST_FIT` allocation strategy don't support infrastructure updates and can't update some parameters\. For more information, see [Updating compute environments](updating-compute-environments.md)\.  
+`BEST_FIT` isn't supported for compute environments using Amazon EKS resources\.  
 `BEST_FIT_PROGRESSIVE`  
 Use additional instance types that are large enough to meet the requirements of the jobs in the queue, with a preference for instance types with a lower cost for each unit vCPU\. If additional instances of the previously selected instance types aren't available, AWS Batch selects new instance types\.  
 `SPOT_CAPACITY_OPTIMIZED`  
 \(Only available for Spot Instance compute resources\) Use additional instance types that are large enough to meet the requirements of the jobs in the queue, with a preference for instance types that are less likely to be interrupted\.
-With both `BEST_FIT_PROGRESSIVE` and `SPOT_CAPACITY_OPTIMIZED` strategies, AWS Batch might need to exceed `maxvCpus` to meet your capacity requirements\. In this event, AWS Batch never exceeds `maxvCpus` by more than a single instance\.  
+With both `BEST_FIT_PROGRESSIVE` and `SPOT_CAPACITY_OPTIMIZED` strategies using On\-Demand or Spot Instances, and the `BEST_FIT` strategy using Spot Instances, AWS Batch might need to exceed `maxvCpus` to meet your capacity requirements\. In this event, AWS Batch never exceeds `maxvCpus` by more than a single instance\.  
 Valid values: `BEST_FIT` \| `BEST_FIT_PROGRESSIVE` \| `SPOT_CAPACITY_OPTIMIZED`  
 Required: No  
 `minvCpus`  <a name="compute-environment-compute-resources-minvCpus"></a>
@@ -64,7 +66,7 @@ Type: Integer
 Required: No  
 `maxvCpus`  <a name="compute-environment-compute-resources-maxvCpus"></a>
 The maximum number of Amazon EC2 vCPUs that an environment can reach\.  
-With both `BEST_FIT_PROGRESSIVE` and `SPOT_CAPACITY_OPTIMIZED` allocation strategies, AWS Batch might need to exceed `maxvCpus` to meet your capacity requirements\. In this event, AWS Batch never exceeds `maxvCpus` by more than a single instance\. For example, AWS Batch uses no more than a single instance from among those specified in your compute environment\.
+With both `BEST_FIT_PROGRESSIVE` and `SPOT_CAPACITY_OPTIMIZED` allocation strategies using On\-Demand or Spot Instances, and the `BEST_FIT` strategy using Spot Instances, AWS Batch might need to exceed `maxvCpus` to meet your capacity requirements\. In this event, AWS Batch never exceeds `maxvCpus` by more than a single instance\. For example, AWS Batch uses no more than a single instance from among those specified in your compute environment\.
 Type: Integer  
 Required: No  
 `desiredvCpus`  <a name="compute-environment-compute-resources-desiredvCpus"></a>
@@ -157,21 +159,53 @@ Required: No
 The AMI ID used for instances launched in the compute environment that matches the image type\. This setting overrides the `imageId` set in the `computeResource` object\.  
 Type: String  
 Required: No  
+`imageKubernetesVersion`  <a name="compute-environment-compute-resources-imageKubernetesVersion"></a>
+The Kubernetes version for the compute environment\. If you don't specify a value, the latest version that AWS Batch supports is used\.  
+Type: String  
+Length Constraints: Minimum length of 1\. Maximum length of 256\.  
+Required: No  
 `imageType`  <a name="compute-environment-compute-resources-imageType"></a>
-The image type to match with the instance type to select an AMI\. If the `imageIdOverride` parameter isn't specified,a recent [Amazon ECS optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) is used\. If a new image type is specified in an update operation, but neither an `imageId` nor a `imageIdOverride` parameter is specified in the update, then the latest Amazon ECS optimized AMI for that image type supported by AWS Batch is used\.    
-[Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\)  
- Default for all AWS Graviton based instance families \(for example, `C6g`, `M6g`, `R6g`, and `T4g`\) and can be used for all non\-GPU instance types\.  
-[Amazon Linux 2 \(GPU\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#gpuami) \(`ECS_AL2_NVIDIA`\)  
-Default for all GPU instance families \(for example `P4` and `G4`\) and can be used for all non AWS Graviton based instance types\.  
-[Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami) \(`ECS_AL1`\)  
-Default for all non\-GPU, non AWS Graviton instance families\. Amazon Linux will discontinue standard support\. For more information, see [Amazon Linux AMI](https://aws.amazon.com/amazon-linux-ami/)\.
+The image type to match with the instance type to select an AMI\. The supported values are different for `ECS` and `EKS` resources\.    
+ECS  
+If the `imageIdOverride` parameter isn't specified, then a recent [Amazon ECS\-optimized Amazon Linux 2 AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami) \(`ECS_AL2`\) is used\. If a new image type is specified in an update, but neither an `imageId` nor a `imageIdOverride` parameter is specified, then the latest Amazon ECS optimized AMI for that image type that's supported by AWS Batch is used\.    
+ECS\_AL2  
+[Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami): Default for all non\-GPU instance families\.  
+ECS\_AL2\_NVIDIA  
+[Amazon Linux 2 \(GPU\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#gpuami): Default for all GPU instance families \(for example `P4` and `G4`\) and can be used for all non AWS Graviton\-based instance types\.  
+ECS\_AL1  
+[Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami)\. Amazon Linux has reached the end\-of\-life of standard support\. For more information, see [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/)\.  
+EKS  
+If the `imageIdOverride` parameter isn't specified, then a recent [Amazon EKS\-optimized Amazon Linux AMI](https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html) \(`EKS_AL2`\) is used\. If a new image type is specified in an update, but neither an `imageId` nor a `imageIdOverride` parameter is specified, then the latest Amazon EKS optimized AMI for that image type that AWS Batch supports is used\.    
+EKS\_AL2  
+[Amazon Linux 2](https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html): Default for all non\-GPU instance families\.  
+EKS\_AL2\_NVIDIA  
+[Amazon Linux 2 \(accelerated\)](https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html): Default for all GPU instance families \(for example, `P4` and `G4`\) and can be used for all non AWS Graviton\-based instance types\.
+Type: String  
+Length Constraints: Minimum length of 1\. Maximum length of 256\.  
+Required: Yes
+
+## Amazon EKS configuration<a name="compute_environment_eks_configuration"></a>
+
+Configuration for the Amazon EKS cluster that supports the AWS Batch compute environment\. The cluster must exist before the compute environment can be created\.
+
+`eksClusterArn`  
+The Amazon Resource Name \(ARN\) of the Amazon EKS cluster\. An example is `arn:aws:eks:us-east-1:123456789012:cluster/ClusterForBatch`\.  
 Type: String  
 Required: Yes
+
+`kubernetesNamespace`  
+The namespace of the Amazon EKS cluster\. AWS Batch manages pods in this namespace\. The value can't left empty or null\. It must be fewer than 64 characters long, can't be set to `default`, can't start with "`kube-`," and must match this regular expression: `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`\. For more information, see [Namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) in the Kubernetes documentation\.  
+Type: String  
+Required: Yes
+
+Type: [EksConfiguration](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksConfiguration.html) Object
+
+Required: No
 
 ## Service role<a name="compute_environment_service_role"></a>
 
 `serviceRole`  
-The full Amazon Resource Name \(ARN\) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf\. For more information, see [AWS Batch service IAM role](service_IAM_role.md)\.  
+The full Amazon Resource Name \(ARN\) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf\. For more information, see [AWS Batch service IAM role](service_IAM_role.md)\. We recommend that you do not specify the service role, in which case AWS Batch uses the **AWSServiceRoleForBatch** service\-linked role\.  
 If your account has already created the AWS Batch service\-linked role \(**AWSServiceRoleForBatch**\), that role is used by default for your compute environment unless you specify a role here\. If the AWS Batch service\-linked role doesn't exist in your account, and no role is specified here, the service tries to create the AWS Batch service\-linked role in your account\. For more information about the **AWSServiceRoleForBatch** service\-linked role, see [Service\-linked role permissions for AWS Batch](using-service-linked-roles.md#slr-permissions)\.  
 If the compute environment is created using the **AWSServiceRoleForBatch** service\-linked role, it can't be changed to use a regular IAM role\. Likewise, if the compute environment is created with a regular IAM role, it can't be changed to use the **AWSServiceRoleForBatch** service\-linked role\. To update the parameters for the compute environment that require an infrastructure update to change, the **AWSServiceRoleForBatch** service\-linked role must be used\. For more information, see [Updating compute environments](updating-compute-environments.md)\.
 If your specified role has a path other than `/`, make sure either to specify the full role ARN \(recommended\) or prefix the role name with the path\.  

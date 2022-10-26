@@ -7,7 +7,7 @@ You can also submit a sample "Hello World" job in the AWS Batch first\-run wizar
 ## Step 1: Prerequisites<a name="first-run-step-1"></a>
 
 Do the following before you start the AWS Batch first\-run wizard:
-+ Complete the steps that are described in [Setting Up with AWS Batch](get-set-up-for-aws-batch.md)\.
++ Complete the steps that are described in [Setting up with AWS Batch](get-set-up-for-aws-batch.md)\.
 + Verify that your AWS account has the [required permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html)\.
 
 ## Step 2: Create a compute environment<a name="first-run-step-2"></a>

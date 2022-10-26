@@ -16,6 +16,9 @@ This variable is set to the job attempt number\. The first attempt is numbered 1
 `AWS_BATCH_JOB_ID`  
 This variable is set to the AWS Batch job ID\.
 
+`AWS_BATCH_JOB_KUBERNETES_NODE_UID`  
+This variable is set to the `uuid` of the AWS Batch compute environment\. This is only set for jobs running on EKS resources\.
+
 `AWS_BATCH_JOB_MAIN_NODE_INDEX`  
 This variable is only set in multi\-node parallel jobs\. This variable is set to the index number of the job's main node\. Your application code can compare the `AWS_BATCH_JOB_MAIN_NODE_INDEX` to the `AWS_BATCH_JOB_NODE_INDEX` on an individual node to determine if it's the main node\.
 

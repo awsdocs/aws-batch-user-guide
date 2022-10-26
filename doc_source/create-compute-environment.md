@@ -6,6 +6,7 @@ Before you can run jobs in AWS Batch, you need to create a compute environment\.
 + [To create a managed compute environment using AWS Fargate resources](#create-compute-environment-fargate)
 + [To create a managed compute environment using EC2 resources](#create-compute-environment-managed-ec2)
 + [To create an unmanaged compute environment using EC2 resources](#create-compute-environment-unmanaged-ec2)
++ [To create a managed compute environment using EKS resources](#create-compute-environment-managed-eks)
 
 ## To create a managed compute environment using AWS Fargate resources<a name="create-compute-environment-fargate"></a>
 
@@ -37,7 +38,7 @@ Before you can run jobs in AWS Batch, you need to create a compute environment\.
 **Important**  
 Compute resources need access to communicate with the Amazon ECS service endpoint\. This can be through an interface VPC endpoint or through your compute resources having public IP addresses\.  
 For more information about interface VPC endpoints, see [Amazon ECS Interface VPC Endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/vpc-endpoints.html) in the *Amazon Elastic Container Service Developer Guide*\.  
-If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Create a Virtual Private Cloud](get-set-up-for-aws-batch.md#create-a-vpc)\.\.
+If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Create a VPC](get-set-up-for-aws-batch.md#create-a-vpc)\.\.
 
    1. For **VPC ID**, choose a VPC where you intend to launch your instances\.
 
@@ -113,19 +114,19 @@ The AMI that you choose for a compute environment must match the architecture of
 
          1. For **AMI ID**, paste your custom AMI ID and choose **Validate AMI**\.
 
-      1. \(Optional\) For **EC2 configuration** choose **Image type** and **Image ID override** values to provide information for AWS Batch to select Amazon Machine Images \(AMIs\) for instances in the compute environment\. If the **Image ID override** isn't specified for each **Image type**, AWS Batch selects a recent [Amazon ECS optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)\. If no **Image type** is specified, the default is a **Amazon Linux** for non\-GPU, non AWS Graviton instance\. In the future, this default will change to **Amazon Linux 2** for all non\-GPU instances\.  
+      1. \(Optional\) For **EC2 configuration** choose **Image type** and **Image ID override** values to provide information for AWS Batch to select Amazon Machine Images \(AMIs\) for instances in the compute environment\. If the **Image ID override** isn't specified for each **Image type**, AWS Batch selects a recent [Amazon ECS optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)\. If no **Image type** is specified, the default is a **Amazon Linux 2** for non\-GPU, non AWS Graviton instance\.   
 [Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami)  
  Default for all AWS Graviton\-based instance families \(for example, `C6g`, `M6g`, `R6g`, and `T4g`\) and can be used for all non\-GPU instance types\.  
 [Amazon Linux 2 \(GPU\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#gpuami)  
 Default for all GPU instance families \(for example `P4` and `G4`\) and can be used for all non AWS Graviton\-based instance types\.  
-[Amazon Linux](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#alami)  
-Default for all non\-GPU, non AWS Graviton instance families\. Amazon Linux is reaching the end\-of\-life of standard support\. For more information, see [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/)\.
+Amazon Linux  
+ Can be used for non\-GPU, non AWS Graviton instance families\. The Amazon Linux AMI has ended standard support\. For more information, see [Amazon Linux AMI](http://aws.amazon.com/amazon-linux-ami/)\.
 
 1. Configure networking\.
 **Important**  
 Compute resources need access to communicate with the Amazon ECS service endpoint\. This can be through an interface VPC endpoint or through your compute resources having public IP addresses\.  
 For more information about interface VPC endpoints, see [Amazon ECS Interface VPC Endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/vpc-endpoints.html) in the *Amazon Elastic Container Service Developer Guide*\.  
-If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Create a Virtual Private Cloud](get-set-up-for-aws-batch.md#create-a-vpc)\.\.
+If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Create a VPC](get-set-up-for-aws-batch.md#create-a-vpc)\.\.
 
    1. For **VPC ID**, choose a VPC where to launch your instances\.
 
@@ -166,7 +167,9 @@ If you do not have an interface VPC endpoint configured and your compute resourc
 1. \(Optional\) Retrieve the Amazon ECS cluster ARN for the associated cluster\. The following AWS CLI command provides the Amazon ECS cluster ARN for a compute environment:
 
    ```
-   aws batch describe-compute-environments --compute-environments unmanagedCE --query "computeEnvironments[].ecsClusterArn"
+   $ aws batch describe-compute-environments \
+       --compute-environments unmanagedCE \
+       --query "computeEnvironments[].ecsClusterArn"
    ```
 
 1. \(Optional\) Launch container instances into the associated Amazon ECS cluster\. For more information, see [Launching an Amazon ECS container instance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html) in the *Amazon Elastic Container Service Developer Guide*\. When you launch your compute resources, specify the Amazon ECS cluster ARN that the resources should register with the following Amazon EC2 user data\. Replace *ecsClusterArn* with the cluster ARN you obtained with the previous command\.
@@ -177,3 +180,83 @@ If you do not have an interface VPC endpoint configured and your compute resourc
    ```
 **Note**  
 Your unmanaged compute environment doesn't have any compute resources until you launch them manually\.
+
+## To create a managed compute environment using EKS resources<a name="create-compute-environment-managed-eks"></a>
+
+1. Open the AWS Batch console at [https://console\.aws\.amazon\.com/batch/](https://console.aws.amazon.com/batch/)\.
+
+1. From the navigation bar, select the Region to use\.
+
+1. In the navigation pane for **Elastic Kubernetes Service \(EKS\)**, choose **Compute environments**\.
+
+1. Choose **Create compute environment**\.
+
+1. For **Compute environment configuration**, choose **Amazon Elastic Kubernetes Service \(Amazon EKS\)**\.
+
+1. For **Name**, specify a unique name for your compute environment\. The name can be up to 128 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), and underscores \(\_\)\.
+
+1. For **Service role**, choose an AWS Batch service\-linked role\. This role allows the AWS Batch service to make calls to the required AWS API operations on your behalf\. 
+
+1. For **Instance role**, choose an existing instance profile that has the required IAM permissions attached\.
+**Note**  
+To create a compute environment in the AWS Batch console, you must choose an instance profile that has the `eks:ListClusters` and `eks:DescribeCluster` permissions\.
+
+1. For **EKS cluster**, choose an existing Amazon EKS cluster\.
+
+1. For **Namespace**, enter a Kubernetes namespace to group your AWS Batch processes in the cluster\.
+
+1. \(Optional\) Expand **Tags**\. Choose **Add tag** and then enter a key\-value pair
+
+1. Choose **Next page**\.
+
+1. \(Optional\) For **Use EC2 Spot Instances**, turn on **Enable using Spot instances** to use Amazon EC2 Spot Instances\.
+
+1. If you chose to use Spot Instances:
+
+   1. \(Optional\) For **Maximum % on\-demand price**, choose the maximum percentage that a Spot Instance price can be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your maximum price is 20%, then the Spot price must be less than 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\. If you leave this field empty, the default value is 100% of the On\-Demand price\.
+
+1. \(Optional\) For **Minimum vCPUs**, choose the minimum number of vCPUs that your compute environment should maintain, regardless of job queue demand\.
+
+1. \(Optional\) For **Maximum vCPUs**, choose the maximum number of vCPUs that your compute environment can scale out to, regardless of job queue demand\.
+
+1. For **Allowed instance types**, choose the Amazon EC2 instance types that can be launched\. You can specify instance families to launch any instance type within those families \(for example, `c5`, `c5n`, or `p3`\), or you can specify specific sizes within a family \(such as `c5.8xlarge`\)\. Note that metal instance types aren't in the instance families\. For example, `c5` doesn't include `c5.metal`\. You can also choose `optimal` to select instance types \(from the C4, M4, and R4 instance families\) as you need that match the demand of your job queues\.
+**Note**  
+When you create a compute environment, the instance types that you select for the compute environment must share the same architecture\. For example, you can't mix x86 and ARM instances in the same compute environment\.
+**Note**  
+AWS Batch will scale GPUs based on the required amount in your job queues\. To use GPU scheduling, the compute environment must include instance types from the `p2`, `p3`, `p4`, `g3`, `g3s`, `g4`, or `g5` families\.
+**Note**  
+Currently, `optimal` uses instance types from the C4, M4, and R4 instance families\. In Regions that don't have instance types from those instance families, instance types from the C5, M5\. and R5 instance families are used\.
+
+1. \(Optional\) Expand **Additional configuration**\.
+
+   1. For **Allocation strategy**, choose **BEST\_FIT\_PROGRESSIVE**\.
+
+   1. \(Optional\) For **Amazon Machine Images \(AMIs\) Configuration**, choose **amazon machine images \(amis\) configuration**\. Then, choose an **Image Type**, enter an **Image ID** override, or **Kubernetes version**\.
+**Note**  
+If the **Image ID override** isn't specified for each **Image type**, AWS Batch selects a recent [Amazon ECS optimized AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)\. If no **Image type** is specified, the default is a **Amazon Linux 2** for non\-GPU, non AWS Graviton instance\.   
+
+[Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#al2ami)  
+ Default for all AWS Graviton\-based instance families \(for example, `C6g`, `M6g`, `R6g`, and `T4g`\) and can be used for all non\-GPU instance types\.
+
+[Amazon Linux 2 \(GPU\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#gpuami)  
+Default for all GPU instance families \(for example `P4` and `G4`\) and can be used for all non AWS Graviton\-based instance types\. 
+
+   1. \(Optional\) For **Launch template**, choose an existing launch template\.
+
+   1. \(Optional\) For **Launch template version**, enter **$Default**, **$Latest**, or a version number\.
+
+1. Choose **Next page**\.
+
+1. For **Virtual Private Cloud \(VPC\) ID**, choose a VPC where to launch the instances\.
+
+1. For **Subnets**, choose which subnets in the selected VPC should host your instances\. By default, all subnets within the selected VPC are chosen\.
+
+1. \(Optional\) Expand **Additional configuration**\.
+
+   1. \(Optional\) For **Security groups**, choose a security group to attach to your instances\. By default, the default security group for your VPC is chosen\.
+
+   1. \(Optional\) For **Placement group**, enter a placement group name to group resources in the compute environment\.
+
+1. Choose **Next page**\.
+
+1. For **Review and create**, review the configuration steps\. If you need to make changes, choose **Edit**\. When you are happy with the configuration, choose **Create**\.

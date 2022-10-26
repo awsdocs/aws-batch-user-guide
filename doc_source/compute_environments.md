@@ -16,6 +16,7 @@ AWS Batch does not support Windows containers, on either Fargate or EC2 resource
 + [EC2 Configurations](ec2-configurations.md)
 + [Allocation strategies](allocation-strategies.md)
 + [Updating compute environments](updating-compute-environments.md)
++ [Amazon EKS compute environments](compute-environments-eks.md)
 + [Compute Resource Memory Management](memory-management.md)
 
 ## Managed compute environments<a name="managed_compute_environments"></a>

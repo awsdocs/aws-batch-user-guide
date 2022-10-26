@@ -43,6 +43,7 @@ The role permissions policy allows AWS Batch to complete the following actions o
                 "autoscaling:DescribeAutoScalingGroups",
                 "autoscaling:DescribeLaunchConfigurations",
                 "autoscaling:DescribeAutoScalingInstances",
+                "eks:DescribeCluster",
                 "ecs:DescribeClusters",
                 "ecs:DescribeContainerInstances",
                 "ecs:DescribeTaskDefinition",

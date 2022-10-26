@@ -30,7 +30,7 @@ The **BatchServiceRolePolicy** policy is attached to a service\-linked role\. Th
 
 
 
-This policy grants AWS Batch permissions that grants access to related services including Amazon EC2, Amazon EC2 Auto Scaling, Amazon ECS, and Amazon CloudWatch Logs\.
+This policy grants AWS Batch permissions that grants access to related services including Amazon EC2, Amazon EC2 Auto Scaling, Amazon ECS, Amazon EKS, and Amazon CloudWatch Logs\.
 
 
 
@@ -61,6 +61,7 @@ This policy grants AWS Batch permissions that grants access to related services 
                 "autoscaling:DescribeAutoScalingGroups",
                 "autoscaling:DescribeLaunchConfigurations",
                 "autoscaling:DescribeAutoScalingInstances",
+                "eks:DescribeCluster",
                 "ecs:DescribeClusters",
                 "ecs:DescribeContainerInstances",
                 "ecs:DescribeTaskDefinition",
@@ -276,11 +277,11 @@ This policy grants AWS Batch permissions that grants access to related services 
 }
 ```
 
-## AWS managed policy: **BatchFullAccess**<a name="security-iam-awsmanpol-BatchFullAccess"></a>
+## AWS managed policy: **AWSBatchFullAccess**<a name="security-iam-awsmanpol-BatchFullAccess"></a>
 
-The **BatchFullAccess** policy grants AWS Batch actions full access to AWS Batch resources\. It also grants describe and list action access for Amazon EC2, Amazon ECS, CloudWatch, and IAM services\. This is so that IAM identities, either users or roles, can view AWS Batch managed resources that were created on their behalf\. Last, this policy also allows for selected IAM roles to be passed to those services\.
+The **AWSBatchFullAccess** policy grants AWS Batch actions full access to AWS Batch resources\. It also grants describe and list action access for Amazon EC2, Amazon ECS, Amazon EKS, CloudWatch, and IAM services\. This is so that IAM identities, either users or roles, can view AWS Batch managed resources that were created on their behalf\. Last, this policy also allows for selected IAM roles to be passed to those services\.
 
-You can attach **BatchFullAccess** to your IAM entities\. AWS Batch also attaches this policy to a service role that allows AWS Batch to perform actions on your behalf\. 
+You can attach **AWSBatchFullAccess** to your IAM entities\. AWS Batch also attaches this policy to a service role that allows AWS Batch to perform actions on your behalf\.
 
 ```
 {
@@ -301,6 +302,8 @@ You can attach **BatchFullAccess** to your IAM entities\. AWS Batch also attache
         "ecs:DescribeClusters",
         "ecs:Describe*",
         "ecs:List*",
+        "eks:DescribeCluster",
+        "eks:ListClusters",
         "logs:Describe*",
         "logs:Get*",
         "logs:TestMetricFilter",
@@ -353,20 +356,14 @@ View details about updates to AWS managed policies for AWS Batch since this serv
 
 
 
-**[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy updated \(May 18, 2022\)  
-Updated to add support for Amazon EC2 Capacity Reservation groups managed by AWS Resource Groups\. For more information, see [Work with Capacity Reservation groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-cr-group.html) in *Amazon EC2 User Guide for Linux Instances*\.
 
-**[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** and **[AWSBatchServiceRole](service_IAM_role.md)** policies updated \(December 6, 2021\)  
-Updated to add support for describing the status of AWS Batch managed instances in Amazon EC2 so that unhealthy instances are replaced\.
-
-**[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy updated \(March 26, 2021\)  
-Updated to add support for placement group, capacity reservation, elastic GPU, and Elastic Inference resources in Amazon EC2\.
-
-**[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy added \(March 10, 2021\)  
-With the **BatchServiceRolePolicy** managed policy for the **AWSServiceRoleForBatch** service\-linked role, you can use a service\-linked role managed by AWS Batch\. With this policy, you don't need to maintain your own role for use in your compute environments\.
-
-**[BatchFullAccess](#security-iam-awsmanpol-BatchFullAccess)** \- add permission to add service\-linked role \(March 10, 2021\)  
-Add IAM permissions to allow the **AWSServiceRoleForBatch** service\-linked role to be added to the account\.
-
-AWS Batch started tracking changes \(March 10, 2021\)  
-AWS Batch started tracking changes for its AWS managed policies\.
+| Change | Description | Date | 
+| --- | --- | --- | 
+|  **[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy updated  |  Updated to add support for describing Amazon EKS clusters\.  |  October 20, 2022  | 
+|  **[AWSBatchFullAccess](#security-iam-awsmanpol-BatchFullAccess)** policy updated  |  Updated to add support for listing and describing Amazon EKS clusters\.  |  October 20, 2022  | 
+|  **[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy updated  |  Updated to add support for Amazon EC2 Capacity Reservation groups managed by AWS Resource Groups\. For more information, see [Work with Capacity Reservation groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-cr-group.html) in *Amazon EC2 User Guide for Linux Instances*\.  |  May 18, 2022  | 
+|  **[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** and **[AWSBatchServiceRole](service_IAM_role.md)** policies updated  |  Updated to add support for describing the status of AWS Batch managed instances in Amazon EC2 so that unhealthy instances are replaced\.  |  December 6, 2021  | 
+|  **[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy updated  |  Updated to add support for placement group, capacity reservation, elastic GPU, and Elastic Inference resources in Amazon EC2\.  |  March 26, 2021  | 
+|  **[BatchServiceRolePolicy](#security-iam-awsmanpol-BatchServiceRolePolicy)** policy added  |  With the **BatchServiceRolePolicy** managed policy for the **AWSServiceRoleForBatch** service\-linked role, you can use a service\-linked role managed by AWS Batch\. With this policy, you don't need to maintain your own role for use in your compute environments\.  |  March 10, 2021  | 
+|  **[AWSBatchFullAccess](#security-iam-awsmanpol-BatchFullAccess)** \- add permission to add service\-linked role  |  Add IAM permissions to allow the **AWSServiceRoleForBatch** service\-linked role to be added to the account\.  |  March 10, 2021  | 
+|  AWS Batch started tracking changes  |  AWS Batch started tracking changes for its AWS managed policies\.  | March 10, 2021 | 
