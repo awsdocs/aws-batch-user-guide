@@ -1,6 +1,18 @@
 # Job definition parameters<a name="job_definition_parameters"></a>
 
-Job definitions are split into several basic parts: the job definition name, the type of the job definition, parameter substitution placeholder defaults, the container properties for the job, the Amazon EKS properties for the job definition \(for jobs run on Amazon EKS resources\), the node properties \(for a multi\-node parallel job\), the platform capabilities \(for jobs run on Fargate resources\), the default tag propagation details of the job definition, the default retry strategy for the job definition, the default scheduling priority for the job definition, the default tags for the job definition, and the default timeout for the job definition\.
+Job definitions are split into several parts:
++ the job definition name
++ the type of the job definition
++ the parameter substitution placeholder defaults
++ the container properties for the job
++ the Amazon EKS properties for the job definition that are necessary for jobs run on Amazon EKS resources
++ the node properties that are necessary for a multi\-node parallel job
++ the platform capabilities that are necessary for jobs run on Fargate resources
++ the default tag propagation details of the job definition
++ the default retry strategy for the job definition
++ the default scheduling priority for the job definition
++ the default tags for the job definition
++ the default timeout for the job definition
 
 **Contents**
 + [Job definition name](#jobDefinitionName)
@@ -34,10 +46,10 @@ Required: Yes
 ## Parameters<a name="parameters"></a>
 
 `parameters`  
-When you submit a job, you can specify parameters that should replace the placeholders or override the default job definition parameters\. Parameters in job submission requests take precedence over the defaults in a job definition\. This means that you can use the same job definition for multiple jobs that use the same format, and programmatically change values in the command at submission time\.  
+When you submit a job, you can specify parameters that replace the placeholders or override the default job definition parameters\. Parameters in job submission requests take precedence over the defaults in a job definition\. This means that you can use the same job definition for multiple jobs that use the same format\. You can also programmatically change values in the command at submission time\.  
 Type: String to string map  
 Required: No  
-When you register a job definition, you can use parameter substitution placeholders in the `command` field of a job's container properties\. For example:  
+When you register a job definition, you can use parameter substitution placeholders in the `command` field of a job's container properties\. The syntax is as follows\.  
 
 ```
 "command": [
@@ -59,7 +71,7 @@ When this job definition is submitted to run, the `Ref::codec` argument in the c
 
 ## Container properties<a name="containerProperties"></a>
 
-When you register a job definition, you must specify a list of container properties that are passed to the Docker daemon on a container instance when the job is placed\. The following container properties are allowed in a job definition\. For single\-node jobs, these container properties are set at the job definition level\. For multi\-node parallel jobs, container properties are set in the [Node properties](#nodeProperties) level, for each node group\.
+When you register a job definition, specify a list of container properties that are passed to the Docker daemon on a container instance when the job is placed\. The following container properties are allowed in a job definition\. For single\-node jobs, these container properties are set at the job definition level\. For multi\-node parallel jobs, container properties are set in the [Node properties](#nodeProperties) level, for each node group\.
 
 `command`  
 The command that's passed to the container\. This parameter maps to `Cmd` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `COMMAND` parameter to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. For more information about the Docker `CMD` parameter, see [https://docs\.docker\.com/engine/reference/builder/\#cmd](https://docs.docker.com/engine/reference/builder/#cmd)\.  
@@ -93,12 +105,12 @@ Required: Yes, when `environment` is used\.
 ```
 
 `executionRoleArn`  
-When you register a job definition, you can specify an IAM role\. The role provides the Amazon ECS container agent with permissions to call the API actions that are specified in its associated policies on your behalf\. Jobs that are running on Fargate resources must provide an execution role\. For more information, see [AWS Batch execution IAM role](execution-IAM-role.md)\.  
+When you register a job definition, you can specify an IAM role\. The role provides the Amazon ECS container agent with permissions to call the API actions that are specified in its associated policies on your behalf\. Jobs that run on Fargate resources must provide an execution role\. For more information, see [AWS Batch execution IAM role](execution-IAM-role.md)\.  
 Type: String  
 Required: No
 
 `fargatePlatformConfiguration`  
-The platform configuration for jobs that are running on Fargate resources\. Jobs that are running on EC2 resources must not specify this parameter\.  
+The platform configuration for jobs that run on Fargate resources\. Jobs that run on EC2 resources must not specify this parameter\.  
 Type: [FargatePlatformConfiguration](https://docs.aws.amazon.com/batch/latest/APIReference/API_FargatePlatformConfiguration.html) object  
 Required: No    
 `platformVersion`  
@@ -109,7 +121,7 @@ Required: No
 
 `image`  
 The image used to start a job\. This string is passed directly to the Docker daemon\. Images in the Docker Hub registry are available by default\. You can also specify other repositories with `repository-url/image:tag`\. Up to 255 letters \(uppercase and lowercase\), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed\. This parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.  
-Docker image architecture must match the processor architecture of the compute resources that they're scheduled on\. For example, ARM\-based Docker images can only run on ARM\-based compute resources\.
+Docker image architecture must match the processor architecture of the compute resources that they're scheduled on\. For example, Arm based Docker images can only run on Arm based compute resources\.
 + Images in Amazon ECR Public repositories use the full `registry/repository[:tag]` or `registry/repository[@digest]` naming conventions \(for example, `public.ecr.aws/registry_alias/my-web-app:latest`\)\.
 + Images in Amazon ECR repositories use the full `registry/repository:[tag]` naming convention\. For example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`\.
 + Images in official repositories on Docker Hub use a single name \(for example, `ubuntu` or `mongo`\)\.
@@ -119,7 +131,7 @@ Type: String
 Required: Yes
 
 `instanceType`  
-The instance type to use for a multi\-node parallel job\. All node groups in a multi\-node parallel job must use the same instance type\. This parameter isn't valid for single\-node container jobs or for jobs running on Fargate resources\.  
+The instance type to use for a multi\-node parallel job\. All node groups in a multi\-node parallel job must use the same instance type\. This parameter isn't valid for single\-node container jobs or for jobs that run on Fargate resources\.  
 Type: String  
 Required: No
 
@@ -161,7 +173,7 @@ Type: [LinuxParameters](https://docs.aws.amazon.com/batch/latest/APIReference/AP
 Required: No    
 `devices`  
 List of devices mapped into the container\. This parameter maps to `Devices` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--device` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
-This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided\.
+This parameter isn't applicable to jobs that run on Fargate resources\.
 Type: Array of [Device](https://docs.aws.amazon.com/batch/latest/APIReference/API_Device.html) objects  
 Required: No    
 `hostPath`  
@@ -183,30 +195,30 @@ Type: Boolean
 Required: No  
 `maxSwap`  
 The total amount of swap memory \(in MiB\) a job can use\. This parameter is translated to the `--memory-swap` option to [docker run](https://docs.docker.com/engine/reference/run/) where the value is the sum of the container memory plus the `maxSwap` value\. For more information, see [`--memory-swap` details](https://docs.docker.com/config/containers/resource_constraints/#--memory-swap-details) in the Docker documentation\.  
-If a `maxSwap` value of `0` is specified, the container doesn't use swap\. Accepted values are `0` or any positive integer\. If the `maxSwap` parameter is omitted, the container uses the swap configuration for the container instance that it's running on\. A `maxSwap` value must be set for the `swappiness` parameter to be used\.  
-This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided\.
+If a `maxSwap` value of `0` is specified, the container doesn't use swap\. Accepted values are `0` or any positive integer\. If the `maxSwap` parameter is omitted, the container uses the swap configuration for the container instance that it runs on\. A `maxSwap` value must be set for the `swappiness` parameter to be used\.  
+This parameter isn't applicable to jobs that run on Fargate resources\.
 Type: Integer  
 Required: No  
 `sharedMemorySize`  
 The value for the size \(in MiB\) of the `/dev/shm` volume\. This parameter maps to the `--shm-size` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
-This parameter isn't applicable to jobs running on Fargate resources and shouldn't be provided\.
+This parameter isn't applicable to jobs that run on Fargate resources\.
 Type: Integer  
 Required: No  
 `swappiness`  
-You can use this to tune a container's memory swappiness behavior\. A `swappiness` value of `0` causes swapping to not happen unless absolutely necessary\. A `swappiness` value of `100` causes pages to be swapped very aggressively\. Accepted values are whole numbers between `0` and `100`\. If the `swappiness` parameter isn't specified, a default value of `60` is used\. If a value isn't specified for `maxSwap`, then this parameter is ignored\. If `maxSwap` is set to 0, the container doesn't use swap\. This parameter maps to the `--memory-swappiness` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
+You can use this to tune a container's memory swappiness behavior\. A `swappiness` value of `0` causes swapping to not happen unless absolutely necessary\. A `swappiness` value of `100` causes pages to be swapped aggressively\. Accepted values are whole numbers between `0` and `100`\. If the `swappiness` parameter isn't specified, a default value of `60` is used\. If a value isn't specified for `maxSwap`, then this parameter is ignored\. If `maxSwap` is set to 0, the container doesn't use swap\. This parameter maps to the `--memory-swappiness` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
 Consider the following when you use a per\-container swap configuration\.  
 + Swap space must be enabled and allocated on the container instance for the containers to use\.
 **Note**  
 The Amazon ECS optimized AMIs don't have swap enabled by default\. You must enable swap on the instance to use this feature\. For more information, see [Instance Store Swap Volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-store-swap-volumes.html) in the *Amazon EC2 User Guide for Linux Instances* or [How do I allocate memory to work as swap space in an Amazon EC2 instance by using a swap file?](http://aws.amazon.com/premiumsupport/knowledge-center/ec2-memory-swap-file/)\.
 + The swap space parameters are only supported for job definitions using EC2 resources\.
-+ If the `maxSwap` and `swappiness` parameters are omitted from a job definition, each container has a default `swappiness` value of 60 and the total swap usage is limited to two times the memory reservation of the container\.
-This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided\.
++ If the `maxSwap` and `swappiness` parameters are omitted from a job definition, each container has a default `swappiness` value of 60\. The total swap usage is limited to two times the memory reservation of the container\.
+This parameter isn't applicable to jobs that run on Fargate resources\.
 Type: Integer  
 Required: No  
 `tmpfs`  
 The container path, mount options, and size of the tmpfs mount\.  
 Type: Array of [Tmpfs](https://docs.aws.amazon.com/batch/latest/APIReference/API_Tmpfs.html) objects  
-This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided\.
+This parameter isn't applicable to jobs that run on Fargate resources\.
 Required: No    
 `containerPath`  
 The absolute file path in the container where the tmpfs volume is mounted\.  
@@ -224,7 +236,7 @@ Required: Yes
 
 `logConfiguration`  
 The log configuration specification for the job\.  
-This parameter maps to `LogConfig` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--log-driver` option to [docker run](https://docs.docker.com/engine/reference/run/)\. By default, containers use the same logging driver that the Docker daemon uses\. However the container can use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the container definition\. To use a different logging driver for a container, the log system must be either configured on the container instance or on another log server to provide remote logging options\. For more information about the options for different supported log drivers, see [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation\.  
+This parameter maps to `LogConfig` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--log-driver` option to [docker run](https://docs.docker.com/engine/reference/run/)\. By default, containers use the same logging driver that the Docker daemon uses\. However, the container can use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the container definition\. To use a different logging driver for a container, the log system must be either configured on the container instance or on another log server to provide remote logging options\. For more information about the options for different supported log drivers, see [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation\.  
 AWS Batch currently supports a subset of the logging drivers available to the Docker daemon \(shown in the [LogConfiguration](https://docs.aws.amazon.com/batch/latest/APIReference/API_LogConfiguration.html) data type\)\.
 This parameter requires version 1\.18 of the Docker Remote API or greater on your container instance\. To check the Docker Remote API version on your container instance, log into your container instance and run the following command: `sudo docker version | grep "Server API version"`   
 
@@ -254,38 +266,38 @@ This parameter requires version 1\.18 of the Docker Remote API or greater on you
 Type: [LogConfiguration](https://docs.aws.amazon.com/batch/latest/APIReference/API_LogConfiguration.html) object  
 Required: No    
 `logDriver`  
-The log driver to use for the job\. By default, AWS Batch enables the `awslogs` log driver\. The valid values listed for this parameter are log drivers that the Amazon ECS container agent can communicate with by default\.  
-This parameter maps to `LogConfig` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--log-driver` option to [docker run](https://docs.docker.com/engine/reference/run/)\. By default, jobs use the same logging driver that the Docker daemon uses\. However, the job can use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the job definition\. If you want to specify another logging driver for a job, then the log system must be configured on the container instance in the compute environment\. Or, alternatively, you should configure it on another log server to provide remote logging options\. For more information about the options for different supported log drivers, see [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation\.  
+The log driver to use for the job\. By default, AWS Batch enables the `awslogs` log driver\. The valid values that are listed for this parameter are log drivers that the Amazon ECS container agent can communicate with by default\.  
+This parameter maps to `LogConfig` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--log-driver` option to [docker run](https://docs.docker.com/engine/reference/run/)\. By default, jobs use the same logging driver that the Docker daemon uses\. However, the job can use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the job definition\. If you want to specify another logging driver for a job, the log system must be configured on the container instance in the compute environment\. Or, alternatively, configure it on another log server to provide remote logging options\. For more information about the options for different supported log drivers, see [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation\.  
 AWS Batch currently supports a subset of the logging drivers that are available to the Docker daemon\. Additional log drivers might be available in future releases of the Amazon ECS container agent\.
 The supported log drivers are `awslogs`, `fluentd`, `gelf`, `json-file`, `journald`, `logentries`, `syslog`, and `splunk`\.  
-Jobs that are running on Fargate resources are restricted to the `awslogs` and `splunk` log drivers\.
+Jobs that run on Fargate resources are restricted to the `awslogs` and `splunk` log drivers\.
 This parameter requires version 1\.18 of the Docker Remote API or greater on your container instance\. To check the Docker Remote API version on your container instance, log into your container instance and run the following command: `sudo docker version | grep "Server API version"`  
-The Amazon ECS container agent that's running on a container instance must register the logging drivers that are available on that instance with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable\. Otherwise, the containers placed on that instance can't use these log configuration options\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\.  
+The Amazon ECS container agent that runs on a container instance must register the logging drivers that are available on that instance with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable\. Otherwise, the containers placed on that instance can't use these log configuration options\. For more information, see [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*\.  
 `awslogs`  
 Specifies the Amazon CloudWatch Logs logging driver\. For more information, see [Using the awslogs log driver](using_awslogs.md) and [Amazon CloudWatch Logs logging driver](https://docs.docker.com/config/containers/logging/awslogs/) in the Docker documentation\.  
 `fluentd`  
-Specifies the Fluentd logging driver\. For more information, including usage and options, see [Fluentd logging driver](https://docs.docker.com/config/containers/logging/fluentd/) in the Docker documentation\.  
+Specifies the Fluentd logging driver\. For more information including usage and options, see [Fluentd logging driver](https://docs.docker.com/config/containers/logging/fluentd/) in the Docker documentation\.  
 `gelf`  
-Specifies the Graylog Extended Format \(GELF\) logging driver\. For more information, including usage and options, see [Graylog Extended Format logging driver](https://docs.docker.com/config/containers/logging/gelf/) in the Docker documentation\.  
+Specifies the Graylog Extended Format \(GELF\) logging driver\. For more information including usage and options, see [Graylog Extended Format logging driver](https://docs.docker.com/config/containers/logging/gelf/) in the Docker documentation\.  
 `journald`  
-Specifies the journald logging driver\. For more information, including usage and options, see [Journald logging driver](https://docs.docker.com/config/containers/logging/journald/) in the Docker documentation\.  
+Specifies the journald logging driver\. For more information including usage and options, see [Journald logging driver](https://docs.docker.com/config/containers/logging/journald/) in the Docker documentation\.  
 `json-file`  
-Specifies the JSON file logging driver\. For more information, including usage and options, see [JSON File logging driver](https://docs.docker.com/config/containers/logging/json-file/) in the Docker documentation\.  
+Specifies the JSON file logging driver\. For more information including usage and options, see [JSON File logging driver](https://docs.docker.com/config/containers/logging/json-file/) in the Docker documentation\.  
 `splunk`  
-Specifies the Splunk logging driver\. For more information, including usage and options, see [Splunk logging driver](https://docs.docker.com/config/containers/logging/splunk/) in the Docker documentation\.  
+Specifies the Splunk logging driver\. For more information including usage and options, see [Splunk logging driver](https://docs.docker.com/config/containers/logging/splunk/) in the Docker documentation\.  
 `syslog`  
-Specifies the syslog logging driver\. For more information, including usage and options, see [Syslog logging driver](https://docs.docker.com/config/containers/logging/syslog/) in the Docker documentation\.
+Specifies the syslog logging driver\. For more information including usage and options, see [Syslog logging driver](https://docs.docker.com/config/containers/logging/syslog/) in the Docker documentation\.
 Type: String  
 Required: Yes  
 Valid values: `awslogs` \| `fluentd` \| `gelf` \| `journald` \| `json-file` \| `splunk` \| `syslog`  
-If you have a custom driver that's not listed earlier that you would like to work with the Amazon ECS container agent, you can fork the Amazon ECS container agent project that's [available on GitHub](https://github.com/aws/amazon-ecs-agent) and customize it to work with that driver\. We encourage you to submit pull requests for changes that you would like to have included\. However, Amazon Web Services doesn't currently support that are running modified copies of this software\.  
+If you have a custom driver that's not listed earlier that you would like to work with the Amazon ECS container agent, you can fork the Amazon ECS container agent project that's [available on GitHub](https://github.com/aws/amazon-ecs-agent) and customize it to work with that driver\. We encourage you to submit pull requests for changes that you want to have included\. However, Amazon Web Services doesn't currently support requests that run modified copies of this software\.  
 `options`  
 Log configuration options to send to a log driver for the job\.  
 This parameter requires version 1\.19 of the Docker Remote API or greater on your container instance\.  
 Type: String to string map  
 Required: No  
 `secretOptions`  
-An object representing the secret to pass to the log configuration\. For more information, see [Specifying sensitive data](specifying-sensitive-data.md)\.  
+An object that represents the secret to pass to the log configuration\. For more information, see [Specifying sensitive data](specifying-sensitive-data.md)\.  
 Type: object array  
 Required: No    
 `name`  
@@ -293,22 +305,22 @@ The name of the log driver option to set in the job\.
 Type: String  
 Required: Yes  
 `valueFrom`  
-The ARN of the secret to expose to the log configuration of the container\. The supported values are either the full ARN of the Secrets Manager secret or the full ARN of the parameter in the SSM Parameter Store\.  
-If the SSM Parameter Store parameter exists in the same Region as the task you're launching, then you can use either the full ARN or name of the parameter\. If the parameter exists in a different Region, then the full ARN must be specified\.
+The Amazon Resource Name \(ARN\) of the secret to expose to the log configuration of the container\. The supported values are either the full ARN of the Secrets Manager secret or the full ARN of the parameter in the SSM Parameter Store\.  
+If the SSM Parameter Store parameter exists in the same AWS Region as the task that you're launching, then you can use either the full ARN or name of the parameter\. If the parameter exists in a different Region, then the full ARN must be specified\.
 Type: String  
 Required: Yes
 
 `memory`  
 *This parameter is deprecated, use `resourceRequirements` instead\.*  
 The number of MiB of memory reserved for the job\.  
-As an example for how to use `resourceRequirements`, if your job definition contains lines similar to this:  
+As an example for how to use `resourceRequirements`, if your job definition contains syntax that's similar to the following\.  
 
 ```
 "containerProperties": {
   "memory": 512
 }
 ```
-The equivalent lines using `resourceRequirements` is as follows\.  
+The equivalent syntax using `resourceRequirements` is as follows\.  
 
 ```
 "containerProperties": {
@@ -352,7 +364,7 @@ Required: No
 Default: False
 
 `networkConfiguration`  
-The network configuration for jobs that are running on Fargate resources\. Jobs that are running on EC2 resources must not specify this parameter\.  
+The network configuration for jobs that run on Fargate resources\. Jobs that run on EC2 resources must not specify this parameter\.  
 
 ```
 "networkConfiguration": { 
@@ -362,14 +374,14 @@ The network configuration for jobs that are running on Fargate resources\. Jobs 
 Type: Object array  
 Required: No    
 `assignPublicIp`  
-Indicates whether the job should have a public IP address\. This is required if the job needs outbound network access\.  
+Indicates whether the job has a public IP address\. This is required if the job needs outbound network access\.  
 Type: String  
 Valid values: `ENABLED` \| `DISABLED`  
 Required: No  
 Default: `DISABLED`
 
 `privileged`  
-When this parameter is true, the container is given elevated permissions on the host container instance \(similar to the `root` user\)\. This parameter maps to `Privileged` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--privileged` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. This parameter isn't applicable to jobs running on Fargate resources and shouldn't be provided, or specified as false\.  
+When this parameter is true, the container is given elevated permissions on the host container instance \(similar to the `root` user\)\. This parameter maps to `Privileged` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--privileged` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. This parameter isn't applicable to jobs that run on Fargate resources\. Don't provide it or specify it as false\.  
 
 ```
 "privileged": true|false
@@ -406,15 +418,15 @@ Required: Yes, when `resourceRequirements` is used\.
 `value`  
 The quantity of the specified resource to reserve for the container\. The values vary based on the `type` specified\.    
 type="GPU"  
-The number of physical GPUs to reserve for the container\. The number of GPUs reserved for all containers in a job shouldn't exceed the number of available GPUs on the compute resource that the job is launched on\.  
+The number of physical GPUs to reserve for the container\. The number of GPUs reserved for all containers in a job cannot exceed the number of available GPUs on the compute resource that the job is launched on\.  
 type="MEMORY"  
 The hard limit \(in MiB\) of memory to present to the container\. If your container attempts to exceed the memory specified here, the container is killed\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [docker run](https://docs.docker.com/engine/reference/run/)\. You must specify at least 4 MiB of memory for a job\. This is required but can be specified in several places for multi\-node parallel \(MNP\) jobs\. It must be specified for each node at least once\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [docker run](https://docs.docker.com/engine/reference/run/)\.  
 If you're trying to maximize your resource utilization by providing your jobs as much memory as possible for a particular instance type, see [Compute Resource Memory Management](memory-management.md)\.
-For jobs that are running on Fargate resources, then `value` must match one of the supported values\. Moreover, the `VCPU` values must be one of the values supported for that memory value\.      
+For jobs that run on Fargate resources, then `value` must match one of the supported values\. Moreover, the `VCPU` values must be one of the values that's supported for that memory value\.      
 <a name="Fargate-memory-vcpu"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html)  
 type="VCPU"  
-The number of vCPUs reserved for the job\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [docker run](https://docs.docker.com/engine/reference/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. For jobs that are running on EC2 resources, you must specify at least one vCPU\. This is required but can be specified in several places\. It must be specified for each node at least once\.  
-For jobs that are running on Fargate resources, then `value` must match one of the supported values and the `MEMORY` values must be one of the values supported for that VCPU value\. The supported values are 0\.25, 0\.5, 1, 2, 4, 8, and 16\.  
+The number of vCPUs reserved for the job\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [docker run](https://docs.docker.com/engine/reference/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. For jobs that run on EC2 resources, you must specify at least one vCPU\. This is required but can be specified in several places\. It must be specified for each node at least once\.  
+For jobs that run on Fargate resources, `value` must match one of the supported values and the `MEMORY` values must be one of the values that's supported for that VCPU value\. The supported values are 0\.25, 0\.5, 1, 2, 4, 8, and 16\.  
 The default for the Fargate On\-Demand vCPU resource count quota is 6 vCPUs\. For more information about Fargate quotas, see [AWS Fargate quotas ](https://docs.aws.amazon.com/general/latest/gr/ecs-service.html#service-quotas-fargate)in the *Amazon Web Services General Reference*\.
 Type: String  
 Required: Yes, when `resourceRequirements` is used\.
@@ -443,8 +455,8 @@ Type: String
 Required: Yes, when `secrets` is used\.  
   
 `valueFrom`  
-The secret to expose to the container\. The supported values are either the full ARN of the Secrets Manager secret or the full ARN of the parameter in the SSM Parameter Store\.  
-If the SSM Parameter Store parameter exists in the same Region as the job you're launching, then you can use either the full ARN or name of the parameter\. If the parameter exists in a different Region, then the full ARN must be specified\.
+The secret to expose to the container\. The supported values are either the full Amazon Resource Name \(ARN\) of the Secrets Manager secret or the full ARN of the parameter in the SSM Parameter Store\.  
+If the SSM Parameter Store parameter exists in the same AWS Region as the job you're launching, then you can use either the full ARN or name of the parameter\. If the parameter exists in a different Region, then the full ARN must be specified\.
 Type: String  
 Required: Yes, when `secrets` is used\.
 
@@ -542,7 +554,7 @@ Type: String
 Required: No  
 `host`  
 The contents of the `host` parameter determine whether your data volume persists on the host container instance and where it's stored\. If the `host` parameter is empty, then the Docker daemon assigns a host path for your data volume\. However, the data isn't guaranteed to persist after the container associated with it stops running\.  
-This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided\.
+This parameter isn't applicable to jobs that run on Fargate resources\.
 Type: Object  
 Required: No    
 `sourcePath`  
@@ -666,7 +678,7 @@ The security context for a job\. For more information, see [Configure a security
 Type: [EksContainerSecurityContext](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksContainerSecurityContext.html) object  
 Required: No    
 `privileged`  
-When this parameter is `true`, the container is given elevated permissions on the host container instance\. The level of permissions are similar to the `root` user permissions\. The default value is `false`\. This parameter maps to `privileged` policy in the [Privileged pod security policies](https://kubernetes.io/docs/concepts/security/pod-security-policy/#privileged) in the *Kubernetes documentation*\.  
+When this parameter is `true`, the container is given elevated permissions on the host container instance\. The level of permissions is similar to the `root` user permissions\. The default value is `false`\. This parameter maps to `privileged` policy in the [Privileged pod security policies](https://kubernetes.io/docs/concepts/security/pod-security-policy/#privileged) in the *Kubernetes documentation*\.  
 Type: Boolean  
 Required: No  
 `readOnlyRootFilesystem`  
@@ -702,7 +714,7 @@ If this value is `true`, the container has read\-only access to the volume\. Oth
 Type: Boolean  
 Required: No  
 `dnsPolicy`  
-The DNS policy for the pod\. The default value is `ClusterFirst`\. If the `hostNetwork` parameter is not specified, the default is `ClusterFirstWithHostNet`\. `ClusterFirst` indicates that any DNS query that does not match the configured cluster domain suffix is forwarded to the upstream nameserver inherited from the node\. If no value was specified for `dnsPolicy` in the [RegisterJobDefinition](https://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) API operation, then no value will be returned for `dnsPolicy` by either of [DescribeJobDefinitions](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobDefinitions.html) or [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operations\. The pod spec setting will contain either `ClusterFirst` or `ClusterFirstWithHostNet`, depending on the value of the `hostNetwork` parameter\. For more information, see [Pod's DNS policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy) in the *Kubernetes documentation*\.  
+The DNS policy for the pod\. The default value is `ClusterFirst`\. If the `hostNetwork` parameter is not specified, the default is `ClusterFirstWithHostNet`\. `ClusterFirst` indicates that any DNS query that does not match the configured cluster domain suffix is forwarded to the upstream nameserver inherited from the node\. If no value was specified for `dnsPolicy` in the [RegisterJobDefinition](https://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) API operation, then no value is returned for `dnsPolicy` by either of [DescribeJobDefinitions](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobDefinitions.html) or [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operations\. The pod spec setting will contain either `ClusterFirst` or `ClusterFirstWithHostNet`, depending on the value of the `hostNetwork` parameter\. For more information, see [Pod's DNS policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy) in the *Kubernetes documentation*\.  
 Valid values: `Default` \| `ClusterFirst` \| `ClusterFirstWithHostNet` \| `None`  
 Type: String  
 Required: No  
@@ -719,7 +731,7 @@ Specifies the volumes for a job definition that uses Amazon EKS resources\.
 Type: Array of [EksVolume](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksVolume.html) objects  
 Required: No    
 emptyDir  
-Specifies the configuration of a Kubernetes `emptyDir` volume\. An `emptyDir` volume is first created when a pod is assigned to a node\. It exists as long as that pod is running on that node\. The `emptyDir` volume is initially empty\. All containers in the pod can read and write the files in the `emptyDir` volume\. However, the `emptyDir` volume can be mounted at the same or different paths in each container\. When a pod is removed from a node for any reason, the data in the `emptyDir` is deleted permanently\. For more information, see [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) in the *Kubernetes documentation*\.  
+Specifies the configuration of a Kubernetes `emptyDir` volume\. An `emptyDir` volume is first created when a pod is assigned to a node\. It exists as long as that pod runs on that node\. The `emptyDir` volume is initially empty\. All containers in the pod can read and write the files in the `emptyDir` volume\. However, the `emptyDir` volume can be mounted at the same or different paths in each container\. When a pod is removed from a node for any reason, the data in the `emptyDir` is deleted permanently\. For more information, see [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) in the *Kubernetes documentation*\.  
 Type: [EksEmptyDir](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksEmptyDir.html) object  
 Required: No    
 medium  
@@ -746,7 +758,7 @@ Required: No
 name  
 The name of the volume\. The name must be allowed as a DNS subdomain name\. For more information, see [DNS subdomain names](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names) in the *Kubernetes documentation*\.  
 Type: String  
-Required:Yes  
+Required: Yes  
 secret  
 Specifies the configuration of a Kubernetes `secret` volume\. For more information, see [secret](https://kubernetes.io/docs/concepts/storage/volumes/#secret) in the *Kubernetes documentation*\.  
 Type: [EksSecret](https://docs.aws.amazon.com/batch/latest/APIReference/API_EksSecret.html) object  
@@ -780,7 +792,7 @@ Required: No
 ## Node properties<a name="nodeProperties"></a>
 
 `nodeProperties`  
-When you register a multi\-node parallel job definition, you must specify a list of node properties\. These node properties should define the number of nodes to use in your job, the main node index, and the different node ranges to use\. If the job runs on Fargate resources, then you can't specify `nodeProperties`\. Rather, you should use `containerProperties` instead\. The following node properties are allowed in a job definition\. For more information, see [Multi\-node parallel jobs](multi-node-parallel-jobs.md)\.  
+When you register a multi\-node parallel job definition, you must specify a list of node properties\. These node properties define the number of nodes to use in your job, the main node index, and the different node ranges to use\. If the job runs on Fargate resources, then you can't specify `nodeProperties`\. Instead, use `containerProperties`\. The following node properties are allowed in a job definition\. For more information, see [Multi\-node parallel jobs](multi-node-parallel-jobs.md)\.  
 If the job runs on Amazon EKS resources, then you must not specify `nodeProperties`\.
 Type: [NodeProperties](https://docs.aws.amazon.com/batch/latest/APIReference/API_NodeProperties.html) object  
 Required: No    
@@ -797,7 +809,7 @@ A list of node ranges and their properties that are associated with a multi\-nod
 Type: Array of [NodeRangeProperty](https://docs.aws.amazon.com/batch/latest/APIReference/API_NodeRangeProperty.html) objects  
 Required: Yes    
 `targetNodes`  
-The range of nodes, using node index values\. A range of `0:3` indicates nodes with index values of `0` through `3`\. If the starting range value is omitted \(`:n`\), then 0`` is used to start the range\. If the ending range value is omitted \(`n:`\), then the highest possible node index is used to end the range\. Your accumulative node ranges must account for all nodes \(`0:n`\)\. You can nest node ranges, for example `0:10` and `4:5`\. For this case, the `4:5` range properties override the `0:10` properties\.   
+The range of nodes, using node index values\. A range of `0:3` indicates nodes with index values of `0` through `3`\. If the starting range value is omitted \(`:n`\), then 0 is used to start the range\. If the ending range value is omitted \(`n:`\), then the highest possible node index is used to end the range\. Your accumulative node ranges must account for all nodes \(`0:n`\)\. You can nest node ranges, for example `0:10` and `4:5`\. For this case, the `4:5` range properties override the `0:10` properties\.   
 Type: String  
 Required: No  
 `container`  
@@ -820,7 +832,7 @@ The number of times to move a job to the `RUNNABLE` status\. You can specify bet
 Type: Integer  
 Required: No  
 `evaluateOnExit`  
-Array of up to 5 objects that specify conditions under which the job should be retried or failed\. If this parameter is specified, then the `attempts` parameter must also be specified\. If `evaluateOnExit` is specified but none of the entries match, then the job is retried\.  
+Array of up to 5 objects that specify conditions under which the job is retried or failed\. If this parameter is specified, then the `attempts` parameter must also be specified\. If `evaluateOnExit` is specified but none of the entries match, then the job is retried\.  
 
 ```
 "evaluateOnExit": [
@@ -855,7 +867,7 @@ Required: No
 ## Scheduling priority<a name="job-definition-parameters-schedulingPriority"></a>
 
 `schedulingPriority`  
-The scheduling priority for jobs that are submitted with this job definition\. This will only affect jobs in job queues with a fair share policy\. Jobs with a higher scheduling priority will be scheduled before jobs with a lower scheduling priority\.  
+The scheduling priority for jobs that are submitted with this job definition\. This only affects jobs in job queues with a fair share policy\. Jobs with a higher scheduling priority are scheduled before jobs with a lower scheduling priority\.  
 The minimum supported value is 0 and the maximum supported value is 9999\.  
 Type: Integer  
 Required: No
@@ -870,7 +882,7 @@ Required: No
 ## Timeout<a name="timeout"></a>
 
 `timeout`  
-You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job timeouts](job_timeouts.md)\. If a job is terminated due to a timeout, it isn't retried\. Any timeout configuration that's specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the timeout configuration defined here\. For more information, see [Job timeouts](job_timeouts.md)\.  
+You can configure a timeout duration for your jobs so that if a job runs longer than that, AWS Batch terminates the job\. For more information, see [Job timeouts](job_timeouts.md)\. If a job is terminated because of a timeout, it isn't retried\. Any timeout configuration that's specified during a [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) operation overrides the timeout configuration defined here\. For more information, see [Job timeouts](job_timeouts.md)\.  
 Type: [JobTimeout](https://docs.aws.amazon.com/batch/latest/APIReference/API_JobTimeout.html) object  
 Required: No    
 `attemptDurationSeconds`  

@@ -1,6 +1,14 @@
 # Getting started with AWS Batch on Amazon EKS<a name="getting-started-eks"></a>
 
-AWS Batch on Amazon EKS is a managed service for scheduling and scaling batch workloads into existing EKS clusters\. AWS Batch does not create, administer, or perform lifecycle operations of your EKS clusters on your behalf\. AWS Batch orchestration will scale up and down nodes managed by AWS Batch and run pods on those nodes\. Furthermore, AWS Batch will not touch nodes, auto scaling node groups or pods lifecycles not associated with AWS Batch compute environments within your EKS cluster\. For AWS Batch to operate effectively, its [service\-linked role](using-service-linked-roles.md#slr-permissions) will need Kubernetes role\-based access control \(RBAC\) permissions in your existing EKS cluster\. For more information, see [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) in the *Kubernetes documentation*\. AWS Batch also requires a Kubernetes namespace where it can scope pods as AWS Batch jobs into\. We recommend a dedicated namespace to isolate the AWS Batch pods from your other cluster workloads\. Once AWS Batch has been given RBAC access and a namespace has been established, you can associate that EKS cluster to a AWS Batch compute environment via the [CreateComputeEnvironment](https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html) API operation\. A job queue can be associated with this new EKS compute environment\. AWS Batch jobs are submitted to the job queue based on a EKS job definition using the [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) API operation\. AWS Batch will then launch AWS Batch managed nodes and place jobs from job queue as Kubernetes pods into the EKS cluster associated with a AWS Batch compute environment\. The following sections will get you set up for AWS Batch on Amazon EKS\.
+AWS Batch on Amazon EKS is a managed service for scheduling and scaling batch workloads into existing EKS clusters\. AWS Batch doesn't create, administer, or perform lifecycle operations of your EKS clusters on your behalf\. AWS Batch orchestration scales up and down nodes managed by AWS Batch and run pods on those nodes\.
+
+AWS Batch doesn't touch nodes, auto scaling node groups or pods lifecycles that aren't associated with AWS Batch compute environments within your EKS cluster\. For AWS Batch to operate effectively, its [service\-linked role](using-service-linked-roles.md#slr-permissions) needs Kubernetes role\-based access control \(RBAC\) permissions in your existing EKS cluster\. For more information, see [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) in the *Kubernetes documentation*\.
+
+AWS Batch requires a Kubernetes namespace where it can scope pods as AWS Batch jobs into\. We recommend a dedicated namespace to isolate the AWS Batch pods from your other cluster workloads\.
+
+After AWS Batch has been given RBAC access and a namespace has been established, you can associate that EKS cluster to an AWS Batch compute environment using the [CreateComputeEnvironment](https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html) API operation\. A job queue can be associated with this new EKS compute environment\. AWS Batch jobs are submitted to the job queue based on an EKS job definition using the [SubmitJob](https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html) API operation\. AWS Batch then launches AWS Batch managed nodes and place jobs from job queue as Kubernetes pods into the EKS cluster associated with an AWS Batch compute environment\.
+
+The following sections cover how to get set up for AWS Batch on Amazon EKS\.
 
 **Contents**
 + [Prerequisites](#getting-started-eks-prerequisites)
@@ -22,7 +30,7 @@ Before starting this tutorial, you must install and configure the following tool
 **Note**  
 AWS Batch only supports EKS clusters with API server endpoints that have public access, accessible to the public internet\. By default, EKS clusters API server endpoints have public access\. For more information, see [Amazon EKS cluster endpoint access control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html) in the *Amazon EKS User Guide*\.
 **Note**  
-AWS Batch does not provide managed\-node orchestration for CoreDNS or other deployment pods\. If you need CoreDNS, see [Adding the CoreDNS Amazon EKS add\-on](https://docs.aws.amazon.com/eks/latest/userguide/managing-coredns.html#adding-coredns-eks-add-on) in the *Amazon EKS User Guide*, or use `eksctl create cluster create` to create the cluster \- it will include CoreDNS by default\.
+AWS Batch doesn't provide managed\-node orchestration for CoreDNS or other deployment pods\. If you need CoreDNS, see [Adding the CoreDNS Amazon EKS add\-on](https://docs.aws.amazon.com/eks/latest/userguide/managing-coredns.html#adding-coredns-eks-add-on) in the *Amazon EKS User Guide*\. Or, use `eksctl create cluster create` to create the cluster, it includes CoreDNS by default\.
 + **Permissions** – Users calling the [CreateComputeEnvironment](https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html) API operation to create a compute environment that uses EKS resources require permissions to the `eks:DescribeCluster` API operation\. Using the AWS Management Console to create a compute resource using EKS resources requires permissions to both `eks:DescribeCluster` and `eks:ListClusters`\.
 
 ## Step 1: Preparing your EKS cluster for AWS Batch<a name="getting-started-eks-step-1"></a>
@@ -56,7 +64,7 @@ All steps are required\.
 
 **Enable access via role\-based access control \(RBAC\)**
 
-   Use `kubectl` to create a Kubernetes role for the cluster to allow AWS Batch to watch nodes and pods, and to bind the role\. This needs to be done once for each EKS cluster\.
+   Use `kubectl` to create a Kubernetes role for the cluster to allow AWS Batch to watch nodes and pods, and to bind the role\. You must do this once for each EKS cluster\.
 
    ```
    $ cat - <<EOF | kubectl apply -f -
@@ -101,7 +109,7 @@ All steps are required\.
    clusterrolebinding.rbac.authorization.k8s.io/aws-batch-cluster-role-binding created
    ```
 
-   Create namespace\-scoped Kubernetes role for AWS Batch to manage and lifecycle pods and bind it\. This needs to be done once for each unique namespace\.
+   Create namespace\-scoped Kubernetes role for AWS Batch to manage and lifecycle pods and bind it\. You must do this once for each unique namespace\.
 
    ```
    $ namespace=my-aws-batch-namespace
@@ -140,7 +148,7 @@ All steps are required\.
    rolebinding.rbac.authorization.k8s.io/aws-batch-compute-environment-role-binding created
    ```
 
-   Update Kubernetes `aws-auth` conﬁguration map to map the RBAC permissions above to the AWS Batch service\-linked role\.
+   Update Kubernetes `aws-auth` conﬁguration map to map the preceding RBAC permissions to the AWS Batch service\-linked role\.
 
    ```
    $ eksctl create iamidentitymapping \
@@ -150,7 +158,7 @@ All steps are required\.
    2022-10-25 20:19:57 [ℹ]  adding identity "arn:aws:iam::<your-account>:role/AWSServiceRoleForBatch" to auth ConfigMap
    ```
 **Note**  
-The path `aws-service-role/batch.amazonaws.com/` has been removed from the ARN of the service\-linked role\. This is due to an issue with the `aws-auth` configuration map\. For more information, see [Roles with paths do not work when the path is included in their ARN in the aws\-authconfigmap](https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/268)\.
+The path `aws-service-role/batch.amazonaws.com/` has been removed from the ARN of the service\-linked role\. This is because of an issue with the `aws-auth` configuration map\. For more information, see [Roles with paths do not work when the path is included in their ARN in the aws\-authconfigmap](https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/268)\.
 
 ## Step 2: Creating an Amazon EKS compute environment<a name="getting-started-eks-step-2"></a>
 
@@ -192,9 +200,9 @@ $ aws batch create-compute-environment --cli-input-json file://./batch-eks-compu
 **Notes**
 + The `serviceRole` parameter should not be specified, then the AWS Batch service\-linked role will be used\. AWS Batch on Amazon EKS only supports the AWS Batch service\-linked role\.
 + Only `BEST_FIT_PROGRESSIVE` and `SPOT_CAPACITY_OPTIMIZED` allocation strategies are supported for EKS compute environments\.
-+ For the `instanceRole`, see [Creating the Amazon EKS node IAM role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html#create-worker-node-role) in the *Amazon EKS User Guide*\. If you are using pod networking, see [Configuring the Amazon VPC CNI plugin for Kubernetes to use IAM roles for service accounts](https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html) in the *Amazon EKS User Guide*\.
-+ A way to get working subnets for the `subnets` parameter is to use the Amazon EKS managed node groups public subnets that were created by `eksctl` when creating an Amazon EKS cluster\. Otherwise use subnets that have a network path that supports pulling images\.
-+ The `securityGroupIds` parameter can use the same security group as the Amazon EKS cluster\. This command will retrieve the security group ID for the cluster\.
++ For the `instanceRole`, see [Creating the Amazon EKS node IAM role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html#create-worker-node-role) in the *Amazon EKS User Guide*\. If you're using pod networking, see [Configuring the Amazon VPC CNI plugin for Kubernetes to use IAM roles for service accounts](https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html) in the *Amazon EKS User Guide*\.
++ A way to get working subnets for the `subnets` parameter is to use the Amazon EKS managed node groups public subnets that were created by `eksctl` when creating an Amazon EKS cluster\. Otherwise, use subnets that have a network path that supports pulling images\.
++ The `securityGroupIds` parameter can use the same security group as the Amazon EKS cluster\. This command retrieves the security group ID for the cluster\.
 
   ```
   $ aws eks describe-cluster \
@@ -209,7 +217,7 @@ It's important to confirm that the compute environment is healthy before proceed
 ```
 $ aws batch describe-compute-environments --compute-environments My-Eks-CE1
 ```
-Confirm that the `status` parameter is not `INVALID` If it is, look at the `statusReason` parameter for the cause\. For more information, see [Troubleshooting AWS Batch](troubleshooting.md)\.
+Confirm that the `status` parameter is not `INVALID`\. If it is, look at the `statusReason` parameter for the cause\. For more information, see [Troubleshooting AWS Batch](troubleshooting.md)\.
 
 ## Step 4: Create a job queue and attach the compute environment<a name="getting-started-eks-step-3"></a>
 
@@ -217,7 +225,7 @@ Confirm that the `status` parameter is not `INVALID` If it is, look at the `stat
 $ aws batch describe-compute-environments --compute-environments My-Eks-CE1
 ```
 
-Jobs submitted to this new job queue will be executed as pods on AWS Batch managed nodes that have joined your Amazon EKS cluster associated with your compute environment\.
+Jobs submitted to this new job queue are run as pods on AWS Batch managed nodes that joined the Amazon EKS cluster that's associated with your compute environment\.
 
 ```
 $ cat <<EOF > ./batch-eks-job-queue.json
@@ -281,7 +289,7 @@ $ aws batch describe-jobs --job <jobId-from-submit-response>
 
 **Notes**
 + Only single container jobs are supported\.
-+ There are considerations for the `cpu` and `memory` parameters\. For more information, see [Memory and vCPU considerations for AWS Batch on Amazon EKS](memory-cpu-batch-eks.md)\.
++ Make sure you're familiar with all the relevant considerations for the `cpu` and `memory` parameters\. For more information, see [Memory and vCPU considerations for AWS Batch on Amazon EKS](memory-cpu-batch-eks.md)\.
 + For more information about running jobs on EKS resources, see [Amazon EKS jobs](eks-jobs.md)\.
 
 ## \(Optional\) Submit a job with overrides<a name="getting-started-eks-step-6"></a>
@@ -315,6 +323,6 @@ $ aws batch submit-job --cli-input-json file://./submit-job-override.json
 ```
 
 **Notes**
-+ AWS Batch aggressively cleans up the pods after the jobs complete to reduce the load to Kubernetes\. To examine the details of a job, logging will need to be configured\. For more information, see [Use CloudWatch Logs to monitor AWS Batch on Amazon EKS jobs](batch-eks-cloudwatch-logs.md)\.
++ AWS Batch aggressively cleans up the pods after the jobs complete to reduce the load to Kubernetes\. To examine the details of a job, logging must be configured\. For more information, see [Use CloudWatch Logs to monitor AWS Batch on Amazon EKS jobs](batch-eks-cloudwatch-logs.md)\.
 + For improved visibility into the details of the operations, enable Amazon EKS control plane logging\. For more information, see [Amazon EKS control plane logging](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html) in the *Amazon EKS User Guide*\.
-+ Daemonsets and kubelets overhead affects available vCPU and memory resources, affecting scaling and job placement\. For more information, see [Memory and vCPU considerations for AWS Batch on Amazon EKS](memory-cpu-batch-eks.md)\.
++ Daemonsets and kubelets overhead affects available vCPU and memory resources, specifically scaling and job placement\. For more information, see [Memory and vCPU considerations for AWS Batch on Amazon EKS](memory-cpu-batch-eks.md)\.

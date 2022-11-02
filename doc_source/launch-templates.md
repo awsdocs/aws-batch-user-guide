@@ -5,7 +5,7 @@ AWS Batch supports using Amazon EC2 launch templates with your EC2 compute envir
 **Note**  
 Launch templates aren't supported on AWS Fargate resources\.
 
-You must create a launch template before you can associate it with a compute environment\. You can create a launch template in the Amazon EC2 console, or you can use the AWS CLI or an AWS SDK\. For example, the following JSON file represents a launch template that resizes the Docker data volume for the default AWS Batch compute resource AMI and also sets it to be encrypted\.
+You must create a launch template before you can associate it with a compute environment\. You can create a launch template in the Amazon EC2 console\. Or, you can use the AWS CLI or an AWS SDK\. For example, the following JSON file represents a launch template that resizes the Docker data volume for the default AWS Batch compute resource AMI and also sets it to be encrypted\.
 
 ```
 {
@@ -25,7 +25,7 @@ You must create a launch template before you can associate it with a compute env
 }
 ```
 
-You can create the previous launch template by saving the JSON to a file called `lt-data.json` and running the following AWS CLI command:
+You can create the previous launch template by saving the JSON to a file that's called `lt-data.json` and running the following AWS CLI command\.
 
 ```
 aws ec2 --region <region> create-launch-template --cli-input-json file://lt-data.json
@@ -36,7 +36,7 @@ For more information about launch templates, see [Launching an Instance from a L
 If you use a launch template to create your compute environment, you can move the following existing compute environment parameters to your launch template:
 
 **Note**  
-If any of these parameters \(with the exception of Amazon EC2 tags\) are specified both in the launch template and in the compute environment configuration, the compute environment parameters take precedence\. Amazon EC2 tags are merged between the launch template and the compute environment configuration\. If there is a collision on the tag's key, then the value in the compute environment configuration takes precedence\.
+Suppose that any of these parameters \(except the Amazon EC2 tags\) are specified both in the launch template and in the compute environment configuration\. Then, the compute environment parameters take precedence\. Amazon EC2 tags are merged between the launch template and the compute environment configuration\. If there's a collision on the tag's key, the value in the compute environment configuration takes precedence\.
 + Amazon EC2 key pair
 + Amazon EC2 AMI ID
 + Security group IDs
@@ -53,7 +53,7 @@ AWS Batch only updates the launch template with a new launch template version du
 
 ## Amazon EC2 user data in launch templates<a name="lt-user-data"></a>
 
-You can supply Amazon EC2 user data in your launch template that's run by [cloud\-init](https://cloudinit.readthedocs.io/en/latest/index.html) when your instances launch\. Your user data can perform common configuration scenarios, including but not limited to:
+You can supply Amazon EC2 user data in your launch template that's run by [cloud\-init](https://cloudinit.readthedocs.io/en/latest/index.html) when your instances launch\. Your user data can perform common configuration scenarios, including but not limited to the following:
 + [Including users or groups](https://cloudinit.readthedocs.io/en/latest/topics/examples.html#including-users-and-groups)
 + [Installing packages](https://cloudinit.readthedocs.io/en/latest/topics/examples.html#install-arbitrary-packages)
 + [Creating partitions and file systems](https://cloudinit.readthedocs.io/en/latest/topics/examples.html#create-partitions-and-filesystems)
@@ -69,12 +69,12 @@ A MIME multi\-part file consists of the following components:
   + The opening boundary that signals the beginning of a user data block: `--==BOUNDARY==`\. You must keep the line before this boundary blank\.
   + The content type declaration for the block: `Content-Type: text/cloud-config; charset="us-ascii"`\. For more information about content types, see the [Cloud\-Init documentation](https://cloudinit.readthedocs.io/en/latest/topics/format.html)\. You must keep the line after the content type declaration blank\.
   + The content of the user data, such as a list of shell commands or `cloud-init` directives\.
-+ The closing boundary that signals the end of the MIME multi\-part file: `--==BOUNDARY==--`\.You must keep the line before the closing boundary blank\.
++ The closing boundary that signals the end of the MIME multi\-part file: `--==BOUNDARY==--`\. You must keep the line before the closing boundary blank\.
 
-The follwing are example MIME multi\-part files that you can use to create your own\.
+The following are example MIME multi\-part files that you can use to create your own\.
 
 **Note**  
-If you add user data to a launch template in the Amazon EC2 console, you can paste it in as plaintext, or upload from a file\. If you use the AWS CLI or an AWS SDK, you must first `base64` encode the user data and submit that string as the value of the `UserData` parameter when you call [CreateLaunchTemplate](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html), as shown in this JSON\.  
+If you add user data to a launch template in the Amazon EC2 console, you can paste it in as plaintext\. Or, you can upload it from a file\. If you use the AWS CLI or an AWS SDK, you must first `base64` encode the user data and submit that string as the value of the `UserData` parameter when you call [CreateLaunchTemplate](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html), as shown in this JSON file\.  
 
 ```
 {

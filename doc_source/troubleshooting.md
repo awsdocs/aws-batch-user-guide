@@ -38,7 +38,7 @@ It's possible that you might have incorrectly configured a managed compute envir
 
 #### Incorrect role name or ARN<a name="invalid_service_role_arn"></a>
 
-The most common cause for a compute environment to enter an `INVALID` state is that the AWS Batch service role or the Amazon EC2 Spot Fleet role has an incorrect name or Amazon Resource Name \(ARN\)\. This is more common with compute environments that are created using the AWS CLI or the AWS SDKs\. When you create a compute environment in the AWS Management Console, AWS Batch can help you choose the correct service or Spot Fleet roles\. However, if you manually enter the name or the ARN and happen to enter them incorrectly, then the resulting compute environment is also `INVALID`\.
+The most common cause for a compute environment to enter an `INVALID` state is that the AWS Batch service role or the Amazon EC2 Spot Fleet role has an incorrect name or Amazon Resource Name \(ARN\)\. This is more common with compute environments that are created using the AWS CLI or the AWS SDKs\. When you create a compute environment in the AWS Management Console, AWS Batch helps you choose the correct service or Spot Fleet roles\. However, suppose that you manually enter the name or the ARN and enter them incorrectly\. Then, the resulting compute environment is also `INVALID`\.
 
 However, if you manually enter the name or ARN for an IAM in an AWS CLI command or your SDK code, AWS Batch can't validate the string\. It must accept the bad value and attempt to create the environment\. If AWS Batch fails to create the environment, the environment moves to an `INVALID` state, and you see the following errors\.
 
@@ -50,13 +50,13 @@ For an invalid Spot Fleet role:
 
 `CLIENT_ERROR - Parameter: SpotFleetRequestConfig.IamFleetRole is invalid. (Service: AmazonEC2; Status Code: 400; Error Code: InvalidSpotFleetRequestConfig; Request ID: 331205f0-5ae3-4cea-bac4-897769639f8d) Parameter: SpotFleetRequestConfig.IamFleetRole is invalid`
 
-One common cause for this issue is if you only specify the name of an IAM role when using the AWS CLI or the AWS SDKs, instead of the full Amazon Resource Name \(ARN\)\. This is because, depending on how you created the role, the ARN might contain a `aws-service-role` path prefix\. For example, if you manually create the AWS Batch service role using the procedures in [AWS Batch service IAM role](service_IAM_role.md), your service role ARN might look like this:
+One common cause for this issue is if you only specify the name of an IAM role when using the AWS CLI or the AWS SDKs, instead of the full Amazon Resource Name \(ARN\)\. This is because, depending on how you created the role, the ARN might contain a `aws-service-role` path prefix\. For example, if you manually create the AWS Batch service role using the procedures in [AWS Batch service IAM role](service_IAM_role.md), your service role ARN might look like the following:
 
 ```
 arn:aws:iam::123456789012:role/AWSBatchServiceRole
 ```
 
-However, if you created the service role as part of the console first run wizard today, your service role ARN might look like this:
+However, if you created the service role as part of the console first run wizard today, your service role ARN might look like the following:
 
 ```
 arn:aws:iam::123456789012:role/aws-service-role/AWSBatchServiceRole
@@ -92,15 +92,15 @@ The `awslogs` log driver isn't configured on your compute resources
 AWS Batch jobs send their log information to CloudWatch Logs\. To enable this, you must configure your compute resources to use the `awslogs` log driver\. Suppose that you base your compute resource AMI off of the Amazon ECS optimized AMI \(or Amazon Linux\)\. Then, this driver is registered by default with the `ecs-init` package\. Now suppose that you use a different base AMI\. Then, you must verify that the `awslogs` log driver is specified as an available log driver with the `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable when the Amazon ECS container agent is started\. For more information, see [Compute resource AMI specification](compute_resource_AMIs.md#batch-ami-spec) and [Creating a compute resource AMI](create-batch-ami.md)\.
 
 Insufficient resources  
-If your job definitions specify more CPU or memory resources than your compute resources can allocate, then your jobs arenever placed\. For example, suppose that your job specifies 4 GiB of memory, and your compute resources have less than that available\. Then it's the case that the job can't be placed on those compute resources\. In this case, you must reduce the specified memory in your job definition or add larger compute resources to your environment\. Some memory is reserved for the Amazon ECS container agent and other critical system processes\. For more information, see [Compute Resource Memory Management](memory-management.md)\.
+If your job definitions specify more CPU or memory resources than your compute resources can allocate, then your jobs aren't ever placed\. For example, suppose that your job specifies 4 GiB of memory, and your compute resources have less than that available\. Then it's the case that the job can't be placed on those compute resources\. In this case, you must reduce the specified memory in your job definition or add larger compute resources to your environment\. Some memory is reserved for the Amazon ECS container agent and other critical system processes\. For more information, see [Compute Resource Memory Management](memory-management.md)\.
 
 No internet access for compute resources  
 Compute resources need access to communicate with the Amazon ECS service endpoint\. This can be through an interface VPC endpoint or through your compute resources having public IP addresses\.  
 For more information about interface VPC endpoints, see [Amazon ECS Interface VPC Endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/vpc-endpoints.html) in the *Amazon Elastic Container Service Developer Guide*\.  
-If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Create a VPC](get-set-up-for-aws-batch.md#create-a-vpc)\.\.
+If you do not have an interface VPC endpoint configured and your compute resources do not have public IP addresses, then they must use network address translation \(NAT\) to provide this access\. For more information, see [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) in the *Amazon VPC User Guide*\. For more information, see [Create a VPC](get-set-up-for-aws-batch.md#create-a-vpc)\.
 
 Amazon EC2 instance limit reached  
-The number of Amazon EC2 instances that your account can launch in an AWS Region is determined by your EC2 instance quota\. Certain instance types also have a per\-instance\-type quota\. For more information about your account's Amazon EC2 instance quota \(including how to request a limit increase\), see [Amazon EC2 Service Limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html) in the *Amazon EC2 User Guide for Linux Instances*\.
+The number of Amazon EC2 instances that your account can launch in an AWS Region is determined by your EC2 instance quota\. Certain instance types also have a per\-instance\-type quota\. For more information about your account's Amazon EC2 instance quota including how to request a limit increase, see [Amazon EC2 Service Limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 
 Amazon ECS container agent isn't installed  
 The Amazon ECS container agent must be installed on the Amazon Machine Image \(AMI\) to let AWS Batch run jobs\. The Amazon ECS container agent is installed by default on Amazon ECS optimized AMIs\. For more information about the Amazon ECS container agent, see [Amazon ECS container agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_agent.html) in the *Amazon Elastic Container Service Developer Guide*\.
@@ -194,7 +194,7 @@ To correct this, specify the memory and vCPU requirements in the [resourceRequir
 }
 ```
 
-Change them to this:
+Change them to the following:
 
 ```
 "containerOverrides": {
@@ -221,7 +221,7 @@ Do the same change to the memory and vCPU requirements that are specified in the
 }
 ```
 
-Change them to this:
+Change them to the following:
 
 ```
 "containerProperties": {
@@ -287,15 +287,15 @@ CLIENT_ERROR - Unable to validate Kubernetes Namespace
 ```
 
 This issue can occur if any of the following are true:
-+ The Kubernetes namespace string in `CreateComputeEnvironment` call does not exist\.
++ The Kubernetes namespace string in `CreateComputeEnvironment` call doesn't exist\.
 + The required Role\-Based Access Control \(RBAC\) permissions to manage the namespace are not configured correctly\.
-+ AWS Batch does not have access to the Amazon EKS Kubernetes API server endpoint\. 
++ AWS Batch doesn't have access to the Amazon EKS Kubernetes API server endpoint\. 
 
 For information about how to resolve this issue, see [Getting started with AWS Batch on Amazon EKS](https://docs.aws.amazon.com/batch/latest/userguide/getting-started-eks.html)\.
 
 #### Deleted compute environment<a name="deleted_compute_environment"></a>
 
-If you delete an Amazon EKS cluster before you delete the attached AWS Batch on Amazon EKS compute environment, the compute environment status is changed to `INVALID`\. In this scenario, the compute environment does not work properly if you re\-create the Amazon EKS cluster with the same name\.
+Suppose that you delete an Amazon EKS cluster before you delete the attached AWS Batch on Amazon EKS compute environment\. Then, the compute environment status is changed to `INVALID`\. In this scenario, the compute environment doesn't work properly if you re\-create the Amazon EKS cluster with the same name\.
 
 To resolve this issue, delete and then re\-create the AWS Batch on Amazon EKS compute environment\.
 
@@ -312,16 +312,16 @@ You see an error message set in the `statusReason` parameter that resembles ones
 
 `Your compute environment has been INVALIDATED and scaled down because none of the nodes joined the underlying EKS Cluster. Common issues preventing nodes joining are the following: networking configuration preventing communication to EKS Cluster, incorrect EKS Instance Profile or Kubernetes RBAC policypreventing authorization to EKS Cluster, customized AMI or LaunchTemplate configurations affecting EKS/Kubernetes node bootstrap.`
 
-When using a default Amazon EKS AMI, the most common causes of this issue are: 
-+ The instance role is not configured properly\. For more information, see [Amazon EKS node IAM role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html) in the *Amazon EKS User Guide*\.
-+ The subnets are not configured properly\. For more information, see [Amazon EKS VPC and subnet requirements and considerations](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html) in the *Amazon EKS User Guide*\.
-+ The security group is not configured properly\. For more information, see [Amazon EKS security group requirements and considerations](https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html) in the *Amazon EKS User Guide*\.
+When using a default Amazon EKS AMI, the most common causes of this issue are the following:
++ The instance role isn't configured correctly\. For more information, see [Amazon EKS node IAM role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html) in the *Amazon EKS User Guide*\.
++ The subnets aren't configured correctly\. For more information, see [Amazon EKS VPC and subnet requirements and considerations](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html) in the *Amazon EKS User Guide*\.
++ The security group isn't configured correctly\. For more information, see [Amazon EKS security group requirements and considerations](https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html) in the *Amazon EKS User Guide*\.
 **Note**  
 You may also see an error notification in the Personal Health Dashboard \(PHD\)\.
 
 ### AWS Batch on Amazon EKS job is stuck in `RUNNABLE` status<a name="batch_eks_job_stuck_in_runnable"></a>
 
-An `aws-auth` `ConfigMap` is automatically created and applied to your cluster when you create a managed node group or when you create a node group using `eksctl`\. It is initially created to allow nodes to join your cluster, but you also use the `aws-auth``ConfigMap` to add role\-based access control \(RBAC\) access to IAM users and roles\.
+An `aws-auth` `ConfigMap` is automatically created and applied to your cluster when you create a managed node group or when you create a node group using `eksctl`\. It's initially created to allow nodes to join your cluster\. However, you also use the `aws-auth``ConfigMap` to add role\-based access control \(RBAC\) access to IAM users and roles\.
 
 To verify that the `aws-auth` `ConfigMap` is configured correctly:
 
@@ -337,7 +337,7 @@ To verify that the `aws-auth` `ConfigMap` is configured correctly:
 **Note**  
 You can also review the Amazon EKS control plane logs\. For more information, see [Amazon EKS control plane logging](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html) in the *Amazon EKS User Guide*\.
 
-To resolve an issue where a job is stuck in a `RUNNABLE` status, we recommend that you use `kubectl` to re\-apply the manifest\. For more information, see [Step 1: Preparing your EKS cluster for AWS Batch](getting-started-eks.md#getting-started-eks-step-1)\. Or you can use `kubectl` to manually edit the `aws-auth` `ConfigMap`\. For more information, see [Enabling IAM user and role access to your cluster](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) in the *Amazon EKS User Guide*\.
+To resolve an issue where a job is stuck in a `RUNNABLE` status, we recommend that you use `kubectl` to re\-apply the manifest\. For more information, see [Step 1: Preparing your EKS cluster for AWS Batch](getting-started-eks.md#getting-started-eks-step-1)\. Or, you can use `kubectl` to manually edit the `aws-auth` `ConfigMap`\. For more information, see [Enabling IAM user and role access to your cluster](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) in the *Amazon EKS User Guide*\.
 
 ### RBAC permissions or bindings are not configured properly<a name="batch_eks_rbac"></a>
 
@@ -383,7 +383,7 @@ PolicyRule:
 $ kubectl describe role aws-batch-compute-environment-role -n my-aws-batch-namespace
 ```
 
-The following example output\.
+The following is example output\.
 
 ```
 Name:         aws-batch-compute-environment-role

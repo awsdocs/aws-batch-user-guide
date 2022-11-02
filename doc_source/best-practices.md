@@ -1,8 +1,8 @@
 # Best Practices for AWS Batch<a name="best-practices"></a>
 
-You can use AWS Batch to run a variety of demanding computational workloads at scale without managing a complex architecture\. AWS Batch jobs can be used in a large range of scenarios and use cases in a diverse array of industries and institutions, including epidemiology, gaming, and machine learning\.
+You can use AWS Batch to run a variety of demanding computational workloads at scale without managing a complex architecture\. AWS Batch jobs can be used in a wide range of use cases in areas such as epidemiology, gaming, and machine learning\.
 
-This topic provides an overview of best practices to consider while using AWS Batch, in addition to practical guidance for how to run and optimize your workloads when using AWS Batch\.
+This topic covers the best practices to consider while using AWS Batch and guidance on how to run and optimize your workloads when using AWS Batch\.
 
 **Topics**
 + [When to use AWS Batch](#bestpractice1)
@@ -61,7 +61,7 @@ With Amazon EC2, you can more finely tune your workload to your specific require
 
 ## Amazon EC2 On\-Demand or Amazon EC2 Spot<a name="bestpractice5"></a>
 
-Most AWS Batch customers use Amazon EC2 Spot instances because of the savings over On\-Demand instances\. However, if your workload runs for multiple hours and can't be interrupted, On\-Demand instances might be more suitable for you\. Don’t hesitate to try Spot instances\. You can switch to On\-Demand if necessary\.
+Most AWS Batch customers use Amazon EC2 Spot instances because of the savings over On\-Demand instances\. However, if your workload runs for multiple hours and can't be interrupted, On\-Demand instances might be more suitable for you\. You can always try Spot instances first and switch to On\-Demand if necessary\.
 
 If you have the following requirements and expectations, use Amazon EC2 On\-Demand instances:
 + The runtime of your jobs is more than an hour, and you can't tolerate interruptions to your workload\.
@@ -124,7 +124,7 @@ Errors in AWS Batch often occur at the application level or are caused by instan
 + **Review the AWS Dashboard** – Review the AWS Dashboard to verify that the expected job states and that the compute environment scales as expected\. You can also review the job logs in CloudWatch\.
 + **Verify that your instance is created** – If an instance is created, it means that your compute environment scaled as expected\. If your instances aren’t created, find the associated subnets in your compute environment to change\. For more information, see [Verify a scaling activity for an Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-verify-scaling-activity.html)\.
 
-  We also recommend that you verify that your instances can fulfill your related job requirements\. For example, a job might require one TiB of memory, but the compute environment uses a C5 instance type that's limited to 192 GB of memory\.
+  We also recommend that you verify that your instances can fulfill your related job requirements\. For example, a job might require 1 TiB of memory, but the compute environment uses a C5 instance type that's limited to 192 GB of memory\.
 + **Verify that your instances are being requested by AWS Batch** – Check Auto Scaling group history to verify that your instances are being requested by AWS Batch\. This is an indication of how Amazon EC2 tries to acquire instances\. If you receive an error stating the Amazon EC2 Spot can’t acquire an instance in a specific Availability Zone, this might be because the Availability Zone doesn't offer a specific instance family\.
 + **Verify that instances register with Amazon ECS** – If you see instances in the Amazon EC2 console, but no Amazon ECS container instances in your Amazon ECS cluster, the Amazon ECS agent might not be installed on the Amazon Machine Image \(AMI\)\. Moreover, the Amazon ECS Agent, the Amazon EC2 Data in your AMI, or the launch template might not be configured correctly\. To isolate the root cause, create a separate Amazon EC2 instance or connect to an existing instance using SSH\. For more information, see [CloudWatch agent configuration file: Logs section](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html#CloudWatch-Agent-Configuration-File-Logssection), [Amazon ECS Log File Locations](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/logs.html), and [Compute resource AMIs](compute_resource_AMIs.md)\.
 + **Open a support ticket** – If you're still experiencing issues after some troubleshooting and have a support plan, open a support ticket\. In the support ticket, make sure to include information about the issue, workload specifics, the configuration, and test results\. For more information, see [Compare AWS Support Plans](http://aws.amazon.com/premiumsupport/plans/)\.

@@ -50,7 +50,7 @@ By default, **optimal** is chosen\. The **optimal** setting chooses the best fit
 
    1. For **VPC\_ID**, choose an Amazon VPC\.
 
-   1. For **Subnets**, the subnets for your AWS account are listed by default\. If you want to create a custom set of subnets, choose **Clear subnets**, and then choose the subnets you want\.
+   1. For **Subnets**, the subnets for your AWS account are listed by default\. If you want to create a custom set of subnets, choose **Clear subnets**, and then choose the subnets that you want\.
 **Important**  
 Compute resources must communicate with the Amazon ECS VPC endpoint through a VPC endpoint or multiple public IP address\. For more information, see [Amazon ECS interface VPC endpoints \([AWS PrivateLink](get-set-up-for-aws-batch.md#create-a-vpc)\)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/vpc-endpoints.html)\. If your instance doesn't have a VPC endpoint configured or a public IP address, you can use network address translation \(NAT\)\. For more information about NAT, see [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) and [Creating a virtual private cloud ](create-public-private-vpc.md)\.
 
@@ -84,7 +84,7 @@ Higher integer values are assigned a higher priority by the AWS Batch Scheduler\
 
        For **State**, choose a job queue state\.
 
-1. \(Optional\) In the **Tags** section::
+1. \(Optional\) In the **Tags** section:
 
    1. Choose **Add tag**\. Enter a key name\-value pair, and then choose **Add tag**\.
 **Important**  
@@ -100,13 +100,13 @@ To create the job definition:
 
    1. For **Name**, enter a custom job definition name\.
 
-   1. For **Execution timeout**, enter the amount of time, in seconds, that an unfinished job terminates after\. 
+   1. For **Execution timeout**, enter the amount of time \(in seconds\) that an unfinished job terminates after\. 
 **Important**  
 The minimum timeout is 60 seconds\.
 
    1. \(Optional\) Expand **Additional tags configuration**\.
 
-   1. A tag is a label assigned to a resource\. To add a tag, choose **Add tag**\. Enter a key\-value pair, and then choose **Add tag** again\.
+   1. A tag is a label that's assigned to a resource\. To add a tag, choose **Add tag**\. Enter a key\-value pair, and then choose **Add tag** again\.
 **Important**  
 If you choose **Add tag**, you must enter a key\-value pair and choose **Add tag** again or choose **Remove tag**\.
 
@@ -120,7 +120,7 @@ If you choose **Add tag**, you must enter a key\-value pair and choose **Add tag
 
    1. For **Image**, enter the name of the image that's used to launch the container\. By default, all the images in the Docker Hub registry are available\. You can also specify other repositories in *repository\-url/image:tag* format\. The parameter can be up to 255 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), underscores \(\_\), colons \(:\), periods \(\.\), forward slashes \(/\), and number signs \(\#\)\. The parameter maps to `Image` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `IMAGE` parameter of [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
 **Note**  
-Docker image architecture must match the processor architecture of the compute resources that they're scheduled on\. For example, ARM\-based Docker images can only run on ARM\-based compute resources\.
+Docker image architecture must match the processor architecture of the compute resources that they're scheduled on\. For example, Arm based Docker images can only run on Arm based compute resources\.
       + Images in Amazon ECR Public repositories use the full `registry/repository[:tag]` or `registry/repository[@digest]` naming conventions \(for example, `public.ecr.aws/registry_alias/my-web-app:latest`\)\.
       + Images in Amazon ECR repositories use the full `registry/repository:tag` naming convention \(for example, `aws_account_id.dkr.ecr.region.amazonaws.com``/my-web-app:latest`\)\.
       + Images in official repositories on Docker Hub use a single name \(for example, `ubuntu` or `mongo`\)\.
@@ -169,9 +169,9 @@ Only roles that have the **Amazon Elastic Container Service Task Role** trust re
 
       1. \(Optional, **Spot **and **On\-demand** only\) For **Devices**, choose **Add device**\.
 
-         1. \(Optional, **Spot** and **On\-demand** only\) For **Devices**, choose **Add device** to add a device
+         1. \(Optional, **Spot** and **On\-demand** only\) For **Devices**, choose **Add device** to add a device\.
 
-         1. \(Optional, **Spot** and **On\-demand** only\) For **Container path**, specify the path of in the container instance to expose the device mapped to the host instance\. If this is kept blank \(unspecified\), then the host path is used in the container\.
+         1. \(Optional, **Spot** and **On\-demand** only\) For **Container path**, specify the path of in the container instance to expose the device mapped to the host instance\. If this is kept blank, then the host path is used in the container\.
 
          1. \(Optional, **Spot** and **On\-demand** only\) For **Host path**, specify the path of a device in the host instance\.
 
@@ -189,7 +189,7 @@ Only roles that have the **Amazon Elastic Container Service Task Role** trust re
 
       1. \(Optional, **Spot** and **On\-demand **only\) In the **Size** field, enter size \(in MiB\) of the `tmpfs` volume\.
 
-      1. \(Optional\) For **Mount options**, enter the mount options\. For more information, including the list of available mount options, see [mountOptions](job_definition_parameters.md#ContainerProperties-linuxParameters-tmpfs-mountOptions) in [Job definition parameters](job_definition_parameters.md)\.
+      1. \(Optional\) For **Mount options**, enter the mount options\. For more information including the list of available mount options, see [mountOptions](job_definition_parameters.md#ContainerProperties-linuxParameters-tmpfs-mountOptions) in [Job definition parameters](job_definition_parameters.md)\.
 
    1. \(Optional\) Turn on **Log configuration** to add a custom log driver to the container:
 **Note**  
@@ -229,11 +229,11 @@ To create a job:
 
    1. For **Name**, enter a custom name\.
 
-   1. For **Execution timeout**, enter a time duration, in seconds, before an unfinished job is terminated\. The minimum timeout is 60 seconds\.
+   1. For **Execution timeout**, enter a time duration \(in seconds\) before an unfinished job is terminated\. The minimum timeout is 60 seconds\.
 
    1. \(Optional\) Turn on **Array job** to spread the job across multiple hosts\. Enter the number of hosts in **Array size**\.
 
-   1. \(Optional\) If the job has any dependencies, turn on **Job dependencies**\. Then enter the **Job id** of the dependency and choose **Add**\.
+   1. \(Optional\) If the job has any dependencies, turn on **Job dependencies**\. Then, enter the **Job id** of the dependency and choose **Add**\.
 
    1. \(Optional\) Expand **Additional tags configuration**\. From **Tags**, choose **Add tag** to add a tag\. Enter a tag key and optional value, then choose **Add tag** again\.
 **Important**  
@@ -253,7 +253,7 @@ Choose **Info** to review Bash and JSON code examples\.
 
    1. For **vCPUs**, enter the number of vCPUs to reserve for the container\.
 
-   1. For **Memory**, enter the memory limit available to the container\.
+   1. For **Memory**, enter the memory quota for the container\.
 
    1. For **Number of GPUs**, enter the number of graphical processing units \(GPUs\) to reserve for the container\.
 
@@ -279,4 +279,4 @@ If you choose **Add evaluate on exit**, you must configure at least one paramete
 
 ## Step 6: Review and create<a name="first-run-step-6"></a>
 
-For **Review and create**, review the configuration steps\. If you need to make changes, choose **Edit**\. When you are happy with the configuration, choose **Create**\.
+For **Review and create**, review the configuration steps\. If you need to make changes, choose **Edit**\. After you're finished, choose **Create**\.

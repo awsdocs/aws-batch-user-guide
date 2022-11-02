@@ -10,7 +10,7 @@ Attach the `CloudWatchAgentServerPolicy` policy to the AWS Identity and Access M
 
 ## Install AWS for Fluent Bit<a name="batch-eks-cloudwatch-logs-install-fluent-bit"></a>
 
-For information about how to install AWS for Fluent Bit and create the CloudWatch groups, see [Setting up Fluent Bit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-logs-FluentBit.html#Container-Insights-FluentBit-setup) or [Quick Start with the CloudWatch agent and Fluent Bit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-EKS-quickstart.html)\.
+For instructions on how to install AWS for Fluent Bit and create the CloudWatch groups, see [Setting up Fluent Bit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-logs-FluentBit.html#Container-Insights-FluentBit-setup) or [Quick Start with the CloudWatch agent and Fluent Bit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-EKS-quickstart.html)\.
 
 **Tip**  
 Remember that Fluent Bit uses \.5 CPU and 100 MB of memory on AWS Batch nodes\. This reduces the total available capacity for AWS Batch jobs\. Consider this when you size your jobs\.
