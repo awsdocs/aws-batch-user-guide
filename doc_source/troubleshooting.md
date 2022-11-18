@@ -28,6 +28,7 @@ AWS Batch uses IAM policies, roles, and permissions, and runs on Amazon EC2, Ama
     + [Deleted compute environment](#deleted_compute_environment)
     + [Nodes do not join the Amazon EKS cluster](#batch_eks_node_not_join_cluster)
   + [AWS Batch on Amazon EKS job is stuck in `RUNNABLE` status](#batch_eks_job_stuck_in_runnable)
+  + [Verify that the `aws-auth ConfigMap` is configured correctly](#verify-configmap-config)
   + [RBAC permissions or bindings are not configured properly](#batch_eks_rbac)
 
 ## AWS Batch<a name="batch-troubleshooting"></a>
@@ -243,6 +244,7 @@ Change them to the following:
 **Topics**
 + [`INVALID` compute environment](#batch_eks_invalid_compute_environment)
 + [AWS Batch on Amazon EKS job is stuck in `RUNNABLE` status](#batch_eks_job_stuck_in_runnable)
++ [Verify that the `aws-auth ConfigMap` is configured correctly](#verify-configmap-config)
 + [RBAC permissions or bindings are not configured properly](#batch_eks_rbac)
 
 ### `INVALID` compute environment<a name="batch_eks_invalid_compute_environment"></a>
@@ -258,6 +260,7 @@ reason=CLIENT_ERROR - ... EKS Cluster version [1.xx] is unsupported
 ```
 
 To resolve this issue, delete the compute environment and then re\-create it with a supported Kubernetes version\. AWS Batch on Amazon EKS currently supports the following Kubernetes versions:
++ `1.24`
 + `1.23`
 + `1.22`
 + `1.21`
@@ -287,11 +290,11 @@ CLIENT_ERROR - Unable to validate Kubernetes Namespace
 ```
 
 This issue can occur if any of the following are true:
-+ The Kubernetes namespace string in `CreateComputeEnvironment` call doesn't exist\.
++ The Kubernetes namespace string in the `CreateComputeEnvironment` call doesn't exist\. For more information, see [CreateComputeEnvironment](https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html)\.
 + The required Role\-Based Access Control \(RBAC\) permissions to manage the namespace are not configured correctly\.
 + AWS Batch doesn't have access to the Amazon EKS Kubernetes API server endpoint\. 
 
-For information about how to resolve this issue, see [Getting started with AWS Batch on Amazon EKS](https://docs.aws.amazon.com/batch/latest/userguide/getting-started-eks.html)\.
+To resolve this issue, see [Verify that the `aws-auth ConfigMap` is configured correctly](#verify-configmap-config)\. For more information, see [Getting started with AWS Batch on Amazon EKS](getting-started-eks.md) \.
 
 #### Deleted compute environment<a name="deleted_compute_environment"></a>
 
@@ -321,7 +324,9 @@ You may also see an error notification in the Personal Health Dashboard \(PHD\)\
 
 ### AWS Batch on Amazon EKS job is stuck in `RUNNABLE` status<a name="batch_eks_job_stuck_in_runnable"></a>
 
-An `aws-auth` `ConfigMap` is automatically created and applied to your cluster when you create a managed node group or when you create a node group using `eksctl`\. It's initially created to allow nodes to join your cluster\. However, you also use the `aws-auth``ConfigMap` to add role\-based access control \(RBAC\) access to IAM users and roles\.
+An `aws-auth` `ConfigMap` is automatically created and applied to your cluster when you create a managed node group or when you create a node group using `eksctl`\. It's initially created to allow nodes to join your cluster\. However, you also use the `aws-auth ConfigMap` to add role\-based access control \(RBAC\) access to IAM users and roles\.
+
+### Verify that the `aws-auth ConfigMap` is configured correctly<a name="verify-configmap-config"></a>
 
 To verify that the `aws-auth` `ConfigMap` is configured correctly:
 
@@ -334,6 +339,8 @@ To verify that the `aws-auth` `ConfigMap` is configured correctly:
 1. Verify that the `roleARN` is configured as follows:
 
    `rolearn: arn:aws:iam::aws_account_number:role/AWSServiceRoleForBatch`
+**Note**  
+The path `aws-service-role/batch.amazonaws.com/` has been removed from the ARN of the service\-linked role\. This is because of an issue with the `aws-auth` configuration map\. For more information, see [Roles with paths do not work when the path is included in their ARN in the aws\-authconfigmap](https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/268)\.
 **Note**  
 You can also review the Amazon EKS control plane logs\. For more information, see [Amazon EKS control plane logging](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html) in the *Amazon EKS User Guide*\.
 

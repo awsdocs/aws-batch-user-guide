@@ -6,10 +6,10 @@ You can use EventBridge to gain further insights about your AWS Batch service\. 
 
 Events from the AWS Batch event stream are ensured to be delivered at least one time\. In the event that duplicate events are sent, the event provides enough information to identify duplicates\. That way, you can compare the time stamp of the event and the job status\.
 
-AWS Batch jobs are available as EventBridge targets\. Using simple rules, you can match events and submit AWS Batch jobs in response to them\. For more information, see [What is EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) in the *Amazon EventBridge User Guide*\. You can also use EventBridge to schedule automated actions that self\-trigger at certain times using cron or rate expressions\. For more information, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*\. For an example walkthrough, see [AWS Batch Jobs as EventBridge Targets](batch-cwe-target.md)\.
+AWS Batch jobs are available as EventBridge targets\. Using simple rules, you can match events and submit AWS Batch jobs in response to them\. For more information, see [What is EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) in the *Amazon EventBridge User Guide*\. You can also use EventBridge to schedule automated actions that self\-trigger at certain times using cron or rate expressions\. For more information, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*\. For an example walkthrough, see [AWS Batch jobs as EventBridge targets](batch-cwe-target.md)\.
 
 **Topics**
 + [AWS Batch Events](batch_cwe_events.md)
-+ [AWS Batch Jobs as EventBridge Targets](batch-cwe-target.md)
++ [AWS Batch jobs as EventBridge targets](batch-cwe-target.md)
 + [Tutorial: Listening for AWS Batch​ EventBridge](batch_cwet.md)
 + [Tutorial: Sending Amazon Simple Notification Service Alerts for Failed Job Events](batch_sns_tutorial.md)

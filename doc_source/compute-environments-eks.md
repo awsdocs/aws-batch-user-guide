@@ -41,6 +41,16 @@ $ aws batch describe-compute-environments --compute-environments My-Eks-GPU-CE \
 ]
 ```
 
+AWS Batch on Amazon EKS currently supports the following Kubernetes versions:
++ `1.24`
++ `1.23`
++ `1.22`
++ `1.21`
++ `1.20`
+
+**Note**  
+We recommend Kubernetes version 1\.22 or later\.
+
 ## Updating Kubernetes version of compute environment<a name="updating-k8s-version-ce"></a>
 
 With AWS Batch, you can update the Kubernetes version of a compute environment to support EKS cluster upgrades\. The Kubernetes version of a compute environment is the EKS AMI version for the Kubernetes nodes that AWS Batch launches to run jobs\. You can perform a Kubernetes version upgrade on their EKS nodes before or after you update the version of EKS cluster’s control\-plane\. We recommend that you update the nodes after upgrading the control plane\. For more information, see [Updating an Amazon EKS cluster Kubernetes version](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html) in the *Amazon EKS User Guide*\.

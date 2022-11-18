@@ -1,6 +1,6 @@
-# AWS Batch Jobs as EventBridge Targets<a name="batch-cwe-target"></a>
+# AWS Batch jobs as EventBridge targets<a name="batch-cwe-target"></a>
 
-Amazon EventBridge delivers a near real\-time stream of system events that describe changes in Amazon Web Services resources\. AWS Batch jobs are available as EventBridge targets\. Using simple rules, you can match events and submit AWS Batch jobs in response to them\. For more information, see [What is EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) in the *Amazon EventBridge User Guide*\.
+Amazon EventBridge delivers a near real\-time stream of system events that describe changes in Amazon Web Services resources\. Typically, AWS Batch on Amazon Elastic Container Service, Amazon Elastic Kubernetes Service, and AWS Fargate jobs are available as EventBridge targets\. Using simple rules, you can match events and submit AWS Batch jobs in response to them\. For more information, see [What is EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) in the *Amazon EventBridge User Guide*\.
 
 You can also use EventBridge to schedule automated actions that are invoked at certain times using cron or rate expressions\. For more information, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*\.
 
@@ -12,11 +12,13 @@ In this scenario, all of related AWS resources must be in the same Region\. This
 
 Before you can submit AWS Batch jobs with EventBridge rules and targets, the EventBridge service needs several permissions to run AWS Batch jobs on your behalf\. When you create a rule in the EventBridge console that specifies an AWS Batch job as a target, you're provided with an opportunity to create this role\. For more information about the required service principal and IAM permissions for this role, see [EventBridge IAM role](CWE_IAM_role.md)\.
 
-## Creating a Scheduled AWS Batch Job<a name="scheduled-batch-job"></a>
+## Creating a scheduled AWS Batch job<a name="scheduled-batch-job"></a>
 
 The procedure below shows how to create a scheduled AWS Batch job and the required EventBridge IAM role\.
 
 **To create a scheduled AWS Batch job with EventBridge**
+**Note**  
+This procedure works for all AWS Batch on Amazon ECS, Amazon EKS, and AWS Fargate jobs\.
 
 1. Open the Amazon EventBridge console at [https://console\.aws\.amazon\.com/events/](https://console.aws.amazon.com/events/)\.
 
@@ -40,9 +42,12 @@ The procedure below shows how to create a scheduled AWS Batch job and the requir
 
    For details about creating rules, see [Creating an Amazon EventBridge rule that runs on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) in the *Amazon EventBridge User Guide*\.
 
-## Passing Event Information to an AWS Batch Target using the EventBridge Input Transformer<a name="cwe-input-transformer"></a>
+## Passing event information to an AWS Batch Target using the EventBridge input transformer<a name="cwe-input-transformer"></a>
 
 You can use the EventBridge input transformer to pass event information to AWS Batch in a job submission\. This can be especially valuable if you invoke jobs as a result of other AWS event information\. One example is an object upload to an Amazon S3 bucket\. You can also use a job definition with parameter substitution values in the container's command\. The EventBridge input transformer can provide the parameter values based on the event data\. For example, the following job definition expects to see parameter values called *S3bucket* and *S3key*\.
+
+**Note**  
+The following example is for AWS Batch on Amazon ECS jobs\.
 
 ```
 {
@@ -93,7 +98,7 @@ In this scenario, all of the AWS resources \(such as Amazon S3 buckets, EventBri
 
 1. For **Event source**, choose **AWS events**\.
 
-1. For **Event pattern**, construct the rule as desired to match your application needs\.
+1. For **Event pattern**, construct the rule to match your application needs\.
 
 1. Choose **Next**\.
 

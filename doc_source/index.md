@@ -86,7 +86,7 @@ sponsored by Amazon.
    + [EventBridge IAM role](CWE_IAM_role.md)
 + [AWS Batch Event Stream for Amazon EventBridge](cloudwatch_event_stream.md)
    + [AWS Batch Events](batch_cwe_events.md)
-   + [AWS Batch Jobs as EventBridge Targets](batch-cwe-target.md)
+   + [AWS Batch jobs as EventBridge targets](batch-cwe-target.md)
    + [Tutorial: Listening for AWS Batch​ EventBridge](batch_cwet.md)
    + [Tutorial: Sending Amazon Simple Notification Service Alerts for Failed Job Events](batch_sns_tutorial.md)
 + [Using CloudWatch Logs with AWS Batch](using_cloudwatch_logs.md)

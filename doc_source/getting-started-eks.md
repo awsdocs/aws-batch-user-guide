@@ -14,8 +14,8 @@ The following sections cover how to get set up for AWS Batch on Amazon EKS\.
 + [Prerequisites](#getting-started-eks-prerequisites)
 + [Step 1: Preparing your EKS cluster for AWS Batch](#getting-started-eks-step-1)
 + [Step 2: Creating an Amazon EKS compute environment](#getting-started-eks-step-2)
-+ [Step 4: Create a job queue and attach the compute environment](#getting-started-eks-step-3)
-+ [Step 5: Create a job definition](#getting-started-eks-step-4)
++ [Step 3: Create a job queue and attach the compute environment](#getting-started-eks-step-3)
++ [Step 4: Create a job definition](#getting-started-eks-step-4)
 + [Step 5: Submit a job](#getting-started-eks-step-5)
 + [\(Optional\) Submit a job with overrides](#getting-started-eks-step-6)
 
@@ -219,7 +219,7 @@ $ aws batch describe-compute-environments --compute-environments My-Eks-CE1
 ```
 Confirm that the `status` parameter is not `INVALID`\. If it is, look at the `statusReason` parameter for the cause\. For more information, see [Troubleshooting AWS Batch](troubleshooting.md)\.
 
-## Step 4: Create a job queue and attach the compute environment<a name="getting-started-eks-step-3"></a>
+## Step 3: Create a job queue and attach the compute environment<a name="getting-started-eks-step-3"></a>
 
 ```
 $ aws batch describe-compute-environments --compute-environments My-Eks-CE1
@@ -243,7 +243,7 @@ EOF
 $ aws batch create-job-queue --cli-input-json file://./batch-eks-job-queue.json
 ```
 
-## Step 5: Create a job definition<a name="getting-started-eks-step-4"></a>
+## Step 4: Create a job definition<a name="getting-started-eks-step-4"></a>
 
 ```
 $ cat <<EOF > ./batch-eks-job-definition.json

@@ -715,7 +715,7 @@ Type: Boolean
 Required: No  
 `dnsPolicy`  
 The DNS policy for the pod\. The default value is `ClusterFirst`\. If the `hostNetwork` parameter is not specified, the default is `ClusterFirstWithHostNet`\. `ClusterFirst` indicates that any DNS query that does not match the configured cluster domain suffix is forwarded to the upstream nameserver inherited from the node\. If no value was specified for `dnsPolicy` in the [RegisterJobDefinition](https://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) API operation, then no value is returned for `dnsPolicy` by either of [DescribeJobDefinitions](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobDefinitions.html) or [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operations\. The pod spec setting will contain either `ClusterFirst` or `ClusterFirstWithHostNet`, depending on the value of the `hostNetwork` parameter\. For more information, see [Pod's DNS policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy) in the *Kubernetes documentation*\.  
-Valid values: `Default` \| `ClusterFirst` \| `ClusterFirstWithHostNet` \| `None`  
+Valid values: `Default` \| `ClusterFirst` \| `ClusterFirstWithHostNet`  
 Type: String  
 Required: No  
 `hostNetwork`  
