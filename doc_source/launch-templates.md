@@ -13,7 +13,7 @@ You must create a launch template before you can associate it with a compute env
     "LaunchTemplateData": {
         "BlockDeviceMappings": [
             {
-                "DeviceName": "/dev/xvdcz",
+                "DeviceName": "/dev/xvda",
                 "Ebs": {
                     "Encrypted": true,
                     "VolumeSize": 100,
