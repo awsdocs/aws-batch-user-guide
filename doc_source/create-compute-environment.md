@@ -43,6 +43,8 @@ If you do not have an interface VPC endpoint configured and your compute resourc
    1. For **VPC ID**, choose a VPC where you intend to launch your instances\.
 
    1. For **Subnets**, choose which subnets in the selected VPC hosts your instances\. By default, all subnets within the selected VPC are selected\.
+**Note**  
+AWS Batch on Fargate doesn't currently support Local Zones\. For more information, see [ Amazon ECS clusters in Local Zones, Wavelength Zones, and AWS Outposts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-regions-zones.html#clusters-local-zones) in the *Amazon Elastic Container Service Developer Guide*\.
 
    1. \(Optional\) Expand **Additional settings: Security groups, EC2 tags**\.
 
@@ -131,6 +133,8 @@ If you do not have an interface VPC endpoint configured and your compute resourc
    1. For **VPC ID**, choose a VPC where to launch your instances\.
 
    1. For **Subnets**, choose which subnets in the selected VPC hosts your instances\. By default, all subnets within the selected VPC are specified\.
+**Note**  
+AWS Batch on Amazon EC2 supports Local Zones\. For more information, see [ Local Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html?icmpid=docs_ec2_console#concepts-local-zones) in the *Amazon EC2 User Guide for Linux Instances* and [ Amazon ECS clusters in Local Zones, Wavelength Zones, and AWS Outposts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-regions-zones.html#clusters-local-zones) in the *Amazon Elastic Container Service Developer Guide*\.
 
    1. \(Optional\) Expand **Additional settings: Security groups, EC2 tags**\.
 
@@ -250,6 +254,8 @@ Default for all GPU instance families \(for example, `P4` and `G4`\) and can be 
 1. For **Virtual Private Cloud \(VPC\) ID**, choose a VPC where to launch the instances\.
 
 1. For **Subnets**, choose which subnets in the selected VPC host your instances\. By default, all subnets within the selected VPC are selected\.
+**Note**  
+AWS Batch on Amazon EKS supports Local Zones\. For more information, see [Amazon EKS and AWS Local Zones](https://docs.aws.amazon.com/eks/latest/userguide/local-zones.html) in the *Amazon EKS User Guide*\.
 
 1. \(Optional\) Expand **Additional configuration**\.
 

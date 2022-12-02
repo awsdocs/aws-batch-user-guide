@@ -4,6 +4,7 @@
 
 **Topics**
 + [Default AMI selection](#eks-ce-ami-selection)
++ [Supported Kubernetes versions](#supported_kubernetes_version)
 + [Updating Kubernetes version of compute environment](#updating-k8s-version-ce)
 + [Shared responsibility of the Kubernetes nodes](#eks-ce-shared-responsibility)
 + [Running a DaemonSet on AWS Batch managed nodes](#daemonset-on-batch-eks-nodes)
@@ -41,6 +42,8 @@ $ aws batch describe-compute-environments --compute-environments My-Eks-GPU-CE \
 ]
 ```
 
+## Supported Kubernetes versions<a name="supported_kubernetes_version"></a>
+
 AWS Batch on Amazon EKS currently supports the following Kubernetes versions:
 + `1.24`
 + `1.23`
@@ -50,6 +53,18 @@ AWS Batch on Amazon EKS currently supports the following Kubernetes versions:
 
 **Note**  
 We recommend Kubernetes version 1\.22 or later\.
+
+If you create a compute environment using an unsupported Kubernetes version, AWS Batch on Amazon EKS changes the compute environment status to `INVALID`\. You see an error set in the `statusReason` parameter that resembles the following\.
+
+```
+reason=CLIENT_ERROR - ... EKS Cluster version [1.xx] is unsupported
+```
+
+If you specify an unsupported Kubernetes version when you create or update a compute environment using the [https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html) or [https://docs.aws.amazon.com/batch/latest/APIReference/API_UpdateComputeEnvironment.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_UpdateComputeEnvironment.html) API operation, you see an error message that resembles the following\.
+
+```
+At least one imageKubernetesVersion in EC2Configuration is not supported.
+```
 
 ## Updating Kubernetes version of compute environment<a name="updating-k8s-version-ce"></a>
 

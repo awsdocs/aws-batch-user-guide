@@ -11,4 +11,4 @@ AWS Batch selects additional instance types that are large enough to meet the re
 `SPOT_CAPACITY_OPTIMIZED`  
 AWS Batch selects one or more instance types that are large enough to meet the requirements of the jobs in the queue\. Instance types that are less likely to be interrupted are preferred\. This allocation strategy is only available for Spot Instance compute resources\.
 
-The `BEST_FIT_PROGRESSIVE` and `SPOT_CAPACITY_OPTIMIZED` strategies use On\-Demand or Spot Instances, and the `BEST_FIT` strategy uses Spot Instances\. However, AWS Batch might need to exceed `maxvCpus` to meet your capacity requirements\. In this event, AWS Batch never exceeds `maxvCpus` by more than a single instance\.
+The `BEST_FIT_PROGRESSIVE` and `BEST_FIT` strategies use On\-Demand or Spot Instances, and the `SPOT_CAPACITY_OPTIMIZED` strategy uses Spot Instances\. However, AWS Batch might need to exceed `maxvCpus` to meet your capacity requirements\. In this event, AWS Batch never exceeds `maxvCpus` by more than a single instance\.

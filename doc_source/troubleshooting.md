@@ -23,13 +23,13 @@ AWS Batch uses IAM policies, roles, and permissions, and runs on Amazon EC2, Ama
 + [AWS Batch on Amazon EKS](#batch-eks-troubleshooting)
   + [`INVALID` compute environment](#batch_eks_invalid_compute_environment)
     + [Unsupported Kubernetes version](#invalid_kubernetes_version)
-    + [Instance profile does not exist](#instance_profile_not_exist)
+    + [Instance profile doesn't exist](#instance_profile_not_exist)
     + [Invalid Kubernetes namespace](#invalid_kubernetes_namespace)
     + [Deleted compute environment](#deleted_compute_environment)
-    + [Nodes do not join the Amazon EKS cluster](#batch_eks_node_not_join_cluster)
+    + [Nodes don't join the Amazon EKS cluster](#batch_eks_node_not_join_cluster)
   + [AWS Batch on Amazon EKS job is stuck in `RUNNABLE` status](#batch_eks_job_stuck_in_runnable)
   + [Verify that the `aws-auth ConfigMap` is configured correctly](#verify-configmap-config)
-  + [RBAC permissions or bindings are not configured properly](#batch_eks_rbac)
+  + [RBAC permissions or bindings aren't configured properly](#batch_eks_rbac)
 
 ## AWS Batch<a name="batch-troubleshooting"></a>
 
@@ -245,7 +245,7 @@ Change them to the following:
 + [`INVALID` compute environment](#batch_eks_invalid_compute_environment)
 + [AWS Batch on Amazon EKS job is stuck in `RUNNABLE` status](#batch_eks_job_stuck_in_runnable)
 + [Verify that the `aws-auth ConfigMap` is configured correctly](#verify-configmap-config)
-+ [RBAC permissions or bindings are not configured properly](#batch_eks_rbac)
++ [RBAC permissions or bindings aren't configured properly](#batch_eks_rbac)
 
 ### `INVALID` compute environment<a name="batch_eks_invalid_compute_environment"></a>
 
@@ -259,7 +259,17 @@ If the compute environment was created on an unsupported Kubernetes version, AWS
 reason=CLIENT_ERROR - ... EKS Cluster version [1.xx] is unsupported
 ```
 
-To resolve this issue, delete the compute environment and then re\-create it with a supported Kubernetes version\. AWS Batch on Amazon EKS currently supports the following Kubernetes versions:
+To resolve this issue, delete the compute environment and then re\-create it with a supported Kubernetes version\. 
+
+If you specify an unsupported Kubernetes version when you create or update a compute environment using the [https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_CreateComputeEnvironment.html) or [https://docs.aws.amazon.com/batch/latest/APIReference/API_UpdateComputeEnvironment.html](https://docs.aws.amazon.com/batch/latest/APIReference/API_UpdateComputeEnvironment.html) API operation, you see an error message that resembles the following\.
+
+```
+At least one imageKubernetesVersion in EC2Configuration is not supported.
+```
+
+To resolve this issue, specify a supported Kubernetes version when you use an API operation to create or update a compute environment\.
+
+AWS Batch on Amazon EKS currently supports the following Kubernetes versions:
 + `1.24`
 + `1.23`
 + `1.22`
@@ -269,7 +279,7 @@ To resolve this issue, delete the compute environment and then re\-create it wit
 **Note**  
 We recommend Kubernetes version 1\.22 or later\.
 
-#### Instance profile does not exist<a name="instance_profile_not_exist"></a>
+#### Instance profile doesn't exist<a name="instance_profile_not_exist"></a>
 
 If the specified instance profile does not exist, the AWS Batch on Amazon EKS compute environment status is changed to `INVALID`\. You see an error set in the `statusReason` parameter that resembles the following:
 
@@ -302,7 +312,7 @@ Suppose that you delete an Amazon EKS cluster before you delete the attached AWS
 
 To resolve this issue, delete and then re\-create the AWS Batch on Amazon EKS compute environment\.
 
-#### Nodes do not join the Amazon EKS cluster<a name="batch_eks_node_not_join_cluster"></a>
+#### Nodes don't join the Amazon EKS cluster<a name="batch_eks_node_not_join_cluster"></a>
 
 AWS Batch on Amazon EKS scales down a compute environment if it determines that not all nodes joined the Amazon EKS cluster\. When AWS Batch on Amazon EKS scales down the compute environment, the compute environment status is changed to `INVALID`\.
 
@@ -324,7 +334,23 @@ You may also see an error notification in the Personal Health Dashboard \(PHD\)\
 
 ### AWS Batch on Amazon EKS job is stuck in `RUNNABLE` status<a name="batch_eks_job_stuck_in_runnable"></a>
 
-An `aws-auth` `ConfigMap` is automatically created and applied to your cluster when you create a managed node group or when you create a node group using `eksctl`\. It's initially created to allow nodes to join your cluster\. However, you also use the `aws-auth ConfigMap` to add role\-based access control \(RBAC\) access to IAM users and roles\.
+An `aws-auth` `ConfigMap` is automatically created and applied to your cluster when you create a managed node group or when you create a node group using `eksctl`\. It's initially created to allow nodes to join your cluster\. However, you also use the `aws-auth``ConfigMap` to add role\-based access control \(RBAC\) access to IAM users and roles\.
+
+To verify that the `aws-auth` `ConfigMap` is configured correctly:
+
+1. Retrieve the mapped roles in the `aws-auth` `ConfigMap`:
+
+   ```
+   $ kubectl get configmap -n kube-system aws-auth -o yaml
+   ```
+
+1. Verify that the `roleARN` is configured as follows:
+
+   `rolearn: arn:aws:iam::aws_account_number:role/AWSServiceRoleForBatch`
+**Note**  
+You can also review the Amazon EKS control plane logs\. For more information, see [Amazon EKS control plane logging](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html) in the *Amazon EKS User Guide*\.
+
+To resolve an issue where a job is stuck in a `RUNNABLE` status, we recommend that you use `kubectl` to re\-apply the manifest\. For more information, see [Step 1: Preparing your EKS cluster for AWS Batch](getting-started-eks.md#getting-started-eks-step-1)\. Or, you can use `kubectl` to manually edit the `aws-auth` `ConfigMap`\. For more information, see [Enabling IAM user and role access to your cluster](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) in the *Amazon EKS User Guide*\.
 
 ### Verify that the `aws-auth ConfigMap` is configured correctly<a name="verify-configmap-config"></a>
 
@@ -346,7 +372,7 @@ You can also review the Amazon EKS control plane logs\. For more information, se
 
 To resolve an issue where a job is stuck in a `RUNNABLE` status, we recommend that you use `kubectl` to re\-apply the manifest\. For more information, see [Step 1: Preparing your EKS cluster for AWS Batch](getting-started-eks.md#getting-started-eks-step-1)\. Or, you can use `kubectl` to manually edit the `aws-auth` `ConfigMap`\. For more information, see [Enabling IAM user and role access to your cluster](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) in the *Amazon EKS User Guide*\.
 
-### RBAC permissions or bindings are not configured properly<a name="batch_eks_rbac"></a>
+### RBAC permissions or bindings aren't configured properly<a name="batch_eks_rbac"></a>
 
 If you experience any RBAC permissions or binding issues, verify that the `aws-batch` Kubernetes role can access the Kubernetes namespace:
 
