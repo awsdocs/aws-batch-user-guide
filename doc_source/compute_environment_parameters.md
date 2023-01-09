@@ -84,7 +84,7 @@ Required: yes
 *This parameter is deprecated\.*  
 The Amazon Machine Image \(AMI\) ID used for instances launched in the compute environment\. This parameter is overridden by the `imageIdOverride` member of the `Ec2Configuration` structure\.  
 This parameter isn't applicable to jobs that run on Fargate resources\.
-The AMI that you choose for a compute environment must match the architecture of the instance types that you intend to use for that compute environment\. For example, if your compute environment uses A1 instance types, the compute resource AMI that you choose must support ARM instances\. Amazon ECS vends both x86 and ARM versions of the Amazon ECS optimized Amazon Linux 2 AMI\. For more information, see [Amazon ECS optimized Amazon Linux 2 AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#ecs-optimized-ami-linux-variants.html) in the *Amazon Elastic Container Service Developer Guide*\.
+The AMI that you choose for a compute environment must match the architecture of the instance types that you want to use for that compute environment\. For example, if your compute environment uses A1 instance types, the compute resource AMI that you choose must support Arm instances\. Amazon ECS vends both x86 and Arm versions of the Amazon ECS optimized Amazon Linux 2 AMI\. For more information, see [Amazon ECS optimized Amazon Linux 2 AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#ecs-optimized-ami-linux-variants.html) in the *Amazon Elastic Container Service Developer Guide*\.
 Type: String  
 Required: No  
 `subnets`  <a name="compute-environment-compute-resources-subnets"></a>
@@ -121,7 +121,7 @@ This parameter isn't applicable to jobs that run on Fargate resources\.
 Type: String  
 Required: No  
 `bidPercentage`  <a name="compute-environment-compute-resources-bidPercentage"></a>
-The maximum percentage that an EC2 Spot Instance price can be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your maximum percentage is 20%, the Spot price must be less than 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\. If you leave this field empty, the default value is 100% of the On\-Demand price\.  
+The maximum percentage that an EC2 Spot Instance price can be when compared with the On\-Demand price for that instance type before instances are launched\. For example, if your maximum percentage is 20%, the Spot price must be less than 20% of the current On\-Demand price for that EC2 instance\. You always pay the lowest \(market\) price and never more than your maximum percentage\. If you leave this field empty, the default value is 100% of the On\-Demand price\. For most use cases, we recommend leaving this field empty\.  
 When updating a compute environment, if you change the bid percentage, an infrastructure update of the compute environment is required\. For more information, see [Updating compute environments](updating-compute-environments.md)\.  
 This parameter isn't applicable to jobs that run on Fargate resources\.
 Required: No  

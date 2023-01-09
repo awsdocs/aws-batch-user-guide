@@ -191,6 +191,6 @@ After your job reaches the `SUCCEEDED` status, you can view the CloudWatch Logs 
 1. To display all of the child jobs for your array job, select the job ID that was returned in the previous section\.
 
 1. To see the logs from the job's container, select one of the child jobs and choose **View logs**\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/batch/latest/userguide/images/array-logs.png)
+![\[\]](http://docs.aws.amazon.com/batch/latest/userguide/images/array-logs.png)
 
 1. View the other child job's logs\. Each job returns a different color of the rainbow\.

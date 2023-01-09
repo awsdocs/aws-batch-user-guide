@@ -38,7 +38,7 @@ Required: Yes
 ## Type<a name="type"></a>
 
 `type`  
-When you register a job definition, you specify the type of job\. If the job runs on Fargate resources, then `multinode` isn't supported\. For more information about multi\-node parallel jobs, see [Creating a multi\-node parallel job definition](multi-node-job-def.md)\.  
+When you register a job definition, you specify the type of job\. If the job runs on Fargate resources, then `multinode` isn't supported\. For more information about multi\-node parallel jobs, see [Creating a multi\-node parallel job definition](create-multi-node-job-def.md)\.  
 Type: String  
 Valid values: `container` \| `multinode`  
 Required: Yes
@@ -887,5 +887,7 @@ Type: [JobTimeout](https://docs.aws.amazon.com/batch/latest/APIReference/API_Job
 Required: No    
 `attemptDurationSeconds`  
 The time duration in seconds \(measured from the job attempt's `startedAt` timestamp\) after AWS Batch terminates unfinished jobs\. The minimum value for the timeout is 60 seconds\.  
+For array jobs, the timeout applies to the child jobs, not to the parent array job\.  
+For multi\-node parallel \(MNP\) jobs, the timeout applies to the whole job, not to the individual nodes\.  
 Type: Integer  
 Required: No

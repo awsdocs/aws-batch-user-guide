@@ -1,6 +1,6 @@
 # Example policies<a name="ExamplePolicies_BATCH"></a>
 
-The following examples show policy statements that you can use to control the permissions that IAM users have to AWS Batch\.
+The following examples show policy statements that you can use to control the permissions that users have for AWS Batch\.
 
 **Topics**
 + [Read\-only access](#iam-example-read-only)
@@ -103,19 +103,19 @@ When scoping resource\-level access for job submission, you must provide both jo
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "batch:SubmitJob"
-            ],
-            "Resource": [
-                "arn:aws:batch:<aws_region>:<aws_account_id>:job-definition/JobDefA_*",
-                "arn:aws:batch:<aws_region>:<aws_account_id>:job-queue/*"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "batch:SubmitJob"
+      ],
+      "Resource": [
+        "arn:aws:batch:<aws_region>:<aws_account_id>:job-definition/JobDefA_*",
+        "arn:aws:batch:<aws_region>:<aws_account_id>:job-queue/*"
+      ]
+    }
+  ]
 }
 ```
 
@@ -128,19 +128,19 @@ When scoping resource\-level access for job submission, you must provide both jo
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "batch:SubmitJob"
-            ],
-            "Resource": [
-                "arn:aws:batch:<aws_region>:<aws_account_id>:job-definition/*",
-                "arn:aws:batch:<aws_region>:<aws_account_id>:job-queue/queue1"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "batch:SubmitJob"
+      ],
+      "Resource": [
+        "arn:aws:batch:<aws_region>:<aws_account_id>:job-definition/*",
+        "arn:aws:batch:<aws_region>:<aws_account_id>:job-queue/queue1"
+      ]
+    }
+  ]
 }
 ```
 

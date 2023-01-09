@@ -6,7 +6,7 @@ In managed compute environments, if the compute environment specifies any `p2`, 
 
 In unmanaged compute environments, an Amazon ECS GPU\-optimized AMI is recommended\. You can use the AWS Command Line Interface or AWS Systems Manager Parameter Store [GetParameter](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html), [GetParameters](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html), and [GetParametersByPath](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html) operations to retrieve the metadata for the recommended Amazon ECS GPU\-optimized AMIs\.
 
-The following examples demonstrate the use of [GetParameter](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html)\.
+The following examples show how to use the [GetParameter](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html) command\.
 
 ------
 #### [ AWS CLI ]
@@ -16,7 +16,7 @@ $ aws ssm get-parameter --name /aws/service/ecs/optimized-ami/amazon-linux-2/gpu
                         --region us-east-2 --output json
 ```
 
-The output includes the AMI information in the Value parameter:
+The output includes the AMI information in the `Value` parameter\.
 
 ```
 {
@@ -111,7 +111,7 @@ for parameter in response['Parameters']:
     print(parameter['Name'] + " = " + parameter['Value'])
 ```
 
-The output includes the AMI ID and AMI name, using the full path for the names:
+The output includes the AMI ID and AMI name, using the full path for the names\.
 
 ```
 /aws/service/ecs/optimized-ami/amazon-linux-2/gpu/recommended/image_id = ami-083c800fe4211192f
@@ -120,7 +120,7 @@ The output includes the AMI ID and AMI name, using the full path for the names:
 
 ------
 
-The following examples demonstrate the use of [GetParametersByPath](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html)\.
+The following examples show how to use the [GetParametersByPath](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html) command\.
 
 ------
 #### [ AWS CLI ]
@@ -130,7 +130,7 @@ $ aws ssm get-parameters-by-path --path /aws/service/ecs/optimized-ami/amazon-li
                                  --region us-east-2 --output json
 ```
 
-The output includes the full metadata for all of the parameters under the specified path:
+The output includes the full metadata for all of the parameters under the specified path\.
 
 ```
 {
@@ -202,7 +202,7 @@ for parameter in response['Parameters']:
     print(parameter['Name'] + " = " + parameter['Value'])
 ```
 
-The output includes the values of all the parameter names at the specified path, using the full path for the names:
+The output includes the values of all the parameter names at the specified path, using the full path for the names\.
 
 ```
 /aws/service/ecs/optimized-ami/amazon-linux-2/gpu/recommended/ecs_agent_version = 1.27.0

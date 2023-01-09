@@ -323,7 +323,7 @@ You see an error message set in the `statusReason` parameter that resembles ones
 
 `Your compute environment has been INVALIDATED and scaled down because none of the instances joined the underlying ECS Cluster. Common issues preventing instances joining are the following: VPC/Subnet configuration preventing communication to ECS, incorrect Instance Profile policy preventing authorization to ECS, or customized AMI or LaunchTemplate configurations affecting ECS agent.`
 
-`Your compute environment has been INVALIDATED and scaled down because none of the nodes joined the underlying EKS Cluster. Common issues preventing nodes joining are the following: networking configuration preventing communication to EKS Cluster, incorrect EKS Instance Profile or Kubernetes RBAC policypreventing authorization to EKS Cluster, customized AMI or LaunchTemplate configurations affecting EKS/Kubernetes node bootstrap.`
+`Your compute environment has been INVALIDATED and scaled down because none of the nodes joined the underlying EKS Cluster. Common issues preventing nodes joining are the following: networking configuration preventing communication to EKS Cluster, incorrect EKS Instance Profile or Kubernetes RBAC policy preventing authorization to EKS Cluster, customized AMI or LaunchTemplate configurations affecting EKS/Kubernetes node bootstrap.`
 
 When using a default Amazon EKS AMI, the most common causes of this issue are the following:
 + The instance role isn't configured correctly\. For more information, see [Amazon EKS node IAM role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html) in the *Amazon EKS User Guide*\.
@@ -334,7 +334,7 @@ You may also see an error notification in the Personal Health Dashboard \(PHD\)\
 
 ### AWS Batch on Amazon EKS job is stuck in `RUNNABLE` status<a name="batch_eks_job_stuck_in_runnable"></a>
 
-An `aws-auth` `ConfigMap` is automatically created and applied to your cluster when you create a managed node group or when you create a node group using `eksctl`\. It's initially created to allow nodes to join your cluster\. However, you also use the `aws-auth``ConfigMap` to add role\-based access control \(RBAC\) access to IAM users and roles\.
+An `aws-auth` `ConfigMap` is automatically created and applied to your cluster when you create a managed node group or when you create a node group using `eksctl`\. It's initially created to allow nodes to join your cluster\. However, you also use the `aws-auth``ConfigMap` to add role\-based access control \(RBAC\) access to users and roles\.
 
 To verify that the `aws-auth` `ConfigMap` is configured correctly:
 
@@ -377,8 +377,7 @@ To resolve an issue where a job is stuck in a `RUNNABLE` status, we recommend th
 If you experience any RBAC permissions or binding issues, verify that the `aws-batch` Kubernetes role can access the Kubernetes namespace:
 
 ```
-$ kubectl get namespace namespace
-     --as=aws-batch
+$ kubectl get namespace namespace --as=aws-batch
 ```
 
 ```

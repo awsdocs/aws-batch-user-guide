@@ -63,7 +63,7 @@ For more information, see [Access a service through an interface endpoint](https
 An endpoint policy is an IAM resource that you can attach to an interface endpoint\. The default endpoint policy allows full access to AWS Batch through the interface endpoint\. To control the access allowed to AWS Batch from your VPC, attach a custom endpoint policy to the interface endpoint\.
 
 An endpoint policy specifies the following information:
-+ The principals that can perform actions \(AWS accounts, IAM users, and IAM roles\)\.
++ The principals that can perform actions \(AWS accounts, users, and IAM roles\)\.
 + The actions that can be performed\.
 + The resources on which the actions can be performed\.
 

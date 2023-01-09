@@ -4,7 +4,7 @@ AWS Batch job definitions specify how jobs are to be run\. While each job must r
 
 **Topics**
 + [Creating a single\-node job definition](create-job-definition.md)
-+ [Creating a multi\-node parallel job definition](multi-node-job-def.md)
++ [Creating a multi\-node parallel job definition](create-multi-node-job-def.md)
 + [Job definition template](job-definition-template.md)
 + [Job definition parameters](job_definition_parameters.md)
 + [Using the awslogs log driver](using_awslogs.md)

@@ -81,7 +81,7 @@ AWS Batch allows you to add or delete tags associated with your clusters directl
 
 1. Add or delete your tags as necessary\.
    + To add a tag — specify the key and value in the empty text boxes at the end of the list\.
-   + To delete a tag — choose the ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/batch/latest/userguide/images/DeleteIcon.png) button next to the tag\.
+   + To delete a tag — choose the ![\[\]](http://docs.aws.amazon.com/batch/latest/userguide/images/DeleteIcon.png) button next to the tag\.
 
 1. Repeat this process for each tag you want to add or delete, and then choose **Edit tags** to finish\.
 

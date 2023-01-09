@@ -1,6 +1,6 @@
 # AWS Batch job environment variables<a name="job_env_vars"></a>
 
-AWS Batch sets specific environment variables in container jobs\. These environment variables provide introspection for the containers inside jobs\. You can use the values of these variables in the logic of your applications\. All variables that are set by AWS Batch begin with the prefix, `AWS_BATCH_`\. This is a protected environment variable prefix\. You can't use this prefix for your own variables in job definitions or overrides\.
+AWS Batch sets specific environment variables in container jobs\. These environment variables provide introspection for the containers inside jobs\. You can use the values of these variables in the logic of your applications\. All variables that AWS Batch set start with the `AWS_BATCH_` prefix\. This is a protected environment variable prefix\. You can't use this prefix for your own variables in job definitions or overrides\.
 
 The following environment variables are available in job containers:
 
@@ -17,13 +17,13 @@ This variable is set to the job attempt number\. The first attempt is numbered 1
 This variable is set to the AWS Batch job ID\.
 
 `AWS_BATCH_JOB_KUBERNETES_NODE_UID`  
-This variable is set to the `uuid` of the AWS Batch compute environment\. This is only set for jobs that run on EKS resources\.
+This variable is set as the Kubernetes UID of the node object that's in the Kubernetes cluster that the pod runs on\. This variable is only set for jobs that run on Amazon EKS resources\. For more information, see [UIDs](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids) in the *Kubernetes documentation*\.
 
 `AWS_BATCH_JOB_MAIN_NODE_INDEX`  
 This variable is only set in multi\-node parallel jobs\. This variable is set to the index number of the job's main node\. Your application code can compare the `AWS_BATCH_JOB_MAIN_NODE_INDEX` to the `AWS_BATCH_JOB_NODE_INDEX` on an individual node to determine if it's the main node\.
 
 `AWS_BATCH_JOB_MAIN_NODE_PRIVATE_IPV4_ADDRESS`  
-This variable is only set in multi\-node parallel job child nodes \(it isn't present on the main node\)\. This variable is set to the private IPv4 address of the job's main node\. Your child node's application code can use this address to communicate with the main node\.
+This variable is only set in multi\-node parallel job child nodes\. This variable isn't present on the main node, but is set to the private IPv4 address of the job's main node\. Your child node's application code can use this address to communicate with the main node\.
 
 `AWS_BATCH_JOB_NODE_INDEX`  
 This variable is only set in multi\-node parallel jobs\. This variable is set to the node index number of the node\. The node index begins at 0, and each node receives a unique index number\. For example, a multi\-node parallel job with 10 children has index values of 0\-9\.

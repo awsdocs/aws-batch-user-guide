@@ -7,27 +7,20 @@ Because AWS Batch uses components of Amazon EC2, you use the Amazon EC2 console 
 
 Complete the following tasks to get set up for AWS Batch\. If you already completed any of these steps, you can skip directly to installing the AWS CLI\.
 
-1. [Sign up for AWS](#sign-up-for-aws)
+**Topics**
++ [Sign up for an AWS account](#sign-up-for-aws)
++ [Create an administrative user](#create-an-admin)
++ [Create IAM roles for your compute environments and container instances](#create-an-iam-role)
++ [Create a key pair](#create-a-key-pair)
++ [Create a VPC](#create-a-vpc)
++ [Create a security group](#create-a-base-security-group)
++ [Install the AWS CLI](#install_aws_cli)
 
-1. [Create an IAM user](#create-an-iam-user)
+## Sign up for an AWS account<a name="sign-up-for-aws"></a>
 
-1. [Create IAM roles for your compute environments and container instances](#create-an-iam-role)
+If you do not have an AWS account, complete the following steps to create one\.
 
-1. [Create a key pair](#create-a-key-pair)
-
-1. [Create a VPC](#create-a-vpc)
-
-1. [Create a security group](#create-a-base-security-group)
-
-1. [Install the AWS CLI](#install_aws_cli)
-
-## Sign up for AWS<a name="sign-up-for-aws"></a>
-
-When you sign up for AWS, your AWS account is automatically signed up for all the services, including Amazon EC2 and AWS Batch\. You're charged only for the services that you use\.
-
-If you have an AWS account already, skip to the next task\. If you don't have an account, use the following procedure to create one\.
-
-**To create an AWS account**
+**To sign up for an AWS account**
 
 1. Open [https://portal\.aws\.amazon\.com/billing/signup](https://portal.aws.amazon.com/billing/signup)\.
 
@@ -35,43 +28,33 @@ If you have an AWS account already, skip to the next task\. If you don't have an
 
    Part of the sign\-up procedure involves receiving a phone call and entering a verification code on the phone keypad\.
 
-   When you sign up for an AWS account, an *AWS account root user* is created\. The root user has access to all AWS services and resources in the account\. As a security best practice, [assign administrative access to an administrative user](https://docs.aws.amazon.com/singlesignon/latest/userguide/getting-started.html), and use only the root user to perform [tasks that require root user access](https://docs.aws.amazon.com/general/latest/gr/root-vs-iam.html#aws_tasks-that-require-root)\.
+   When you sign up for an AWS account, an *AWS account root user* is created\. The root user has access to all AWS services and resources in the account\. As a security best practice, [assign administrative access to an administrative user](https://docs.aws.amazon.com/singlesignon/latest/userguide/getting-started.html), and use only the root user to perform [tasks that require root user access](https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html)\.
 
-Note your AWS account number because you need it for the next task\.
+AWS sends you a confirmation email after the sign\-up process is complete\. At any time, you can view your current account activity and manage your account by going to [https://aws\.amazon\.com/](https://aws.amazon.com/) and choosing **My Account**\.
 
-## Create an IAM user<a name="create-an-iam-user"></a>
+## Create an administrative user<a name="create-an-admin"></a>
 
-AWS services, such as Amazon EC2 and AWS Batch, require that you provide credentials when you access them\. That way, the service can determine whether you have permission to access its resources\. The console requires your password\. You can create access keys for your AWS account to access the command line interface or API\. However, we don't recommend that you access AWS using the credentials for your AWS account\. Instead, we recommend that you use AWS Identity and Access Management \(IAM\) and create an IAM user\. Then, add the user to an IAM group with administrative permissions or grant the user administrative permissions\. You can then access AWS using a special URL and the IAM user's credentials\.
+After you sign up for an AWS account, create an administrative user so that you don't use the root user for everyday tasks\.
 
-If you signed up for AWS but didn't create an IAM user for yourself, you can create one using the IAM console\.
+**Secure your AWS account root user**
 
-To create an administrator user, choose one of the following options\.
+1.  Sign in to the [AWS Management Console](https://console.aws.amazon.com/) as the account owner by choosing **Root user** and entering your AWS account email address\. On the next page, enter your password\.
 
+   For help signing in by using root user, see [Signing in as the root user](https://docs.aws.amazon.com/signin/latest/userguide/console-sign-in-tutorials.html#introduction-to-root-user-sign-in-tutorial) in the *AWS Sign\-In User Guide*\.
 
-****  
+1. Turn on multi\-factor authentication \(MFA\) for your root user\.
 
-| Choose one way to manage your administrator | To | By | You can also | 
-| --- | --- | --- | --- | 
-| In IAM Identity Center \(Recommended\) | Use short\-term credentials to access AWS\.This aligns with the security best practices\. For information about best practices, see [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-users-federation-idp) in the *IAM User Guide*\. | Following the instructions in [Getting started](https://docs.aws.amazon.com/singlesignon/latest/userguide/getting-started.html) in the AWS IAM Identity Center \(successor to AWS Single Sign\-On\) User Guide\. | Configure programmatic access by [Configuring the AWS CLI to use AWS IAM Identity Center \(successor to AWS Single Sign\-On\)](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html) in the AWS Command Line Interface User Guide\. | 
-| In IAM \(Not recommended\) | Use long\-term credentials to access AWS\. | Following the instructions in [Creating your first IAM admin user and user group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) in the IAM User Guide\. | Configure programmatic access by [Managing access keys for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) in the IAM User Guide\. | 
+   For instructions, see [Enable a virtual MFA device for your AWS account root user \(console\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable_virtual.html#enable-virt-mfa-for-root) in the *IAM User Guide*\.
 
-To sign in as this new IAM user, sign out of the AWS console\. Then, use the following URL, where *your\_aws\_account\_id* is your AWS account number without the hyphens\. For example, if your AWS account number is `1234-5678-9012`, your AWS account ID is `123456789012`\.
+**Create an administrative user**
++ For your daily administrative tasks, grant administrative access to an administrative user in AWS IAM Identity Center \(successor to AWS Single Sign\-On\)\.
 
-```
-https://your_aws_account_id.signin.aws.amazon.com/console/
-```
+  For instructions, see [Getting started](https://docs.aws.amazon.com/singlesignon/latest/userguide/getting-started.html) in the *AWS IAM Identity Center \(successor to AWS Single Sign\-On\) User Guide*\.
 
-Enter the IAM user name and password that you just created\. When you're signed in, the navigation bar displays "*your\_user\_name* @ *your\_aws\_account\_id*\."
+**Sign in as the administrative user**
++ To sign in with your IAM Identity Center user, use the sign\-in URL that was sent to your email address when you created the IAM Identity Center user\.
 
-If you don't want the URL for your sign\-in page to contain your AWS account ID, you can create an account alias\. From the IAM dashboard, choose **Create Account Alias** and enter an alias, such as your company name\. To sign in after you create an account alias, use the following URL:
-
-```
-https://your_account_alias.signin.aws.amazon.com/console/
-```
-
-To verify the sign\-in link for IAM users for your account, open the IAM console and check under **IAM users sign\-in link** on the dashboard\.
-
-For more information about IAM, see the [AWS Identity and Access Management User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
+  For help signing in using an IAM Identity Center user, see [Signing in to the AWS access portal](https://docs.aws.amazon.com/signin/latest/userguide/iam-id-center-sign-in-tutorial.html) in the *AWS Sign\-In User Guide*\.
 
 ## Create IAM roles for your compute environments and container instances<a name="create-an-iam-role"></a>
 
@@ -94,7 +77,7 @@ If you didn't create a key pair already, you can create one using the Amazon EC2
 
 1. In the navigation pane, choose **Key Pairs**, **Create Key Pair**\.
 
-1. In the **Create Key Pair** dialog box, for **Key pair name**, enter a name for the new key pair , and choose **Create**\. Choose a name that you can remember, such as your IAM user name, followed by `-key-pair`, plus the Region name\. For example, *me*\-key\-pair\-*uswest2*\.
+1. In the **Create Key Pair** dialog box, for **Key pair name**, enter a name for the new key pair , and choose **Create**\. Choose a name that you can remember, such as your user name, followed by `-key-pair`, plus the Region name\. For example, *me*\-key\-pair\-*uswest2*\.
 
 1. The private key file is automatically downloaded by your browser\. The base file name is the name that you specified as the name of your key pair, and the file name extension is `.pem`\. Save the private key file in a safe place\.
 **Important**  
@@ -118,10 +101,10 @@ To connect to your Linux instance from a computer running Mac or Linux, specify 
 1. Start PuTTYgen \(for example, from the **Start** menu, choose **All Programs, PuTTY, and PuTTYgen**\)\.
 
 1. Under **Type of key to generate**, choose **RSA**\. If you're using an earlier version of PuTTYgen, choose **SSH\-2 RSA**\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/batch/latest/userguide/images/puttygen-key-type.png)
+![\[\]](http://docs.aws.amazon.com/batch/latest/userguide/images/puttygen-key-type.png)
 
 1. Choose **Load**\. By default, PuTTYgen displays only files with the extension `.ppk`\. To locate your `.pem` file, choose the option to display files of all types\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/batch/latest/userguide/images/puttygen-load-key.png)
+![\[\]](http://docs.aws.amazon.com/batch/latest/userguide/images/puttygen-load-key.png)
 
 1. Select the private key file that you created in the previous procedure and choose **Open**\. Choose **OK** to dismiss the confirmation dialog box\.
 

@@ -29,7 +29,7 @@ An IAM policy is a JSON document that consists of one or more statements\. Each 
 ```
 
 There are various elements that make up a statement:
-+ **Effect:** The *effect* can be `Allow` or `Deny`\. By default, IAM users don't have permission to use resources and API actions\. So, all requests are denied\. An explicit allow overrides the default\. An explicit deny overrides any allows\.
++ **Effect:** The *effect* can be `Allow` or `Deny`\. By default, users don't have permission to use resources and API actions\. So, all requests are denied\. An explicit allow overrides the default\. An explicit deny overrides any allows\.
 + **Action**: The *action* is the specific API action that you're granting or denying permission for\. For instructions on how to specify the *action*, see [Actions for AWS Batch](#UsingWithbatch_Actions)\. 
 + **Resource**: The resource that's affected by the action\. With some AWS Batch API actions, you can include specific resources in your policy that can be created or modified by the action\. To specify a resource in the statement, use its Amazon Resource Name \(ARN\)\. For more information, see [Supported resource\-level permissions for AWS Batch API actions](batch-supported-iam-actions-resources.md) and [Amazon Resource Names for AWS Batch](#batch_ARN_Format)\. If the AWS Batch API operation currently doesn't support resource\-level permissions, include a wildcard \(\*\) to specify that all resources can be affected by the action\. 
 + **Condition**: Conditions are optional\. They can be used to control when your policy is in effect\.
@@ -95,7 +95,7 @@ AWS Batch API operations currently support resource\-level permissions on severa
 
 Before you put an IAM policy into production, make sure that it grants users the permissions to use the specific API actions and resources that they need\.
 
-To do this, first create an IAM user for testing purposes and attach the IAM policy to the test user\. Then, make a request as the test user\. You can make test requests in the console or with the AWS CLI\. 
+To do this, first create a user for testing purposes and attach the IAM policy to the test user\. Then, make a request as the test user\. You can make test requests in the console or with the AWS CLI\. 
 
 **Note**  
 You can also test your policies by using the [IAM Policy Simulator](https://policysim.aws.amazon.com/home/index.jsp?#)\. For more information about the policy simulator, see [Working with the IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_testing-policies.html) in the *IAM User Guide*\.

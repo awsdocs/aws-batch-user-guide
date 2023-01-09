@@ -1,6 +1,6 @@
 # Submitting a job<a name="submit_job"></a>
 
-After you registered a job definition, you can submit it as a job to an AWS Batch job queue\. Many of the parameters that are specified in the job definition can be overridden at runtime\.
+After you register a job definition, you can submit it as a job to an AWS Batch job queue\. You can override many of the parameters that are specified in the job definition at runtime\.
 
 **To submit a job**
 
@@ -8,69 +8,64 @@ After you registered a job definition, you can submit it as a job to an AWS Batc
 
 1. From the navigation bar, select the AWS Region to use\.
 
-1. In the navigation pane, choose **Jobs**, **Submit job**\.
+1. In the navigation pane, choose **Jobs**\.
 
-1. For **Job name**, choose a name for your job\. The name must be unique\.
+1. Choose **Submit new job**\.
 
-1. For **Job definition**, choose a previously created job definition for your job\. For more information, see [Creating a single\-node job definition ](create-job-definition.md)\.
+1. For **Name**, enter a unique name for your job definition\. The name can be up to 128 characters in length\. It can contain uppercase and lowercase letters, numbers, hyphens \(\-\), and underscores \(\_\)\.
 
-1. For **Job queue**, choose a previously created job queue\. For more information, see [Creating a job queue](create-job-queue.md)\.
+1. For **Job definition**, choose an existing job definition for your job\. For more information, see [Creating a single\-node job definition ](create-job-definition.md)\.
 
-1. For **Job type**, choose **Single** for a single job or **Array** to submit an array job\. For more information, see [Array jobs](array_jobs.md)\. This option isn't available for multi\-node parallel jobs\.
+1. For **Job queue**, choose an existing job queue\. For more information, see [Creating a job queue](create-job-queue.md)\.
+
+1. For **Job dependencies**, choose **Add Job dependencies**\.
+
+   1. For **Job id**, enter the job ID for any dependencies\. Then choose **Add job dependencies**\. A job can have up to 20 dependencies\. For more information, see [Job dependencies](job_dependencies.md)\.
 
 1. \(Array jobs only\) For **Array size**, specify an array size between 2 and 10,000\.
 
-1. \(Optional\) Declare any job dependencies\. A job may have up to 20 dependencies\. For more information, see [Job dependencies](job_dependencies.md)\.
+1. \(Optional\) Expand **Tags** and then choose **Add tag** to add tags to the resource\. Enter a key and optional value, then choose **Add tag**\.
 
-   1. For **Job depends on**, enter the job IDs for any jobs that must finish before this job starts\.
+1. Choose **Next page**\.
 
-   1. \(Array jobs only\) For **N\-To\-N job dependencies**, specify one or more job IDs for any array jobs\. The child job index of the jobs that you specify depend on the dependency\. For example, `JobB:1` depends on `JobA:1`\.
+1. In the **Job overrides** section:
 
-   1. \(Array jobs only\) Select **Run children sequentially** to create a `SEQUENTIAL` dependency for the current array job\. This ensures that each child index job waits for its earlier sibling to finish\. For example, `JobA:1` depends on `JobA:0`\.
+   1. 
 
-1. For **Job attempts**, specify the maximum number of times to attempt your job if it fails\. For more information, see [Automated job retries](job_retries.md)\.
+      \(Optional\) For **Scheduling priority**, enter a scheduling priority value between 0 and 100\. Higher values are given higher priority\.
 
-1. \(Optional\) For **Execution timeout**, specify the maximum number of seconds for your job to attempt to run before timing out\. If an attempt exceeds the timeout duration, it's stopped and the status moves to `FAILED`\. For more information, see [Job timeouts](job_timeouts.md)\.
+   1. \(Optional\) For **Job attempts**, enter the maximum number of times that AWS Batch attempts to move the job to a `RUNNABLE` status\. You can enter a number between 1 and 10\. For more information, see [Automated job retries](job_retries.md)\.
+
+   1. \(Optional\) For **Execution timeout**, enter the timeout value \(in seconds\)\. The execution timeout is the length of time before an unfinished job is terminated\. If an attempt exceeds the timeout duration, it's stopped and moves to a `FAILED` status\. For more information, see [Job timeouts](job_timeouts.md)\. The minimum value is 60 seconds\.
 **Important**  
-Jobs that run on Fargate resources can't expect to run for more than 14 days\. After 14 days, the Fargate resources might no longer be available and the job is terminated\.
+Don't rely on jobs that run on Fargate resources to run for more than 14 days\. After 14 days, the Fargate resources might no longer be available with the job being likely terminated\.
 
-1. \(Optional\) In the **Parameters** section, you can specify parameter substitution default values and placeholders to use in the command that your job's container runs when it starts\. For more information, see [Parameters](job_definition_parameters.md#parameters)\.
+   1. \(Optional\) Turn on **Propagate tags** to propagate tags from the job and job definition to the Amazon ECS task\.
 
-   1. Choose **Add parameter**\.
+1. Expand **Additional configuration**\.
 
-   1. For **Key**, specify the key for your parameter\.
-
-   1. For **Value**, specify the value for your parameter\.
-
-1. For **vCPUs**, specify the number of vCPUs to reserve for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least one vCPU\.
-
-1. For **Memory**, specify the hard limit \(in MiB\) of memory to present to the job's container\. If your container attempts to exceed the memory specified here, the container is stopped\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\.
-
-1. \(Optional\) For **Number of GPUs**, specify the number of GPUs your job uses\.
-
-   The job runs on a container with the specified number of GPUs pinned to that container\.
-
-1. For **Command**, specify the command to pass to the container\. For simple commands, you can enter the command the same way you do on a command prompt in the **Space delimited** tab\. Verify that the JSON result, which is passed to the Docker daemon, is correct\. For more complicated commands \(for example, with special characters\), you can switch to the **JSON** tab and enter the string array equivalent there\.
-
-   This parameter maps to `Cmd` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `COMMAND` parameter to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. For more information about the Docker `CMD` parameter, go to [https://docs\.docker\.com/engine/reference/builder/\#cmd](https://docs.docker.com/engine/reference/builder/#cmd)\.
-**Note**  
-You can use parameter substitution default values and placeholders in your command\. For more information, see [Parameters](job_definition_parameters.md#parameters)\.
-
-1. \(Optional\) You can specify environment variables to pass to your job's container\. This parameter maps to `Env` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--env` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\.
+1. \(Optional\) For **Retry strategy conditions**, choose **Add evaluate on exit**\. Enter at least one parameter value and then choose an **Action**\. For each set of conditions, **Action** must be set to either **Retry** or **Exit**\. These actions mean the following:
+   + **Retry** – AWS Batch retries until the number of job attempts that you specified is reached\.
+   + **Exit** – AWS Batch stops retrying the job\.
 **Important**  
-We don't recommend using plaintext environment variables for sensitive information, such as your credentials\.
+If you choose **Add evaluate on exit**, configure at least one parameter and choose either an **Action** or choose **Remove evaluate on exit**\.
 
-   1. Choose **Add environment variable**\.
+1. For **Parameters**, choose **Add parameters** to add parameter substitution placeholders\. Then, enter a **Key** and an optional **Value**\.
 
-   1. For **Key**, specify the key for your environment variable\.
+1. In the **Container overrides** section:
+
+   1. For **Command**, specify the command to pass to the container\. For simple commands, enter the command as you do for a command prompt\. For more complicated commands, for example with special characters\), use **JSON** syntax\.
+
+   1. For **vCPUs**, enter the number of vCPUs to reserve for the container\. This parameter maps to `CpuShares` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--cpu-shares` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. Each vCPU is equivalent to 1,024 CPU shares\. You must specify at least one vCPU\.
+
+   1. For **Memory**, enter the memory limit that's available to the container\. If your container attempts to exceed the memory specified here, the container is stopped\. This parameter maps to `Memory` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--memory` option to [https://docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/)\. You must specify at least 4 MiB of memory for a job\.
 **Note**  
-Environment variables must not start with `AWS_BATCH`; this naming convention is reserved for variables that are set by the AWS Batch service\.
+To maximize your resource utilization, prioritize memory for jobs of a specific instance type\. For more information, see [Compute Resource Memory Management](memory-management.md)\.
 
-   1. For **Value**, specify the value for your environment variable\.
+   1. \(Optional\) For **Number of GPUs**, choose the number of GPUs to reserve for the container\.
 
-1. \(Optional\) In the **Tags** section, you can specify the key and value for each tag to associate with the job\. For more information, see [Tagging your AWS Batch resources](using-tags.md)\.
+   1. \(Optional\) For **Environment variables**, choose **Add environment variable** to add environment variables as name\-value pairs\. These variables are passed to the container\.
 
-1. Choose **Submit job**\.
-**Note**  
-Logs for `RUNNING`, `SUCCEEDED`, and `FAILED` jobs are available in CloudWatch Logs\. The log group is `/aws/batch/job`, and the log stream name format is as follows: `first200CharsOfJobDefinitionName/default/ecs_task_id`\. This format might change in the future\.  
-After a job reaches the `RUNNING` status, you can programmatically retrieve its log stream name with the [DescribeJobs](https://docs.aws.amazon.com/batch/latest/APIReference/API_DescribeJobs.html) API operation\. For more information, see [View Log Data Sent to CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html#ViewingLogData) in the *Amazon CloudWatch Logs User Guide*\. By default, these logs never expire\. However, you can modify the retention period\. For more information, see [Change Log Data Retention in CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SettingLogRetention.html) in the *Amazon CloudWatch Logs User Guide*\.
+   1. Choose **Next page**\.
+
+   1. For **Job review**, review the configuration steps\. If you need to make changes, choose **Edit**\. When you're finished, choose **Create job definition**\.

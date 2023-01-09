@@ -1,6 +1,6 @@
 # AWS Batch IAM policies, roles, and permissions<a name="IAM_policies"></a>
 
-By default, IAM users don't have permission to create or modify AWS Batch resources or to perform tasks using the AWS Batch API, AWS Batch console, or the AWS CLI\. To allow IAM users to perform these actions, create IAM policies that grant IAM users permission for the specific resources and API operations\. Then, attach the policies to the IAM users or groups that require those permissions\.
+By default, users don't have permission to create or modify AWS Batch resources or to perform tasks using the AWS Batch API, AWS Batch console, or the AWS CLI\. To allow users to perform these actions, create IAM policies that grant users permission for the specific resources and API operations\. Then, attach the policies to the users or groups that require those permissions\.
 
 When you attach a policy to a user or group of users, the policy either allows or denies the permissions to perform specific tasks on specific resources\. For more information, see [Permissions and Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/PermissionsAndPolicies.html) in the *IAM User Guide*\. For more information about managing and creating custom IAM policies, see [Managing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingPolicies.html)\.
 

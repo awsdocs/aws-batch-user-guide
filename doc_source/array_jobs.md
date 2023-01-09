@@ -2,9 +2,11 @@
 
 An array job is a job that shares common parameters, such as the job definition, vCPUs, and memory\. It runs as a collection of related yet separate basic jobs that might be distributed across multiple hosts and might run concurrently\. Array jobs are the most efficient way to run extremely parallel jobs such as Monte Carlo simulations, parametric sweeps, or large rendering jobs\.
 
-AWS Batch array jobs are submitted just like regular jobs\. However, you specify an array size \(between 2 and 10,000\) to define how many child jobs should run in the array\. If you submit a job with an array size of 1000, a single job runs and spawns 1000 child jobs\. The array job is a reference or pointer to manage all the child jobs\. This way, you can submit large workloads with a single query\. 
+AWS Batch array jobs are submitted just like regular jobs\. However, you specify an array size \(between 2 and 10,000\) to define how many child jobs should run in the array\. If you submit a job with an array size of 1000, a single job runs and spawns 1000 child jobs\. The array job is a reference or pointer to manage all the child jobs\. This way, you can submit large workloads with a single query\. The timeout specified in the `attemptDurationSeconds` parameter applies to each child job\. The parent array job does not have a timeout\.
 
 When you submit an array job, the parent array job gets a normal AWS Batch job ID\. Each child job has the same base ID\. However, the array index for the child job is appended to the end of the parent ID, such as `example_job_ID:0` for the first child job of the array\. 
+
+The parent array job can enter a `SUBMITTED`, `PENDING`, `FAILED`, or `SUCCEEDED` status\. The parent array job depends on the child jobs and never enters a `RUNNABLE` or `RUNNING` status\. For more information about job dependencies, see [Job dependencies](job_dependencies.md)\.
 
 At runtime, the `AWS_BATCH_JOB_ARRAY_INDEX` environment variable is set to the container's corresponding job array index number\. The first array job index is numbered `0`, and subsequent attempts are in ascending order \(for example, 1, 2, and 3\)\. You can use this index value to control how your array job children are differentiated\. For more information, see [Tutorial: Using the array job index to control job differentiation](array_index_example.md)\.
 
